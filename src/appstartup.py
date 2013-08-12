@@ -13,7 +13,7 @@ def start():
         (r"/get_decrepit_users", MainHandler),
         (r"/sub", SubHandler),
         (r"/sub_post", SubHandler),
-        (r"/followers/ids", FollowerHandler),
+        (r"/(friends|followers)/(ids|list)/?(store|view)?", FollowerHandler),
         ])
     print "Direnaj Service Layer Started"
     application.listen(DIRENAJ_APP_PORT)
