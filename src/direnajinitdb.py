@@ -30,6 +30,6 @@ def init_graphs(**keywords):
     else:
         print 'NOT IMPLEMENTED YET'
 
-    graphs_coll = mongo_client[DIRENAJ_DB]['graphs']
-    graphs_coll.insert(payload, w=1)
+    graph_coll = mongo_client[DIRENAJ_DB]['graph']
+    graph_coll.insert(payload, w=1)
     return
