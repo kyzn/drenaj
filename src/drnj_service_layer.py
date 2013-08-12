@@ -162,8 +162,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.command == 'init_db':
-        import DirenajInitDb
-        DirenajInitDb.init_graphs(method='randomly')
+        import direnajinitdb
+        direnajinitdb.init_graphs(method='randomly')
     elif args.command == 'runserver':
         application = tornado.web.Application([
             (r"/store", MainHandler),
