@@ -1,0 +1,6 @@
+*.py~
+*.pyc
+env/lib/python2.7/site-packages/bson/
+env/lib/python2.7/site-packages/gridfs/
+env/lib/python2.7/site-packages/pymongo-2.5.2-py2.7.egg-info/
+env/lib/python2.7/site-packages/pymongo/
