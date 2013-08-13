@@ -37,7 +37,8 @@ class FollowerHandler(tornado.web.RequestHandler):
                 elif friends_or_followers == 'followers':
                     cursor = graph_coll.find({'id_str': str(user_id)}).limit(20)
                     tmp = [x for x in cursor]
-                    self.write(bson.json_util.dumps(tmp))
+                    self.write(bson.json_util.dumps({'results': tmp}))
+                    self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
