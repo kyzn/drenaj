@@ -21,8 +21,8 @@ from drnj_time import *
 #root = 50354388; # koray
 #root = 461494325; # Taylan
 #root = 505670972; # Cem Say
-root = 483121138; # meltem
-#root = 230412751; # Cengiz
+#root = 483121138; # meltem
+root = 230412751; # Cengiz
 #root = 636874348; # Pinar Selek
 # root = 382081201; # Tolga Tuzun
 #root = 745174243; # Sarp Maden
@@ -75,6 +75,6 @@ while 1:
 
 if success:		
 	post_response = requests.post(url='http://localhost:9999/' +fof + '/ids/store', data={"user_id": root, "ids": json_encode(IDS)})
-	print "Number of new relations discovered: %s" % post_response.content
+	print "Number of new users discovered: %s" % post_response.content
 else:
 	print "Terminated!"

@@ -89,7 +89,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     # ATC: This mechanism requires finding the _id twice 
     # With indexing, this may not be a big problem 
     id_exists = queue_collection.find(queue_query).count() > 0
-    num_records_inserted = 0;
+    num_new_discovered_users = 0;
 
     if id_exists:
         queue_document = {"$set":
@@ -103,6 +103,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     else: 
         if fof == 'friends':
             queue_document ={ 
+                            "_id": user_id,
                             "profile_retrieved_at": 0,
                             "friends_retrieved_at": dt,
                             "followers_retrieved_at": 0,
@@ -111,30 +112,29 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
                            
         elif fof == 'followers':
             queue_document ={ 
+                            "_id": user_id,
                             "profile_retrieved_at": 0,
                             "friends_retrieved_at": 0,
                             "followers_retrieved_at": dt,
                             "retrieved_by": drnjID
                             } 
         queue_collection.insert(queue_document)
-        num_records_inserted += 1
+        num_new_discovered_users += 1
     
 
     # process each user id in IDS
     for id in IDS:
         # Insert the newly discovered id into the queue
         # insert will be rejected if _id exists
-        queue_document = { 
-                            "_id": id,
+        queue_document = {  "_id": id,
                             "profile_retrieved_at": 0,
                             "friends_retrieved_at": 0,
                             "followers_retrieved_at": 0,
-                            "retrieved_by": drnjID
-                          } 
+                            "retrieved_by": drnjID} 
                            
         try:
             queue_collection.insert(queue_document)
-            num_records_inserted += 1
+            num_new_discovered_users += 1
         except pymongo.errors.OperationFailure as e:
             pass
             
@@ -162,7 +162,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
              "retrieved_by": drnjID
             }
             graph_collection.insert(doc)
-            num_records_inserted += 1;
+#            num_records_inserted += 1;
 
             
-    return num_records_inserted
+    return num_new_discovered_users
