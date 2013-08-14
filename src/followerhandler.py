@@ -85,39 +85,61 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     graph_collection = db['graph']
 
     dt = now()   
-
     queue_query = {"_id": user_id}
-    queue_document = {"$set":
-                            { 
-                            "profile_retrieved_at": 0,
-                            "friends_retrieved_at": 0,
-                            "followers_retrieved_at": dt,
-                            "retrieved_by": drnjID} 
-                           }
-
-    # creates entry if query does not exist
-    # assume actual data is created once and never changed
-    queue_collection.update(queue_query, queue_document, upsert=True)
-    
-    
+    # ATC: This mechanism requires finding the _id twice 
+    # With indexing, this may not be a big problem 
+    id_exists = queue_collection.find(queue_query).count() > 0
     num_records_inserted = 0;
-	
-    # process each user id in IDS
-    for id in IDS:
-        # Insert the newly discovered id into the queue
-        queue_query = {"_id": id}
+
+    if id_exists:
         queue_document = {"$set":
                             { 
-                            "profile_retrieved_at": 0,
-                            "friends_retrieved_at": 0,
-                            "followers_retrieved_at": 0,
+                            fof +"_retrieved_at": dt,
                             "retrieved_by": drnjID} 
                            }
-
         # creates entry if query does not exist
         # assume actual data is created once and never changed
         queue_collection.update(queue_query, queue_document, upsert=True)
+    else: 
+        if fof == 'friends':
+            queue_document ={ 
+                            "profile_retrieved_at": 0,
+                            "friends_retrieved_at": dt,
+                            "followers_retrieved_at": 0,
+                            "retrieved_by": drnjID
+                            } 
+                           
+        elif fof == 'followers':
+            queue_document ={ 
+                            "profile_retrieved_at": 0,
+                            "friends_retrieved_at": 0,
+                            "followers_retrieved_at": dt,
+                            "retrieved_by": drnjID
+                            } 
+                           
 
+        queue_collection.insert(queue_document)
+        num_records_inserted += 1
+    
+
+    # process each user id in IDS
+    for id in IDS:
+        # Insert the newly discovered id into the queue
+        # insert will be rejected if _id exists
+        queue_document = { 
+                            "_id": id,
+                            "profile_retrieved_at": 0,
+                            "friends_retrieved_at": 0,
+                            "followers_retrieved_at": 0,
+                            "retrieved_by": drnjID
+                          } 
+                           
+        try:
+            queue_collection.insert(queue_document)
+            num_records_inserted += 1
+        except pymongo.errors.OperationFailure as e:
+            pass
+            
         dt = now()  
         if fof == 'friends':
             source = user_id
