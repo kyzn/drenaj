@@ -14,11 +14,7 @@ import json
 from tornado.escape import json_decode
 from tornado.escape import json_encode
 
-
-consumer_key = "hQUgcQ8GffQb9lcteoLy9g"
-consumer_secret = "ADyiEvLtupE6J8JRo9J8onJ9oHgOaq7KFjKpa6QoDk"
-access_token_key = "461494325-1L0bBBGL4okKhwYKChNM2cVbG1tp5hh5w9xIvblP"
-access_token_secret = "W5W9PHcWBYTBrVJWbLpOOEZAZXGeGU3edBCUzwXR4"
+from config import *
 
 
 #root = 50354388; # koray
