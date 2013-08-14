@@ -116,8 +116,6 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
                             "followers_retrieved_at": dt,
                             "retrieved_by": drnjID
                             } 
-                           
-
         queue_collection.insert(queue_document)
         num_records_inserted += 1
     
