@@ -53,18 +53,16 @@ class FollowerHandler(tornado.web.RequestHandler):
                 json_IDS = self.get_argument('ids', None)
                 IDS = json.loads(json_IDS)
 
-                print "*******************"
-                print user_id
-                for i in IDS:
-                    print i
-                if friends_or_followers == 'friends':
-                    # ignoring for now.
-                    self.write('not implemented')
-                    pass
-                elif friends_or_followers == 'followers':
-                    #TODO: drnjID obtained from crawler authentication
-                    store_followers(user_id, IDS, drnjID=1)
-                    self.write(json_encode(len(IDS)))
+#                print "*******************"
+#                print user_id
+#                for i in IDS:
+#                    print i
+
+
+                #TODO: drnjID obtained from crawler authentication
+                store_friends_or_followers(user_id, IDS, drnjID=1, fof=friends_or_followers)
+                self.write(json_encode(len(IDS)))
+
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
@@ -75,7 +73,7 @@ def now():
     return time.time()
             
             
-def store_followers(user_id, IDS, drnjID):
+def store_friends_or_followers(user_id, IDS, drnjID, fof):
     """Stores/updates list of direnaj user data using raw twitter data
 
     IDS -- list of user ids client crawler reports
@@ -118,19 +116,27 @@ def store_followers(user_id, IDS, drnjID):
         queue_collection.update(queue_query, queue_document, upsert=True)
 
         dt = now()  
-
-        # Find last entry of the relationship id->user_id  (id follows user_id)=>(user_id is a friend of id)
+        if fof == 'friends':
+            source = user_id
+            sink = id
+        elif fof == 'followers':
+            source = id
+            sink = user_id
+        else:
+            return
+        
+        # Find last entry of the relationship user_id->id  (user_id follows id)=>(id is a friend of user_id)
         # This can be probably made more efficient by using .max() ..
-        cur = graph_collection.find({"id_str": id, "friend_id_str": user_id}).sort('record_retrieved_at',-1).limit(1)
+        cur = graph_collection.find({"id_str": source, "friend_id_str": sink}).sort('record_retrieved_at',-1).limit(1)
         
         # if cur is empty or following is false insert edge and mark time
         if cur.count()==0 or cur.next()["following"]==0:
             doc = {
-              'id_str': id,
-              'friend_id_str': user_id,
-              'following': 1,
-              'record_retrieved_at': dt,
-              "retrieved_by": drnjID
+             'id_str': source,
+             'friend_id_str': sink,
+             'following': 1,
+             'record_retrieved_at': dt,
+             "retrieved_by": drnjID
             }
             graph_collection.insert(doc)
             
