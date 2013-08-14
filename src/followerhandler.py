@@ -1,4 +1,5 @@
 from config import *
+from drnj_time import *
 
 from direnajmongomanager import *
 
@@ -60,8 +61,9 @@ class FollowerHandler(tornado.web.RequestHandler):
 
 
                 #TODO: drnjID obtained from crawler authentication
-                store_friends_or_followers(user_id, IDS, drnjID=1, fof=friends_or_followers)
-                self.write(json_encode(len(IDS)))
+                ret = store_friends_or_followers(user_id, IDS, drnjID=1, fof=friends_or_followers)
+                # Returns number of written edges (new relations discovered)
+                self.write(json_encode(ret))
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
@@ -70,7 +72,7 @@ class FollowerHandler(tornado.web.RequestHandler):
 
 ### Check this !!! TIME
 def now():
-    return time.time()
+    return py_time2drnj_time(time.time())
             
             
 def store_friends_or_followers(user_id, IDS, drnjID, fof):
@@ -98,7 +100,8 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     queue_collection.update(queue_query, queue_document, upsert=True)
     
     
-    
+    num_records_inserted = 0;
+	
     # process each user id in IDS
     for id in IDS:
         # Insert the newly discovered id into the queue
@@ -139,5 +142,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
              "retrieved_by": drnjID
             }
             graph_collection.insert(doc)
+            num_records_inserted += 1;
+
             
-    return 0
+    return num_records_inserted

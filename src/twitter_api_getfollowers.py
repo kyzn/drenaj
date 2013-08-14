@@ -15,6 +15,7 @@ from tornado.escape import json_decode
 from tornado.escape import json_encode
 
 from config import *
+from drnj_time import *
 
 
 #root = 50354388; # koray
@@ -74,6 +75,6 @@ while 1:
 
 if success:		
 	post_response = requests.post(url='http://localhost:9999/' +fof + '/ids/store', data={"user_id": root, "ids": json_encode(IDS)})
-	print "Number of ids saved %s" % post_response.content
+	print "Number of new relations discovered: %s" % post_response.content
 else:
 	print "Terminated!"
