@@ -20,9 +20,9 @@ class FollowerHandler(tornado.web.RequestHandler):
         #self.write("not implemented yet")
 
     def post(self, *args):
-        # I chose to handle all options at once, using only POST requests
-        # for API requests. GET requests will be used for browser examination.
-        # by the way: I couldn't write this in docstring for some strange reason.
+        """ I chose to handle all options at once, using only POST requests
+        for API requests. GET requests will be used for browser examination.
+        """
 
         (friends_or_followers, ids_or_list, store_or_view) = args
 
