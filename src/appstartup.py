@@ -6,13 +6,11 @@ import tornado.web
 from mainhandler import MainHandler
 from followerhandler import FollowerHandler
 from subhandler import SubHandler
+from schedulerMainHandler import SchedulerMainHandler
 
 def start():
     application = tornado.web.Application([
-        (r"/store", MainHandler),
-        (r"/get_decrepit_users", MainHandler),
-        (r"/sub", SubHandler),
-        (r"/sub_post", SubHandler),
+        (r"/scheduler/suggestUseridToGet_(friends|followers)", SchedulerMainHandler),
         (r"/(friends|followers)/(ids|list)/?(store|view)?", FollowerHandler),
         ])
     print "Direnaj Service Layer Started"
