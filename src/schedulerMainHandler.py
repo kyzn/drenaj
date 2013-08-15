@@ -5,6 +5,7 @@ from direnajmongomanager import *
 
 import tornado.ioloop
 import tornado.web
+import random
 
 from tornado.escape import json_decode,json_encode
 
@@ -17,20 +18,45 @@ class SchedulerMainHandler(tornado.web.RequestHandler):
         queue_collection = db['queue']
 
         # Get the N'th most frequent visited one  
-        N = 10
+        N = 100
 
         if friends_or_followers == 'followers':
-            cur = queue_collection.find().sort('followers_retrieved_at',-1).limit(N)
+            cur = queue_collection.find({"protected": {"$ne": True}}).sort('followers_retrieved_at',-1).limit(N)
         else:
-            cur = queue_collection.find().sort('friends_retrieved_at',-1).limit(N)
+            cur = queue_collection.find({"protected": {"$ne": True}}).sort('friends_retrieved_at',-1).limit(N)
         
         a = []
         for c in cur:
             a.append(c["_id"])
+            #print c
         
-        
-        self.write(json_encode(a[-1]))
+        idx = random.randint(0, N-1)
+        self.write(json_encode(a[idx]))
         print "Suggest ToGet %s : User %d " % (friends_or_followers, a[-1])
 
     def post(self, *args):
         self.write("Not Implemented")
+
+class SchedulerReportHandler(tornado.web.RequestHandler):
+    def get(self, *args):
+        self.write("Not Implemented")
+
+    def post(self, *args):
+        user_id = int(self.get_argument('user_id'))
+        isProtected = int(self.get_argument('isProtected'))
+        print isProtected
+        print "Proteced or Missing user detected: %d" % int(user_id)
+        
+        db = mongo_client[DIRENAJ_DB]
+        queue_collection = db['queue']
+
+        queue_query = {"_id": user_id}
+        queue_document = {"$set":
+                            { 
+                            "protected" : bool(isProtected),
+                            "retrieved_by": drnjID} 
+                           }
+                           
+        queue_collection.update(queue_query, queue_document, upsert=True)
+
+        

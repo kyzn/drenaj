@@ -93,7 +93,9 @@ while 1:
 
 
 if success:		
-	post_response = requests.post(url='http://localhost:9999/' +fof + '/ids/store', data={"user_id": root, "ids": json_encode(IDS)})
-	print "%s" % post_response.content
+    post_response = requests.post(url='http://localhost:9999/' +fof + '/ids/store', data={"user_id": root, "ids": json_encode(IDS)})
+    print "%s" % post_response.content
 else:
-	print "Terminated!"
+    post_response = requests.post(url='http://localhost:9999/scheduler/reportProtectedUserid', data={"user_id": root, "isProtected": 1})
+    print "Reported User as having Protected Account %d" % root
+    
