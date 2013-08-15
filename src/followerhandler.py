@@ -63,6 +63,9 @@ class FollowerHandler(tornado.web.RequestHandler):
                 #TODO: drnjID obtained from crawler authentication
                 ret = store_friends_or_followers(user_id, IDS, drnjID=1, fof=friends_or_followers)
                 # Returns number of written edges (new relations discovered)
+                print "User ID: %d, among %s" % (user_id, friends_or_followers)
+                print ret
+                
                 self.write(json_encode(ret))
 
             except MissingArgumentError as e:
@@ -125,7 +128,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     
 
     # process each user id in IDS
-    for id in IDS:
+    for id in reversed(IDS):
         # Insert the newly discovered id into the queue
         # insert will be rejected if _id exists
         queue_document = {  "_id": id,
