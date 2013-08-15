@@ -5,7 +5,6 @@ import tornado.web
 
 from mainhandler import MainHandler
 from followerhandler import FollowerHandler
-from subhandler import SubHandler
 from schedulerMainHandler import SchedulerMainHandler
 
 def start():
@@ -13,6 +12,6 @@ def start():
         (r"/scheduler/suggestUseridToGet_(friends|followers)", SchedulerMainHandler),
         (r"/(friends|followers)/(ids|list)/?(store|view)?", FollowerHandler),
         ])
-    print "Direnaj Service Layer Started"
+    print "Direnaj Service Layer Starting on port %s" % DIRENAJ_APP_PORT
     application.listen(DIRENAJ_APP_PORT)
     tornado.ioloop.IOLoop.instance().start()
