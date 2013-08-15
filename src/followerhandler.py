@@ -50,7 +50,7 @@ class FollowerHandler(tornado.web.RequestHandler):
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
         elif (store_or_view == 'store'):
             try:
-                user_id = self.get_argument('user_id')
+                user_id = int(self.get_argument('user_id'))
                 json_IDS = self.get_argument('ids', None)
                 IDS = json.loads(json_IDS)
 
@@ -84,12 +84,15 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     queue_collection = db['queue']
     graph_collection = db['graph']
 
+    num_new_discovered_users = 0;
+    num_edges_inserted = 0
+
     dt = now()   
     queue_query = {"_id": user_id}
     # ATC: This mechanism requires finding the _id twice 
     # With indexing, this may not be a big problem 
+    # Alternative is trying to update and catching the pymongo.errors.OperationFailure exception 
     id_exists = queue_collection.find(queue_query).count() > 0
-    num_new_discovered_users = 0;
 
     if id_exists:
         queue_document = {"$set":
@@ -98,7 +101,6 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
                             "retrieved_by": drnjID} 
                            }
         # creates entry if query does not exist
-        # assume actual data is created once and never changed
         queue_collection.update(queue_query, queue_document, upsert=True)
     else: 
         if fof == 'friends':
@@ -150,19 +152,19 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
         
         # Find last entry of the relationship user_id->id  (user_id follows id)=>(id is a friend of user_id)
         # This can be probably made more efficient by using .max() ..
-        cur = graph_collection.find({"id_str": source, "friend_id_str": sink}).sort('record_retrieved_at',-1).limit(1)
+        cur = graph_collection.find({"id": source, "friend_id": sink}).sort('record_retrieved_at',-1).limit(1)
         
         # if cur is empty or following is false insert edge and mark time
         if cur.count()==0 or cur.next()["following"]==0:
             doc = {
-             'id_str': source,
-             'friend_id_str': sink,
+             'id': source,
+             'friend_id': sink,
              'following': 1,
              'record_retrieved_at': dt,
              "retrieved_by": drnjID
             }
             graph_collection.insert(doc)
-#            num_records_inserted += 1;
+            num_edges_inserted += 1;
 
             
-    return num_new_discovered_users
+    return {'num_new_users': num_new_discovered_users, 'num_new_edges': num_edges_inserted}

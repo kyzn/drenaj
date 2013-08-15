@@ -16,19 +16,36 @@ from tornado.escape import json_encode
 
 from config import *
 from drnj_time import *
+import argparse
 
 
-#root = 50354388; # koray
-#root = 461494325; # Taylan
-#root = 505670972; # Cem Say
-#root = 483121138; # meltem
-root = 230412751; # Cengiz
-#root = 636874348; # Pinar Selek
-# root = 382081201; # Tolga Tuzun
-#root = 745174243; # Sarp Maden
 
-fof = "followers"
-#fof = "friends"
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Direnaj Friends/Followers Crawler')
+    parser.add_argument('-f', '--fof', choices=["friends", "followers"], help='("friends"|"followers")', default="followers")
+    parser.add_argument('-u', '--user_id', help='the user id', type=int, default=0)
+    args = parser.parse_args()
+
+    fof = args.fof
+    root = int(args.user_id)
+#    if fof is None:
+#        fof = "followers"
+#        #fof = "friends"
+    
+    if root==0:
+        # Get from scheduler
+        
+        #root = 50354388; # koray
+        #root = 461494325; # Taylan
+        #root = 505670972; # Cem Say
+        #root = 483121138; # meltem
+        root = 230412751; # Cengiz
+        #root = 636874348; # Pinar Selek
+        # root = 382081201; # Tolga Tuzun
+        #root = 745174243; # Sarp Maden
+
+
 
 twitter = Twython(consumer_key, consumer_secret, access_token_key, access_token_secret)
 
@@ -75,6 +92,6 @@ while 1:
 
 if success:		
 	post_response = requests.post(url='http://localhost:9999/' +fof + '/ids/store', data={"user_id": root, "ids": json_encode(IDS)})
-	print "Number of new users discovered: %s" % post_response.content
+	print "%s" % post_response.content
 else:
 	print "Terminated!"
