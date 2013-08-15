@@ -61,7 +61,7 @@ class FollowerHandler(tornado.web.RequestHandler):
 
 
                 #TODO: drnjID obtained from crawler authentication
-                ret = store_friends_or_followers(user_id, IDS, drnjID=1, fof=friends_or_followers)
+                ret = store_friends_or_followers(user_id, IDS, drnjID= drnjID, fof=friends_or_followers)
                 # Returns number of written edges (new relations discovered)
                 print "User ID: %d, among %s" % (user_id, friends_or_followers)
                 print ret
