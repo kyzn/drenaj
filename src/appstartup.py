@@ -16,3 +16,6 @@ def start():
     print "Direnaj Service Layer Started"
     application.listen(DIRENAJ_APP_PORT)
     tornado.ioloop.IOLoop.instance().start()
+
+if __name__ == "__main__":
+    start()
