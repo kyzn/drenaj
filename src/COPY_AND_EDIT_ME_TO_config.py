@@ -15,6 +15,8 @@ MONGO_PORT=27017
 # Direnaj Database
 # DIRENAJ_DB = 'twitter_test'
 DIRENAJ_DB = 'direnaj_test'
+
+DIRENAJ_APP_HOST = 'localhost'
 DIRENAJ_APP_PORT = 9999
 
 ## Testing related
