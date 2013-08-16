@@ -1,8 +1,8 @@
 # This file contains personal preference information for each developer
-# Copy this file to config.py (which is untracked .gitignore) 
+# Copy this file to config.py (which is untracked .gitignore)
 # Edit your preferences and authentication information
 #
-# 14-Aug-2013	 9:29 PM	ATC	
+# 14-Aug-2013	 9:29 PM	ATC
 
 import os
 
@@ -16,6 +16,9 @@ MONGO_PORT=27017
 # DIRENAJ_DB = 'twitter_test'
 DIRENAJ_DB = 'direnaj_test'
 DIRENAJ_APP_PORT = 9999
+
+## Testing related
+DB_TEST_VERSION=0.1
 
 # Obtain these from Twitter, see project wiki
 consumer_key = "hQUgcQ8GffQb9lcteoLy9g"

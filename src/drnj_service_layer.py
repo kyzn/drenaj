@@ -21,16 +21,30 @@ if __name__ == "__main__":
 
     if args.command == 'init_db':
         import direnajinitdb
-        print "WARNING WARNING WARNING: all collections will be RESET!"
-        print "Are you sure? (y/n)"
-        answer = raw_input().strip()
-        if answer == 'y':
-            print "AGAIN: Are you sure? (y/n)"
+        # TODO: using this dumb trick, because I don't want to change the commandline arguments now.
+        if True:
+            print "WARNING WARNING WARNING: all collections will be RESET!"
+            print "Are you sure? (y/n)"
             answer = raw_input().strip()
             if answer == 'y':
-                direnajinitdb.drop_all_collections()
-        direnajinitdb.init_graphs(method='randomly')
-        direnajinitdb.init_users(method='randomly')
+                print "AGAIN: Are you sure? (y/n)"
+                answer = raw_input().strip()
+                if answer == 'y':
+                    direnajinitdb.restore_db(DB_TEST_VERSION)
+        else:
+            print "WARNING WARNING WARNING: all collections will be RESET!"
+            print "Are you sure? (y/n)"
+            answer = raw_input().strip()
+            if answer == 'y':
+                print "AGAIN: Are you sure? (y/n)"
+                answer = raw_input().strip()
+                if answer == 'y':
+                    direnajinitdb.drop_all_collections()
+            direnajinitdb.init_graphs(method='randomly')
+            direnajinitdb.init_users(method='randomly')
+    elif args.command == 'dump_db':
+        import direnajinitdb
+        direnajinitdb.dump_db(DB_TEST_VERSION)
     elif args.command == 'runserver':
         import appstartup
         appstartup.start()

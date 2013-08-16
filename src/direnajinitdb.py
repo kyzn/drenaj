@@ -31,6 +31,16 @@ def drop_all_collections():
     mongo_client[DIRENAJ_DB]['graph'].drop()
     mongo_client[DIRENAJ_DB]['users'].drop()
 
+def dump_db(version):
+    # TODO: make sure PROJECT_ROOT_DIR/db is there (in a portable way)
+    os.system('mongodump -h %s --port %s --db %s --out %s/db/%s'
+            % (MONGO_HOST, MONGO_PORT, DIRENAJ_DB, PROJECT_ROOT_DIR, version) )
+
+def restore_db(version):
+    # TODO: make sure PROJECT_ROOT_DIR/db is there (in a portable way)
+    os.system('mongorestore -h %s --port %s --db %s --drop %s/db/%s/%s'
+            % (MONGO_HOST, MONGO_PORT, DIRENAJ_DB, PROJECT_ROOT_DIR, version, DIRENAJ_DB) )
+
 def init_graphs(**keywords):
     payload = []
 
