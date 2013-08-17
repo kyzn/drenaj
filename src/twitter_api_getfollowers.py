@@ -16,6 +16,10 @@ from drnj_time import *
 
 import argparse
 
+from tornado.escape import json_encode
+
+app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT)
+
 def main(fof, root):
     twitter = Twython(consumer_key, consumer_secret, access_token_key, access_token_secret)
 
@@ -60,7 +64,7 @@ def main(fof, root):
             break
 
     if success:
-        post_response = requests.post(url=app_root_url + fof + '/ids/store', data={"user_id": root, "ids": json_encode(IDS)})
+        post_response = requests.post(url=app_root_url + '/' + fof + '/ids/store', data={"user_id": root, "ids": json_encode(IDS)})
         print "%s" % post_response.content
     else:
         post_response = requests.post(url=app_root_url+'/scheduler/reportProtectedUserid', data={"user_id": root, "isProtected": 1})
@@ -90,7 +94,6 @@ if __name__ == "__main__":
         # root = 382081201; # Tolga Tuzun
         #root = 745174243; # Sarp Maden
 
-        app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + DIRENAJ_APP_PORT + '/'
         get_response = requests.get(url=app_root_url+'/scheduler/suggestUseridToGet_' + fof)
         root = int(get_response.content)
 
