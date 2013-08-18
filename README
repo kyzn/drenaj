@@ -10,42 +10,59 @@ path.
 
 0. Clone the repository by running
 
+<pre>
 $ git clone http://direnaj:tamtam@btm-git-host:9090/code repo
+</pre>
 
 in a directory of your choice. I created a directory called direnaj and runned
 this command inside it.
 
 1. Make sure you have any version of Python
 
-$ python --version Python 2.7.3
+<pre>
+$ python --version
+Python 2.7.3
+</pre>
 
 2. Install Pip. Pip is a tool for installing and managing Python packages.
 There are other options for this, but we will explicitly use this because we
 have good reason.
 
+<pre>
 $ sudo apt-get install python-pip
+</pre>
 
 3. Install virtualenvwrapper Python package using Pip.
 
+<pre>
 $ sudo pip install virtualenvwrapper
+</pre>
 
 4. Copy this to your ~/.bashrc
 
-<pre> export WORKON_HOME=$HOME/.virtualenvs source
-/usr/local/bin/virtualenvwrapper.sh </pre>
+<pre>
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+</pre>
 
 4a. Run this to enable the virtualenvwrapper commands (this will be done
 automatically with every new shell session):
 
+<pre>
 $ source ~/.bashrc
+</pre>
 
 5. Create a virtualenv called direnaj.
 
+<pre>
 $ mkvirtualenv direnaj
+</pre>
 
 and activate it:
 
+<pre>
 $ workon direnaj
+</pre>
 
 This will allow us to separate our specific versions of packages from the other
 global (in your system) packages. Also by using env/env_requirements.txt, we
@@ -53,7 +70,9 @@ will be securing the list of packages so that it will be easily deployable.
 
 For example, take a look at 
 
+<pre>
 $ pip freeze
+</pre>
 
 when direnaj virtaulenv is active (There is a (direnaj) string at the leftmost
 location of the command prompt). This list shows the packages currently
@@ -62,78 +81,94 @@ your first time.
 
 Now, execute
 
+<pre>
 $ pip install -r env/env_requirements.txt
+</pre>
 
 when you are in the project root directory.
 
 You can stop using direnaj virtualenv by running this:
 
+<pre>
 $ deactivate
+</pre>
 
-But don't do that now, or if you have done it already, run this to activate it
-again:
+But don't do that now, or if you have done it already, run this to activate it again:
 
+<pre>
 $ workon direnaj
+</pre>
 
-6. Set PROJECT_ROOT_DIR in config.py to the directory you just cloned. For
-example,
+6. Set PROJECT_ROOT_DIR in config.py to the directory you just cloned. For example,
 
+<pre>
 PROJECT_ROOT_DIR='/home/onur/Desktop/projects/research/projects/direnaj/repo'
+</pre>
 
 7. Next, we need to install mongodb.
 
+<pre>
 $ sudo apt-get install mongodb-10gen
+</pre>
 
 This will install without errors most of the time.
 
 Check whether mongodb is running:
 
+<pre>
 $ sudo service mongodb status
+</pre>
 
 Start it:
 
+<pre>
 $ sudo service mongodb start
+</pre>
 
 If it doesn't start, remove the lock:
 
+<pre>
 $ sudo rm -rf /var/lib/mongodb/mongod.lock
+</pre>
 
 and try again.
 
 8. Now let's populate the database.
 
+<pre>
 $ python drnj_service_layer.py init_db 
+</pre>
 
 9. Finally, we may start our service layer:
 
+<pre>
 $ python drnj_service_layer.py runserver
+</pre>
 
-Now you can access the service layer. For example, go to
-http://localhost:9999/followers/list/view?user_id=461494372 in your browser.
-You should see something like this:
+Now you can access the service layer. For example, go to http://localhost:9999/followers/list/view?user_id=461494372 in your browser. You should see something like this:
 
 <pre>
 
 {
-    results: [
-    {
-        statuses_count: 111,
-        name: "Ali Taylan Cemgil",
-        friends_count: 68,
-        retrieved_by: "dummy_data",
-        profile_image_url: "http:\/\/a0.twimg.com\/profile_images\/3580500548\/0e33ddc524",
-        record_retrieved_at: "Thu May 30 14:20:16 +0000 2013",
-        followers_count: 155,
-        protected: false,
-        location: "Istanbul",
-        geo_enabled: 1,
-        _id: {
-            $oid: "520d2f204a6847ed11232d0c"
-        },
-        id_str: "461494360",
-        screen_name: "AliTaylanCemgil"
-    }
-    ]
+results: [
+         {
+            statuses_count: 111,
+            name: "Ali Taylan Cemgil",
+            friends_count: 68,
+            retrieved_by: "dummy_data",
+            profile_image_url: "http:\/\/a0.twimg.com\/profile_images\/3580500548\/0e33ddc524",
+            record_retrieved_at: "Thu May 30 14:20:16 +0000 2013",
+            followers_count: 155,
+            protected: false,
+            location: "Istanbul",
+            geo_enabled: 1,
+            _id: {
+              $oid: "520d2f204a6847ed11232d0c"
+            },
+            id_str: "461494360",
+            screen_name: "AliTaylanCemgil"
+         }
+         ]
 }
 
 </pre>
