@@ -1,9 +1,131 @@
-Welcome to Direnaj Repository
-=====
+h1. Direnaj
 
-Testing -ahmetyil 
------
+h2. INSTALLATION
 
-1. Hi!
-2. Hello, how are you? : )
-3. Fine thanks and you
+h3. Ubuntu
+
+Although this will be based on Ubuntu, this will easily apply to Debian based systems. Other Linux distributions and MacOSX users should follow a similar path.
+
+0. Clone the repository by running
+
+$ git clone http://direnaj:tamtam@btm-git-host:9090/code repo
+
+in a directory of your choice. I created a directory called direnaj and runned this command inside it.
+
+1. Make sure you have any version of Python
+
+$ python --version
+Python 2.7.3
+
+2. Install Pip. Pip is a tool for installing and managing Python packages. There are other options for this, but we will explicitly use this because we have good reason.
+
+$ sudo apt-get install python-pip
+
+3. Install virtualenvwrapper Python package using Pip.
+
+$ sudo pip install virtualenvwrapper
+
+4. Copy this to your ~/.bashrc
+
+<pre>
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+</pre>
+
+4a. Run this to enable the virtualenvwrapper commands (this will be done automatically with every new shell session):
+
+$ source ~/.bashrc
+
+5. Create a virtualenv called direnaj.
+
+$ mkvirtualenv direnaj
+
+and activate it:
+
+$ workon direnaj
+
+This will allow us to separate our specific versions of packages from the other global (in your system) packages. Also by using env/env_requirements.txt, we will be securing the list of packages so that it will be easily deployable.
+
+For example, take a look at 
+
+$ pip freeze
+
+when direnaj virtaulenv is active (There is a (direnaj) string at the leftmost location of the command prompt). This list shows the packages currently installed along with their versions. Probably you will not see much, if this is your first time.
+
+Now, execute
+
+$ pip install -r env/env_requirements.txt
+
+when you are in the project root directory.
+
+You can stop using direnaj virtualenv by running this:
+
+$ deactivate
+
+But don't do that now, or if you have done it already, run this to activate it again:
+
+$ workon direnaj
+
+6. Set PROJECT_ROOT_DIR in config.py to the directory you just cloned. For example,
+
+PROJECT_ROOT_DIR='/home/onur/Desktop/projects/research/projects/direnaj/repo'
+
+7. Next, we need to install mongodb.
+
+$ sudo apt-get install mongodb-10gen
+
+This will install without errors most of the time.
+
+Check whether mongodb is running:
+
+$ sudo service mongodb status
+
+Start it:
+
+$ sudo service mongodb start
+
+If it doesn't start, remove the lock:
+
+$ sudo rm -rf /var/lib/mongodb/mongod.lock
+
+and try again.
+
+8. Now let's populate the database.
+
+$ python drnj_service_layer.py init_db 
+
+9. Finally, we may start our service layer:
+
+$ python drnj_service_layer.py runserver
+
+Now you can access the service layer. For example, go to http://localhost:9999/followers/list/view?user_id=461494372 in your browser. You should see something like this:
+
+<pre>
+
+{
+    results: [
+    {
+        statuses_count: 111,
+        name: "Ali Taylan Cemgil",
+        friends_count: 68,
+        retrieved_by: "dummy_data",
+        profile_image_url: "http:\/\/a0.twimg.com\/profile_images\/3580500548\/0e33ddc524",
+        record_retrieved_at: "Thu May 30 14:20:16 +0000 2013",
+        followers_count: 155,
+        protected: false,
+        location: "Istanbul",
+        geo_enabled: 1,
+        _id: {
+            $oid: "520d2f204a6847ed11232d0c"
+        },
+        id_str: "461494360",
+        screen_name: "AliTaylanCemgil"
+    }
+    ]
+}
+
+</pre>
+
+10. And, our customary greeting: Have fun!
+
+
