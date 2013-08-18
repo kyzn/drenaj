@@ -35,7 +35,7 @@ class FollowerHandler(tornado.web.RequestHandler):
         if ((store_or_view != None and store_or_view == 'view') or (store_or_view == None)):
             try:
                 user_id = self.get_argument('user_id')
-                graph_coll = mongo_client[DIRENAJ_DB]['graph']
+                graph_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['graph']
 
                 # friends or followers
                 if friends_or_followers == 'followers':
@@ -55,7 +55,7 @@ class FollowerHandler(tornado.web.RequestHandler):
                 if ids_or_list == 'ids':
                     tmp = [x for x in cursor]
                 elif ids_or_list == 'list':
-                    users_coll = mongo_client[DIRENAJ_DB]['users']
+                    users_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['users']
                     # We need to gather the list of 'opposite' side.
                     ids = [x[id_field_prefix_graph_query_opposite+'id_str'] for x in cursor]
                     print ids
@@ -101,7 +101,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
 
     IDS -- list of user ids client crawler reports
     """
-    db = mongo_client[DIRENAJ_DB]
+    db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
     queue_collection = db['queue']
     graph_collection = db['graph']
 

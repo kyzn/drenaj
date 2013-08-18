@@ -18,7 +18,7 @@ import argparse
 
 from tornado.escape import json_encode
 
-app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT)
+app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[environment])
 
 def main(fof, root):
     twitter = Twython(consumer_key, consumer_secret, access_token_key, access_token_secret)

@@ -11,7 +11,7 @@ class MainHandler(tornado.web.RequestHandler):
     def get(self):
         """Returns 100 most decreipt users so that client can report new data about these users"""
         max_num = 100 # number of users to return
-        db = mongo_client[DIRENAJ_DB]
+        db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
         queue_collection = db['profiles']
         profiles_collection = db['profiles']
         users_collection = db['users']
@@ -58,7 +58,7 @@ class MainHandler(tornado.web.RequestHandler):
 
 def queue_user_id_update(id_str_list):
     """Adds new users to be explored. Does nothing if user already exists. In the future this can be scheduler trigger."""
-    db = mongo_client[DIRENAJ_DB]
+    db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
     queue_collection = db['queue']
     profiles_collection = db['profiles']
     users_collection = db['users']
@@ -75,7 +75,7 @@ def store_user_data(raw_twitter_data_list):
 
     raw_twitter_data_list -- list of raw twitter user data client crawler reports
     """
-    db = mongo_client[DIRENAJ_DB]
+    db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
     profiles_collection = db['profiles']
     users_collection = db['users']
 

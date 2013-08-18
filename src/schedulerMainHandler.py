@@ -14,7 +14,7 @@ class SchedulerMainHandler(tornado.web.RequestHandler):
 
         (friends_or_followers) = args
 
-        db = mongo_client[DIRENAJ_DB]
+        db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
         queue_collection = db['queue']
 
         # Get the N'th most frequent visited one
@@ -52,7 +52,7 @@ class SchedulerReportHandler(tornado.web.RequestHandler):
         print isProtected
         print "Proteced or Missing user detected: %d" % int(user_id)
 
-        db = mongo_client[DIRENAJ_DB]
+        db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
         queue_collection = db['queue']
 
         queue_query = {"_id": user_id}

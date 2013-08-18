@@ -27,24 +27,25 @@ user_template = {
         "retrieved_by": 'dummy_data',
         }
 
-def drop_all_collections():
-    mongo_client[DIRENAJ_DB]['graph'].drop()
-    mongo_client[DIRENAJ_DB]['users'].drop()
+def drop_all_collections(environment):
+    mongo_client[DIRENAJ_DB[environment]]['graph'].drop()
+    mongo_client[DIRENAJ_DB[environment]]['users'].drop()
 
-def dump_db(version):
+def dump_db(environment, version):
     # TODO: make sure PROJECT_ROOT_DIR/db is there (in a portable way)
     os.system('mongodump -h %s --port %s --db %s --out %s/db/%s'
-            % (MONGO_HOST, MONGO_PORT, DIRENAJ_DB, PROJECT_ROOT_DIR, version) )
+            % (MONGO_HOST, MONGO_PORT, DIRENAJ_DB[environment], PROJECT_ROOT_DIR, version) )
 
-def restore_db(version):
+def restore_db(from_environment, to_environment, version):
     # TODO: make sure PROJECT_ROOT_DIR/db is there (in a portable way)
     os.system('mongorestore -h %s --port %s --db %s --drop %s/db/%s/%s'
-            % (MONGO_HOST, MONGO_PORT, DIRENAJ_DB, PROJECT_ROOT_DIR, version, DIRENAJ_DB) )
+            % (MONGO_HOST, MONGO_PORT, DIRENAJ_DB[to_environment], PROJECT_ROOT_DIR, version, DIRENAJ_DB[from_environment]) )
 
 def init_graphs(**keywords):
     payload = []
 
     method = keywords['method']
+    environment = keywords['environment'] if 'environment' in keywords.keys() else 'test'
 
     if method == 'randomly':
         n_samples = 100
@@ -66,7 +67,7 @@ def init_graphs(**keywords):
     else:
         print 'NOT IMPLEMENTED YET'
 
-    graph_coll = mongo_client[DIRENAJ_DB]['graph']
+    graph_coll = mongo_client[DIRENAJ_DB[environment]]['graph']
     graph_coll.insert(payload, w=1)
     return
 
@@ -74,6 +75,7 @@ def init_users(**keywords):
     payload = []
 
     method = keywords['method']
+    environment = keywords['environment'] if 'environment' in keywords.keys() else 'test'
 
     id_str_list_for_query = []
 
@@ -92,7 +94,7 @@ def init_users(**keywords):
     else:
         print 'NOT IMPLEMENTED YET'
 
-    users_coll = mongo_client[DIRENAJ_DB]['users']
+    users_coll = mongo_client[DIRENAJ_DB][environment]['users']
     for idx, id_str in enumerate(id_str_list_for_query):
         print idx
         print id_str
