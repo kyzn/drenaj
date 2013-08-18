@@ -35,32 +35,36 @@ class FollowerHandler(tornado.web.RequestHandler):
         if ((store_or_view != None and store_or_view == 'view') or (store_or_view == None)):
             try:
                 user_id = self.get_argument('user_id')
-                graph_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['graph']
+                # if no user_id is supplied.
+                if user_id == '':
+                    tmp = []
+                else:
+                    graph_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['graph']
 
-                # friends or followers
-                if friends_or_followers == 'followers':
-                    id_field_prefix_graph_query = 'friend_'
-                    id_field_prefix_graph_query_opposite = ''
-                elif friends_or_followers == 'friends':
-                    id_field_prefix_graph_query = ''
-                    id_field_prefix_graph_query_opposite = 'friend_'
+                    # friends or followers
+                    if friends_or_followers == 'followers':
+                        id_field_prefix_graph_query = 'friend_'
+                        id_field_prefix_graph_query_opposite = ''
+                    elif friends_or_followers == 'friends':
+                        id_field_prefix_graph_query = ''
+                        id_field_prefix_graph_query_opposite = 'friend_'
 
-                # running the query
-                cursor = graph_coll.find({
-                    id_field_prefix_graph_query+'id_str': str(user_id),
-                    'following': 1
-                })
+                    # running the query
+                    cursor = graph_coll.find({
+                        id_field_prefix_graph_query+'id_str': str(user_id),
+                        'following': 1
+                    })
 
-                tmp = []
-                if ids_or_list == 'ids':
-                    tmp = [x for x in cursor]
-                elif ids_or_list == 'list':
-                    users_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['users']
-                    # We need to gather the list of 'opposite' side.
-                    ids = [x[id_field_prefix_graph_query_opposite+'id_str'] for x in cursor]
-                    print ids
-                    cursor = users_coll.find({'id_str': {'$in': ids}})
-                    tmp = [x for x in cursor]
+                    tmp = []
+                    if ids_or_list == 'ids':
+                        tmp = [x for x in cursor]
+                    elif ids_or_list == 'list':
+                        users_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['users']
+                        # We need to gather the list of 'opposite' side.
+                        ids = [x[id_field_prefix_graph_query_opposite+'id_str'] for x in cursor]
+                        print ids
+                        cursor = users_coll.find({'id_str': {'$in': ids}})
+                        tmp = [x for x in cursor]
                 self.write(bson.json_util.dumps({'results': tmp}))
                 self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
