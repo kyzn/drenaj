@@ -12,6 +12,8 @@ PROJECT_ROOT_DIR='/home/onur/Desktop/projects/research/projects/direnaj/repo'
 MONGO_HOST='localhost'
 MONGO_PORT=27017
 
+DIRENAJ_APP_ENVIRONMENT = 'development'
+
 # Direnaj Database
 # DIRENAJ_DB = 'twitter_test'
 DIRENAJ_DB = {}
@@ -19,9 +21,11 @@ DIRENAJ_DB['production'] = 'direnaj_prod'
 DIRENAJ_DB['development'] = 'direnaj_dev'
 DIRENAJ_DB['test'] = 'direnaj_test'
 
-DIRENAJ_APP_ENVIRONMENT = 'development'
 DIRENAJ_APP_HOST = 'localhost'
-DIRENAJ_APP_PORT = 9999
+DIRENAJ_APP_PORT = {}
+DIRENAJ_APP_PORT['production'] = 9998
+DIRENAJ_APP_PORT['development'] = 9999
+DIRENAJ_APP_PORT['test'] = 10000
 
 ## Testing related
 DB_TEST_VERSION=0.1
