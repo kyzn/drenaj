@@ -19,7 +19,6 @@ application = tornado.web.Application(routes_config)
 def bind_server(environment):
     http_server = HTTPServer(application)
     http_server.listen(DIRENAJ_APP_PORT[environment])
-    print 'oldu mu simdi?'
 
 def start(environment):
     print "Direnaj Service Layer Starting on port %s" % DIRENAJ_APP_PORT[environment]
