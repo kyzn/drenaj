@@ -1,3 +1,6 @@
+## Not working as it is intended right now!
+## Read README instead.
+
 sudo apt-get install python-pip
 
 sudo pip install virtualenvwrapper
@@ -24,6 +27,6 @@ fi
 
 mkvirtualenv direnaj
 
-#m set the project root dir
+#set the project root dir
 export PROJECT_ROOT_DIR=`pwd` && sed "s@^\(PROJECT_ROOT_DIR=\).*@\1'$PROJECT_ROOT_DIR'@g" src/config.py.tmpl > src/config.py
 
