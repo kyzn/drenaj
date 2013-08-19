@@ -8,6 +8,7 @@ import tornado.web
 import random
 
 from tornado.escape import json_decode,json_encode
+from direnaj_auth import direnaj_simple_auth
 
 class SchedulerMainHandler(tornado.web.RequestHandler):
     def get(self, *args):
@@ -46,10 +47,11 @@ class SchedulerReportHandler(tornado.web.RequestHandler):
     def get(self, *args):
         self.write("Not Implemented")
 
-    def post(self, *args):
+    @direnaj_simple_auth
+    def post(self, *args, **kwargs):
         user_id = int(self.get_argument('user_id'))
         isProtected = int(self.get_argument('isProtected'))
-        print isProtected
+
         print "Proteced or Missing user detected: %d" % int(user_id)
 
         db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
@@ -57,10 +59,10 @@ class SchedulerReportHandler(tornado.web.RequestHandler):
 
         queue_query = {"_id": user_id}
         queue_document = {"$set":
-                            {
-                            "protected" : bool(isProtected),
-                            "retrieved_by": drnjID}
-                           }
+                          {
+                              "protected" : bool(isProtected),
+                              "retrieved_by": kwargs["drnjID"]}
+                         }
 
         queue_collection.update(queue_query, queue_document, upsert=True)
 

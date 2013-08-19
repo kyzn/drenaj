@@ -33,13 +33,15 @@ def drop_all_collections(environment):
 
 def dump_db(environment, version):
     # TODO: make sure PROJECT_ROOT_DIR/db is there (in a portable way)
-    os.system('mongodump -h %s --port %s --db %s --out %s/db/%s'
-            % (MONGO_HOST, MONGO_PORT, DIRENAJ_DB[environment], PROJECT_ROOT_DIR, version) )
+    # FIXING: with environment variable for mongo bin path environment variable, delete comment if accepted
+    os.system('%s/mongodump -h %s --port %s --db %s --out %s/db/%s'
+            % (MONGO_BIN_DIR, MONGO_HOST, MONGO_PORT, DIRENAJ_DB[environment], PROJECT_ROOT_DIR, version) )
 
 def restore_db(from_environment, to_environment, version):
     # TODO: make sure PROJECT_ROOT_DIR/db is there (in a portable way)
-    os.system('mongorestore -h %s --port %s --db %s --drop %s/db/%s/%s'
-            % (MONGO_HOST, MONGO_PORT, DIRENAJ_DB[to_environment], PROJECT_ROOT_DIR, version, DIRENAJ_DB[from_environment]) )
+    # FIXING: with environment variable for mongo bin path environment variable, delete comment if accepted
+    os.system('%s/mongorestore -h %s --port %s --db %s --drop %s/db/%s/%s'
+            % (MONGO_BIN_DIR, MONGO_HOST, MONGO_PORT, DIRENAJ_DB[to_environment], PROJECT_ROOT_DIR, version, DIRENAJ_DB[from_environment]) )
 
 def init_graphs(**keywords):
     payload = []
