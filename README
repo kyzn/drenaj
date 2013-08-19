@@ -2,7 +2,7 @@ h1. Direnaj
 
 h2. INSTALLATION
 
-h3. Ubuntu
+h3. Linux - Ubuntu
 
 Although this will be based on Ubuntu, this will easily apply to Debian based
 systems. Other Linux distributions and MacOSX users should follow a similar
@@ -178,6 +178,14 @@ results: [
 h2. URXVT + TMUX + TEAMOCIL setup
 
 By using these three tools, you can have a predefined environment for working
-on direnaj. I'll write about this if there is interest.
+on direnaj. I'll write about this if there is interest. OG
+
+h3. Windows
+
+To be filled in by ATC
+
+h3. MAC OS
+
+To be filled in by CK 
 
 Testing... OG
