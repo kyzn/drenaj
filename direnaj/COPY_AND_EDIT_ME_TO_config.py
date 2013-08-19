@@ -31,7 +31,7 @@ DIRENAJ_APP_PORT['test'] = 10000
 DB_TEST_VERSION=0.1
 
 # Obtain these from Twitter, see project wiki
-consumer_key = "hQUgcQ8GffQb9lcteoLy9g"
-consumer_secret = "ADyiEvLtupE6J8JRo9J8onJ9oHgOaq7KFjKpa6QoDk"
-access_token_key = "461494325-1L0bBBGL4okKhwYKChNM2cVbG1tp5hh5w9xIvblP"
-access_token_secret = "W5W9PHcWBYTBrVJWbLpOOEZAZXGeGU3edBCUzwXR4"
+consumer_key = " ... "
+consumer_secret = " ... "
+access_token_key = " ... "
+access_token_secret = " ... "
