@@ -28,5 +28,10 @@ fi
 mkvirtualenv direnaj
 
 #set the project root dir
-export PROJECT_ROOT_DIR=`pwd` && sed "s@^\(PROJECT_ROOT_DIR=\).*@\1'$PROJECT_ROOT_DIR'@g" src/config.py.tmpl > src/config.py
+export PROJECT_ROOT_DIR=`pwd` && sed "s@^\(PROJECT_ROOT_DIR=\).*@\1'$PROJECT_ROOT_DIR'@g" src/config.py.tmpl > src/config.py.bak.1
 
+export MONGO_BIN_DIR=`dirname $(which mongodump)` && sed "s@^\(MONGO_BIN_DIR=\).*@\1'$MONGO_BIN_DIR'@g" src/config.py.bak.1 > src/config.py.bak.2
+
+cp src/config.py.bak.2 src/config.py
+
+rm src/config.py.bak.*
