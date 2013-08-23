@@ -5,7 +5,9 @@ import random
 from direnajmongomanager import *
 
 graph_template = {
+        "id": 461494325,
         "id_str": "461494325",
+        "friend_id": 494494325,
         "friend_id_str": "494494325",
         "following": 1,
         "record_retrieved_at": "Thu May 30 14:20:16 +0000 2013",
@@ -13,6 +15,7 @@ graph_template = {
         }
 
 user_template = {
+        "id": 461494325,
         "id_str": "461494325",
         "protected": False,
         "location": "Istanbul",
@@ -55,13 +58,17 @@ def init_graphs(**keywords):
         while sample_count < n_samples:
             tmp = graph_template.copy()
             tmp['id_str'] = str(int(tmp['id_str']) + random.randint(10,50))
+            tmp['id'] = int(tmp['id_str'])
             tmp['friend_id_str'] = str(int(tmp['id_str']) + random.randint(10,50))
+            tmp['friend_id'] = int(tmp['friend_id_str'])
             tmp['following'] = random.randint(0,1)
 
             # insert both the id_str and friend_id_str in users collection.
             user_clones = [user_template.copy() for i in range(0, 2)]
             user_clones[0]['id_str'] = tmp['id_str']
             user_clones[1]['id_str'] = tmp['friend_id_str']
+            user_clones[0]['id'] = tmp['id']
+            user_clones[1]['id'] = tmp['friend_id']
             init_users(method='manual_input', input_array=user_clones)
 
             payload.append(tmp)
@@ -87,6 +94,7 @@ def init_users(**keywords):
         while sample_count < n_samples:
             tmp = user_template.copy()
             tmp['id_str'] = str(int(tmp['id_str']) + random.randint(10,25))
+            tmp['id'] = int(tmp['id_str'])
             id_str_list_for_query.append(tmp['id_str'])
             payload.append(tmp)
             sample_count += 1
@@ -96,7 +104,7 @@ def init_users(**keywords):
     else:
         print 'NOT IMPLEMENTED YET'
 
-    users_coll = mongo_client[DIRENAJ_DB][environment]['users']
+    users_coll = mongo_client[DIRENAJ_DB[environment]]['users']
     for idx, id_str in enumerate(id_str_list_for_query):
         print idx
         print id_str

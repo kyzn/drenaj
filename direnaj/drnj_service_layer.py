@@ -39,12 +39,16 @@ if __name__ == "__main__":
                 print "AGAIN: Are you sure? (y/n)"
                 answer = raw_input().strip()
                 if answer == 'y':
-                    direnajinitdb.drop_all_collections()
-            direnajinitdb.init_graphs(environment=DIRENAJ_APP_ENVIRONMENT, method='randomly')
-            direnajinitdb.init_users(environment=DIRENAJ_APP_ENVIRONMENT, method='randomly')
+                    direnajinitdb.drop_all_collections(DIRENAJ_APP_ENVIRONMENT)
+                    direnajinitdb.init_graphs(environment=DIRENAJ_APP_ENVIRONMENT, method='randomly')
+                    direnajinitdb.init_users(environment=DIRENAJ_APP_ENVIRONMENT, method='randomly')
     elif args.command == 'dump_db':
         import direnajinitdb
         direnajinitdb.dump_db(DIRENAJ_APP_ENVIRONMENT, DB_TEST_VERSION)
     elif args.command == 'runserver':
         import appstartup
         appstartup.start(DIRENAJ_APP_ENVIRONMENT)
+    else:
+        print "Unrecognized command.."
+        import sys
+        sys.exit(1)
