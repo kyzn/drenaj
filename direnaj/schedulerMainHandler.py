@@ -28,7 +28,7 @@ class SchedulerMainHandler(tornado.web.RequestHandler):
 
         a = []
         for c in cur:
-            a.append(c["_id"])
+            a.append(c["id"])
             #print c
 
         idx = random.randint(0, N-1)
@@ -57,7 +57,7 @@ class SchedulerReportHandler(tornado.web.RequestHandler):
         db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
         queue_collection = db['queue']
 
-        queue_query = {"_id": user_id}
+        queue_query = {"id": user_id}
         queue_document = {"$set":
                           {
                               "protected" : bool(isProtected),
