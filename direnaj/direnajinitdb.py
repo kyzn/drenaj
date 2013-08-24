@@ -3,6 +3,7 @@ from config import *
 import random
 
 from direnajmongomanager import *
+from drnj_time import py_utc_time2drnj_time
 
 graph_template = {
         "id": 461494325,
@@ -10,7 +11,7 @@ graph_template = {
         "friend_id": 494494325,
         "friend_id_str": "494494325",
         "following": 1,
-        "record_retrieved_at": "Thu May 30 14:20:16 +0000 2013",
+        "record_retrieved_at": py_utc_time2drnj_time("Thu May 30 14:20:16 +0000 2013"),
         "retrieved_by": 'dummy_data',
         }
 
@@ -26,7 +27,7 @@ user_template = {
         "statuses_count": 111,
         "geo_enabled": 1,
         "profile_image_url": "http:\/\/a0.twimg.com\/profile_images\/3580500548\/0e33ddc524",
-        "record_retrieved_at": "Thu May 30 14:20:16 +0000 2013",
+        "record_retrieved_at": py_utc_time2drnj_time("Thu May 30 14:20:16 +0000 2013"),
         "retrieved_by": 'dummy_data',
         }
 

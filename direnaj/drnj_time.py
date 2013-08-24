@@ -18,3 +18,14 @@ def py_time2drnj_time(t):
 	"""
 	dt = number_of_days_from_1_Jan_0000_to_1_Jan_1970 + t/(24*60*60);
 	return dt
+
+def py_utc_time2drnj_time(time_str):
+    """
+
+    """
+    import time
+    utc_time_format = '%a %b %d %H:%M:%S +0000 %Y'
+    t = time.strptime(time_str, utc_time_format)
+    import calendar
+    t = calendar.timegm(t)
+    return py_time2drnj_time(t)
