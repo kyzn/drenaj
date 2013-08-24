@@ -113,8 +113,8 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     num_edges_inserted = 0
 
     dt = now()
-    queue_query = {"_id": user_id}
-    # ATC: This mechanism requires finding the _id twice
+    queue_query = {"id": user_id}
+    # ATC: This mechanism requires finding the id twice
     # With indexing, this may not be a big problem
     # Alternative is trying to update and catching the pymongo.errors.OperationFailure exception
     id_exists = queue_collection.find(queue_query).count() > 0
@@ -130,7 +130,8 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     else:
         if fof == 'friends':
             queue_document ={
-                            "_id": user_id,
+                            "id": user_id,
+                            "id_str": str(user_id),
                             "profile_retrieved_at": 0,
                             "friends_retrieved_at": dt,
                             "followers_retrieved_at": 0,
@@ -139,7 +140,8 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
 
         elif fof == 'followers':
             queue_document ={
-                            "_id": user_id,
+                            "id": user_id,
+                            "id_str": str(user_id),
                             "profile_retrieved_at": 0,
                             "friends_retrieved_at": 0,
                             "followers_retrieved_at": dt,
@@ -153,7 +155,9 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     for id in reversed(IDS):
         # Insert the newly discovered id into the queue
         # insert will be rejected if _id exists
-        queue_document = {  "_id": id,
+        queue_document = {
+                            "id": id,
+                            "id_str": str(user_id),
                             "profile_retrieved_at": 0,
                             "friends_retrieved_at": 0,
                             "followers_retrieved_at": 0,
@@ -184,6 +188,8 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
             doc = {
              'id': source,
              'friend_id': sink,
+             'id_str': str(source),
+             'friend_id_str': str(sink),
              'following': 1,
              'record_retrieved_at': dt,
              "retrieved_by": drnjID
