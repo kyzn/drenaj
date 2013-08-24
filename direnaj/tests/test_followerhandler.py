@@ -1,7 +1,6 @@
 import pytest
 
 import tornado.testing
-from tornado.testing import AsyncHTTPTestCase
 
 import bson.json_util
 
@@ -9,26 +8,7 @@ print __package__
 
 from direnaj.config import *
 
-from direnaj.appstartup import application
-import direnaj.direnajinitdb
-
-def clear_db():
-    direnaj.direnajinitdb.restore_db('test', 'test', DB_TEST_VERSION)
-
-# Create your base Test class.
-# Put all of your testing methods here.
-class TestHandlerBase(AsyncHTTPTestCase):
-
-    def setUp(self):
-        # start('test')
-        clear_db()
-        super(TestHandlerBase, self).setUp()
-
-    def get_app(self):
-        return application      # this is the global app that we created above.
-
-    #def get_http_port(self):
-    #    return DIRENAJ_APP_PORT['test']
+from direnaj.tests.testhandlerbase import TestHandlerBase
 
 class TestBucketHandler(TestHandlerBase):
     def test_followers_ids_view(self):
@@ -47,7 +27,8 @@ class TestBucketHandler(TestHandlerBase):
         # http://localhost:9999/followers/ids/view?user_id=461494372
 
         # response:
-        expected_response_obj = bson.json_util.loads('''{
+        expected_response_obj = {
+                0.1: bson.json_util.loads('''{
                 "results": [
                     {
                         "friend_id_str": "461494372",
@@ -60,13 +41,15 @@ class TestBucketHandler(TestHandlerBase):
                             }
                         }
                     ]
-                }''')
+                }'''),
+                0.2: bson.json_util.loads('''{"results": [{"friend_id_str": "461494372", "retrieved_by": "dummy_data", "friend_id": 461494372, "record_retrieved_at": "Thu May 30 14:20:16 +0000 2013", "id_str": "461494341", "following": 1, "_id": {"$oid": "52178c306ea6256314e630ef"}, "id": 461494341}]}'''),
+                }
 
         print response.body
         obj = bson.json_util.loads(response.body)
 
         self.maxDiff = None
-        self.assertEqual(obj, expected_response_obj)
+        self.assertEqual(obj, expected_response_obj[DB_TEST_VERSION])
 
     def test_followers_list_view(self):
 
