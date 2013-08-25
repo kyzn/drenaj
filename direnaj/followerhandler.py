@@ -1,5 +1,5 @@
 from config import *
-from drnj_time import *
+import drnj_time
 
 from direnajmongomanager import *
 
