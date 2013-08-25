@@ -95,11 +95,6 @@ class FollowerHandler(tornado.web.RequestHandler):
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
             pass
 
-### Check this !!! TIME
-def now():
-    return py_time2drnj_time(time.time())
-
-
 def store_friends_or_followers(user_id, IDS, drnjID, fof):
     """Stores/updates list of direnaj user data using raw twitter data
 
@@ -112,7 +107,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     num_new_discovered_users = 0;
     num_edges_inserted = 0
 
-    dt = now()
+    dt = drnj_time.now_in_drnj_time()
     queue_query = {"id": user_id}
     # ATC: This mechanism requires finding the id twice
     # With indexing, this may not be a big problem
@@ -169,7 +164,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
         except pymongo.errors.OperationFailure as e:
             pass
 
-        dt = now()
+        dt = drnj_time.now_in_drnj_time()
         if fof == 'friends':
             source = user_id
             sink = id
