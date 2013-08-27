@@ -1,0 +1,389 @@
+#! /usr/bin/env python
+# -*- coding: iso-8859-1 -*-
+
+#
+# Copyright 2012 Onur Gungor <onurgu@boun.edu.tr>
+#
+
+from passwords import *
+
+import oauth2 as oauth
+
+import sys, threading, time, logging, datetime
+import pycurl
+
+import random
+
+import urllib
+
+import os, subprocess
+
+import pymongo
+
+# import jsonpickle
+import json
+
+#import psycopg2
+
+# local
+from config import *
+
+# We should ignore SIGPIPE when using pycurl.NOSIGNAL - see
+# the libcurl tutorial for more info.
+try:
+    import signal
+    from signal import SIGPIPE, SIG_IGN
+    signal.signal(signal.SIGPIPE, signal.SIG_IGN)
+except ImportError:
+    pass
+
+class StreamCatcher(threading.Thread):
+    def __init__(self, url, filename, postdata = {}, secrets = "", postgis_server = "", win=None):
+        # logging
+        # logging.basicConfig(file=LOGGING_DIR+"streamcatcher.log", level=logging.DEBUG )
+        # self.logger= logging.getLogger( __name__ )
+
+        # required for threads
+        super(StreamCatcher, self).__init__()
+
+        mongo_client = pymongo.MongoClient(mongo.hostname, mongo.port)
+
+        self.direnaj_db = mongo_client.direnaj_db
+
+        self.direnaj_db.tweets.ensure_index([('created_at', pymongo.DESCENDING)], background=True)
+        self.direnaj_db.hashtag_stats.daily.ensure_index([('updated_at', pymongo.DESCENDING)], background=True)
+        self.direnaj_db.hashtag_stats.monthly.ensure_index([('updated_at', pymongo.DESCENDING)], background=True)
+
+        self.prev_buf = ''
+
+        #        jsonpickle.set_preferred_backend('json')
+
+        self.ofile_index = 1
+        self.ofilenamebase = filename
+        self.last_filenamechange_time = time.time()
+
+        self.ofile = open(self.ofilenamebase + "." + str(self.ofile_index), "a+")
+        # self.ifile = open(filename, "r")
+
+        params = {
+                'oauth_version': "1.0",
+                'oauth_nonce': oauth.generate_nonce(),
+                'oauth_timestamp': int(time.time())
+        }
+
+        for key, value in postdata.items():
+                params[key] = value
+
+        token = oauth.Token(key=access_token_key, secret=access_token_secret)
+        consumer = oauth.Consumer(key=app_consumer_key, secret=app_consumer_secret)
+
+        # Set our token/key parameters
+        params['oauth_token'] = token.key
+        params['oauth_consumer_key'] = consumer.key
+
+        req = oauth.Request(method="POST", url=url, parameters=params, is_form_encoded=True)
+
+        # Sign the request.
+        signature_method = oauth.SignatureMethod_HMAC_SHA1()
+        req.sign_request(signature_method, consumer, token)
+
+        header = req.to_header(realm='Firehose')
+
+        #        self.ofile.write(header.__str__())
+
+        # set libcurl options
+        self.curl = pycurl.Curl()
+        self.curl.setopt(pycurl.URL, url)
+        # set to 0 for removing the header
+        # self.curl.setopt(pycurl.HEADER, 1)
+        self.curl.setopt(pycurl.HTTPHEADER, ['Authorization: ' + str(header['Authorization'])])
+        # self.curl.setopt(pycurl.WRITEDATA, self.ofile)
+        self.curl.setopt(pycurl.WRITEFUNCTION, self.writefunction)
+        self.curl.setopt(pycurl.FOLLOWLOCATION, 1)
+        self.curl.setopt(pycurl.MAXREDIRS, 5)
+        self.curl.setopt(pycurl.NOSIGNAL, 1)
+        self.curl.setopt(pycurl.NOPROGRESS, 0)
+        self.curl.setopt(pycurl.PROGRESSFUNCTION, self.progress)
+        if len(secrets) == 0:
+            self.curl.setopt(pycurl.USERPWD, "thbounsigmalab1:_integral")
+        else:
+            self.curl.setopt(pycurl.USERPWD, secrets)
+        if len(postdata) != 0:
+            self.curl.setopt(pycurl.POSTFIELDS, urllib.urlencode(postdata))
+
+        self.abortEvent = threading.Event()
+
+        self.download_list_win = win
+
+        # if postgis_server != "":
+        #     self.conn = psycopg2.connect(dbname="gis", user="ortaoyuncu", password="orta", host=postgis_server)
+        # else:
+        #     self.conn = None
+
+    def preallocate_hashtag_stats(self, dt_utc, hashtag):
+
+        # Get id values
+        id_daily = dt_utc.strftime('%Y%m%d/') + hashtag
+        id_monthly = dt_utc.strftime('%Y%m/') + hashtag
+
+        # Get daily metadata
+        daily_metadata = {
+             'date': datetime.combine(dt_utc.date(), time.min),
+             'hashtag': hashtag
+        }
+        # Get monthly metadata
+        monthly_metadata = {
+           'date': daily_metadata['date'].replace(day=1),
+           'hashtag': hashtag
+        }
+
+        # Initial zeros for statistics
+        hourly = dict((str(i), 0) for i in range(24))
+        minute = dict((str(i), dict((str(j), 0) for j in range(60))) for i in range(24))
+        daily = dict((str(i), 0) for i in range(1, 32))
+
+        # Perform upserts, setting metadata
+        self.direnaj_db.hashtag_stats.daily.update({
+           '_id': id_daily,
+           'hourly': hourly,
+           'minute': minute
+           },
+           { '$set': { 'metadata': daily_metadata }}, upsert=True)
+        self.direnaj_db.hashtag_stats.monthly.update({
+           '_id': id_monthly,
+           'daily': daily},
+           { '$set': { 'm': monthly_metadata }},
+        upsert=True)
+
+    def log_hashtag(self, dt_utc, hashtag):
+        # Update daily stats doc
+        id_daily = dt_utc.strftime('%Y%m%d/') + hashtag
+        hour = dt_utc.hour
+        minute = dt_utc.minute
+
+        # Get a datetime that only includes date info
+        d = datetime.datetime.combine(dt_utc.date(), datetime.time.min)
+        query = {
+               '_id': id_daily,
+            'metadata': { 'date': d, 'hashtag': hashtag} }
+        update = {
+                '$set': {
+                    'updated_at': dt_utc,
+                 },
+                    '$inc': {
+                          'hourly.%d' % (hour,): 1,
+                          'minute.%d.%d' % (hour,minute): 1 }
+                 }
+        self.direnaj_db.hashtag_stats.daily.update(query, update, upsert=True)
+
+        # Update monthly stats document
+        id_monthly = dt_utc.strftime('%Y%m/') + hashtag
+        day_of_month = dt_utc.day
+        query = {
+               '_id': id_monthly,
+               'metadata': {
+                   'date': d.replace(day=1),
+                   'hashtag': hashtag
+                }}
+        update = {
+                '$set': {
+                    'updated_at': d
+                },
+                '$inc': {
+                   'daily.%d' % day_of_month: 1}
+                 }
+        self.direnaj_db.hashtag_stats.monthly.update(query, update, upsert=True)
+
+    def log_hashtags(self, obj_list):
+
+        # convert single objects into a list for uniformity
+        if type(obj_list) != list:
+            obj_list = [obj_list]
+
+        hashtags = []
+        for obj in obj_list:
+            if len(obj['entities']['hashtags']) != 0:
+                for h in obj['entities']['hashtags']:
+                    hashtags.append([h['text'], obj['created_at']])
+                    print h['text'] + ' ' + str(obj['created_at'])
+
+        prob_preallocate = 1 / 1000
+
+        for (hashtag, dt_utc) in hashtags:
+            if random.random() < prob_preallocate:
+                self.preallocate_hashtag_stats(dt_utc + datetime,timedelta(days=1), hashtag)
+            self.log_hashtag(dt_utc, hashtag)
+
+    def datetime_hook(self, dct):
+        if 'created_at' in dct:
+            time_struct = time.strptime(dct['created_at'], "%a %b %d %H:%M:%S +0000 %Y") #Tue Apr 26 08:57:55 +0000 2011
+            dct['created_at'] = datetime.datetime.fromtimestamp(time.mktime(time_struct))
+            return dct
+        return dct
+
+    def writefunction(self, buf):
+
+        print buf
+        # mongo
+        self.prev_buf = self.prev_buf + buf
+
+        self.ofile.write(str(self.direnaj_db)+'\n')
+        self.ofile.write(str(self.direnaj_db.tweets))
+        self.ofile.flush()
+
+        if '\r\n' in self.prev_buf:
+           parts = self.prev_buf.split('\r\n')
+           if len(parts) > 1:
+               tmp = []
+               for p in parts[0:-1]:
+                   if len(p) > 0:
+                       obj = json.loads(p, object_hook=self.datetime_hook)
+                       tmp.append(obj)
+               if len(tmp) > 0:
+                   self.direnaj_db.tweets.insert(tmp)
+                   self.log_hashtags(tmp)
+               self.prev_buf = parts[-1]
+           else:
+               obj = json.loads(parts[0], object_hook=self.datetime_hook)
+               self.direnaj_db.tweets.insert(obj)
+               self.log_hashtags(obj)
+               self.prev_buf = ''
+
+        # end mongo
+
+        change_file = False
+        buffer_contains_crlf = False
+        tmp_time = time.time()
+        if (tmp_time - self.last_filenamechange_time) > 3600:
+            change_file = True
+            self.last_filenamechange_time = tmp_time
+            buffer_contains_crlf = '\r\n' in buf
+
+        if change_file and buffer_contains_crlf:
+            parts = buf.split('\r\n')
+            if len(parts) != 0:
+                self.ofile.write(parts[0]+'\r\n')
+            self.ofile.close()
+            tmp_filename = self.ofilenamebase + "." + str(self.ofile_index)
+            os.system("mv " + tmp_filename + " " + tmp_filename + ".done")
+            # if self.pushToGIS:
+            #     subprocess.Popen(["env" "MCP_TWITTER_ROOT="+ROOT_DIR, "python", "stats.py", "-P", tmp_filename + ".done", "results/coords-testing.csv"])
+            self.ofile_index += 1
+            self.ofile = open(self.ofilenamebase + "." + str(self.ofile_index), "a+")
+            self.ofile.write('\r\n'.join(parts[1:]))
+        else:
+            self.ofile.write(buf)
+
+
+    def run(self):
+        try:
+            self.curl.perform()
+            self.curl.close()
+            # self.logger.info( "Read %s", url )
+        except Exception, e:
+            # self.logger.exception( e )
+            # print e, repr(e), e.message, e.args
+            # callback aborted
+            if e[0] == 42:
+                print "callback aborted"
+                self.ofile.flush()
+                self.fixCaptureFile(self.ofile)
+                self.ofile.close()
+            # gnutls: a tls packet with unexpected size is received.
+            elif e[0] == 56:
+                print "tls packet with unexpected size"
+            else:
+                raise
+        sys.stdout.write(".")
+        sys.stdout.flush()
+        # logging.shutdown()
+
+    def progress(self, download_t, download_d, upload_t, upload_d):
+        if self.download_list_win == None:
+            return
+        self.download_list_win.clear()
+        if self.abortEvent.isSet():
+            self.download_list_win.addstr(0, 0, "Aborted")
+            self.download_list_win.refresh()
+            return -1
+        else:
+            self.download_list_win.addstr(0, 0, "D: %d" % download_d)
+            self.download_list_win.refresh()
+        # current_pos = self.ifile.tell()
+        # buf_data = ""
+        # readchar = self.ifile.read(2)
+        # while readchar != "":
+        #     buf_data += readchar
+        #     if readchar == '\r\n':
+        #         # process the tweet
+        #         self.process_tweet(buf_data)
+        #         # purge the buffer
+        #         buf_data = ""
+        #         # then record the new beginning
+        #         current_pos = self.ifile.tell()
+        #     readchar = self.ifile.read(2)
+        # self.ifile.seek(current_pos)
+
+    # def process_tweet(buf):
+    #     try:
+    #         tweet = jsonpickle.decode(line)
+    #     except ValueError, e:
+    #         print repr(e)
+    #     if tweet.has_key("delete") or tweet.has_key("scrub_geo") or tweet.has_key("limit"):
+    #         print "unimplemented data item"
+    #     else:
+    #         text = unicode(tweet["text"])
+    #         # print text
+    #         screen_name = tweet["user"]["screen_name"]
+    #         if tweet["user"].has_key("id_str"):
+    #             user_id = tweet["user"]["id_str"]
+    #             tweet_id = tweet["id_str"]
+    #         else:
+    #             user_id = str(tweet["user"]["id"])
+    #             tweet_id = str(tweet["id"])
+    #         tweet_w = time.strptime(tweet["created_at"], "%a %b %d %H:%M:%S +0000 %Y")
+
+
+    def join(self, timeout=None):
+        self.abortEvent.set()
+        super(StreamCatcher, self).join(timeout)
+
+    def fixCaptureFile(self, f):
+        i = 0
+        f.seek(i, 2)
+        endpos = f.tell()
+        # if the file is already empty
+        if endpos == 0:
+            return
+        pos = endpos
+        ch = f.read(1)
+        print "outside: " + ch
+        # twitter returns "\r\n" as the line end
+        #while int(ch, 16) != int("0x0d", 16):
+        while ch != '\r':
+            print "inside: "+str(ch)
+            i += 1
+            if (pos-i) >= 0:
+                f.seek(-1*i, 2)
+            else:
+                break
+            ch = f.read(1)
+        f.seek(-i+2, 2)
+        f.truncate()
+
+if __name__ == "__main__":
+
+    if len(sys.argv) > 1:
+        user_input = sys.argv[1]
+    else:
+        user_input = "türkiye"
+    threads = []
+# Start one thread per URI in parallel
+    t1 = time.time()
+    t = StreamCatcher("https://stream.twitter.com/1.1/statuses/filter.json", "test.txt.streamcatcher", {"track": user_input})
+    t.start()
+    threads.append(t)
+    for thread in threads:
+        thread.join()
+        t2 = time.time()
+        print "\n** Multithreading, %d seconds elapsed" % (int(t2-t1))
