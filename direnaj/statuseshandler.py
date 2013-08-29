@@ -31,7 +31,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                 retrieve all tweets.
         `store`
             - params:
-                - tweet_data: tweet data in json format.
+                - tweet_data: array of tweets in json format.
         `retweets`
             - params:
                 - tweet_id: `id` of the tweet that we want to
@@ -72,21 +72,21 @@ class StatusesHandler(tornado.web.RequestHandler):
             try:
                 tweet_data = self.get_argument('tweet_data')
                 if tweet_data:
-                    tweet_obj = bson.json_util.loads(tweet_data)
+                    tweet_array = bson.json_util.loads(tweet_data)
                     # TODO: Sanity check the data!
                     # For example, treat 'entities', 'user' specially.
-                    tmp = {
+                    tmp = [{
                         "tweet": tweet_obj,
                         # TODO: Replace this DB_TEST_VERSION with source code
                         # version later
                         "direnaj_service_version": DB_TEST_VERSION,
                         "retrieved_by": keywords['drnjID'],
                         "record_retrieved_at": drnj_time.now_in_drnj_time(),
-                    }
+                    } for tweet_obj in tweet_array]
                     tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
                     tweets_coll.insert(tmp)
                 else:
-                    tmp = {}
+                    tmp = []
 
                 self.write(bson.json_util.dumps({'results': tmp}))
                 self.add_header('Content-Type', 'application/json')
