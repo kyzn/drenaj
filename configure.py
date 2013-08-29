@@ -12,4 +12,4 @@ if __name__ == "__main__":
     conf = yaml.load(file(args.config_yaml_file, "r"))
     config_document_template = file("direnaj/config.py.tmpl", 'r').read()
     config_py_document = Template(config_document_template).substitute(conf)
-    file(args.config_py_file).write(config_py_document)
+    file(args.config_py_file, 'w').write(config_py_document)
