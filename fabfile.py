@@ -48,8 +48,18 @@ def setup_environment():
          prefix("workon direnaj"):
         with cd(code_dir):
             run("pip install -r env/env_requirements.txt")
+            run("python configure.py host-configs/config-integrator.yaml direnaj/config.py")
 
-#def run_server():
-#    with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
-#         prefix("workon direnaj"):
-#        with cd(code_dir):
+def run_server():
+    with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
+         prefix("workon direnaj"):
+        with cd(code_dir):
+            # make sure there is a logs dir.
+            run("mkdir -p logs")
+            with settings(warn_only=True):
+                result = run("test -S /tmp/supervisor.sock")
+            if result.failed:
+                with prefix("supervisord -c supervisord.conf"):
+                    run("supervisorctl -s unix:///tmp/supervisor.sock restart direnaj")
+            else:
+                run("supervisorctl -s unix:///tmp/supervisor.sock restart direnaj")
