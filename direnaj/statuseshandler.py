@@ -47,6 +47,8 @@ class StatusesHandler(tornado.web.RequestHandler):
 
         print action
 
+        verbose_response = self.get_argument('verbose', '')
+
         if (action == 'view'):
             try:
                 user_id = self.get_argument('user_id')
@@ -88,7 +90,10 @@ class StatusesHandler(tornado.web.RequestHandler):
                 else:
                     tmp = []
 
-                self.write(bson.json_util.dumps({'results': tmp}))
+                if verbose_response:
+                    self.write(bson.json_util.dumps({'results': tmp}))
+                else:
+                    self.write(bson.json_util.dumps({'results': 'ok'}))
                 self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
                 # TODO: implement logging.
