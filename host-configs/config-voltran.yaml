@@ -10,8 +10,8 @@ direnaj_app_host: 'voltran.cmpe.boun.edu.tr'
 # direnaj_app_host_development: 80
 
 # Obtain these from Twitter, see project wiki
-access_token_key: ""
-access_token_secret: ""
+access_token_key: "788884670-zi7wAqsq0AINNY6kNTVRw78eXt3PzNtIaJJQE5Lj"
+access_token_secret: "WNsG44DfKdbUEXwG5byFcskFcz2lZxvvYJtq59GM"
 
 auth_user_id: 'direnaj'
 auth_password: 'tamtam'
