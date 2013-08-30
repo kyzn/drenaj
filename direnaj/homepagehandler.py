@@ -28,9 +28,7 @@ class HomepageHandler(tornado.web.RequestHandler):
         {
             'tweet.text': 1,
             'tweet.user.screen_name': 1
-        }).sort({
-            '_id': -1
-        }).limit(10)
+        }).sort([('$natural', -1)]).limit(10)
 
         tmp = [x for x in cursor]
 
