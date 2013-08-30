@@ -5,11 +5,14 @@ from fabric.contrib.console import confirm
 #env.forward_agent = True
 #env.gateway = 'onur@lsn'
 
-env.hosts = ['direnaj@integrator']
+hostname = 'voltran'
+env.hosts = ['direnaj@%s' % hostname]
 
 env.use_ssh_config = True
 
 code_dir = '/home/direnaj/direnaj/envs/staging'
+repo_dir = '/home/direnaj/direnaj/repo'
+deployment_repo_remote_name = 'deployment_repo_%s' % hostname
 
 def test():
     with settings(warn_only=True):
@@ -17,23 +20,50 @@ def test():
     if result.failed and not confirm("Tests failed. Continue anyway?"):
         abort("Aborting at user request.")
 
+def setup_deployment_repo():
+
+    ensure_apt_package("git")
+
+    with settings(warn_only=True):
+        if run("test -d %s" % repo_dir).failed:
+            run("git init --bare %s" % repo_dir)
+    with settings(warn_only=True):
+        result = local("git remote | grep ^%s$" % deployment_repo_remote_name)
+        if result.failed:
+            local("git remote add %s direnaj@%s:%s" % (deployment_repo_remote_name, hostname, repo_dir))
+
 def push():
-    local("git push deployment_repo master")
+    local("git push %s master" % deployment_repo_remote_name)
 
 def prepare_deploy():
-    test()
+    #test()
+    setup_deployment_repo()
     push()
 
 def deploy():
     with settings(warn_only=True):
         if run("test -d %s" % code_dir).failed:
-            run("git clone /home/direnaj/direnaj/repo %s" % code_dir)
+            run("git clone %s %s" % (repo_dir, code_dir))
     with cd(code_dir):
         run("git pull")
+
+def ensure_apt_package(package_name):
+    with settings(warn_only=True):
+        result = run("dpkg-query -s %s" % package_name)
+    if result.failed:
+        run('DEBIAN_FRONTEND=noninteractive sudo apt-get -q --yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install %s' % package_name)
+        # run("sudo apt-get install python-pip")
 
 def setup_environment():
 
     # ensure pip is installed.
+    ensure_apt_package("python-pip")
+    # ensure python development headers and other files are installed.
+    ensure_apt_package("python-dev")
+    # ensure virtualenv is installed
+    run("sudo pip install virtualenv")
+    # ensure virtualenvwrapper is installed
+    run("sudo pip install virtualenvwrapper")
 
     virtualenv_dir = '/home/direnaj/.virtualenvs/direnaj/'
     with settings(warn_only=True):
@@ -42,13 +72,14 @@ def setup_environment():
         if result.failed:
             run("mkvirtualenv direnaj")
 
-    # ensure libcurl-dev is installed. it might be libcurl4-openssl-dev
+    # ensure libcurl-dev is installed. it might be libcurl4-gnutls-dev
+    ensure_apt_package("libcurl4-gnutls-dev")
 
     with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
          prefix("workon direnaj"):
         with cd(code_dir):
             run("pip install -r env/env_requirements.txt")
-            run("python configure.py host-configs/config-integrator.yaml direnaj/config.py")
+            run("python configure.py host-configs/config-%s.yaml direnaj/config.py" % hostname)
 
 def run_server():
     with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
