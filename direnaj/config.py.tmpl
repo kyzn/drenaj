@@ -22,9 +22,9 @@ DIRENAJ_DB['test'] = 'direnaj_test'
 
 DIRENAJ_APP_HOST = '${direnaj_app_host}'
 DIRENAJ_APP_PORT = {}
-DIRENAJ_APP_PORT['production'] = 9998
-DIRENAJ_APP_PORT['development'] = 9999
-DIRENAJ_APP_PORT['test'] = 10000
+DIRENAJ_APP_PORT['production'] = ${direnaj_app_host_production}
+DIRENAJ_APP_PORT['development'] = ${direnaj_app_host_development}
+DIRENAJ_APP_PORT['test'] = ${direnaj_app_host_test}
 
 ## Testing related
 DB_TEST_VERSION=0.2

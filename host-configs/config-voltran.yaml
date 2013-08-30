@@ -7,6 +7,8 @@ mongo_port: 27017
 direnaj_app_environment: 'development'
 direnaj_app_host: 'voltran.cmpe.boun.edu.tr'
 
+direnaj_app_host_development: 80
+
 # Obtain these from Twitter, see project wiki
 access_token_key: ""
 access_token_secret: ""

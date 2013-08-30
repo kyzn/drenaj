@@ -56,6 +56,18 @@ def ensure_apt_package(package_name):
 
 def setup_environment():
 
+    # ensure mongodb-10gen is installed
+    with settings(warn_only=True):
+        result = run("sudo apt-key export 7F0CEB10")
+    if "-----BEGIN PGP PUBLIC KEY BLOCK-----" not in result:
+        run("sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10")
+    with settings(warn_only=True):
+        result = run("test -f /etc/apt/sources.list.d/mongodb.list")
+    if result.failed:
+        run("su -c 'echo deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen > /etc/apt/sources.list.d/mongodb.list'")
+        run("sudo apt-get update")
+    ensure_apt_package("mongodb-10gen")
+
     # ensure pip is installed.
     ensure_apt_package("python-pip")
     # ensure python development headers and other files are installed.
@@ -82,6 +94,9 @@ def setup_environment():
             run("python configure.py host-configs/config-%s.yaml direnaj/config.py" % hostname)
 
 def run_server():
+    # ensure mongodb is running
+    # bla bla... maybe use supervisord is it possible?
+    # start the main direnaj process
     with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
          prefix("workon direnaj"):
         with cd(code_dir):
@@ -94,3 +109,15 @@ def run_server():
                     run("supervisorctl -s unix:///tmp/supervisor.sock restart direnaj")
             else:
                 run("supervisorctl -s unix:///tmp/supervisor.sock restart direnaj")
+
+def push_new_changes_deploy_and_restart():
+    prepare_deploy()
+    deploy()
+    setup_environment()
+    run_server()
+
+def tail_direnaj():
+    with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
+         prefix("workon direnaj"):
+        with cd(code_dir):
+            run("supervisorctl -s unix:///tmp/supervisor.sock tail direnaj")

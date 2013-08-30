@@ -1,0 +1,3 @@
+direnaj_app_host_production: 9998
+direnaj_app_host_development: 9999
+direnaj_app_host_test: 10000
