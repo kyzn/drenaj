@@ -17,6 +17,8 @@ import urllib
 import os
 import bson.json_util
 
+import requests
+
 # local
 from config import *
 
@@ -30,7 +32,7 @@ except ImportError:
     pass
 
 class StreamCatcher(threading.Thread):
-    def __init__(self, url = "", postdata = {}, keystore = KeyStore()):
+    def __init__(self, url = "", campaign_id="", postdata = {}, keystore = KeyStore()):
 
         # required for threads
         super(StreamCatcher, self).__init__()
@@ -94,6 +96,8 @@ class StreamCatcher(threading.Thread):
                             urllib.urlencode(postdata))
 
         self.abortEvent = threading.Event()
+        self.direnaj_store_url = 'http://'+DIRENAJ_APP_HOST+':'+str(DIRENAJ_APP_PORT[DIRENAJ_APP_ENVIRONMENT])+'/statuses/store'
+        self.campaign_id = campaign_id
 
     def command(self, command_name):
         if command_name == 'stop':
@@ -112,7 +116,7 @@ class StreamCatcher(threading.Thread):
         # mongo
         self.prev_buf = self.prev_buf + buf
 
-        import requests
+        params = {'campaign_id': self.campaign_id }
 
         if '\r\n' in self.prev_buf:
            parts = self.prev_buf.split('\r\n')
@@ -122,31 +126,30 @@ class StreamCatcher(threading.Thread):
                    if len(p) > 0:
                        # obj = json.loads(p, object_hook=self.datetime_hook)
                        tmp.append(bson.json_util.loads(p))
-               if len(tmp) > 0:
-                   direnaj_store_url = 'http://'+DIRENAJ_APP_HOST+':'+str(DIRENAJ_APP_PORT[DIRENAJ_APP_ENVIRONMENT])+'/statuses/store'
-                   params = {'tweet_data': bson.json_util.dumps(tmp)}
-                   params.update(self.direnaj_auth_secrets)
-
-                   print params
-                   response = requests.post(direnaj_store_url,
-                                            params=params)
-                   print response.content
                self.prev_buf = parts[-1]
            else:
-               obj = [bson.json_util.loads(parts[0])]
+               tmp = [bson.json_util.loads(parts[0])]
 
-               params = {'tweet_data': bson.json_util.dumps(obj)}
-               params.update(self.direnaj_auth_secrets)
-
-               print params
-               response = requests.post(direnaj_store_url,
-                                            params=params)
                self.prev_buf = ''
+           self.post_to_gateway(params, tmp)
 
         if self.abortEvent.wait(0.0001):
             # stop curl
             print "shutting down.."
             return 0
+
+    def post_to_gateway(self, params, tmp):
+
+        if not tmp:
+            return
+
+        params.update({'tweet_data': bson.json_util.dumps(tmp)})
+        params.update(self.direnaj_auth_secrets)
+
+        print params
+        response = requests.post(self.direnaj_store_url,
+                                params=params)
+        print response.content
 
     def run(self):
         try:
@@ -183,14 +186,19 @@ def stop_all_threads(signal, frame):
         t.command('stop')
     sys.exit(0)
 
-if __name__ == "__main__":
+import argparse
 
-    if len(sys.argv) > 1:
-        user_input = sys.argv[1]
-    else:
-        user_input = "türkiye"
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='streamercatcher')
+    parser.add_argument('campaign_id', help='campaign name')
+    parser.add_argument('keyword', default='türkiye', help='campaign name')
+    args = parser.parse_args()
+
+    campaign_id = args.campaign_id
+    user_input = args.keyword
 
     t = StreamCatcher(
+            campaign_id=campaign_id,
             postdata={"track": user_input})
     t.start()
     threads.append(t)
