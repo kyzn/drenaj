@@ -6,7 +6,7 @@ from tornado.httpserver import HTTPServer
 
 from homepagehandler import *
 from followerhandler import *
-from followerhandler import *
+from statuseshandler import *
 from schedulerMainHandler import SchedulerMainHandler
 from schedulerMainHandler import SchedulerReportHandler
 
