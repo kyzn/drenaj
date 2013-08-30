@@ -95,6 +95,10 @@ class StreamCatcher(threading.Thread):
 
         self.abortEvent = threading.Event()
 
+    def command(self, command_name):
+        if command_name == 'stop':
+            self.abortEvent.set()
+
     def datetime_hook(self, dct):
         if 'created_at' in dct:
             time_struct = time.strptime(dct['created_at'], "%a %b %d %H:%M:%S +0000 %Y") #Tue Apr 26 08:57:55 +0000 2011
@@ -139,6 +143,11 @@ class StreamCatcher(threading.Thread):
                                             params=params)
                self.prev_buf = ''
 
+        if self.abortEvent.wait(0.0001):
+            # stop curl
+            print "shutting down.."
+            return 0
+
     def run(self):
         try:
             self.curl.perform()
@@ -150,6 +159,8 @@ class StreamCatcher(threading.Thread):
             # gnutls: a tls packet with unexpected size is received.
             elif e[0] == 56:
                 print "tls packet with unexpected size"
+            elif e[0] == 23:
+                print "failed writing body (in fact this might be caused by simply calling self.command('stop')"
             else:
                 raise
         sys.stdout.write(".")
@@ -158,10 +169,19 @@ class StreamCatcher(threading.Thread):
     def progress(self, download_t, download_d, upload_t, upload_d):
         pass
 
-    def join(self, command='', timeout=None):
-        if command == 'stop':
-            self.abortEvent.set()
-            super(StreamCatcher, self).join(timeout)
+#    def join(self, command='', timeout=None):
+#        if command == 'stop':
+#            self.abortEvent.set()
+#            super(StreamCatcher, self).join(timeout)
+
+threads = []
+
+import signal
+def stop_all_threads(signal, frame):
+    print 'Stopping all threads'
+    for t in threads:
+        t.command('stop')
+    sys.exit(0)
 
 if __name__ == "__main__":
 
@@ -169,14 +189,11 @@ if __name__ == "__main__":
         user_input = sys.argv[1]
     else:
         user_input = "türkiye"
-    threads = []
-    # Start one thread per URI in parallel
-    t1 = time.time()
+
     t = StreamCatcher(
             postdata={"track": user_input})
     t.start()
     threads.append(t)
-    for thread in threads:
-        thread.join('stop')
-        t2 = time.time()
-        print "\n** Multithreading, %d seconds elapsed" % (int(t2-t1))
+
+    signal.signal(signal.SIGINT, stop_all_threads)
+    signal.pause()
