@@ -73,6 +73,7 @@ class StatusesHandler(tornado.web.RequestHandler):
         elif (action == 'store'):
             try:
                 tweet_data = self.get_argument('tweet_data')
+                campaign_id = self.get_argument('campaign_id', 'default')
                 if tweet_data:
                     tweet_array = bson.json_util.loads(tweet_data)
                     # TODO: Sanity check the data!
@@ -83,6 +84,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                         # version later
                         "direnaj_service_version": DB_TEST_VERSION,
                         "retrieved_by": keywords['drnjID'],
+                        "campaign_id": campaign_id,
                         "record_retrieved_at": drnj_time.now_in_drnj_time(),
                     } for tweet_obj in tweet_array]
                     tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
