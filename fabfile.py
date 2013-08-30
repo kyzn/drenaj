@@ -68,6 +68,9 @@ def setup_environment():
         run("sudo apt-get update")
     ensure_apt_package("mongodb-10gen")
 
+    # ensure nginx
+    ensure_nginx()
+
     # ensure pip is installed.
     ensure_apt_package("python-pip")
     # ensure python development headers and other files are installed.
@@ -92,6 +95,23 @@ def setup_environment():
         with cd(code_dir):
             run("pip install -r env/env_requirements.txt")
             run("python configure.py host-configs/config-%s.yaml direnaj/config.py" % hostname)
+
+    # TODO: think about db initialization. it's manual right now.
+
+def ensure_nginx():
+
+    with settings(warn_only=True):
+        result = run("test -f /etc/apt/sources.list.d/nginx.list")
+    if result.failed:
+        with cd('/tmp'):
+            run("wget http://nginx.org/keys/nginx_signing.key")
+            run("sudo apt-key add nginx_signing.key")
+            run("rm nginx_signing.key")
+            if result.failed:
+                run("su -c 'echo deb http://nginx.org/packages/debian/ wheezy nginx >> /etc/apt/sources.list.d/nginx.list'")
+                run("su -c 'echo deb-src http://nginx.org/packages/debian/ wheezy nginx >> /etc/apt/sources.list.d/nginx.list'")
+            run("sudo apt-get update")
+            run('DEBIAN_FRONTEND=noninteractive sudo apt-get -q --yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install %s' % "nginx")
 
 def run_server():
     # ensure mongodb is running
