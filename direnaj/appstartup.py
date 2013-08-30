@@ -19,7 +19,7 @@ routes_config = [
 application = tornado.web.Application(routes_config)
 
 def bind_server(environment):
-    http_server = HTTPServer(application)
+    http_server = HTTPServer(application, xheaders=True)
     http_server.listen(DIRENAJ_APP_PORT[environment])
 
 def start(environment):
