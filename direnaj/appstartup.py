@@ -4,12 +4,14 @@ import tornado.ioloop
 import tornado.web
 from tornado.httpserver import HTTPServer
 
+from homepagehandler import *
 from followerhandler import *
-from statuseshandler import *
+from followerhandler import *
 from schedulerMainHandler import SchedulerMainHandler
 from schedulerMainHandler import SchedulerReportHandler
 
 routes_config = [
+    (r"/", HomepageHandler),
     (r"/scheduler/suggestUseridToGet_(friends|followers)", SchedulerMainHandler),
     (r"/scheduler/reportProtectedUserid", SchedulerReportHandler),
     (r"/(friends|followers)/(ids|list)/?(store|view)?", FollowerHandler),
