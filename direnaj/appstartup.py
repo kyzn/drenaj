@@ -6,6 +6,8 @@ from tornado.httpserver import HTTPServer
 
 from followerhandler import *
 from statuseshandler import *
+from userhandler import *
+
 from schedulerMainHandler import SchedulerMainHandler
 from schedulerMainHandler import SchedulerReportHandler
 
@@ -14,6 +16,7 @@ routes_config = [
     (r"/scheduler/reportProtectedUserid", SchedulerReportHandler),
     (r"/(friends|followers)/(ids|list)/?(store|view)?", FollowerHandler),
     (r"/statuses/(store|view|filter|retweets)", StatusesHandler),
+    (r"/user/(store|view)", UserSingleProfileHandler),
 ]
 
 application = tornado.web.Application(routes_config)

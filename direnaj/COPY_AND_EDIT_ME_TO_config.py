@@ -7,6 +7,7 @@
 import os
 
 PROJECT_ROOT_DIR='/home/onur/Desktop/projects/research/projects/direnaj/repo'
+MONGO_BIN_DIR=
 
 # These are the default settings
 MONGO_HOST='localhost'
