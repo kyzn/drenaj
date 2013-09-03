@@ -1,3 +1,11 @@
+# This module contains the 
+#
+#  function generating valid document templates according to the the database schema
+#  new_<collection_name>_document()
+#
+#  (obsolete) db initialization code
+#
+
 from config import *
 
 import random
@@ -5,6 +13,88 @@ import random
 from direnajmongomanager import *
 from drnj_time import py_utc_time2drnj_time
 
+def drnj_doc(new_doc, data):
+    """
+ Copy the fields in data to the new document
+ Typical usage is 
+    drnj_doc(new_queue_document(), {"id": 23932})
+
+    - creates a database document with all fields and possible default values 
+    - and sets the field values from data
+
+    raises a NameError exception if data contains fields that do not exist in new_doc
+    """
+    for fn in data.iterkeys():
+        if new_doc.has_key(fn):
+            new_doc[fn] = data[fn]
+        else:
+            raise NameError('Target doc does not contain the field {}'.format(fn))
+    
+    return new_doc
+    
+def new_queue_document():
+    rec = {
+    "id": 0, 
+    "id_str": "0", 
+    "profile_retrieved_at": 0,
+    "friends_retrieved_at": 0,
+    "followers_retrieved_at": 0,
+    "protected": False,  
+    "retrieved_by": "",
+    "user_data": 0,             # Extra data relevant for the scheduling task
+    }
+    return rec
+
+# Add later?
+#    "known_followers_count": 0, # Number of discovered arcs from followers, already stored in direnaj graph
+#    "known_friends_count": 0,   # Number of discovered arcs to friends, already stored in direnaj graph
+    
+def new_profiles_document():
+    rec = {
+    "id": 0, 
+    "id_str": "0", 
+    "created_at": 0,
+    "protected": False,
+    "location": "",
+    "screen_name": "",
+    "name": "",
+    "followers_count": 0,
+    "friends_count": 0,
+    "statuses_count": 0,
+    "geo_enabled": 0,
+    "profile_image_url": "",
+    "record_retrieved_at": 0,
+    "retrieved_by": "",
+    }
+    return rec
+
+def new_profiles_history_document():
+    return new_profiles_record()
+    
+# Fill time with py_utc_time2drnj_time("Thu May 30 14:20:16 +0000 2013")
+def new_graph_document():
+    rec = {
+        "id": 0,
+        "id_str": "0",
+        "friend_id": 1,
+        "friend_id_str": "1",
+        "record_retrieved_at": 0,
+        "retrieved_by": "",
+        }
+    return rec
+       
+def new_graph_history_document():
+    rec = {
+        "id": 0,
+        "id_str": "0",
+        "friend_id": 1,
+        "friend_id_str": "1",
+        "following": 1, 
+        "record_retrieved_at": 0,
+        "retrieved_by": "",
+        }
+    return rec
+        
 graph_template = {
         "id": 461494325,
         "id_str": "461494325",
@@ -33,7 +123,10 @@ user_template = {
 
 def drop_all_collections(environment):
     mongo_client[DIRENAJ_DB[environment]]['graph'].drop()
-    mongo_client[DIRENAJ_DB[environment]]['users'].drop()
+    mongo_client[DIRENAJ_DB[environment]]['profiles'].drop()
+    mongo_client[DIRENAJ_DB[environment]]['profiles_history'].drop()
+    mongo_client[DIRENAJ_DB[environment]]['graph'].drop()
+    mongo_client[DIRENAJ_DB[environment]]['graph_history'].drop()
 
 def dump_db(environment, version):
     # TODO: make sure PROJECT_ROOT_DIR/db is there (in a portable way)

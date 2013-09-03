@@ -2,6 +2,7 @@ from config import *
 import drnj_time
 
 from direnajmongomanager import *
+from direnajinitdb import *
 
 import tornado.ioloop
 import tornado.web
@@ -28,10 +29,11 @@ class FollowerHandler(tornado.web.RequestHandler):
 
         (friends_or_followers, ids_or_list, store_or_view) = args
 
-        print friends_or_followers
-        print ids_or_list
-        print store_or_view
+        print "FollowerHandler: {} {} {}".format(friends_or_followers, ids_or_list, store_or_view)
 
+        auth_user_id = self.get_argument('auth_user_id')
+
+        
         if ((store_or_view != None and store_or_view == 'view') or (store_or_view == None)):
             try:
                 user_id = self.get_argument('user_id')
@@ -59,11 +61,11 @@ class FollowerHandler(tornado.web.RequestHandler):
                     if ids_or_list == 'ids':
                         tmp = [x for x in cursor]
                     elif ids_or_list == 'list':
-                        users_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['users']
+                        profiles_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles']
                         # We need to gather the list of 'opposite' side.
                         ids = [x[id_field_prefix_graph_query_opposite+'id_str'] for x in cursor]
                         print ids
-                        cursor = users_coll.find({'id_str': {'$in': ids}})
+                        cursor = profiles_coll.find({'id_str': {'$in': ids}})
                         tmp = [x for x in cursor]
                 self.write(bson.json_util.dumps({'results': tmp}))
                 self.add_header('Content-Type', 'application/json')
@@ -72,18 +74,13 @@ class FollowerHandler(tornado.web.RequestHandler):
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
         elif (store_or_view == 'store'):
             try:
+                # Check long int/str versions
                 user_id = int(self.get_argument('user_id'))
+                auth_user_id = self.get_argument('auth_user_id')
                 json_IDS = self.get_argument('ids', None)
                 IDS = json.loads(json_IDS)
 
-#                print "*******************"
-#                print user_id
-#                for i in IDS:
-#                    print i
-
-
-                #TODO: drnjID obtained from crawler authentication
-                ret = store_friends_or_followers(user_id, IDS, drnjID= 'dummy_for_now', fof=friends_or_followers)
+                ret = store_friends_or_followers(user_id, IDS, drnjID=auth_user_id, fof=friends_or_followers)
                 # Returns number of written edges (new relations discovered)
                 print "User ID: %d, among %s" % (user_id, friends_or_followers)
                 print ret
@@ -121,27 +118,30 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
                             "retrieved_by": drnjID}
                            }
         # creates entry if query does not exist
-        queue_collection.update(queue_query, queue_document, upsert=True)
+        # queue_collection.update(queue_query, queue_document, upsert=True)
+        
+        queue_collection.update(queue_query, queue_document)
+
     else:
         if fof == 'friends':
-            queue_document ={
+            queue_document = drnj_doc(new_queue_document(), {
                             "id": user_id,
                             "id_str": str(user_id),
                             "profile_retrieved_at": 0,
                             "friends_retrieved_at": dt,
                             "followers_retrieved_at": 0,
                             "retrieved_by": drnjID
-                            }
+                            })
 
         elif fof == 'followers':
-            queue_document ={
+            queue_document = drnj_doc(new_queue_document(),{
                             "id": user_id,
-                            "id_str": str(user_id),
+                            "id_str": str(id),
                             "profile_retrieved_at": 0,
                             "friends_retrieved_at": 0,
                             "followers_retrieved_at": dt,
                             "retrieved_by": drnjID
-                            }
+                            })
         queue_collection.insert(queue_document)
         num_new_discovered_users += 1
 
@@ -150,13 +150,13 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     for id in reversed(IDS):
         # Insert the newly discovered id into the queue
         # insert will be rejected if _id exists
-        queue_document = {
+        queue_document = drnj_doc(new_queue_document(),{
                             "id": id,
-                            "id_str": str(user_id),
+                            "id_str": str(id),
                             "profile_retrieved_at": 0,
                             "friends_retrieved_at": 0,
                             "followers_retrieved_at": 0,
-                            "retrieved_by": drnjID}
+                            "retrieved_by": drnjID})
 
         try:
             queue_collection.insert(queue_document)
@@ -174,23 +174,20 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
         else:
             return
 
-        # Find last entry of the relationship user_id->id  (user_id follows id)=>(id is a friend of user_id)
-        # This can be probably made more efficient by using .max() ..
-        cur = graph_collection.find({"id": source, "friend_id": sink}).sort('record_retrieved_at',-1).limit(1)
-
-        # if cur is empty or following is false insert edge and mark time
-        if cur.count()==0 or cur.next()["following"]==0:
-            doc = {
+        edge = graph_collection.find_one({"id": source, "friend_id": sink})
+        
+        if edge == None:
+            doc = drnj_doc(new_graph_document(),{
              'id': source,
              'friend_id': sink,
              'id_str': str(source),
              'friend_id_str': str(sink),
-             'following': 1,
              'record_retrieved_at': dt,
              "retrieved_by": drnjID
-            }
+            })
             graph_collection.insert(doc)
             num_edges_inserted += 1;
 
+    # TODO: Handle unfollows: Find edges that no longer exist and move old record to graph_history and add unfollow record 
 
     return {'num_new_users': num_new_discovered_users, 'num_new_edges': num_edges_inserted}

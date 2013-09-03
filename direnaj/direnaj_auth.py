@@ -40,7 +40,7 @@ def direnaj_simple_auth(f):
          def make_bound(self, instance):
              @wraps(self.f)
              def wrapper(*args, **kwargs):
-                 '''This documentation will disapear :)'''
+                 '''This documentation will disappear :)'''
                  #print "Called the decorated method {} of {}".format(self.f.__name__, instance)
 
                  passwd_sha1 = hashlib.sha1()

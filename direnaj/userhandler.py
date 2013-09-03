@@ -38,7 +38,7 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
 
         store_or_view = args[0]
 
-        print 'Enter: UserSingleProfileHandler. Command:', store_or_view
+        print 'UserSingleProfileHandler. Command:', store_or_view
 
         if ((store_or_view != None and store_or_view == 'view') or (store_or_view == None)):
             try:
@@ -51,19 +51,15 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
         elif (store_or_view == 'store'):
             try:
                 user_id = int(self.get_argument('user_id'))
+                auth_user_id = self.get_argument('auth_user_id')
                 #v = self.get_argument('v', None)
                 json_data = self.get_argument('v', None)
-                
-                # print json_data
                 v = json.loads(json_data)
 
+                ret = store_single_profile(user_id, v, drnjID=auth_user_id)
                 
-                #TODO: drnjID obtained from crawler authentication
-                ret = store_single_profile(user_id, v, drnjID= 'dummy_for_now')
-                
-                # Returns number of written edges (new relations discovered)
+                # Returns true when a new profile is discovered
                 print ret
-
                 self.write(json_encode(ret))
 
             except MissingArgumentError as e:
@@ -76,8 +72,6 @@ def store_single_profile(user_id, v, drnjID):
         
     """
     print "Received recent profile of ", v['name'], ' a.k.a. ', v['screen_name']
-    print 'Not implemented yet!'
-    print 'TODO: Save the profile to profiles, users and queue collections'
     
     db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
     queue_collection = db['queue']
@@ -144,4 +138,4 @@ def store_single_profile(user_id, v, drnjID):
     # Insert to users 
     users_collection.insert(users_dat)
 
-    return 0
+    return id_exists

@@ -21,6 +21,24 @@ from tornado.escape import json_encode
 environment = DIRENAJ_APP_ENVIRONMENT
 app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[environment])
 
+# TODO: Direnaj Login 
+# Create DirenjUser and Password the first time
+
+# These mongodb indices must be defined
+# > db.queue.ensureIndex({id: 1}, {unique: true})
+# > db.graph.ensureIndex({id: 1})
+# > db.profiles.ensureIndex({id: 1}, {unique: true})
+# > db.users.ensureIndex({id: 1})
+
+# also possible but not needed:
+# > db.queue.ensureIndex({id_str: 1}, {unique: true})
+
+#> db.graph.group({key : {id: 1}, cond: {id : {$gt: 221455715}}, reduce: function(curr, result) {result.total += 1}, initial: {total:0}}
+
+# For some reason, the following cannot be obtained from config.py
+auth_user_id = 'direnaj'
+auth_password = 'tamtam'
+
 def main(fof, root):
     twitter = Twython(consumer_key, consumer_secret, access_token_key, access_token_secret)
 
@@ -46,7 +64,8 @@ def main(fof, root):
         v = twitter.get('users/show', {"user_id": root})
         print v['screen_name'], v['name']
 
-        post_response = requests.post(url=app_root_url + '/user/store', data={"user_id": root, "v": json_encode(v)})
+        post_data = {"user_id": root, "v": json_encode(v), "auth_user_id": auth_user_id, "auth_password": auth_password}
+        post_response = requests.post(url=app_root_url + '/user/store', data=post_data)
 #       post_response = requests.post(url=app_root_url + '/user/store', data={"user_id": root, "v": v})
         
         
@@ -56,7 +75,8 @@ def main(fof, root):
         return 
     
     if v['protected']:
-        post_response = requests.post(url=app_root_url+'/scheduler/reportProtectedUserid', data={"user_id": root, "isProtected": 1})
+        post_data = {"user_id": root, "isProtected": 1, "auth_user_id": auth_user_id, "auth_password": auth_password}
+        post_response = requests.post(url=app_root_url+'/scheduler/reportProtectedUserid', data=post_data)
         print "Reported User as having a Protected Account %d" % root
         
     else:
@@ -93,10 +113,12 @@ def main(fof, root):
                 break
 
         if success:
-            post_response = requests.post(url=app_root_url + '/' + fof + '/ids/store', data={"user_id": root, "ids": json_encode(IDS)})
+            post_data = {"user_id": root, "ids": json_encode(IDS),"auth_user_id":auth_user_id, "auth_password": auth_password}
+            post_response = requests.post(url=app_root_url + '/' + fof + '/ids/store', data=post_data)
             print "%s" % post_response.content
         else:
-            post_response = requests.post(url=app_root_url+'/scheduler/reportProtectedUserid', data={"user_id": root, "isProtected": 1})
+            post_data = {"user_id": root, "isProtected": 1, "auth_user_id":auth_user_id, "auth_password": auth_password}
+            post_response = requests.post(url=app_root_url+'/scheduler/reportProtectedUserid', data=post_data)
             print "Reported User as having a Protected Account %d" % root
 
 
@@ -114,8 +136,6 @@ if __name__ == "__main__":
 
     if root==0:
         # Get from scheduler
-
-
         get_response = requests.get(url=app_root_url+'/scheduler/suggestUseridToGet_' + fof)
         root = int(get_response.content)
         if root==0:
@@ -127,7 +147,5 @@ if __name__ == "__main__":
             #root = 636874348; # Pinar Selek
             #root = 382081201; # Tolga Tuzun
             #root = 745174243; # Sarp Maden
-            
-        
     main(fof, root)
 
