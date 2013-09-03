@@ -12,6 +12,7 @@ import drnj_time
 
 from direnajmongomanager import *
 from drnj_time import *
+from direnajinitdb import *
 
 import tornado.ioloop
 import tornado.web
@@ -76,20 +77,14 @@ def store_single_profile(user_id, v, drnjID):
     db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
     queue_collection = db['queue']
     profiles_collection = db['profiles']
-    users_collection = db['users']
+    profiles_history_collection = db['profiles_history']
     
-    profile_dat = {
+   
+    
+    profile_dat = drnj_doc(new_profiles_document(), {
     "id": v['id'],
     "id_str": v['id_str'],
     "created_at": py_utc_time2drnj_time(v['created_at']),
-    "record_retrieved_at": now_in_drnj_time(),
-    "retrieved_by": drnjID
-    }
-    
-    
-    users_dat = {
-    "id": v['id'],
-    "id_str": v['id_str'],
     "protected": v['protected'],
     "location": v['location'],
     "screen_name": v['screen_name'],
@@ -101,10 +96,9 @@ def store_single_profile(user_id, v, drnjID):
     "profile_image_url": v['profile_image_url'],
     "record_retrieved_at": now_in_drnj_time(),
     "retrieved_by": drnjID
-    }
+    });
     
     print profile_dat
-    print users_dat
     
     # Check Queue 
     queue_query = {"id": user_id}
@@ -118,24 +112,24 @@ def store_single_profile(user_id, v, drnjID):
                             "retrieved_by": drnjID}
                            }
         # creates entry if query does not exist
-        queue_collection.update(queue_query, queue_document, upsert=True)
+        queue_collection.update(queue_query, queue_document)
     else:
-        queue_document ={
+        queue_document = drnj_doc(new_queue_document(),{
                             "id": user_id,
                             "id_str": str(user_id),
                             "profile_retrieved_at": dt,
                             "friends_retrieved_at": 0,
                             "followers_retrieved_at": 0,
                             "retrieved_by": drnjID
-                        }
+                        })
 
     # Insert to profiles 
-    profiles_query = {"id": user_id}
-    id_exists = profiles_collection.find(profiles_query).count() > 0
-    if not id_exists:
-        profiles_collection.insert(profile_dat)
     
-    # Insert to users 
-    users_collection.insert(users_dat)
+    profiles_query = {"id": user_id}
+    prof = profiles_collection.find_and_modify(profiles_query, remove=True)
+    if prof!=None:
+        profiles_history_collection.insert(prof)
+
+    profiles_collection.insert(profile_dat)
 
     return id_exists
