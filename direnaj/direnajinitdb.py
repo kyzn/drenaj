@@ -3,7 +3,7 @@
 #  function generating valid document templates according to the the database schema
 #  new_<collection_name>_document()
 #
-#  (obsolete) db initialization code
+#  db initialization code
 #
 
 from config import *
@@ -12,114 +12,7 @@ import random
 
 from direnajmongomanager import *
 from drnj_time import py_utc_time2drnj_time
-
-def drnj_doc(new_doc, data):
-    """
- Copy the fields in data to the new document
- Typical usage is 
-    drnj_doc(new_queue_document(), {"id": 23932})
-
-    - creates a database document with all fields and possible default values 
-    - and sets the field values from data
-
-    raises a NameError exception if data contains fields that do not exist in new_doc
-    """
-    for fn in data.iterkeys():
-        if new_doc.has_key(fn):
-            new_doc[fn] = data[fn]
-        else:
-            raise NameError('Target doc does not contain the field {}'.format(fn))
-    
-    return new_doc
-    
-def new_queue_document():
-    rec = {
-    "id": 0, 
-    "id_str": "0", 
-    "profile_retrieved_at": 0,
-    "friends_retrieved_at": 0,
-    "followers_retrieved_at": 0,
-    "protected": False,  
-    "retrieved_by": "",
-    "user_data": 0,             # Extra data relevant for the scheduling task
-    }
-    return rec
-
-# Add later?
-#    "known_followers_count": 0, # Number of discovered arcs from followers, already stored in direnaj graph
-#    "known_friends_count": 0,   # Number of discovered arcs to friends, already stored in direnaj graph
-    
-def new_profiles_document():
-    rec = {
-    "id": 0, 
-    "id_str": "0", 
-    "created_at": 0,
-    "protected": False,
-    "location": "",
-    "screen_name": "",
-    "name": "",
-    "followers_count": 0,
-    "friends_count": 0,
-    "statuses_count": 0,
-    "geo_enabled": 0,
-    "profile_image_url": "",
-    "record_retrieved_at": 0,
-    "retrieved_by": "",
-    }
-    return rec
-
-def new_profiles_history_document():
-    return new_profiles_record()
-    
-# Fill time with py_utc_time2drnj_time("Thu May 30 14:20:16 +0000 2013")
-def new_graph_document():
-    rec = {
-        "id": 0,
-        "id_str": "0",
-        "friend_id": 1,
-        "friend_id_str": "1",
-        "record_retrieved_at": 0,
-        "retrieved_by": "",
-        }
-    return rec
-       
-def new_graph_history_document():
-    rec = {
-        "id": 0,
-        "id_str": "0",
-        "friend_id": 1,
-        "friend_id_str": "1",
-        "following": 1, 
-        "record_retrieved_at": 0,
-        "retrieved_by": "",
-        }
-    return rec
         
-graph_template = {
-        "id": 461494325,
-        "id_str": "461494325",
-        "friend_id": 494494325,
-        "friend_id_str": "494494325",
-        "following": 1,
-        "record_retrieved_at": py_utc_time2drnj_time("Thu May 30 14:20:16 +0000 2013"),
-        "retrieved_by": 'dummy_data',
-        }
-
-user_template = {
-        "id": 461494325,
-        "id_str": "461494325",
-        "protected": False,
-        "location": "Istanbul",
-        "screen_name": "AliTaylanCemgil",
-        "name": "Ali Taylan Cemgil",
-        "followers_count": 155,
-        "friends_count": 68,
-        "statuses_count": 111,
-        "geo_enabled": 1,
-        "profile_image_url": "http:\/\/a0.twimg.com\/profile_images\/3580500548\/0e33ddc524",
-        "record_retrieved_at": py_utc_time2drnj_time("Thu May 30 14:20:16 +0000 2013"),
-        "retrieved_by": 'dummy_data',
-        }
 
 def drop_all_collections(environment):
     mongo_client[DIRENAJ_DB[environment]]['graph'].drop()
@@ -140,67 +33,3 @@ def restore_db(from_environment, to_environment, version):
     os.system('%s/mongorestore -h %s --port %s --db %s --drop %s/db/%s/%s'
             % (MONGO_BIN_DIR, MONGO_HOST, MONGO_PORT, DIRENAJ_DB[to_environment], PROJECT_ROOT_DIR, version, DIRENAJ_DB[from_environment]) )
 
-def init_graphs(**keywords):
-    payload = []
-
-    method = keywords['method']
-    environment = keywords['environment'] if 'environment' in keywords.keys() else 'test'
-
-    if method == 'randomly':
-        n_samples = 100
-        sample_count = 1
-        while sample_count < n_samples:
-            tmp = graph_template.copy()
-            tmp['id_str'] = str(int(tmp['id_str']) + random.randint(10,50))
-            tmp['id'] = int(tmp['id_str'])
-            tmp['friend_id_str'] = str(int(tmp['id_str']) + random.randint(10,50))
-            tmp['friend_id'] = int(tmp['friend_id_str'])
-            tmp['following'] = random.randint(0,1)
-
-            # insert both the id_str and friend_id_str in users collection.
-            user_clones = [user_template.copy() for i in range(0, 2)]
-            user_clones[0]['id_str'] = tmp['id_str']
-            user_clones[1]['id_str'] = tmp['friend_id_str']
-            user_clones[0]['id'] = tmp['id']
-            user_clones[1]['id'] = tmp['friend_id']
-            init_users(method='manual_input', input_array=user_clones)
-
-            payload.append(tmp)
-            sample_count += 1
-    else:
-        print 'NOT IMPLEMENTED YET'
-
-    graph_coll = mongo_client[DIRENAJ_DB[environment]]['graph']
-    graph_coll.insert(payload, w=1)
-    return
-
-def init_users(**keywords):
-    payload = []
-
-    method = keywords['method']
-    environment = keywords['environment'] if 'environment' in keywords.keys() else 'test'
-
-    id_str_list_for_query = []
-
-    if method == 'randomly':
-        n_samples = 100
-        sample_count = 1
-        while sample_count < n_samples:
-            tmp = user_template.copy()
-            tmp['id_str'] = str(int(tmp['id_str']) + random.randint(10,25))
-            tmp['id'] = int(tmp['id_str'])
-            id_str_list_for_query.append(tmp['id_str'])
-            payload.append(tmp)
-            sample_count += 1
-    elif method == 'manual_input':
-        id_str_list_for_query = [x['id_str'] for x in keywords['input_array']]
-        payload = keywords['input_array']
-    else:
-        print 'NOT IMPLEMENTED YET'
-
-    users_coll = mongo_client[DIRENAJ_DB[environment]]['users']
-    for idx, id_str in enumerate(id_str_list_for_query):
-        print idx
-        print id_str
-        users_coll.update({'id_str': id_str}, payload[idx], w=1, upsert=True)
-    return

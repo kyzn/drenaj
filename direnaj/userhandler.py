@@ -12,14 +12,13 @@ import drnj_time
 
 from direnajmongomanager import *
 from drnj_time import *
-from direnajinitdb import *
+from direnaj_collection_templates import *
 
 import tornado.ioloop
 import tornado.web
 
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
-
 from tornado.escape import json_decode,json_encode
 
 import json
@@ -98,7 +97,7 @@ def store_single_profile(user_id, v, drnjID):
     "retrieved_by": drnjID
     });
     
-    print profile_dat
+    # print profile_dat
     
     # Check Queue 
     queue_query = {"id": user_id}

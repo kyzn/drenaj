@@ -1,8 +1,21 @@
+''' 
+Stores Retrieved followers or friends of a user
+
+''' 
+
+# Change History :
+# Date                                          Prog    Note
+# Wed Aug 15 14:34:36 2013                      ATC     Created, Python 2.7.3
+
+# ATC = Ali Taylan Cemgil,
+# Department of Computer Engineering, Bogazici University
+# e-mail :  taylan.cemgil@boun.edu.tr
+
 from config import *
 import drnj_time
 
 from direnajmongomanager import *
-from direnajinitdb import *
+from direnaj_collection_templates import *
 
 import tornado.ioloop
 import tornado.web
