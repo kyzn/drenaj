@@ -108,7 +108,33 @@ class StatusesHandler(tornado.web.RequestHandler):
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
         elif (action == 'filter'):
-            self.write('not implemented yet')
+            try:
+                campaign_id = self.get_argument('campaign_id')
+                skip = self.get_argument('skip', 0)
+                limit = self.get_argument('limit', 100)
+
+                tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
+                cursor = tweets_coll.find({'campaign_id' : '%s' % campaign_id})\
+                           .skip(skip)\
+                           .limit(limit)
+                           # TODO: removing because of complaint:
+                           # TypeError: if no direction is specified, key_or_list must be an instance of list
+                           # .sort({"$natural" : 1})\
+                tmp = [x for x in cursor]
+                self.write(bson.json_util.dumps(
+                        {'results': tmp,
+                        # TODO: Replace this DB_TEST_VERSION with source code
+                        # version later
+                        "direnaj_service_version": DB_TEST_VERSION,
+                        "requested_by": keywords['drnjID'],
+                        "campaign_id": campaign_id,
+                        "served_at": drnj_time.now_in_drnj_time(),
+                         'skip': str(skip),
+                         'limit': str(limit)}))
+            except MissingArgumentError as e:
+                # TODO: implement logging.
+                raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
+            # db.tweets.find({'campaign_id' : 'syria'}).sort({$natural : 1}).skip(10).limit(14)
         else:
             # Tornado will make sure that this point will not be reached, if
             # it's regexp based router works correctly
