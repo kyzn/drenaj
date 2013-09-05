@@ -129,8 +129,8 @@ class StatusesHandler(tornado.web.RequestHandler):
                         "requested_by": keywords['drnjID'],
                         "campaign_id": campaign_id,
                         "served_at": drnj_time.now_in_drnj_time(),
-                         'skip': str(skip),
-                         'limit': str(limit)}))
+                         'skip': str(int(skip)),
+                         'limit': str(int(limit))}))
                 self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
                 # TODO: implement logging.
