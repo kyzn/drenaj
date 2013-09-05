@@ -115,8 +115,8 @@ class StatusesHandler(tornado.web.RequestHandler):
 
                 tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
                 cursor = tweets_coll.find({'campaign_id' : '%s' % campaign_id})\
-                           .skip(skip)\
-                           .limit(limit)
+                           .skip(int(skip))\
+                           .limit(int(limit))
                            # TODO: removing because of complaint:
                            # TypeError: if no direction is specified, key_or_list must be an instance of list
                            # .sort({"$natural" : 1})\
