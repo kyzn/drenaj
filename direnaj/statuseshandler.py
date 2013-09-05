@@ -131,6 +131,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                         "served_at": drnj_time.now_in_drnj_time(),
                          'skip': str(skip),
                          'limit': str(limit)}))
+                self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
