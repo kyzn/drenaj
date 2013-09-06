@@ -43,8 +43,34 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
         if ((store_or_view != None and store_or_view == 'view') or (store_or_view == None)):
             try:
                 user_id = self.get_argument('user_id')
+                auth_user_id = self.get_argument('auth_user_id')
                 print user_id
-                print "View Not implemented yet..."
+                profiles_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles']
+                profiles_history_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles_history']
+                
+                # if no user_id is supplied.
+                if user_id == '':
+                    # running the query
+                    cursor = profiles_coll.find()
+
+                    tmp = [x['id_str'] for x in cursor]
+                else:
+
+                    # running the query
+                    cursor = profiles_coll.find({
+                        'id_str': str(user_id),
+                    })
+
+                    tmp = [x for x in cursor]
+                    cursor = profiles_history_coll.find({
+                        'id_str': str(user_id),
+                    })
+                    tmp2 = [x for x in cursor]
+                    tmp = tmp + tmp2
+                    
+                self.write(bson.json_util.dumps({'results': tmp}))
+                self.add_header('Content-Type', 'application/json')
+                
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
