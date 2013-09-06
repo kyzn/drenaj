@@ -71,6 +71,9 @@ def setup_environment():
     # ensure nginx
     ensure_nginx()
 
+    # ensure rabbitmq
+    ensure_rabbitmq()
+
     # ensure pip is installed.
     ensure_apt_package("python-pip")
     # ensure python development headers and other files are installed.
@@ -98,6 +101,20 @@ def setup_environment():
 
     # TODO: think about db initialization. it's manual right now.
 
+def ensure_rabbitmq():
+
+    with settings(warn_only=True):
+        result = run("test -f /etc/apt/sources.list.d/rabbitmq.list")
+    if result.failed:
+        with cd('/tmp'):
+            run("wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc")
+            run("sudo apt-key add rabbitmq-signing-key-public.asc")
+            run("rm rabbitmq-signing-key-public.asc")
+            if result.failed:
+                run("su -c 'echo deb http://www.rabbitmq.com/debian/ testing main  >> /etc/apt/sources.list.d/rabbitmq.list'")
+            run("sudo apt-get update")
+            run('DEBIAN_FRONTEND=noninteractive sudo apt-get -q --yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install %s' % "rabbitmq-server")
+
 def ensure_nginx():
 
     with settings(warn_only=True):
@@ -113,8 +130,14 @@ def ensure_nginx():
             run("sudo apt-get update")
             run('DEBIAN_FRONTEND=noninteractive sudo apt-get -q --yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install %s' % "nginx")
 
+    # TODO: not well thought for now.
+    #with cd(code_dir):
+    #    put("host-configs/nginx/direnaj.conf", "/etc/nginx/conf.d/direnaj.conf")
+
 def run_server():
     # ensure mongodb is running
+    # ensure nginx is running
+    # ensure rabbitmq is running
     # bla bla... maybe use supervisord is it possible?
     # start the main direnaj process
     with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
