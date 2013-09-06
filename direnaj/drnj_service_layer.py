@@ -30,7 +30,8 @@ if __name__ == "__main__":
                 print "AGAIN: Are you sure? (y/n)"
                 answer = raw_input().strip()
                 if answer == 'y':
-                    direnajinitdb.restore_db('test', DIRENAJ_APP_ENVIRONMENT, DB_TEST_VERSION)
+#                   direnajinitdb.restore_db('test', DIRENAJ_APP_ENVIRONMENT, DB_TEST_VERSION)
+                    direnajinitdb.drop_all_collections(DIRENAJ_APP_ENVIRONMENT)
         else:
             print "WARNING WARNING WARNING: all collections will be RESET!"
             print "Are you sure? (y/n)"

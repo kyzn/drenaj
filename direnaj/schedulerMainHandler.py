@@ -32,7 +32,7 @@ class SchedulerMainHandler(tornado.web.RequestHandler):
             #print c
 
         idx = random.randint(0, N-1)
-        # TODO: look here again.
+        # TODO: Needs redesign, current strategy too naive
         if len(a) == 0:
             self.write(json_encode(0))
             print "Suggest ToGet %s : User %d " % (friends_or_followers, 0)
@@ -52,7 +52,7 @@ class SchedulerReportHandler(tornado.web.RequestHandler):
         user_id = int(self.get_argument('user_id'))
         isProtected = int(self.get_argument('isProtected'))
 
-        print "Proteced or Missing user detected: %d" % int(user_id)
+        print "Protected or Disabled Twitter user account: %d" % int(user_id)
 
         db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
         queue_collection = db['queue']

@@ -1,22 +1,9 @@
 from config import *
+from direnaj_routes_config import routes_config
 
 import tornado.ioloop
 import tornado.web
 from tornado.httpserver import HTTPServer
-
-from homepagehandler import *
-from followerhandler import *
-from statuseshandler import *
-from schedulerMainHandler import SchedulerMainHandler
-from schedulerMainHandler import SchedulerReportHandler
-
-routes_config = [
-    (r"/", HomepageHandler),
-    (r"/scheduler/suggestUseridToGet_(friends|followers)", SchedulerMainHandler),
-    (r"/scheduler/reportProtectedUserid", SchedulerReportHandler),
-    (r"/(friends|followers)/(ids|list)/?(store|view)?", FollowerHandler),
-    (r"/statuses/(store|view|filter|retweets)", StatusesHandler),
-]
 
 application = tornado.web.Application(routes_config)
 
