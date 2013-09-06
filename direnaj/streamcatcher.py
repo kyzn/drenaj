@@ -131,6 +131,10 @@ class StreamCatcher(threading.Thread):
                tmp = [bson.json_util.loads(parts[0])]
 
                self.prev_buf = ''
+           # TODO: check for this.
+           # When Twitter closes connection on itself, i.e. another streaming api connection is made with the same credentials, the response is like this:
+           # {"disconnect":{"code":7,"stream_name":"thbounsigmalab1-statuses227378","reason":"admin logout"}}
+
            self.post_to_gateway(params, tmp)
 
         if self.abortEvent.wait(0.0001):
@@ -147,6 +151,7 @@ class StreamCatcher(threading.Thread):
         params.update(self.direnaj_auth_secrets)
 
         print params
+        # TODO: here, error no 111 connection refused exception must be try-catched.
         response = requests.post(self.direnaj_store_url,
                                 params=params)
         print response.content
