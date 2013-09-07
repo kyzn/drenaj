@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>Direnaj!</title>
+</head>
+<body>
+    <h1>{{ len }} Most Recently Retrieved User Profiles</h1>
+    <table border="1">
+    <th> id_str</th>
+    <th> screen_name </th>
+    <th></th>
+    <th> name </th>
+    <th> followers_count </th>
+    <th> friends_count </th>
+    <th> user.statuses_count </th>
+    {% for user in profiles %}
+  <tr>
+    <th>{{ user.id_str}}</th>
+    <th>{{user.screen_name}}</th>
+    <th><img src="{{ user.profile_image_url }}" height="64" width="64"></th>
+    <th>{{ user.name}}</th>
+    <th>{{ user.followers_count}}</th>
+    <th>{{ user.friends_count}}</th>
+    <th>{{ user.statuses_count}}</th>
+  </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>
