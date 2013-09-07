@@ -24,6 +24,8 @@ from tornado.escape import json_decode,json_encode
 import json
 import time
 
+from jinja2 import Environment, FileSystemLoader
+
 import bson.json_util
 
 class UserSingleProfileHandler(tornado.web.RequestHandler):
@@ -42,18 +44,26 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
 
         if ((store_or_view != None and store_or_view == 'view') or (store_or_view == None)):
             try:
-                user_id = self.get_argument('user_id')
+                user_id = self.get_argument('user_id', None)
                 auth_user_id = self.get_argument('auth_user_id')
                 print user_id
                 profiles_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles']
                 profiles_history_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles_history']
                 
                 # if no user_id is supplied.
-                if user_id == '':
+                if user_id is None:
                     # running the query
-                    cursor = profiles_coll.find()
+                    lim_count = 20
+                    cursor = profiles_coll.find().sort('record_retrieved_at', -1).limit(lim_count)
 
-                    tmp = [x['id_str'] for x in cursor]
+                    tmp = [x for x in cursor]
+                    
+                    env = Environment(loader=FileSystemLoader('templates'))
+
+                    template = env.get_template('direnaj_user_view_template01.html')
+                    result = template.render(profiles=tmp, len=lim_count)
+                    self.write(result)
+                    
                 else:
 
                     # running the query
@@ -67,9 +77,11 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
                     })
                     tmp2 = [x for x in cursor]
                     tmp = tmp + tmp2
+
+                    self.write(bson.json_util.dumps({'results': tmp}))
+                    self.add_header('Content-Type', 'application/json')
                     
-                self.write(bson.json_util.dumps({'results': tmp}))
-                self.add_header('Content-Type', 'application/json')
+                   
                 
             except MissingArgumentError as e:
                 # TODO: implement logging.
