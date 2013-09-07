@@ -6,11 +6,13 @@ from fabric.contrib.console import confirm
 #env.gateway = 'onur@lsn'
 
 hostname = 'voltran'
+environment = 'staging'
+
 env.hosts = ['direnaj@%s' % hostname]
 
 env.use_ssh_config = True
 
-code_dir = '/home/direnaj/direnaj/envs/staging'
+code_dir = '/home/direnaj/direnaj/envs/%s' % environment
 repo_dir = '/home/direnaj/direnaj/repo'
 deployment_repo_remote_name = 'deployment_repo_%s' % hostname
 
@@ -97,7 +99,7 @@ def setup_environment():
          prefix("workon direnaj"):
         with cd(code_dir):
             run("pip install -r env/env_requirements.txt")
-            run("python configure.py host-configs/config-%s.yaml direnaj/config.py" % hostname)
+            run("python configure.py host-configs/config-%s-%s.yaml direnaj/config.py" % (hostname, environment))
 
     # TODO: think about db initialization. it's manual right now.
 

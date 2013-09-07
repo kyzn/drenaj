@@ -4,6 +4,7 @@ mongo_bin_dir: '/usr/bin'
 mongo_host: 'localhost'
 mongo_port: 27017
 
+# TODO: must change this to staging and host to direnaj-staging.cmpe.boun.edu.tr
 direnaj_app_environment: 'development'
 direnaj_app_host: 'voltran.cmpe.boun.edu.tr'
 
