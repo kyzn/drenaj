@@ -10,6 +10,37 @@ import random
 from tornado.escape import json_decode,json_encode
 from direnaj_auth import direnaj_simple_auth
 
+class SchedulerProfilesHandler(tornado.web.RequestHandler):
+    def get(self, *args):
+
+        (num) = args
+
+        db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
+        queue_collection = db['queue']
+
+        print num
+        #if N>100:
+        N = 100
+        # TODO: Needs redesign, current strategy too naive
+
+        cur = queue_collection.find({"protected": False}).sort('profile_retrieved_at',1).limit(N)
+
+        a = []
+        for c in cur:
+            a.append(c["id_str"])
+            #print c
+
+#        idx = random.randint(0, N-1)
+        if len(a) == 0:
+            self.write(json_encode(0))
+        else:
+            self.write(json_encode(a))
+            print a
+
+    def post(self, *args):
+        self.write("Not Implemented")
+
+
 class SchedulerMainHandler(tornado.web.RequestHandler):
     def get(self, *args):
 
@@ -53,17 +84,17 @@ class SchedulerReportHandler(tornado.web.RequestHandler):
         isProtected = int(self.get_argument('isProtected'))
 
         print "Protected or Disabled Twitter user account: %d" % int(user_id)
+        markProtected(user_id, isProtected, kwargs["drnjID"])
 
-        db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
-        queue_collection = db['queue']
+def markProtected(user_id, isProtected, drnjID):
+    db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
+    queue_collection = db['queue']
 
-        queue_query = {"id": user_id}
-        queue_document = {"$set":
+    queue_query = {"id": int(user_id)}
+    queue_document = {"$set":
                           {
                               "protected" : bool(isProtected),
-                              "retrieved_by": kwargs["drnjID"]}
+                              "retrieved_by": drnjID}
                          }
-
-        queue_collection.update(queue_query, queue_document, upsert=True)
-
-
+    # print queue_query, queue_document
+    queue_collection.update(queue_query, queue_document, upsert=True)

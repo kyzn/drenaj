@@ -24,8 +24,9 @@ def drnj_doc(new_doc, data):
 
     - creates a database document with all fields and possible default values 
     - and sets the field values from data
+    - some fields in the new document may not be set 
 
-    raises a NameError exception if data contains fields that do not exist in new_doc
+    raises a NameError exception if <data> contains fields that do not exist in <new_doc>
     """
     for fn in data.iterkeys():
         if new_doc.has_key(fn):
@@ -34,6 +35,26 @@ def drnj_doc(new_doc, data):
             raise NameError('Target doc does not contain the field {}'.format(fn))
     
     return new_doc
+
+def drnj_copy2doc(new_doc, data):
+    """
+ Tries to set all the fields in new_doc from data 
+ Typical usage is 
+    drnj_copy2doc(new_queue_document(), {"id": 23932})
+
+    - creates a database document with all fields and possible default values 
+    - and sets the field values from data
+
+    """
+    for fn in new_doc.iterkeys():
+        if data.has_key(fn):
+            new_doc[fn] = data[fn]
+        else:
+            pass
+            # print 'Target doc does not contain the field {}'.format(fn)
+    
+    return new_doc
+    
     
 def new_queue_document():
     rec = {

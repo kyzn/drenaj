@@ -39,7 +39,7 @@ app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[environ
 auth_user_id = 'direnaj'
 auth_password = 'tamtam'
 
-def main(fof, root):
+def drnj_graph_crawler(fof, root):
     twitter = Twython(consumer_key, consumer_secret, access_token_key, access_token_secret)
 
     cur = -1L
@@ -77,7 +77,7 @@ def main(fof, root):
     if v['protected']:
         post_data = {"user_id": root, "isProtected": 1, "auth_user_id": auth_user_id, "auth_password": auth_password}
         post_response = requests.post(url=app_root_url+'/scheduler/reportProtectedUserid', data=post_data)
-        print "Reported User as having a Protected Account %d" % root
+        print "Reported User %d as having a Protected Account" % root
         
     else:
         print "Retrieving %s of user %d\n" % (fof, root)
@@ -147,5 +147,6 @@ if __name__ == "__main__":
             #root = 636874348; # Pinar Selek
             #root = 382081201; # Tolga Tuzun
             #root = 745174243; # Sarp Maden
-    main(fof, root)
+
+    drnj_graph_crawler(fof, root)
 
