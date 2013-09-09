@@ -1,4 +1,4 @@
-# UserHandlers:  Code for retrieving and showing Profiles
+# UserHandlers:  Code for retrieving, storing and showing Profiles
 #
 # Date			Time		Prog	Note
 # 31-Aug-2013	 2:18 AM	ATC		
@@ -6,6 +6,9 @@
 # ATC = Ali Taylan Cemgil,
 # Department of Computer Engineering, Bogazici University
 # e-mail :  taylan.cemgil@boun.edu.tr 
+
+# TODO: Having separate code for a single and multiple profiles is not necessary
+# store_*_profile functions can be merged
 
 from config import *
 import drnj_time
@@ -31,6 +34,7 @@ import bson.json_util
 
 app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[DIRENAJ_APP_ENVIRONMENT])
 
+MAX_LIM_TO_VIEW_PROFILES = 10000
 
 class UserProfilesHandler(tornado.web.RequestHandler):
     def get(self, *args):
@@ -38,8 +42,11 @@ class UserProfilesHandler(tornado.web.RequestHandler):
         #self.write("not implemented yet")
 
     def post(self, *args):
-        """ I chose to handle all options at once, using only POST requests
+        """ 
+                
+        Note: OG: I chose to handle all options at once, using only POST requests
         for API requests. GET requests will be used for browser examination.
+        
         """
 
         store_or_view = args[0]
@@ -64,8 +71,8 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                     else:
                         lim_count = int(lim_count)
                         
-                    if lim_count>10000:
-                        lim_count = 10000
+                    if lim_count>MAX_LIM_TO_VIEW_PROFILES:
+                        lim_count = MAX_LIM_TO_VIEW_PROFILES
                     cursor = profiles_coll.find().sort('record_retrieved_at', -1).limit(lim_count)
 
                     #tmp = [x for x in cursor]
@@ -97,7 +104,6 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 json_user_id = self.get_argument('user_id')
                 ids = json.loads(json_user_id)
                 auth_user_id = self.get_argument('auth_user_id')
-                #v = self.get_argument('v', None)
                 json_data = self.get_argument('v', None)
                 S = json.loads(json_data)
 
@@ -205,15 +211,7 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
                 
                 # if no user_id is supplied.
                 if user_id is None:
-                    # THIS service should be moved to users/view
-                    # running the query
-                    if lim_count is None:
-                        lim_count = 20
-                    else:
-                        lim_count = int(lim_count)
-                        
-                    if lim_count>200:
-                        lim_count = 200
+                    lim_count = 1
                     cursor = profiles_coll.find().sort('record_retrieved_at', -1).limit(lim_count)
 
                     #tmp = [x for x in cursor]
@@ -241,16 +239,17 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
                     tmp = []
                     for x in cursor:
                         x['ctime'] = time.ctime(drnj_time2py_time(x['record_retrieved_at']))
+                        x['created_at_ctime'] = time.ctime(drnj_time2py_time(x['created_at']))
                         tmp.append(x)
                     
                     cursor = profiles_history_coll.find({
-                        'id_str': str(user_id),
+                        'id': user_id,
                     }).sort('record_retrieved_at', -1)
                     
                     for x in cursor:
                         x['ctime'] = time.ctime(drnj_time2py_time(x['record_retrieved_at']))
+                        x['created_at_ctime'] = time.ctime(drnj_time2py_time(x['created_at']))
                         tmp.append(x)
-
 
                     env = Environment(loader=FileSystemLoader('templates'))
 
@@ -260,9 +259,6 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
 
 #                    self.write(bson.json_util.dumps({'results': tmp}))
 #                    self.add_header('Content-Type', 'application/json')
-                    
-                   
-                
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)

@@ -91,20 +91,19 @@ def drnj_profiles_crawler(ids):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Direnaj Profiles Crawler')
-    parser.add_argument('-u', '--user_id', help='user id', type=int, default=0)
+    parser.add_argument('-u', '--user_id', help='user id', type=str, default="[]")
+    parser.add_argument('-N', '--iteration', help='number of requests of 100 users each', type=int, default=1)
     args = parser.parse_args()
 
-    root = int(args.user_id)
-#    if fof is None:
-#        fof = "followers"
-#        #fof = "friends"
+    root = eval(args.user_id)
+    N = int(args.iteration)
 
-    if root==0:
-        # Get from scheduler
-        get_response = requests.get(url=app_root_url+'/scheduler/suggestUseridToGet_profiles')
-        root = json_decode(get_response.content)
-        if root==0:
-            ids = ['505670972', '745174243', '461494325', '636874348']
+    if len(root)==0:
+        for i in range(N):
+            # Get from scheduler
+            get_response = requests.get(url=app_root_url+'/scheduler/suggestUseridToGet_profiles')
+            ids = json_decode(get_response.content)
+            # ids = ['505670972', '745174243', '461494325', '636874348']
             #root = 50354388; # koray
             #root = 461494325; # Taylan
             #root = 505670972; # Cem Say
@@ -113,9 +112,9 @@ if __name__ == "__main__":
             #root = 636874348; # Pinar Selek
             #root = 382081201; # Tolga Tuzun
             #root = 745174243; # Sarp Maden
-        else:
-            ids = root
+            drnj_profiles_crawler(ids)
+
     else:
-        ids = [str(root)]
-    
-    drnj_profiles_crawler(ids)
+        ids = [str(x) for x in root]
+        drnj_profiles_crawler(ids)
+

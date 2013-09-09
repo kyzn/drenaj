@@ -13,6 +13,7 @@
     <th> friends_count </th>
     <th> followers_count </th>
     <th> statuses_count </th>
+    <th> created_at </th>
     <th> record_retrieved_at </th>
     {% for user in profiles %}
     
@@ -28,6 +29,7 @@
     <th>{{ user.friends_count}}</th>
     <th>{{ user.followers_count}}</th>
     <th>{{ user.statuses_count}}</th>
+    <th>{{ user.created_at_ctime}}</th>
     <th>{{ user.ctime }}</th>
   </tr>
     {% endfor %}
