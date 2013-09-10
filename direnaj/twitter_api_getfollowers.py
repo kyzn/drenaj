@@ -39,7 +39,7 @@ app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[environ
 auth_user_id = 'direnaj'
 auth_password = 'tamtam'
 
-def main(fof, root):
+def drnj_graph_crawler(fof, root):
     twitter = Twython(consumer_key, consumer_secret, access_token_key, access_token_secret)
 
     cur = -1L
@@ -55,7 +55,7 @@ def main(fof, root):
     success = True
     
     # Seconds to wait before trying again twitter limit
-    wait = 60;
+    wait = 120;
 
     print "Retrieving the recent profile of user %d\n" % root
     
@@ -77,7 +77,7 @@ def main(fof, root):
     if v['protected']:
         post_data = {"user_id": root, "isProtected": 1, "auth_user_id": auth_user_id, "auth_password": auth_password}
         post_response = requests.post(url=app_root_url+'/scheduler/reportProtectedUserid', data=post_data)
-        print "Reported User as having a Protected Account %d" % root
+        print "Reported User %d as having a Protected Account" % root
         
     else:
         print "Retrieving %s of user %d\n" % (fof, root)
@@ -126,26 +126,31 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Direnaj Friends/Followers Crawler')
     parser.add_argument('-f', '--fof', choices=["friends", "followers"], help='("friends"|"followers")', default="followers")
     parser.add_argument('-u', '--user_id', help='the user id', type=int, default=0)
+    parser.add_argument('-N', '--iteration', help='number of requests', type=int, default=1)
+
     args = parser.parse_args()
 
     fof = args.fof
     root = int(args.user_id)
-#    if fof is None:
-#        fof = "followers"
-#        #fof = "friends"
-
+    N = int(args.iteration)
+    
     if root==0:
-        # Get from scheduler
-        get_response = requests.get(url=app_root_url+'/scheduler/suggestUseridToGet_' + fof)
-        root = int(get_response.content)
-        if root==0:
-            #root = 50354388; # koray
-            root = 461494325; # Taylan
-            #root = 505670972; # Cem Say
-            #root = 483121138; # meltem
-            #root = 230412751; # Cengiz
-            #root = 636874348; # Pinar Selek
-            #root = 382081201; # Tolga Tuzun
-            #root = 745174243; # Sarp Maden
-    main(fof, root)
-
+        for i in range(N):
+            print i
+            # Get from scheduler
+            get_response = requests.get(url=app_root_url+'/scheduler/suggestUseridToGet_' + fof)
+            root = int(get_response.content)
+            if root==0:
+                #root = 50354388; # koray
+                root = 461494325; # Taylan
+                #root = 505670972; # Cem Say
+                #root = 483121138; # meltem
+                #root = 230412751; # Cengiz
+                #root = 636874348; # Pinar Selek
+                #root = 382081201; # Tolga Tuzun
+                #root = 745174243; # Sarp Maden
+            drnj_graph_crawler(fof, root)
+    else:
+        print "Ignoring N"
+        drnj_graph_crawler(fof, root)
+            
