@@ -1,3 +1,10 @@
-direnaj_app_host_production: 9998
-direnaj_app_host_development: 9999
-direnaj_app_host_test: 10000
+direnaj_app_port_production: 9997
+direnaj_app_port_staging: 9998
+direnaj_app_port_development: 9999
+direnaj_app_port_test: 10000
+
+direnaj_app_db_production: 'direnaj_prod' 
+direnaj_app_db_staging: 'direnaj_staging'
+direnaj_app_db_development: 'direnaj_dev'
+direnaj_app_db_test: 'direnaj_test'
+

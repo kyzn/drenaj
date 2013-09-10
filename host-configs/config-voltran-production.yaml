@@ -1,11 +1,11 @@
-project_root_dir: '/home/direnaj/direnaj/envs/staging'
+project_root_dir: '/home/direnaj/direnaj/envs/production'
 
 mongo_bin_dir: '/usr/bin'
 mongo_host: 'localhost'
 mongo_port: 27017
 
-direnaj_app_environment: 'development'
-direnaj_app_host: 'voltran.cmpe.boun.edu.tr'
+direnaj_app_environment: 'production'
+direnaj_app_host: 'direnaj.cmpe.boun.edu.tr'
 
 # Obtain these from Twitter, see project wiki
 access_token_key: "788884670-zi7wAqsq0AINNY6kNTVRw78eXt3PzNtIaJJQE5Lj"
