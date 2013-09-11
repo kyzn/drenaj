@@ -16,7 +16,7 @@ env.direnaj['environment'] = 'staging'
 env.direnaj['repo_dir'] = '/home/direnaj/direnaj/repo'
 env.direnaj['deployment_repo_remote_name'] = 'deployment_repo_%s' % env.direnaj['hostname']
 
-env.direnaj['supervisor_socket_path'] = '/tmp/supervisor.sock'
+env.direnaj['supervisor_socket_path'] = '/var/run/supervisor.sock'
 
 env.direnaj['code_dir'] = '/home/direnaj/direnaj/envs/%s' % env.direnaj['environment']
 
@@ -86,7 +86,10 @@ def setup_environment():
     if result.failed:
         run("su -c 'echo deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen > /etc/apt/sources.list.d/mongodb.list'")
         run("sudo apt-get update")
+
     ensure_apt_package("mongodb-10gen")
+
+    ensure_apt_package("supervisor")
 
     # ensure nginx
     ensure_nginx()
@@ -135,6 +138,21 @@ def ensure_rabbitmq():
             run("sudo apt-get update")
             run('DEBIAN_FRONTEND=noninteractive sudo apt-get -q --yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install %s' % "rabbitmq-server")
 
+def ensure_jenkins():
+
+    with settings(warn_only=True):
+        result = run("test -f /etc/apt/sources.list.d/jenkins.list")
+    if result.failed:
+        with cd('/tmp'):
+            run("wget http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key")
+            run("sudo apt-key add jenkins-ci.org.key")
+            run("rm jenkins-ci.org.key")
+            if result.failed:
+                run("su -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ >> /etc/apt/sources.list.d/jenkins.list'")
+            run("sudo apt-get update")
+            run('DEBIAN_FRONTEND=noninteractive sudo apt-get -q --yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install %s' % "jenkins")
+
+
 def ensure_nginx():
 
     with settings(warn_only=True):
@@ -166,9 +184,11 @@ def run_server():
             # make sure there is a logs dir.
             run("mkdir -p logs")
             with settings(warn_only=True):
-                result = run("test -S %s" % env.direnaj['supervisor_socket_path'])
+                result = run("sudo service supervisor status")
+                #result = run("test -S %s" % env.direnaj['supervisor_socket_path'])
             if result.failed:
-                with prefix("supervisord -c supervisord.conf"):
+                with prefix("sudo service supervisor start"):
+                #with prefix("supervisord -c supervisord.conf"):
                     run("supervisorctl -s unix://%s restart direnaj_%s" % (env.direnaj['supervisor_socket_path'], env.direnaj['environment']))
             else:
                 run("supervisorctl -s unix://%s restart direnaj_%s" % (env.direnaj['supervisor_socket_path'], env.direnaj['environment']))
