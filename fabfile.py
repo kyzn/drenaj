@@ -43,14 +43,16 @@ def setup_deployment_repo():
 ##`    with settings(warn_only=True):
 ##`        if run("test -d %s" % env.direnaj['repo_dir']).failed:
 ##`            run("git init --bare %s" % env.direnaj['repo_dir'])
-    with settings(warn_only=True):
+    with settings(warn_only=True), cd(env.direnaj['code_dir']):
         result = run("git remote | grep ^%s$" % env.direnaj['deployment_repo_remote_name'])
         if result.failed:
             run("git remote add %s %s" % (env.direnaj['deployment_repo_remote_name'], env.direnaj['repo_uri']))
+            run("git fetch %s" % (env.direnaj['deployment_repo_remote_name']))
     with settings(warn_only=True):
         result = local("git remote | grep ^%s$" % env.direnaj['deployment_repo_remote_name'])
         if result.failed:
             local("git remote add %s %s" % (env.direnaj['deployment_repo_remote_name'], env.direnaj['repo_uri']))
+            local("git fetch %s" % (env.direnaj['deployment_repo_remote_name']))
 ##`    with settings(warn_only=True):
 ##`        result = run("git remote | grep ^deployment_repo_%s$" % env.direnaj['cank'])
 ##`        if result.failed:
