@@ -142,7 +142,30 @@ class StreamCatcher(threading.Thread):
             print "shutting down.."
             return 0
 
+    # TODO: Is it possible to make this call concurrent?
     def post_to_gateway(self, params, tmp):
+
+        # TODO: LATER:
+        ####
+        ####
+        ####Traceback (most recent call last):
+        ####  File "streamcatcher.py", line 134, in writefunction
+        ####    self.post_to_gateway(params, tmp)
+        ####  File "streamcatcher.py", line 151, in post_to_gateway
+        ####    params=params)
+        ####  File "/home/direnaj/.virtualenvs/direnaj/local/lib/python2.7/site-packages/requests/api.py", line 88, in post
+        ####    return request('post', url, data=data, **kwargs)
+        ####  File "/home/direnaj/.virtualenvs/direnaj/local/lib/python2.7/site-packages/requests/api.py", line 44, in request
+        ####    return session.request(method=method, url=url, **kwargs)
+        ####  File "/home/direnaj/.virtualenvs/direnaj/local/lib/python2.7/site-packages/requests/sessions.py", line 335, in request
+        ####    resp = self.send(prep, **send_kwargs)
+        ####  File "/home/direnaj/.virtualenvs/direnaj/local/lib/python2.7/site-packages/requests/sessions.py", line 438, in send
+        ####    r = adapter.send(request, **kwargs)
+        ####  File "/home/direnaj/.virtualenvs/direnaj/local/lib/python2.7/site-packages/requests/adapters.py", line 327, in send
+        ####    raise ConnectionError(e)
+        ####requests.exceptions.ConnectionError: HTTPConnectionPool(host='voltran.cmpe.boun.edu.tr', port=9999): Max retries exceeded with url: /statuses/store?tweet_data=%5B%7B%22contributors%22%3A+null%2C+%22truncated%22%3A+false%2C+%22text%22%3A+%22%5C%22%40SibelOktay%3A+100.+Yil+Mahallesi%27nde+yasayan+bir+emekli+ogretmen+Eyup+Can%27a+ODTU+Yolu+hakkinda+nefis+cevap+vermis%3A+http%3A%2F%2Ft.co%2FeHHAXz5Q3u%5C%22%22%2C+%22in_reply_to_status_id%22%3A+null%2C+%22id%22%3A+375608551106183168%2C+%22favorite_count%22%3A+0%2C+%22source%22%3A+%22%3Ca+href%3D%5C%22http%3A%2F%2Ftwitter.com%2Fdownload%2Fandroid%5C%22+rel%3D%5C%22nofollow%5C%22%3ETwitter+for+Android%3C%2Fa%3E%22%2C+%22retweeted%22%3A+false%2C+%22coordinates%22%3A+null%2C+%22entities%22%3A+%7B%22symbols%22%3A+%5B%5D%2C+%22user_mentions%22%3A+%5B%7B%22indices%22%3A+%5B1%2C+12%5D%2C+%22screen_name%22%3A+%22SibelOktay%22%2C+%22id%22%3A+22586685%2C+%22name%22%3A+%22Sibel+Oktay%22%2C+%22id_str%22%3A+%2222586685%22%7D%5D%2C+%22hashtags%22%3A+%5B%5D%2C+%22urls%22%3A+%5B%7B%22url%22%3A+%22http%3A%2F%2Ft.co%2FeHHAXz5Q3u%22%2C+%22indices%22%3A+%5B115%2C+137%5D%2C+%22expanded_url%22%3A+%22http%3A%2F%2Fhaber.sol.org.tr%2Fmedya%2Feyup-cana-emekli-ogretmenden-odtu-yaniti-haberi-79136%22%2C+%22display_url%22%3A+%22haber.sol.org.tr%2Fmedya%2Feyup-can%5Cu2026%22%7D%5D%7D%2C+%22in_reply_to_screen_name%22%3A+null%2C+%22id_str%22%3A+%22375608551106183168%22%2C+%22retweet_count%22%3A+0%2C+%22in_reply_to_user_id%22%3A+null%2C+%22favorited%22%3A+false%2C+%22user%22%3A+%7B%22follow_request_sent%22%3A+null%2C+%22profile_use_background_image%22%3A+false%2C+%22id%22%3A+350174694%2C+%22verified%22%3A+false%2C+%22profile_image_url_https%22%3A+%22https%3A%2F%2Fsi0.twimg.com%2Fprofile_images%2F378800000390884937%2Fee96a07b193f4f9dce83bd4e2fa205f2_normal.jpeg%22%2C+%22profile_sidebar_fill_color%22%3A+%22DDEEF6%22%2C+%22is_translator%22%3A+false%2C+%22geo_enabled%22%3A+true%2C+%22profile_text_color%22%3A+%22333333%22%2C+%22followers_count%22%3A+963%2C+%22protected%22%3A+false%2C+%22location%22%3A+%22%22%2C+%22default_profile_image%22%3A+false%2C+%22id_str%22%3A+%22350174694%22%2C+%22utc_offset%22%3A+null%2C+%22statuses_count%22%3A+4269%2C+%22description%22%3A+null%2C+%22friends_count%22%3A+1834%2C+%22profile_link_color%22%3A+%220084B4%22%2C+%22profile_image_url%22%3A+%22http%3A%2F%2Fa0.twimg.com%2Fprofile_images%2F378800000390884937%2Fee96a07b193f4f9dce83bd4e2fa205f2_normal.jpeg%22%2C+%22notifications%22%3A+null%2C+%22profile_background_image_url_https%22%3A+%22https%3A%2F%2Fsi0.twimg.com%2Fimages%2Fthemes%2Ftheme1%2Fbg.png%22%2C+%22profile_background_color%22%3A+%22C0DEED%22%2C+%22profile_banner_url%22%3A+%22https%3A%2F%2Fpbs.twimg.com%2Fprofile_banners%2F350174694%2F1376929887%22%2C+%22profile_background_image_url%22%3A+%22http%3A%2F%2Fa0.twimg.com%2Fimages%2Fthemes%2Ftheme1%2Fbg.png%22%2C+%22screen_name%22%3A+%22Ert_Acr%22%2C+%22lang%22%3A+%22tr%22%2C+%22profile_background_tile%22%3A+false%2C+%22favourites_count%22%3A+248%2C+%22name%22%3A+%22Eren+Acar%22%2C+%22url%22%3A+null%2C+%22created_at%22%3A+%22Sun+Aug+07+09%3A53%3A28+%2B0000+2011%22%2C+%22contributors_enabled%22%3A+false%2C+%22time_zone%22%3A+null%2C+%22profile_sidebar_border_color%22%3A+%22FFFFFF%22%2C+%22default_profile%22%3A+false%2C+%22following%22%3A+null%2C+%22listed_count%22%3A+3%7D%2C+%22geo%22%3A+null%2C+%22in_reply_to_user_id_str%22%3A+null%2C+%22possibly_sensitive%22%3A+false%2C+%22lang%22%3A+%22tr%22%2C+%22created_at%22%3A+%22Thu+Sep+05+13%3A17%3A11+%2B0000+2013%22%2C+%22filter_level%22%3A+%22medium%22%2C+%22in_reply_to_status_id_str%22%3A+null%2C+%22place%22%3A+null%7D%5D&auth_password=tamtam&auth_user_id=direnaj&campaign_id=habersolorgtr (Caused by <class 'socket.error'>: [Errno 111] Connection refused)
+        ####failed writing body (in fact this might be caused by simply calling self.command('stop')
+
 
         if not tmp:
             return
@@ -152,8 +175,20 @@ class StreamCatcher(threading.Thread):
 
         print params
         # TODO: here, error no 111 connection refused exception must be try-catched.
-        response = requests.post(self.direnaj_store_url,
-                                params=params)
+        stop_trying = False
+        exp_backoff_duration = 1
+        while not stop_trying:
+            try:
+                response = requests.post(self.direnaj_store_url,
+                                        params=params)
+            except requests.exceptions.ConnectionError e:
+                if exp_backoff_duration > 2**2:
+                    stop_trying = True
+                    # TODO: log this issue at this point.
+                else:
+                    time.sleep(exp_backoff_duration)
+                    exp_backoff_duration *= 2
+
         print response.content
 
     def run(self):
