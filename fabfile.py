@@ -15,6 +15,8 @@ env.direnaj['environment'] = 'staging'
 
 env.direnaj['repo_dir'] = '/home/direnaj/direnaj/repo'
 env.direnaj['deployment_repo_remote_name'] = 'deployment_repo_%s' % env.direnaj['hostname']
+env.direnaj['cank'] = 'cank'
+env.direnaj['cank_repo_uri'] = 'ssh://onur@78.47.211.238//home/can/siteler/direnaj/git_repos/code'
 
 env.direnaj['supervisor_socket_path'] = '/var/run/supervisor.sock'
 
@@ -49,6 +51,10 @@ def setup_deployment_repo():
         result = local("git remote | grep ^%s$" % env.direnaj['deployment_repo_remote_name'])
         if result.failed:
             local("git remote add %s direnaj@%s:%s" % (env.direnaj['deployment_repo_remote_name'], env.direnaj['hostname'], env.direnaj['repo_dir']))
+    with settings(warn_only=True):
+        result = local("git remote | grep ^deployment_repo_%s$" % env.direnaj['cank'])
+        if result.failed:
+            local("git remote add deployment_repo_%s %s" % (env.direnaj['cank'], env.direnaj['cank_repo_uri']))
 
 def push():
     local("git push %s master" % env.direnaj['deployment_repo_remote_name'])
@@ -63,9 +69,10 @@ def prepare_deploy(environment=env.direnaj['environment'],
 def deploy():
     with settings(warn_only=True):
         if run("test -d %s" % env.direnaj['code_dir']).failed:
-            run("git clone %s %s" % (env.direnaj['repo_dir'], env.direnaj['code_dir']))
+            run("git clone %s %s" % (env.direnaj['cank_repo_uri'], env.direnaj['code_dir']))
     with cd(env.direnaj['code_dir']):
-        run("git pull")
+        run("git pull deployment_repo_%s %s_deployment" % (env.direnaj['cank'], env.direnaj['environment']))
+        run("git checkout %s_deployment" % env.direnaj['environment'])
 
 def ensure_apt_package(package_name):
     with settings(warn_only=True):
