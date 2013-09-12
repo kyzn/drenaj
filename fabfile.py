@@ -59,7 +59,7 @@ def setup_deployment_repo():
 ##`            run("git remote add deployment_repo_%s %s" % (env.direnaj['cank'], env.direnaj['cank_repo_uri']))
 
 def push():
-    local("git push %s %s_deployment" % (env.direnaj['deployment_repo_remote_name'], env.direnaj['environment']))
+    local("git push origin %s_deployment" % (env.direnaj['environment']))
 
 def prepare_deploy(environment=env.direnaj['environment'],
                    hostname=env.direnaj['hostname']):
