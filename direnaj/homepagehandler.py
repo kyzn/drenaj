@@ -20,18 +20,20 @@ import bson.json_util
 class HomepageHandler(tornado.web.RequestHandler):
     def get(self, *args):
 
-        tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
-        # running the query
-        cursor = tweets_coll.find({
-            'campaign_id': 'merdiven'
-        },
-        {
-            'tweet.text': 1,
-            'tweet.user.screen_name': 1
-        }).sort([('$natural', -1)]).limit(10)
-
-        tmp = [x for x in cursor]
-
-        self.write(bson.json_util.dumps({'results': tmp}))
+##        tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
+##        # running the query
+##        cursor = tweets_coll.find({
+##            'campaign_id': 'merdiven'
+##        },
+##        {
+##            'tweet.text': 1,
+##            'tweet.user.screen_name': 1
+##        }).sort([('$natural', -1)]).limit(10)
+##
+##        tmp = [x for x in cursor]
+##
+##        self.write(bson.json_util.dumps({'results': tmp}))
+##        self.add_header('Content-Type', 'application/json')
+        self.write(bson.json_util.dumps({'results': 'empty'}))
         self.add_header('Content-Type', 'application/json')
 
