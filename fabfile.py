@@ -223,7 +223,7 @@ def build_docs():
         with cd(env.direnaj['code_dir']+"/docs"):
             run("mkdir -p modules")
             run("python generate_modules.py -s rst -d modules/ ../direnaj/")
-            run("rm modules/module.rst")
+            run("rm modules/modules.rst")
             run("make html")
 
 def tail_direnaj(environment=env.direnaj['environment']):
