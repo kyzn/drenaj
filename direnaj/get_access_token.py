@@ -15,80 +15,82 @@
 # limitations under the License.
 
 
-import os
-import sys
+if __name__ == "__main__":
 
-# parse_qsl moved to urlparse module in v2.6
-try:
-  from urlparse import parse_qsl
-except:
-  from cgi import parse_qsl
+    import os
+    import sys
 
-import oauth2 as oauth
+    # parse_qsl moved to urlparse module in v2.6
+    try:
+      from urlparse import parse_qsl
+    except:
+      from cgi import parse_qsl
 
-REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token'
-ACCESS_TOKEN_URL  = 'https://api.twitter.com/oauth/access_token'
-AUTHORIZATION_URL = 'https://api.twitter.com/oauth/authorize'
-SIGNIN_URL        = 'https://api.twitter.com/oauth/authenticate'
+    import oauth2 as oauth
 
-from config import *
+    REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token'
+    ACCESS_TOKEN_URL  = 'https://api.twitter.com/oauth/access_token'
+    AUTHORIZATION_URL = 'https://api.twitter.com/oauth/authorize'
+    SIGNIN_URL        = 'https://api.twitter.com/oauth/authenticate'
 
-keystore = KeyStore()
+    from config import *
 
-consumer_key    = keystore.app_consumer_key
-consumer_secret = keystore.app_consumer_secret
+    keystore = KeyStore()
 
-if consumer_key is None or consumer_secret is None:
-  print 'You need to edit this script and provide values for the'
-  print 'consumer_key and also consumer_secret.'
-  print ''
-  print 'The values you need come from Twitter - you need to register'
-  print 'as a developer your "application".  This is needed only until'
-  print 'Twitter finishes the idea they have of a way to allow open-source'
-  print 'based libraries to have a token that can be used to generate a'
-  print 'one-time use key that will allow the library to make the request'
-  print 'on your behalf.'
-  print ''
-  sys.exit(1)
+    consumer_key    = keystore.app_consumer_key
+    consumer_secret = keystore.app_consumer_secret
 
-signature_method_hmac_sha1 = oauth.SignatureMethod_HMAC_SHA1()
-oauth_consumer             = oauth.Consumer(key=consumer_key, secret=consumer_secret)
-oauth_client               = oauth.Client(oauth_consumer)
+    if consumer_key is None or consumer_secret is None:
+      print 'You need to edit this script and provide values for the'
+      print 'consumer_key and also consumer_secret.'
+      print ''
+      print 'The values you need come from Twitter - you need to register'
+      print 'as a developer your "application".  This is needed only until'
+      print 'Twitter finishes the idea they have of a way to allow open-source'
+      print 'based libraries to have a token that can be used to generate a'
+      print 'one-time use key that will allow the library to make the request'
+      print 'on your behalf.'
+      print ''
+      sys.exit(1)
 
-print 'Requesting temp token from Twitter'
+    signature_method_hmac_sha1 = oauth.SignatureMethod_HMAC_SHA1()
+    oauth_consumer             = oauth.Consumer(key=consumer_key, secret=consumer_secret)
+    oauth_client               = oauth.Client(oauth_consumer)
 
-resp, content = oauth_client.request(REQUEST_TOKEN_URL, 'GET')
+    print 'Requesting temp token from Twitter'
 
-if resp['status'] != '200':
-  print 'Invalid respond from Twitter requesting temp token: %s' % resp['status']
-else:
-  request_token = dict(parse_qsl(content))
+    resp, content = oauth_client.request(REQUEST_TOKEN_URL, 'GET')
 
-  print ''
-  print 'Please visit this Twitter page and retrieve the pincode to be used'
-  print 'in the next step to obtaining an Authentication Token:'
-  print ''
-  print '%s?oauth_token=%s' % (AUTHORIZATION_URL, request_token['oauth_token'])
-  print ''
+    if resp['status'] != '200':
+      print 'Invalid respond from Twitter requesting temp token: %s' % resp['status']
+    else:
+      request_token = dict(parse_qsl(content))
 
-  pincode = raw_input('Pincode? ')
+      print ''
+      print 'Please visit this Twitter page and retrieve the pincode to be used'
+      print 'in the next step to obtaining an Authentication Token:'
+      print ''
+      print '%s?oauth_token=%s' % (AUTHORIZATION_URL, request_token['oauth_token'])
+      print ''
 
-  token = oauth.Token(request_token['oauth_token'], request_token['oauth_token_secret'])
-  token.set_verifier(pincode)
+      pincode = raw_input('Pincode? ')
 
-  print ''
-  print 'Generating and signing request for an access token'
-  print ''
+      token = oauth.Token(request_token['oauth_token'], request_token['oauth_token_secret'])
+      token.set_verifier(pincode)
 
-  oauth_client  = oauth.Client(oauth_consumer, token)
-  resp, content = oauth_client.request(ACCESS_TOKEN_URL, method='POST', body='oauth_callback=oob&oauth_verifier=%s' % pincode)
-  access_token  = dict(parse_qsl(content))
+      print ''
+      print 'Generating and signing request for an access token'
+      print ''
 
-  if resp['status'] != '200':
-    print 'The request for a Token did not succeed: %s' % resp['status']
-    print access_token
-  else:
-    print 'Your Twitter Access Token key: %s' % access_token['oauth_token']
-    print '          Access Token secret: %s' % access_token['oauth_token_secret']
-    print ''
+      oauth_client  = oauth.Client(oauth_consumer, token)
+      resp, content = oauth_client.request(ACCESS_TOKEN_URL, method='POST', body='oauth_callback=oob&oauth_verifier=%s' % pincode)
+      access_token  = dict(parse_qsl(content))
+
+      if resp['status'] != '200':
+        print 'The request for a Token did not succeed: %s' % resp['status']
+        print access_token
+      else:
+        print 'Your Twitter Access Token key: %s' % access_token['oauth_token']
+        print '          Access Token secret: %s' % access_token['oauth_token_secret']
+        print ''
 

@@ -19,4 +19,8 @@ virtualenv==1.9.1
 virtualenv-clone==0.2.4
 virtualenvwrapper==4.0
 wsgiref==0.1.2
-jinja2==2.7.1
+Jinja2==2.7.1
+MarkupSafe==0.18
+Pygments==1.6
+Sphinx==1.2b1
+docutils==0.11

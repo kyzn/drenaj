@@ -8,6 +8,13 @@
 # TODO: move this to direnaj/plugins/streamers in the future. I'm not
 # moving it there already due to request.
 
+
+'''
+
+Example for autodoc
+
+'''
+
 import oauth2 as oauth
 import pymongo
 
@@ -32,6 +39,9 @@ except ImportError:
     pass
 
 class StreamCatcher(threading.Thread):
+    '''
+    This is a fantastic class!
+    '''
     def __init__(self, url = "", campaign_id="", postdata = {}, keystore = KeyStore()):
 
         # required for threads

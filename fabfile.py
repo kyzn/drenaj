@@ -217,8 +217,17 @@ def push_new_changes_deploy_and_restart():
     setup_environment()
     run_server()
 
+def build_docs():
+    with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
+         prefix("workon direnaj"):
+        with cd(env.direnaj['code_dir']+"/docs"):
+            run("mkdir -p modules")
+            run("python generate_modules.py -s rst -d modules/ ../direnaj/")
+            run("rm modules/module.rst")
+            run("make html")
+
 def tail_direnaj(environment=env.direnaj['environment']):
     with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
          prefix("workon direnaj"):
-        with cd(node_dir):
+        with cd(env.direnaj['code_dir']):
             run("supervisorctl -s unix://%s tail direnaj_%s" % (env.direnaj['supervisor_socket_path'], environment))
