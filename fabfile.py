@@ -11,10 +11,13 @@ env.hosts = ['direnaj@%s' % env.direnaj['hostname']]
 
 env.use_ssh_config = True
 
+env.direnaj['jenkins'] = 'no'
+
 env.direnaj['environment'] = 'staging'
 
-env.direnaj['repo_dir'] = '/home/direnaj/direnaj/repo'
-env.direnaj['deployment_repo_remote_name'] = 'deployment_repo_%s' % env.direnaj['hostname']
+env.direnaj['deployment_repo_remote_name'] = 'deployment_repo_cank'
+env.direnaj['repo_user'] = 'onur'
+env.direnaj['repo_uri'] = 'ssh://%s@78.47.211.238//home/can/siteler/direnaj/git_repos/code' % env.direnaj['repo_user']
 
 env.direnaj['supervisor_socket_path'] = '/var/run/supervisor.sock'
 
@@ -25,12 +28,13 @@ def init(environment=env.direnaj['environment'], hostname=env.direnaj['hostname'
     env.direnaj['hostname'] = hostname
     env.direnaj['environment'] = environment
 
-    env.direnaj['repo_dir'] = '/home/direnaj/direnaj/repo'
-    env.direnaj['deployment_repo_remote_name'] = 'deployment_repo_%s' % env.direnaj['hostname']
-
     env.direnaj['code_dir'] = '/home/direnaj/direnaj/envs/%s' % env.direnaj['environment']
 
     print env.direnaj
+
+def jenkins(present=env.direnaj['jenkins']):
+    print present
+    env.direnaj['jenkins'] = present
 
 def test():
     with settings(warn_only=True):
@@ -42,30 +46,44 @@ def setup_deployment_repo():
 
     ensure_apt_package("git")
 
-    with settings(warn_only=True):
-        if run("test -d %s" % env.direnaj['repo_dir']).failed:
-            run("git init --bare %s" % env.direnaj['repo_dir'])
-    with settings(warn_only=True):
-        result = local("git remote | grep ^%s$" % env.direnaj['deployment_repo_remote_name'])
-        if result.failed:
-            local("git remote add %s direnaj@%s:%s" % (env.direnaj['deployment_repo_remote_name'], env.direnaj['hostname'], env.direnaj['repo_dir']))
+##`    with settings(warn_only=True):
+##`        if run("test -d %s" % env.direnaj['repo_dir']).failed:
+##`            run("git init --bare %s" % env.direnaj['repo_dir'])
+##    with settings(warn_only=True), cd(env.direnaj['code_dir']):
+##        result = run("git remote | grep ^%s$" % env.direnaj['deployment_repo_remote_name'])
+##        if result.failed:
+##            run("git remote add %s %s" % (env.direnaj['deployment_repo_remote_name'], env.direnaj['repo_uri']))
+##            run("git fetch %s" % (env.direnaj['deployment_repo_remote_name']))
+##`    with settings(warn_only=True):
+##`        result = local("git remote | grep ^%s$" % env.direnaj['deployment_repo_remote_name'])
+##`        if result.failed:
+##`            local("git remote add %s %s" % (env.direnaj['deployment_repo_remote_name'], env.direnaj['repo_uri']))
+##`            local("git fetch %s" % (env.direnaj['deployment_repo_remote_name']))
+##`    with settings(warn_only=True):
+##`        result = run("git remote | grep ^deployment_repo_%s$" % env.direnaj['cank'])
+##`        if result.failed:
+##`            run("git remote add deployment_repo_%s %s" % (env.direnaj['cank'], env.direnaj['cank_repo_uri']))
 
 def push():
-    local("git push %s master" % env.direnaj['deployment_repo_remote_name'])
+    if env.direnaj['jenkins'] is 'no':
+        local("git push origin %s_deployment" % (env.direnaj['environment']))
 
 def prepare_deploy(environment=env.direnaj['environment'],
                    hostname=env.direnaj['hostname']):
     init(environment, hostname)
     #test()
     setup_deployment_repo()
-    push()
+    if env.direnaj['jenkins'] is 'no':
+        push()
 
 def deploy():
     with settings(warn_only=True):
         if run("test -d %s" % env.direnaj['code_dir']).failed:
-            run("git clone %s %s" % (env.direnaj['repo_dir'], env.direnaj['code_dir']))
+            run("git clone %s %s" % (env.direnaj['repo_uri'], env.direnaj['code_dir']))
     with cd(env.direnaj['code_dir']):
+##        run("git pull %s %s_deployment" % (env.direnaj['deployment_repo_remote_name'], env.direnaj['environment']))
         run("git pull")
+        run("git checkout %s_deployment" % env.direnaj['environment'])
 
 def ensure_apt_package(package_name):
     with settings(warn_only=True):
