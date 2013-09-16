@@ -18,6 +18,16 @@ import time
 import bson.json_util
 
 class StatusesHandler(tornado.web.RequestHandler):
+
+    def datetime_hook(self, dct):
+        # TODO: this only checks for the first level 'created_at'
+        # We should think about whether making this recursive.
+        if 'created_at' in dct:
+            time_struct = time.strptime(dct['created_at'], "%a %b %d %H:%M:%S +0000 %Y") #Tue Apr 26 08:57:55 +0000 2011
+            dct['created_at'] = datetime.datetime.fromtimestamp(time.mktime(time_struct))
+            return bson.json_util.object_hook(dct)
+        return bson.json_util.object_hook(dct)
+
     def get(self, *args):
         self.post(*args)
         #self.write("not implemented yet")
@@ -75,7 +85,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                 tweet_data = self.get_argument('tweet_data')
                 campaign_id = self.get_argument('campaign_id', 'default')
                 if tweet_data:
-                    tweet_array = bson.json_util.loads(tweet_data)
+                    tweet_array = bson.json_util.loads(tweet_data, object_hook=self.datetime_hook)
                     # TODO: Sanity check the data!
                     # For example, treat 'entities', 'user' specially.
                     tmp = [{
