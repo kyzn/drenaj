@@ -191,6 +191,7 @@ class StreamCatcher(threading.Thread):
             try:
                 response = requests.post(self.direnaj_store_url,
                                         params=params)
+                stop_trying = True
             except requests.exceptions.ConnectionError, e:
                 if exp_backoff_duration > 2**2:
                     stop_trying = True
