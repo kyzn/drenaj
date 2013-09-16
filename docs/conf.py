@@ -37,6 +37,9 @@ templates_path = ['_templates']
 # The suffix of source filenames.
 source_suffix = '.rst'
 
+# TODO: use unused_docs configuration parameter to exclude direnaj.config from the documentation.
+# TODO: this might not be the right solution.
+
 # The encoding of source files.
 #source_encoding = 'utf-8-sig'
 
