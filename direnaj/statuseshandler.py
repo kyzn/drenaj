@@ -13,7 +13,7 @@ from tornado.web import MissingArgumentError
 from tornado.escape import json_decode,json_encode
 
 import json
-import time
+import time, datetime
 
 import bson.json_util
 
@@ -89,7 +89,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                     # TODO: Sanity check the data!
                     # For example, treat 'entities', 'user' specially.
                     tmp = [{
-                        "tweet": tweet_obj,
+                        "tweet": self.datetime_hook(tweet_obj),
                         # TODO: Replace this DB_TEST_VERSION with source code
                         # version later
                         "direnaj_service_version": DB_TEST_VERSION,
