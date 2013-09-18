@@ -243,7 +243,7 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
                         tmp.append(x)
                     
                     cursor = profiles_history_coll.find({
-                        'id': user_id,
+                        'id_str': user_id,
                     }).sort('record_retrieved_at', -1)
                     
                     for x in cursor:
