@@ -1,0 +1,1878 @@
+24.Eki.2011 02:48:53 org.springframework.context.support.AbstractApplicationContext prepareRefresh
+INFO: Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@a01335: startup date [Mon Oct 24 02:48:53 EEST 2011]; root of context hierarchy
+24.Eki.2011 02:48:53 org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [applicationContext.xml]
+24.Eki.2011 02:48:53 org.springframework.beans.factory.support.DefaultListableBeanFactory preInstantiateSingletons
+INFO: Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1fc2fb: defining beans [dataSource,dao]; root of factory hierarchy
+Results for: linkeddata
+TweetJSONImpl{text='Manifesto for Linked Libraries - http://t.co/GPqTMpPW (hint, you can add your voice) #lodlam #semweb #linkeddata', toUserId=-1, toUser='null', fromUser='davidseth', id=128252625736048640, fromUserId=1754320, isoLanguageCode='en', source='<a href="http://twitter.com/">web</a>', profileImageUrl='http://a2.twimg.com/profile_images/60977646/david_peterson_normal.jpg', createdAt=Mon Oct 24 02:33:03 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='RT @ivan_herman: Cobden et al, Research agenda for linked closed data; important aspects! http://t.co/29lV3hJC #linkeddata #cold2011 #iswc2011', toUserId=-1, toUser='null', fromUser='s3works', id=128247139900989440, fromUserId=98877582, isoLanguageCode='en', source='<a href="http://twitter.com/">web</a>', profileImageUrl='http://a0.twimg.com/sticky/default_profile_images/default_profile_1_normal.png', createdAt=Mon Oct 24 02:11:15 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Workshop #iswc2011 #Linkeddata http://t.co/iT0FeTCM', toUserId=-1, toUser='null', fromUser='nopiedra', id=128241113847971841, fromUserId=20474, isoLanguageCode='en', source='<a href="http://twitter.com" rel="nofollow">Tweetie for Mac</a>', profileImageUrl='http://a1.twimg.com/profile_images/816805879/twitterProfilePhoto_normal.jpg', createdAt=Mon Oct 24 01:47:18 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Zapilko et al, linked data in social sciences. Different viewpoint http://t.co/qkgXtRbq #iswc2011 #cold2011 #linkeddata (via @ivan_herman)', toUserId=-1, toUser='null', fromUser='nopiedra', id=128240371015753728, fromUserId=20474, isoLanguageCode='en', source='<a href="http://twitter.com" rel="nofollow">Tweetie for Mac</a>', profileImageUrl='http://a1.twimg.com/profile_images/816805879/twitterProfilePhoto_normal.jpg', createdAt=Mon Oct 24 01:44:21 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Green engineering meets linked data - like the idea a lot! #iswc2011 http://t.co/zzbN8AJA (via @phschaer) #linkeddata', toUserId=-1, toUser='null', fromUser='nopiedra', id=128240088508403712, fromUserId=20474, isoLanguageCode='en', source='<a href="http://twitter.com" rel="nofollow">Tweetie for Mac</a>', profileImageUrl='http://a1.twimg.com/profile_images/816805879/twitterProfilePhoto_normal.jpg', createdAt=Mon Oct 24 01:43:14 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Julia Hoxha presents vision paper on Green Linked Data…. http://t.co/Jm8lCNs3 #iswc2011 #cold2011 (via @RubenVerborgh) #linkeddata', toUserId=-1, toUser='null', fromUser='nopiedra', id=128239907268333568, fromUserId=20474, isoLanguageCode='en', source='<a href="http://twitter.com" rel="nofollow">Tweetie for Mac</a>', profileImageUrl='http://a1.twimg.com/profile_images/816805879/twitterProfilePhoto_normal.jpg', createdAt=Mon Oct 24 01:42:31 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Awesome #semanticbeerpong match with @jahendler @ocorcho @esloho @olafhartig @pablomendes and the rest of the #linkeddata crowd #iswc2011', toUserId=-1, toUser='null', fromUser='juansequeda', id=128239684617908224, fromUserId=194102, isoLanguageCode='en', source='<a href="http://itunes.apple.com/us/app/twitter/id409789998?mt=12" rel="nofollow">Twitter for Mac</a>', profileImageUrl='http://a3.twimg.com/profile_images/405904271/thumbnail_normal.jpg', createdAt=Mon Oct 24 01:41:38 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='#linkeddata in education people, don't forget the special issue of ILE http://t.co/7181PSdv #linkedlearning #linkeduniversities via @mdaquin', toUserId=-1, toUser='null', fromUser='nopiedra', id=128239596390723585, fromUserId=20474, isoLanguageCode='en', source='<a href="http://twitter.com" rel="nofollow">Tweetie for Mac</a>', profileImageUrl='http://a1.twimg.com/profile_images/816805879/twitterProfilePhoto_normal.jpg', createdAt=Mon Oct 24 01:41:17 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Julia Hoxha on green Linked Data #cold2011 #iswc2011 http://t.co/BEZ5Jqxl (via @anjeve) #linkeddata', toUserId=-1, toUser='null', fromUser='nopiedra', id=128239264679989248, fromUserId=20474, isoLanguageCode='en', source='<a href="http://twitter.com" rel="nofollow">Tweetie for Mac</a>', profileImageUrl='http://a1.twimg.com/profile_images/816805879/twitterProfilePhoto_normal.jpg', createdAt=Mon Oct 24 01:39:57 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Towards Green Linked Data
+http://t.co/GLdFQh8P
+#ISWC2011 #COLD2011 (via @koujikozaki) #linkeddata', toUserId=-1, toUser='null', fromUser='nopiedra', id=128239145222025216, fromUserId=20474, isoLanguageCode='en', source='<a href="http://twitter.com" rel="nofollow">Tweetie for Mac</a>', profileImageUrl='http://a1.twimg.com/profile_images/816805879/twitterProfilePhoto_normal.jpg', createdAt=Mon Oct 24 01:39:29 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='See VIVO for research discovery and collab on 10/24 at #amia2011! Read more at http://t.co/nu0m7Fvf #linkeddata #semanticweb #rdf', toUserId=-1, toUser='null', fromUser='VIVOcollab', id=128234498621050880, fromUserId=143283116, isoLanguageCode='en', source='<a href="http://www.tweetdeck.com" rel="nofollow">TweetDeck</a>', profileImageUrl='http://a2.twimg.com/profile_images/846010664/VIVO-Twitter_bigger_normal.jpg', createdAt=Mon Oct 24 01:21:01 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='rt @pressn4truth I need a lesson please. What links data (before #RDF )? #linkeddata #semanticweb #W3C', toUserId=258570030, toUser='pressn4truth', fromUser='pressn4truth', id=128231806037266432, fromUserId=258570030, isoLanguageCode='en', source='<a href="http://twitter.com/">web</a>', profileImageUrl='http://a2.twimg.com/profile_images/1583774636/As_I_see_it_2_copy_normal.jpg', createdAt=Mon Oct 24 01:10:19 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Tonight at #iswc2011 #linkeddata gathering you encountered Bonn's famous "Alle-mal-malen-Mann": http://t.co/BJvFydIw http://t.co/kjqIQJMN', toUserId=-1, toUser='null', fromUser='joernhees', id=128229389124112385, fromUserId=269787401, isoLanguageCode='en', source='<a href="http://twitter.com/">web</a>', profileImageUrl='http://a3.twimg.com/profile_images/1337260145/comicMouseSurf64x64_normal.png', createdAt=Mon Oct 24 01:00:43 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='I need a lesson please.  What links data (before RDF)? #linkeddata #semanticweb #W3C', toUserId=-1, toUser='null', fromUser='pressn4truth', id=128229375597486080, fromUserId=258570030, isoLanguageCode='en', source='<a href="http://twitter.com/">web</a>', profileImageUrl='http://a2.twimg.com/profile_images/1583774636/As_I_see_it_2_copy_normal.jpg', createdAt=Mon Oct 24 01:00:40 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='LinkedData Now is out! http://t.co/eTawvJDW ? Top stories today via @rudydokter', toUserId=-1, toUser='null', fromUser='ralphtq', id=128227833196720128, fromUserId=10071067, isoLanguageCode='en', source='<a href="http://paper.li" rel="nofollow">Paper.li</a>', profileImageUrl='http://a0.twimg.com/profile_images/121810328/RalphHodgson_normal.jpg', createdAt=Mon Oct 24 00:54:32 EEST 2011, location='null', place=null, geoLocation=null, annotations=null}
+VIVOcollab
+See VIVO for research discovery and collab on 10/24 at #amia2011! Read more at http://t.co/nu0m7Fvf #linkeddata #semanticweb #rdf
+RT @FrankVanHarmele: Good blog post on use of Linked Data & semantics for publishing research data: http://t.co/AWDFsvbg
+RT @pgroth: RDF is great for mashing up data -  http://t.co/MieRGXHY #semanticweb #rdf
+@gthorisson hip hip hooray for documentation.  Glad to hear that it is useful! :)
+yes, thx! More info: http://t.co/iMKKVXk0 RT @TrishWhetzel: @trevormunoz  VIVO (researcher network project) http://t.co/ujhilV1f  uses BIBO
+CTSA IKFC meeting and the VIVO ontology: http://t.co/xIGs9gXZ
+RT @kristiholmes: Learning about the #SemanticWeb  #RDF at the #ctsa research networking workgroup mtg from the @VIVOcollab team
+CTSA Informatics KFC meeting: October 12-13, 2011  http://t.co/IixHkPVQ #linkeddata #ontology #rdf
+RT @gthorisson: RT @mischatuffield: Nice talk about about the "RDF report card" @ldodds http://t.co/Vx9dZtSh hm, of interest to @VIVOcol ...
+Colleen Cuddy presents VIVO at 2pm at #litaforum abstract available at http://t.co/2Urv0igl  (pg 21) #semweb #linkeddata
+VIVO is on the road in October (whew) http://t.co/hIgNQn44
+RT @kristiholmes: @mfenner It really looks great - so many cool enhancements!  (and would be great to see VIVO OAuth. :) @gthorisson
+RT @mfenner: @kristiholmes Thanks, this has come a long way since #solo11. It could also use VIVO Oauth instead of Twitter, based on wor ...
+RT @mickimcgee: Börner showing maps for scientific prediction #compdb #infoviz @fordhamdh
+RT @redwards7: VIVO Project: A Semantic Approach to Creating a National Network of Researchers: http://vivoweb.org #CompDB
+RT @medicine20: New #med2 slides: 5-pln-1520-Conlon:  http://t.co/hG38Zuo0
+RT @IM4PBS: Michael Conlon: VIVO is an interdisciplinary network of researchers, scientists & publications across disciplines http://t.c ...
+RT @kevinclauson: #med2 SPC 's Mike Conlon (VIVO) preso on Facebook for Scientists http://t.co/s1ga3aUG
+RT @openidretweeter: RT: [hal] OiX Publish Trust Framework????OpenID?VIVO???.  #irisc2011: [hal] OiX Publish Trust Framework????OpenI... ...
+Storify on "Dealing with Data" panel from Science Online London mtg http://t.co/eRKniTW @vivocollab #solo11 #semweb #linkeddata
+RT @nicoleharris: #IRISC2011 Session 1, Brian Lowe: http://t.co/1oLxYXi.
+RT @petermurrayrust: http://t.co/yoF87Ro thoughts from #solo11.  Open Science is gradually coming - but a lot more hard work required
+RT @aviggio: @VIVOcollab thought provoking keynote by Jim Hendler "Why the Semantic Web will never work" - the quotes matter ;)  http:// ...
+RT @aviggio: Good to be back at CU-Boulder after #vivo11 last week, although I'll miss all of the energy and discussion that is the @VIV ...
+RT @dykeslibrary: @Datacite summer meeting recap http://t.co/cYhHh0C and @VIVOcollab presentations  http://t.co/RJa2YaZ #vivo11 #datacit ...
+RT @barendmons: @Open_PHACTS Open PHACTS presented at vivo11
+RT @hackerceo: #vivo11 was great! Talking w/everyone and seeing their work generated a hurricane of ideas in my head. Can't wait to writ ...
+RT @jhajagos: Mini-Grant presentation: Integrating the UMLS Ontolology into VIVO  http://t.co/Dmvau49 #vivo11
+Thanks for a great #vivo11 meeting, everyone! We wish you safe travels
+VIVO and ORCID interoperability - great work! #vivo11
+Liu - USDA used Google Refine+Jabbr: http://t.co/bnDoSRx webservice that speaks JSON and helps sort out journal abbreviations #vivo11
+excellent!! RT @hackerceo: Conceptwiki.org has 40M concepts in #linkeddata format. My web spider will be pleased. #vivo11
+Lightning round presentations at #vivo11 - great presentations! :)
+RT @paulalbert1: Most scientists use VIVO like Navy Seals: get in and get out. Also, yell "Go go go!!!" #vivo11
+RT @pgroth: When data touches money it becomes clean (easy to work with ) - Katy Borner #Vivo11
+RT @cappadona: @paulalbert1 That URL for VIVO search is http://t.co/jqbVWuw #vivo11 @mileswortho
+RT @JMarkOckerbloom: Schleyer: Faculty want control over what info they expose to whom.  (I'll also address this at my lightning talk on ...
+RT @JMarkOckerbloom: Liu: One useful application of network visualization: avoid conflicts of interest. (E.g. don't let frequent co-auth ...
+Great to see the @USDA's VIVO instance. Beautiful!
+RT @pgroth: Is #vivo11 the biggest production role out of #semanticweb tech ??
+
+------------------------------------------------------------
+24.Eki.2011 02:48:59 org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+24.Eki.2011 02:48:59 org.springframework.jdbc.support.SQLErrorCodesFactory <init>
+INFO: SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+exception while insert_tokens for tweet=113766011429322752
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x82\x92\xE4\xBD\xBF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x82\x92\xE4\xBD\xBF...' for column 'wordsCVS' at row 2
+davidseth
+Manifesto for Linked Libraries - http://t.co/GPqTMpPW (hint, you can add your voice) #lodlam #semweb #linkeddata
+Wow, iPhone 4s 1080p recording vs. Canon 5d Mark II 1080p ($2.5k): http://t.co/Lr9vJY01 Hard to spot the difference. Very impressed.
+Remember Police Academy (crappy 80's comedy)? Well this rocks, the sound effects guy covers Whole Lotta Love http://t.co/7KZfLOHy (30 sec)
+RT @shanmoorthy: Some awesome examples of UI implementations in iPhone apps: http://t.co/h1DM4O5Z via @Mari18
+Photos from @webdirections W3C South track now available http://t.co/smtEfuE6 #wds11 #w3c /thanks @W3CAustralia. I am http://t.co/EuBWZoxZ
+RT @thomasfuchs: iHate Corporate Tax Dodgers: How Apple Avoids Paying Its Fair Share http://t.co/hrP9qc0l
+Amazing data viz library D3. Bind data to the DOM to create data-driven transformations http://t.co/Gi71ohhc /via @DamonOehlman #lodlam #rdf
+@aweyenberg Hey mate. Great meeting you at #wds11, sorry I missed your mobile UI talk, heard great things but my session was at same time!
+RDF Cookbook for the Digital Humanities: http://t.co/uA90w0gF /via @sebastianheath #lodlam #SemanticWeb
+@jonvoss No, I won't be at #lodlam NZ, but @bumphead will be. He was my co-presenter at #wds11. Adam is with the Australian War Memorial
+@shanmoorthy Missed you too! It was a good conference with some enlightening talks. You at DDU in Jan? @cbiggins @parisba
+RT @Crell: Know some awesome speakers that would benefit #Drupal? Tell us to invite them to @DrupalCon: http://t.co/5yZwAg6Y
+RT @bios: just signed up for box.net via iPhone app and got 50GB free storage for life. Might want to check it out.. #lotsforfree #boxnet
+@jonvoss Thanks for the comments on my presentation at #wds11. The best is yet to come for the Australian War Memorial project :)
+RT @JohnBristowe: "You change the Web, you change the world." -- @DmitryBaranovsk at #WDS11
+@DmitryBaranovsk gave the best talk yet at #wds11. "not intellect that makes you great. Character makes you great."
+Do it. Or suck. be a web magician. #wds11 thanks Dmitry
+Where do I sign up for the mac air giveway at #wds11 ?
+RT @9to5mac: 5GB free iCloud not enough? http://t.co/b6MzYSzd is throwing you 50GB free http://t.co/L7Cy86Fa
+@cbiggins Thanks for that. Glad you liked my talk at #wds11
+My #wds11 slides are now online http://t.co/OgNXfsJ3. Bringing History Alive with linked data. #lodlam #drupal #awm11 @webdirections #w3c
+@parisba, how is the queue at Sydney for the new iPhone?
+RT @markkawano: We've updated the iOS HIG. Now includes iCloud guidelines and other iOS 5 goodies: http://t.co/NQIExcAy
+@parisba I would definitely go to an iOS meetups in Hobart. Let me know when and where.
+Relief! Just finished my talk at #wds11 on telling stories with history. Think it went well #awm11 #drupal #linkeddata will post slides soon
+RT @adamgriffo: Great session from @davidseth and Adam about Linked Data! Thanks guys. Gotta love the Oracle of Bacon http://t.co/GsByDV ...
+RT @WDLive: #wds11 . @DavidSeth says "Your site becomes an API" and then explains how to do it: extracting RDFa as JSON
+Getting ready for my talk at 2:40 @ #wds11 http://t.co/KoJYMlPi. Talking about Storytelling in context of history. #linkeddata #drupal #w3c
+RT @DDUMelbourne: Huzzah - Call for sessions is open! http://t.co/ENlHMRUj
+RT @clamhead: Steve Jobs was 56. Whatever it is you want to do, do it now.
+RT @lxbarth: Steve Jobs in 2005: "Stay hungry, stay foolish" http://t.co/ls6H5H4l
+Wow, really sad news about Steve Jobs. He helped bring about such wonderful things. You will be missed. Thanks for a new world of mobile!
+RT @mfhepp: here is why #goodrelations and #schema.org is more than just #richsnippets : http://t.co/05U6InjK #semantic #seo
+RT @W3CAustralia: Web Directions W3C South program http://t.co/ifOKqMXh  @pmika @nambor @bumphead & @davidseth @cgiffard @accessibilityo ...
+Come listen to me speak about telling stories with Drupal, linkeddata,  http://t.co/KoJYMlPi @webdirections Oct 13 - #nosql #graphdb #semweb
+RT @justinvincent: Facebook claims it does not track users, but files patent to do same http://t.co/atDbevkR
+RT @globalmoxie: Fred Wilson’s 10 golden principles of successful apps: "Speed is the most important feature." http://j.mp/q1XgUa #sndstl
+RT @manusporny: @scorlosquet shows us how to use RDFa and schema.org in Drupal 7: http://ow.ly/6JV4S #w3c #rdfa #schema #drupal
+@parisba I love nice surprises. Especially free food! :) I need to get in touch re @joshanon. Are you in Hobart?
+Just flew #virginaustralia back to Hobart and got a free meal. Nice surprise. I am liking the new VA.
+
+------------------------------------------------------------
+joernhees
+Tonight at #iswc2011 #linkeddata gathering you encountered Bonn's famous "Alle-mal-malen-Mann": http://t.co/BJvFydIw http://t.co/kjqIQJMN
+RT @juansequeda: 40+ ppl at the #linkeddata gathering. Now how are we going to play #semanticbeerpong? #iswc2011
+@gromgull what's the plan?
+cool Linked Data-a-thon at #iswc2011
+RT @juansequeda: Vote for your favorite #ldthon2011 app at http://t.co/hcaq7dYV #iswc2011
+nice talk by peter haase about the information workbench... conf schedule timeline http://t.co/kV40bMEv #iswc2011
+"@juansequeda: DBpedia... DBpedia... DBpedia......... DBpedia.... #cold2011 #iswc2011" :-)
+@mcphoo it is :-) close to Hochkreuz / Telekom: Kurt-Georg-Kiesinger-Allee 1, 53175 Bonn
+http://t.co/f4h9qIxB
+Will give my talk on BetterRelations, a game rating linked data triples. 11:25 in Hayden, #ordring2011 #iswc2011
+@mcphoo isn't it just in the Maritim hotel?
+Looking forward to #iswc2011, will it be awesome? :)
+Nice tutorial on #linkeddata: data integration on the web with linked data by Andreas Harth and Denny Vrandecic #informatik2011 #ki2011
+Keynote: Sven König: Lifelong A* search (incremental replanning). I think this should be part of any #AI lecture. #ki2011 #mates2011
+Just gave my talk about rating linked data triples with the BetterRelations game, thanks for all the feedback :-)  #informatik2011 #ki2011
+Keynote Michael Thielscher:General Game Playing in AI (H1012) #informatik2011 #ki2011 (salute to General Game)
+Bes.p. award talk: Ruth Janning: Transformation Rules for First-Order Probabilistic Conditional Logic Yielding Parametric Uniformity #ki2011
+Representation /  Reasoning under Uncertainty Session in H1012, not H0112 #ki2011 #informatik2011
+Keynotes parallel to the first KI sessions... :-(  #informatik2011 #ki2011 #gi2011
+Best paper award talk, Dominik Endres: Segmentation of action streams (in H1058) #informatik2011 #ki2011 #gi2011
+Now: Matthias Reif: Prediction of Classifier Training Time including Parameter Optimization (in H1058) #informatik2011 #ki2011 #gi2011
+Panel discussion on AI #informatik2011, a bit tricky to find with staircases without exits. Indoor route planner needed :-D
+@hannahbast Hi, do you have a link to the slides (talk at #informatik2011 #gi2011 #ki2011) or a link to your demo?
+@joernhees and it's #mates2011 :-)
+Hannah Bast's talk on semantic search #ki2011 #gi2011 #gi2011 Google for: German professors in AI results in Wolfgang Wahlster #dfki
+@memomizer yepp, but it's #ki2011
+Just arrived at txl, X9 to #ki2011, 15 minutes, awesome :-)
+Packing for my trip to #ki2011, co located with #mates2011 and #gi2011 in Berlin, who else is coming?
+Slight program change: Sessions Advanced Knowledge-based Systems 1 + 2 will be combined. More information at the registration desk. #kes2011
+Conference dinner at #kes2011 http://t.co/61yKNGZ
+Attending Louis Massey's talk about Autonomous and Adaptive Identification of Topics in Unstructured Text at #kes2011
+Prof Schütt about heavy use of twitter and Facebook at #kes2011 http://t.co/j6J8RDz
+Prof. Schütt's keynote soon to begin at #kes2011 in 42-115
+Attending #kes2011 in #kaiserslautern as one of the helpers. Let us / me know if you have any questions.
+Just installed DBpedia 3.6: http://t.co/ZbbP1GJ why are there URIs in there which break virtuoso's importing process?
+RT @BenBanBun: http://manu.sporny.org/2011/false-choice/ - Great blog post by @manusporny about schema.org and a +1 to his oppinion. #rdfa
+hello world
+
+------------------------------------------------------------
+juansequeda
+Awesome #semanticbeerpong match with @jahendler @ocorcho @esloho @olafhartig @pablomendes and the rest of the #linkeddata crowd #iswc2011
+40+ ppl at the #linkeddata gathering. Now how are we going to play #semanticbeerpong? #iswc2011
+Vote for your favorite #ldthon2011 app at http://t.co/hcaq7dYV #iswc2011
+The #cold2011 is coming to an end. But the #ldthon2011 starts in 30 min! And then #semanticbeerpong #iswc2011
+Information Workbench has an open source community version #iswc2011 #cold2011
+Existing linked data querying approaches. Where is mine? :P #cold2011 #iswc2011 http://t.co/VQv9rgrf
+The #linkeddata gathering AND #semanticbeerpong is tonight starting at 19.30 at Bonnsch Brewery http://t.co/O6Fbixhg #cold2011 #iswc2011
+@terraces yes!! at Boennsch brewery restaurant
+DBpedia... DBpedia... DBpedia......... DBpedia.... #cold2011 #iswc2011
+One query to bind them all! #cold2011 #iswc2011
+Visualization of what data exists... and how it is being consumed. #cold2011 #iswc2011
+Another talk on visualization! We need this! But, I now I want to see evaluation of these approaches! #cold2011 #iswc2011
+RT @olafhartig: The #cold2011 workshop room is packed !! http://t.co/Y4RFzfSV #iswc2011
+LOD Wheel http://t.co/nJwGKBlP #cold2011 #iswc2011 not working :(
+Very interesting to see people working on ways of visualizing #linkeddata I'm excited to see where this is going #cold2011 #iswc2011 #fb
+@anjeve oh no! honestly... 1 day, or so I have heard.
+RT @ivan_herman: J Helfin, X Zhang, tag cloud UI to explore structure of, eg, dbpedia. Nice interface! #linkeddata #cold2011 #iswc2011 h ...
+@frankolken the #cold2011 schedule is here: http://t.co/L2KZZqq7
+@tommyh @olafhartig I'm saying this right now. Ask me again in a few hours
+@tommyh @olafhartig actually, I think I'm over jetlag now.
+@tommyh @olafhartig if it cures jetlag, I want it
+Dan Miranker (UT Austin) is giving the keynote to a full room at the Consuming Linked Data workshop #cold2011 #iswc2011 http://t.co/Z0yrkd4i
+What an amazing night with @olafhartig and Jerome Euzenat. Ready for the #cold2011 workshop at #iswc2011 You??
+s papas? Me haces falta! Tomo una cerveza en tu honor
+un momento! Como vas??
+RT @ISWC2011: Registration opens today at 18.00 and happy hour at the hotel bar #iswc2011
+@olafhartig when do you get here????
+@MLuczak not me. I remember hearing about it. Let me know if you find out. I'm in the city zentrum
+Isn't there a welcome reception tonight at the #iswc2011 conference hotel? Can't find details on the website. I should know this!
+Made it to Bonn. Who is already here? #iswc2011 #fb
+@olafhartig just boarded train to Bonn. I'll be there by 10 am! See you soon my friend. #iswc2011
+mar pero entro a buzón. Ahora te llamo
+Landed in Frankfurt! #iswc2011 #fb
+@pmika wow!!!! Enjoy? See you soon!
+Querying the Whole Web of Data: a vision - by @juansequeda on @SemanticWeb http://t.co/flVnmsaK http://t.co/f3Gtaj4v #linkeddata #iswc2011
+@pablomendes you are in! I'm bringing the red party cups and ping pong balls
+Let the travel begin! On my way to Bonn, Germany for #iswc2011 #fb
+@mattroweshow why are you arriving so late?
+.@gridinoc it will never be over. Hopefully I'm wrong. Let me rephrase: Can somebody summarize the #httprange14 thread up to now
+Can somebody summarize the #httprange14 thread(s) on the public-lod mailing list ?
+
+------------------------------------------------------------
+nopiedra
+Oracle NoSQL Database:
+a. http://t.co/zlwfpI5t
+b. http://t.co/IMGknFgR 
+c. http://t.co/3AtPmvw2
+/ cc @paolapullas @chrispaz @jcmorocho
+marl ontology to specify "linked opinions": http://t.co/CrPYuYVR #iswc #sdow2011 (via @semwebcompany)
+Vote for your favorite #ldthon2011 app at http://t.co/1QpKjEMt #iswc2011 (via @juansequeda)
+"A final in by Olaf and the 1st #semanticbeerpong match is history! U-S-A U-S-A #iswc2011 " 
+(via @jahendler)
+The Quad Economy of a Semantic Web Ontology Repository http://t.co/CbPXdEDS #ISWC2011 (via @bioontology)
+RT @Textkernel: the winner is: Events Retrieval Using Enhanced Semantic Web Knowledge #derive2011 #iswc2011 Congratulations @pyvandenbussche
+The presentation of Marl: opinion mining + linking opinions on web  @SDow2011 #iswc2011 Slides & paper http://t.co/uLKvMhUp via @gi2mo_news
+Workshop #iswc2011 #Linkeddata http://t.co/iT0FeTCM
+RT @koujikozaki: Crowdsourcing Tasks within Linked Data Management 
+http://t.co/JiTumIZA
+#ISWC2011 #COLD2011 (via @Lambo)
+http://t.co/biXIceeQ demonstrators for data a thon #cold2011 #iswc2011 (via @Philipp_Mayr)
+Zapilko et al, linked data in social sciences. Different viewpoint http://t.co/qkgXtRbq #iswc2011 #cold2011 #linkeddata (via @ivan_herman)
+?????Second Linked Data-a-thon
+??????
+http://t.co/biXIceeQ
+
+?????
+#ISWC2011 (via @koujikozaki)
+Lemon paper from deri http://t.co/wNWgPlL3 #iswc2011 (via @Philipp_Mayr)
+Green engineering meets linked data - like the idea a lot! #iswc2011 http://t.co/zzbN8AJA (via @phschaer) #linkeddata
+Julia Hoxha presents vision paper on Green Linked Data…. http://t.co/Jm8lCNs3 #iswc2011 #cold2011 (via @RubenVerborgh) #linkeddata
+You can access the events retrieval application we developed for the #derive2011 #iswc2011 http://t.co/QuuKgpxK (via @pyvandenbussche)
+#linkeddata in education people, don't forget the special issue of ILE http://t.co/7181PSdv #linkedlearning #linkeduniversities via @mdaquin
+#sdow2011 #iswc2011 on semantic technologies for user-centric #activitydata http://t.co/wxyrtBH1 #uciad #jiscad (via @mdaquin)
+Julia Hoxha on green Linked Data #cold2011 #iswc2011 http://t.co/BEZ5Jqxl (via @anjeve) #linkeddata
+Towards Green Linked Data
+http://t.co/GLdFQh8P
+#ISWC2011 #COLD2011 (via @koujikozaki) #linkeddata
+Cobden et al, Research agenda for linked closed data important aspects http://t.co/LW00DJye #linkeddata #cold2011 #iswc2011 via @ivan_herman
+LexiTags presented by Csaba Veres reminds me of faviki http://t.co/3MiEAbi0 taggingwithWikipediaTerms #sdow2011 #iswc2011 via @john_maverick
+Zapilko et al, linked data in social sciences. Different viewpoint http://t.co/qkgXtRbq #iswc2011 #cold2011 #linkeddata (via @ivan_herman)
+Defining and Executing Assessment Tests on #LinkedData for Statistical Analysis 
+http://t.co/g4CttLvS
+#ISWC2011 #COLD2011 (via @koujikozaki)
+#linkeddata Identifying Information Needs by Modelling Collective Query Patterns #iswc2011 #cold2011 http://t.co/Oc0x2g6x (via @kelbedweihy)
+One Query to Bind Them All http://t.co/57JIiCvd #LinkedData #SPARQL #iswc2011 #cold2011 (via @marin_dimitrov)
+@ISWC2011 I don't have the USB thumb drive. :(
+a SPARQL endpoint with the *programme* info for #iswc2011. It looks like http://t.co/EbG7oqt7 only includes lists of papers (via @mdaquin)
+The opening presentation of #derive2011 is also on slideshare at http://t.co/pPIq1LKn #iswc2011 (via @rtroncy)
+@bsletten thanks, you are welcome. any time.
+@Philipp_Mayr #iswc2011 paper mentioned by arnim http://t.co/IDl4jCMR (via @Philipp_Mayr)
+Haase et al, Information workbench platform, http://t.co/rL0G97Y3 #cold2011 #iswc2011 #linkeddata (via @ivan_herman)
+The Information Workbench as a Self-Service Platform for #LinkedData Apps (by @phaase) http://t.co/funJ2RZE #iswc2011 (via @marin_dimitrov)
+@frankolken The papers are on the conference site: http://t.co/3Y6z2mDG (via @ISWC2011)
+RT @AxelPolleres: #ISWC2011 papers now available on DBLP/Springerlink, see http://t.co/K0uxRVTj (via @ISWC2011)
+Querying the Whole Web of Data: a vision - by @juansequeda on @SemanticWeb http://t.co/0uzaoy2l http://t.co/kI8RtHgb #linkeddata #iswc2011
+Refinder: A Semantic Social Productivity Tool - Leo Sauermann #iswc2011 IT #accepted http://t.co/t0aNvKip (via @neumarcx)
+#iswc2011 vision paper "Towards a Query Language for the Web of Data" by @juansequeda and me http://t.co/0r76FU9O (via @olafhartig)
+#ISWC2011. Proceedings available already http://t.co/hsVJiRAJ Many interesting talks&unfortunately no live streaming. (via @livpre)
+A common metadata approach to support eGovernment interoperability with Stijn Goedertier #ISWC2011 http://t.co/t0aNvKip (via @neumarcx)
+
+------------------------------------------------------------
+exception while insert_tokens for tweet=128240329185955841
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x93\xE3\x82\x8C...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x93\xE3\x82\x8C...' for column 'wordsCVS' at row 2
+pressn4truth
+mt @jasonbarton33 jasonbarton33 jasonbarton33
+If anyone would like to watch tonight's show go to http://t.co/scmlQfI7. |On now!
+Getting ready to watch/listen to 
+ http://t.co/scmlQfI7. It starts at 7pm est!
+courtesy of @jasonbarton33
+RT @Drudge_Report: EU UGLY:  Sarkozy tells Cameron, 'We're sick of you telling us what to do'... http://t.co/EPxXIZcT
+RT @ArlingtonPD: #rangertraffic If you decide on 6 Flags parking, enter from Road 2 Six Flags. Limited spots avail in their overflow lot ...
+@mslrn @haneno @odditblue @atthekingson @aldebaran519 @Julian_West @thenext100k Thanks for the retweets ya'll! :)
+RT @jasonbarton33: If anyone would like to watch tonight's show go to http://t.co/mG1Aqc5f. It starts at 7pm est!
+RT @ArlingtonPD: #rangerstraffic All Rangers Lots are permit parking only. If you are on Ballpark Way looking for cash lot, park at 6 Fl ...
+RT @Drudge_Report: Hundreds feared dead... http://t.co/ZArQ30AT
+Praying for friends who like to vaca in Turkey.  Hope they are ok. :(
+RT @ArlingtonPD: For fans heading to the Ballpark, remember Don't Text & Drive. Soon it'll be the law in Arlington #rangertraffic http:/ ...
+@jasonbarton33 Awesome, thank you!  6 hours away!
+RT @ArlingtonPD: #rangerstraffic - Looking for cash lots at Rangers? Cowboys found more space at Lot 10, 11, 12, 13, 14, & 15. $30 cash  ...
+@philwickham You have already sunk how much time into waiting in line? :)
+rt @pressn4truth I need a lesson please. What links data (before #RDF )? #linkeddata #semanticweb #W3C
+@natussum2xbis Long time no hear.  You ok?
+@kidmjf Aw, thank you.
+RT @oreillyfactor: ACLU accuses FBI of 'industrial'-level racial profiling.  Story: http://t.co/5SYw8qyO
+@philwickham In the grand scheme of things - no.
+RT @aimhigh3: Waco’s first Bronze Eagle Fly-in http://t.co/4JyvRhmU
+I need a lesson please.  What links data (before RDF)? #linkeddata #semanticweb #W3C
+blessings and be back later maybe
+RT @ArlingtonPD: #Cowboystraffic #rangerstraffic APD temporarily closing Collins exit from W Bound IH 30. Take Center Street instead. ht ...
+@BibleMemCoins Thanks! :)
+RT @Drudge_Report: UP TO 20 MILLION TONS OF TSUNAMI DEBRIS NEARING HAWAII... http://t.co/c8ZqmO7n
+Free series tickets in balloons land in E. Tx. http://t.co/3V8rp1cj via wfaa
+RT @Reuters: U.S. rating likely to be downgraded again, Merrill Lynch forecasts http://t.co/UwGX0zX9
+RT @Heritage: Solyndra to Auction Assets, But Taxpayers Won’t See a Dime http://t.co/MgpOWlUv
+RT @ArlingtonPD: #Cowboystraffic #rangerstraffic  Cowboys & Rangers are NOT selling cash parking for the Cowboys Game. Permit parking on ...
+@maggiefanelli @YahooNews Pray for the people of Libya. :(
+RT @ArlingtonPD: #Cowboystraffic #rangerstraffic Arlington Traffic Management Center open and monitoring traffic conditions. http://t.co ...
+I recently lost 3 followers, and I know who they are thanks to http://t.co/0VAy70f9 #whounfollowedme
+g'nite!  God bless.
+RT @garytx: RT @NEWS9: Tornado Warning for Carter, Jefferson, and Stephens County until 11:00pm. http://t.co/cLupE5Xz #okwx
+@BibleMemCoins I usually only give out my state.  I'm a distance or online learner.
+RT @gretawire: Posted for only one reason: fun:  http://t.co/GMwQ2Qja
+@txstormchasers What is the frame of reference?  (What's that thing in the center?) :)
+RT @txstormchasers: Pictures of huge #hail stones from just north of Ada, OK http://t.co/0JyxWDHJ #okwx #severe #tornado
+RT @DaveQuinn247: This is that "thing" that makes you want to  live in Bastrop TX http://t.co/mbm63g4D
+RT @ChristianRep: Getting into Heaven is not about what you've done; it's about what God has done.
+RT @hbuzzell: To all my friends in Co need somewhere safe for young lady & her schnauzer to go (fleeing abuse situation) pls DM me if u  ...
+
+------------------------------------------------------------
+ralphtq
+LinkedData Now is out! http://t.co/eTawvJDW ? Top stories today via @rudydokter
+BIND ( "SPARQL" AS ?Chronicle ) is out! http://t.co/v6MoSINY
+?SemanticWeb a TechnologyDaily ; is out! http://t.co/sLPkuI0y
+myHaskell :: WeeklyPub is out! http://t.co/JBGOwU9I
+LinkedData Now is out! http://t.co/eTawvJDW ? Top stories today via @dominikb1888 @jindrichmynarz @stoolball @seinecle
+BIND ( "SPARQL" AS ?Chronicle ) is out! http://t.co/v6MoSINY
+?SemanticWeb a TechnologyDaily ; is out! http://t.co/sLPkuI0y
+myHaskell :: WeeklyPub is out! http://t.co/JBGOwU9I ? Top stories today via @rickmurphy
+RT @kerfors: +1 MT @cfuerber: Released #dqm-vocabulary for #dataquality management in #semanticweb architectures http://t.co/34aUY3Xc #s ...
+LinkedData Now is out! http://t.co/eTawvJDW ? Top stories today via @x_aime @openlobbyist @r_macdonald @patrickdurusau @hywelm
+BIND ( "SPARQL" AS ?Chronicle ) is out! http://t.co/v6MoSINY
+?SemanticWeb a TechnologyDaily ; is out! http://t.co/sLPkuI0y
+myHaskell :: WeeklyPub is out! http://t.co/JBGOwU9I ? Top stories today via @kowey
+LinkedData Now is out! http://t.co/eTawvJDW ? Top stories today via @tommyh @frankolken @bernhyland @pkleef
+BIND ( "SPARQL" AS ?Chronicle ) is out! http://t.co/v6MoSINY ? Top stories today via @jeenbroekstra
+?SemanticWeb a TechnologyDaily ; is out! http://t.co/sLPkuI0y ? Top stories today via @phaase
+myHaskell :: WeeklyPub is out! http://t.co/JBGOwU9I ? Top stories today via @reddit_haskell @donsbot @hackage
+LinkedData Now is out! http://t.co/eTawvJDW ? Top stories today via @lmorillas @realpoirot @kidehen @yang_squared @secoresearch
+?SemanticWeb a TechnologyDaily ; is out! http://t.co/sLPkuI0y
+myHaskell :: WeeklyPub is out! http://t.co/JBGOwU9I ? Top stories today via @bos31337
+LinkedData Now is out! http://t.co/eTawvJDW ? Top stories today via @pgroth @ake_johansson @teilnehmen @lechatpito
+BIND ( "SPARQL" AS ?Chronicle ) is out! http://t.co/v6MoSINY ? Top stories today via @druvus
+?SemanticWeb a TechnologyDaily ; is out! http://t.co/sLPkuI0y
+myHaskell :: WeeklyPub is out! http://t.co/JBGOwU9I ? Top stories today via @reddit_haskell @hackage
+LinkedData Now is out! http://t.co/eTawvJDW ? Top stories today via @ecolix @kerfors @secoresearch
+jQuery Weekly Look is out! http://t.co/GsYX8p5A ? Top stories today via @web2feed @jeresig @o_telho
+?SemanticWeb a TechnologyDaily ; is out! http://t.co/sLPkuI0y
+myHaskell :: WeeklyPub is out! http://t.co/JBGOwU9I ? Top stories today via @chriseidhof @dutchhug
+LinkedData Now is out! http://t.co/eTawvJDW ? Top stories today via @knudmoeller
+BIND ( "SPARQL" AS ?Chronicle ) is out! http://t.co/v6MoSINY ? Top stories today via @pumba_lt
+myHaskell :: WeeklyPub is out! http://t.co/JBGOwU9I ? Top stories today via @luqui @donsbot
+LinkedData Now is out! http://t.co/eTawvJDW ? Top stories today via @whymandesign
+BIND ( "SPARQL" AS ?Chronicle ) is out! http://t.co/v6MoSINY
+LinkedData Now is out! http://t.co/eTawvJDW ? Top stories today via @kidehen @taoxindong @mbadnjar @jonphipps @openlobbyist
+BIND ( "SPARQL" AS ?Chronicle ) is out! http://t.co/v6MoSINY ? Top stories today via @colectica @kavango
+?SemanticWeb a TechnologyDaily ; is out! http://t.co/sLPkuI0y ? Top stories today via @kerfors
+myHaskell :: WeeklyPub is out! http://t.co/JBGOwU9I ? Top stories today via @bos31337
+LinkedData Now is out! http://t.co/eTawvJDW ? Top stories today via @jeffhort @lespetitescases @nopiedra @linkedscience
+BIND ( "SPARQL" AS ?Chronicle ) is out! http://t.co/v6MoSINY ? Top stories today via @bengee @motools
+?SemanticWeb a TechnologyDaily ; is out! http://t.co/sLPkuI0y ? Top stories today via @smiysmiysmiy
+
+------------------------------------------------------------
+exception while insert_tokens for tweet=128227833196720128
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127865419582279680
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127827221674082304
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127503099555356672
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127464809628307456
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127140681385910272
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127106197600993280
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127103421995171841
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127102502838611968
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126778325082447872
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126740086304931840
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126415969659797504
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126381404547334144
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126377679988588545
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126053460146782208
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126023196486021120
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126015227471994880
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=125691047891312641
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=125656544535789568
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=125652833910525952
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=125333765328347136
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=124966419669581825
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=124931917194862593
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=124929011091652610
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=124928098092331010
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=124603940351385600
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=124569484907397121
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=124566662421823488
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+s3works
+RT @ivan_herman: Cobden et al, Research agenda for linked closed data; important aspects! http://t.co/29lV3hJC #linkeddata #cold2011 #is ...
+RT @mdaquin: My pres. at #sdow2011 #iswc2011 on semantic technologies for user-centric #activitydata http://t.co/XCCcG9dx #uciad #jiscad
+RT @rtroncy: Very happy that most of the presentations at #derive2011 use the #LODE ontology, linkedevents.org/ontology/ #iswc2011
+RT @terraces: Activity data, event, logs and the Social Semantic Web as main topics of the current #sdow2011 paper
+RT @journalWebSem: Journal of Web Semantics volume 9 issue 3 (2011) preprints available. SW dynamics and SW challenge papers. #JWS http: ...
+12 Top Big Data Analytics Players
+http://t.co/Wveyff0f
+#linkedata ??????????????????????????????????? RT @s3works Tablets, Cloud, Big Data Are Top Tech Trends for 2012: Gartner
+Tablets, Cloud, Big Data Are Top Tech Trends for 2012: Gartner
+http://t.co/gG5VLYmj
+????How to Speak Like a Data Scientist http://t.co/sBzuWWos
+Distributed object is a matured tech?
+@nobuotto @koujikozaki ??????????????????????????/????????????????(^^;;
+RT @_masaka: Has Siri's tech been published in academic papers? http://t.co/CtehGUcT ???????????????????????????????????????????????@_ma ...
+RT @_masaka: Why is Siri important? http://t.co/FrIBfM7p DARPA???????????????????????????????????????Brian Roemmele???????Quora??????@_m ...
+Semantics & Citizen Sensing: mining social perceptions, continuous semantics http://t.co/q1jJEbma /via @amit_p
+Hyperpublic???????????????????????????????????RT 
+http://t.co/ng5HTe9O
+???????????????????? http://t.co/pT3vMuuW  ??????????????????????????
+@nobuotto ????????????????
+@nobuotto ???????????????????????????????
+??????????????????????????? @nobuotto ???????????????????????????????????????? m(_ _)m RT @nobuotto: ??????????????? ????????????
+RT @ISWC2011: Sunday Oct 23 is the #iswc2011 Linked Data day. Starts with the #cold2011 then #ldthon2011 and finally the #linkeddata gat ...
+RT @AxelPolleres: #ISWC2011 papers now available on DBLP/Springerlink, see http://t.co/c1A0VFEd
+RT @yashichi: ???????????????3??????????????????????????230?????????? http://t.co/Y2ir4n7k
+IT??????????????
+RT @_masaka: schema-org-rdf examples http://t.co/7l3WzJWs ?????????????http://t.co/vUxKD3GS ??????????????????GitHub???????????????
+Finished a English flyer of Linked Open Data Challenge Japan to catch the many attentions from the #SemWeb communities in the world.
+????????????????
+???????…????
+RT @semanticnews: Citizen Sensing and the Semantic Web http://t.co/Yeo6dlwD
+Wearable sensors enable human activity tracking via @PullNews The world of sensors is coming, making data more pullable http://t.co/0HdHTdGt
+RT @ISWC2011: Check out the #ldthon2011 apps! http://t.co/oZ23O63t  Go play with them! What do you think? Tweet thoughts! #iswc2011
+@nobuotto ?????????????????????????????????????????????
+RT @OKFN: The cost of closed data & the economics of open data http://t.co/c6gMVNnx
+??????????????????????????????????????????????????? @LodJapan ???????? RT @openmeti: ????[???INFOGRAPHICS] http://t.co/w1pnrfJK
+RT @radar: The Slideshare of Mike Kuniavsky's talk on the Internet of Things trends and an entrepreneurial ecosystem for hardware http:/ ...
+RT @ISWC2011: Check out the #iswc2011 #semanticweb challenge submissions 10 in th Open Track & 5 in the Billion Triple Track... http://t ...
+Linked Open Data Challenge 2011 Japan now opens Call For Submissions
+http://t.co/ry9REFYS #linkedata #lod2011 via @LodJapan
+RT @LodJapan: Linked Open Data Challenge 2011 Japan opens the official Facebook page to share passions and ideas http://t.co/ziPYq9U1 #l ...
+???????? RT @LodJapan: ?LOD???????????LOD???????????????(!?)????????????????????????????????????????????Web?????????? http://t.co/ok3cxMc1
+I'm wondering which companies will be Apple's partners for Japanese features on 4S Siri.
+RT @datamarket: Looks like Microsoft is stepping closer to end-user data exploration with codename "Data Explorer": http://t.co/jnBEAwPg
+
+------------------------------------------------------------
+exception while insert_tokens for tweet=127670362883366912
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\xAF\xE5\x88\x86...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\xAF\xE5\x88\x86...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127668990641324032
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\xB5\xE3\x83\xBC...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\xB5\xE3\x83\xBC...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127602939975049216
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE9\x96\xA2\xE6\x9D\xB1...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE9\x96\xA2\xE6\x9D\xB1...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127601816501362688
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\xA9\x9F\xE6\xA2\xB0...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\xA9\x9F\xE6\xA2\xB0...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127601787296415744
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\xAB\xE9\x81\xA1...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\xAB\xE9\x81\xA1...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127400414877462528
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x80\x81\xE4\xBD\x8D...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x80\x81\xE4\xBD\x8D...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127389558554894338
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xEF\xBC\xAE\xEF\xBC\xB9...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xEF\xBC\xAE\xEF\xBC\xB9...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127347773996666880
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE7\x96\xB2...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE7\x96\xB2...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127322001042964481
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\x9D\xA5\xE5\xB9\xB4...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\x9D\xA5\xE5\xB9\xB4...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127321350766477312
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x82\xE3\x81\xA1...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x82\xE3\x81\xA1...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127014366875877376
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE4\xB9\x85\xE3\x81\x97...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE4\xB9\x85\xE3\x81\x97...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127014152488226816
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE7\xB3\xBB\xE3\x81\xA7...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE7\xB3\xBB\xE3\x81\xA7...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126991231111802880
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\x90\x84\xE7\xA8\xAE...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\x90\x84\xE7\xA8\xAE...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126665904158285824
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\x8F\x82\xE5\x8A\xA0...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\x8F\x82\xE5\x8A\xA0...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126656372917010434
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x82\xBD\xE3\x83\xBC...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x82\xBD\xE3\x83\xBC...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=125092756036124672
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\x83\x85\xE5\xA0\xB1...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\x83\x85\xE5\xA0\xB1...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=124821524250243072
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\xBE\xE3\x81\x95...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\xBE\xE3\x81\x95...' for column 'wordsCVS' at row 2
+=== Occurences ===
+                              VIVOcollab           davidseth           joernhees         juansequeda            nopiedra        pressn4truth             ralphtq             s3works
+                  !!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                   "  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+       "@juansequeda  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  "a  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+"alle-mal-malen-mann"  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               "data  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+            "dealing  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 "go  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             "linked  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                "not  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                "rdf  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            "sparql"  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  9,0000  0,0000
+              "speed  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               "stay  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             "thing"  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            "towards  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                "why  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                "you  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               "your  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           #accepted  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+       #activitydata  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+                 #ai  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          #amia2011!  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              #awm11  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             #boxnet  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           #cold2011  0,0000  0,0000  1,0000 15,0000 12,0000  0,0000  0,0000  2,0000
+             #compdb  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+     #cowboystraffic  0,0000  0,0000  0,0000  0,0000  0,0000  3,0000  0,0000  0,0000
+               #ctsa  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            #datacit  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+        #dataquality  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000
+         #derive2011  0,0000  0,0000  0,0000  0,0000  3,0000  0,0000  0,0000  1,0000
+               #dfki  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+     #dqm-vocabulary  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000
+             #drupal  0,0000  5,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 #fb  0,0000  0,0000  0,0000  4,0000  0,0000  0,0000  0,0000  0,0000
+             #gi2011  0,0000  0,0000  7,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+      #goodrelations  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            #graphdb  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               #hail  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+        #httprange14  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+     #informatik2011  0,0000  0,0000  9,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            #infoviz  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          #irisc2011  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 #is  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+               #iswc  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+           #iswc2011  0,0000  0,0000  7,0000 24,0000 34,0000  0,0000  0,0000  6,0000
+          #iswc2011"  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             #jiscad  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+                #jws  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+     #kaiserslautern  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            #kes2011  0,0000  0,0000  6,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             #ki2011  0,0000  0,0000 13,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            #ki2011)  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  #l  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+         #ldthon2011  0,0000  0,0000  1,0000  2,0000  1,0000  0,0000  0,0000  2,0000
+          #linkedata  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+         #linkeddata  5,0000  3,0000  3,0000  6,0000 15,0000  2,0000  0,0000  2,0000
+     #linkedlearning  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+ #linkeduniversities  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+          #litaforum  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            #lod2011  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+               #lode  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             #lodlam  0,0000  5,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+        #lotsforfree  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          #mates2011  0,0000  0,0000  3,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               #med2  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              #nosql  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               #okwx  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+           #ontology  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+        #ordring2011  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+     #rangerstraffic  0,0000  0,0000  0,0000  0,0000  0,0000  5,0000  0,0000  0,0000
+      #rangertraffic  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+                #rdf  4,0000  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               #rdfa  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+       #richsnippets  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  #s  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000
+             #schema  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          #schemaorg  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           #sdow2011  0,0000  0,0000  0,0000  0,0000  3,0000  0,0000  0,0000  2,0000
+           #semantic  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+   #semanticbeerpong  0,0000  0,0000  1,0000  4,0000  1,0000  0,0000  0,0000  0,0000
+        #semanticweb  4,0000  1,0000  0,0000  0,0000  0,0000  2,0000  1,0000  1,0000
+             #semweb  2,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                #seo  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             #severe  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             #sndstl  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             #solo11  3,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             #sparql  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+            #tornado  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              #uciad  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+    #virginaustralia  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             #vivo11 13,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                #w3c  0,0000  4,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+              #wds11  0,0000 13,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+    #whounfollowedme  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                $25k  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 $30  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                   &  2,0000  1,0000  0,0000  0,0000  1,0000  4,0000  0,0000  3,0000
+  'industrial'-level  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                  's  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              'we're  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+         *programme*  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                   1  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000
+                  10  0,0000  1,0000  0,0000  1,0000  0,0000  1,0000  0,0000  1,0000
+               10/24  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               1080p  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  11  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              1100pm  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                1125  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  12  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  1,0000
+               12-13  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  13  0,0000  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                  14  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                  15  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                1800  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                1930  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                 1st  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                  20  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                2005  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                2011  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  3,0000
+                2012  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+                  21  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  23  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                 240  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 2pm  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  30  0,0000  1,0000  0,0000  1,0000  0,0000  1,0000  0,0000  0,0000
+                  36  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  40  0,0000  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                 40m  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              42-115  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  4s  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+   5-pln-1520-conlon  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                50gb  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               53175  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  56  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  5d  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 5gb  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 7pm  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+                80's  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                   ;  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  9,0000  0,0000
+               [hal]  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 _)m  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                  a*  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+       abbreviations  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            abstract  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               abuse  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            academic  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             academy  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              access  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             accuses  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                aclu  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              across  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              action  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            activity  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+            actually  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                 ada  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                adam  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            adaptive  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             address  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            advanced  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               again  0,0000  0,0000  0,0000  1,0000  0,0000  1,0000  0,0000  0,0000
+              agenda  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+               ahora  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                  ai  0,0000  0,0000  3,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 air  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  al  0,0000  0,0000  0,0000  0,0000  4,0000  0,0000  0,0000  1,0000
+               alive  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                all!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             already  0,0000  0,0000  0,0000  1,0000  1,0000  1,0000  0,0000  0,0000
+            although  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  am  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 am!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             amazing  0,0000  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+            analysis  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+           analytics  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                 and  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             andreas  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              anyone  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+                 apd  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                api"  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 app  0,0000  1,0000  1,0000  1,0000  1,0000  0,0000  0,0000  0,0000
+               apple  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             apple's  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+         application  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+            approach  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+          approaches  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+         approaches!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                apps  0,0000  2,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               apps!  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+       architectures  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000
+           arlington  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+               arnim  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             arrived  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            arriving  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                 ask  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             aspects  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+            aspects!  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+          assessment  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+              assets  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+           attending  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          attentions  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             auction  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              austin  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+          australian  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          autonomous  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               avail  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+           available  1,0000  1,0000  0,0000  0,0000  2,0000  0,0000  0,0000  2,0000
+               avoid  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              avoids  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  aw  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               award  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               away!  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                   b  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                back  1,0000  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               bacon  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            balloons  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            ballpark  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+               balls  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                 bar  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               based  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              bast's  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             bastrop  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+          beautiful!  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             becomes  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              before  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+               begin  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              begin!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             benefit  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              berlin  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                besp  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                best  0,0000  2,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+     betterrelations  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                bibo  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             biggest  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             billion  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                bind  0,0000  1,0000  0,0000  1,0000  1,0000  0,0000  9,0000  0,0000
+                 bit  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               bless  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+           blessings  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                blog  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             boarded  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+            boennsch  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                bonn  0,0000  0,0000  1,0000  3,0000  0,0000  0,0000  0,0000  0,0000
+              bonn's  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             bonnsch  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              borner  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               bound  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              boxnet  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               break  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             brewery  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+               brian  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               bring  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            bringing  0,0000  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              bronze  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                  by  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                   c  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                call  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             cameron  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               can't  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               canon  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               card"  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              carter  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                cash  0,0000  0,0000  0,0000  0,0000  0,0000  4,0000  0,0000  0,0000
+               catch  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                  cc  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+              center  0,0000  0,0000  0,0000  0,0000  0,0000  3,0000  0,0000  0,0000
+             cerveza  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+           challenge  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  5,0000
+              change  0,0000  2,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           character  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           chronicle  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  9,0000  0,0000
+             citizen  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+                city  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              claims  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          classifier  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               clean  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               close  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              closed  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  2,0000
+              closer  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             closing  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               cloud  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  2,0000
+                  co  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             co-auth  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+        co-presenter  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              cobden  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+            codename  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+              collab  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          collective  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             colleen  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             collins  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            combined  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              comedy  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            comments  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              common  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+         communities  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+           community  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                como  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+           companies  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+            concepts  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+      conceptwikiorg  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         conditional  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          conditions  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                conf  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          conference  0,0000  1,0000  1,0000  1,0000  1,0000  0,0000  0,0000  0,0000
+           conflicts  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+     congratulations  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+              conlon  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            consumed  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+           consuming  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             context  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          continuous  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             control  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            cookbook  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                cool  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           corporate  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                cost  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+              county  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            courtesy  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              covers  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             cowboys  0,0000  0,0000  0,0000  0,0000  0,0000  3,0000  0,0000  0,0000
+              crappy  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              create  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            creating  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               crowd  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+       crowdsourcing  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               csaba  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                ctsa  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          cu-boulder  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               cuddy  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                cups  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               cures  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             current  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                   d  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  d3  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 dan  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+darpa???????????????????????????????????????brian  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                data  4,0000  3,0000  4,0000  4,0000  9,0000  2,0000  0,0000 13,0000
+               data!  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               data"  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+         data-a-thon  0,0000  0,0000  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+         data-driven  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               data;  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+            database  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                 day  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  1,0000
+   dblp/springerlink  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+             dbpedia  0,0000  0,0000  5,0000  5,0000  0,0000  0,0000  0,0000  0,0000
+                 ddu  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                dead  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              debris  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              decide  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            defining  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+          definitely  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                demo  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+       demonstrators  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               denny  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                deri  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                desk  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           developed  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+          difference  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           different  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+             digital  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                dime  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              dinner  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          directions  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         disciplines  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           discovery  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          discussion  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            distance  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+         distributed  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                  dm  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              dmitry  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 do'  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+       documentation  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             dodgers  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 dom  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             dominik  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               don't  1,0000  0,0000  0,0000  0,0000  2,0000  1,0000  0,0000  0,0000
+                done  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               done;  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+          downgraded  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               drive  0,0000  0,0000  0,0000  0,0000  1,0000  1,0000  0,0000  0,0000
+              drupal  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            dynamics  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                   e  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               eagle  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                easy  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           economics  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             economy  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+           ecosystem  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+           education  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             effects  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  eg  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+         egovernment  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                  en  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              enable  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+         encountered  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            end-user  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+            endpoint  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+              endres  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              energy  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         engineering  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             english  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+            enhanced  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+       enhancements!  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               enjoy  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+        enlightening  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              enough  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               enter  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+     entrepreneurial  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+               entro  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+          especially  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                est!  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+                  et  0,0000  0,0000  0,0000  0,0000  4,0000  0,0000  0,0000  1,0000
+                  eu  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             euzenat  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+          evaluation  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               event  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+              events  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+           everyone!  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            examples  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+         excellent!!  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             excited  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+           executing  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+            existing  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              exists  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                exit  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               exits  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            explains  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         exploration  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             explore  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+           explorer"  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+              expose  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          extracting  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            facebook  1,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             faculty  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                fair  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              falta!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              famous  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                fans  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              faviki  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+            favorite  0,0000  0,0000  1,0000  1,0000  1,0000  0,0000  0,0000  0,0000
+                 fbi  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              feared  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            feature"  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            features  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+            feedback  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               files  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               final  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             finally  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                find  0,0000  0,0000  1,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+            finished  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+               first  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+         first-order  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  fl  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               flags  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+             fleeing  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                flew  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              fly-in  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               flyer  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+           followers  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               food!  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            foolish"  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           forecasts  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              forget  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+              format  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             forward  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               found  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               frame  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  framework????openi  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+framework????openid?vivo???  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          frankfurt!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                fred  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                free  0,0000  5,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            frequent  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              friend  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             friends  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+                full  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                 fun  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             g'nite!  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                game  0,0000  0,0000  4,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             gartner  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+                 gat  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+           gathering  0,0000  0,0000  2,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+                gave  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             general  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           generated  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              german  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             germany  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                give  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             giveway  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              giving  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                glad  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  go  1,0000  1,0000  0,0000  0,0000  0,0000  3,0000  0,0000  1,0000
+              go!!!"  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 god  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+          goedertier  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               going  0,0000  0,0000  1,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+              golden  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                good  2,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             goodies  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              google  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               gotta  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           gradually  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               grand  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               great  7,0000  4,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              great!  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              great"  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               green  0,0000  0,0000  0,0000  0,0000  4,0000  0,0000  0,0000  0,0000
+          guidelines  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                   h  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               h0112  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               h1012  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               h1058  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               haase  0,0000  0,0000  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               haces  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              hannah  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               happy  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  1,0000
+                hard  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            hardware  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+               harth  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              hawaii  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              hayden  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                head  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             heading  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                hear  1,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               heard  0,0000  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             hearing  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              heaven  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               heavy  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              helfin  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               hello  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              helped  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             helpers  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               helps  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             hendler  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 hey  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  hi  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 hig  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                hint  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 hip  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             history  0,0000  3,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            history!  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                  hm  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              hobart  0,0000  3,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           hochkreuz  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            honestly  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               honor  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              hooray  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                hope  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+           hopefully  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               hotel  0,0000  0,0000  1,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+               hoxha  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+                  ht  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                http  1,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  2,0000
+    http//jmp/q1xgua  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+http//manuspornyorg/2011/false-choice  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+    http//owly/6jv4s  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             http//t  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+            http//tc  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           http//tco  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  http//tco/05u6injk  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/0hdhtdgt  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/0jyxwdhj  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  http//tco/0r76fu9o  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/0uzaoy2l  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/0vay70f9  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+   http//tco/1olxyxi  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/1qpkjemt  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/29lv3hjc  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/2urv0igl  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/34auy3xc  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000
+  http//tco/3atpmvw2  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/3mieabi0  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/3v8rp1cj  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  http//tco/3y6z2mdg  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/4jyvrhmu  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  http//tco/57jiicvd  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/5syw8qyo  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  http//tco/5yzwag6y  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+   http//tco/61ykngz  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/7181psdv  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/7kzflohy  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/7l3wzjws  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/atdbevkr  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/awdfsvbg  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/b6mzyszd  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/bez5jqxl  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/bixiceeq  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+  http//tco/bjvfydiw  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+   http//tco/bndosrx  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/c1a0vfed  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/c6gmvnnx  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/c8zqmo7n  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  http//tco/cbpxdeds  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/clupe5xz  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  http//tco/crpyuyvr  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/ctehguct  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+   http//tco/cyhhh0c  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+   http//tco/dmvau49  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/ebg7oqt7  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/enlhmruj  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/epxxizct  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+   http//tco/erknitw  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/etawvjdw  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000 11,0000  0,0000
+  http//tco/eubwzoxz  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/f3gtaj4v  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/f4h9qixb  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/flvnmsak  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/fribfm7p  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/funj2rze  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/g4cttlvs  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/gg5vlymj  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/gi71ohhc  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/gldfqh8p  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/gmwq2qja  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  http//tco/gpqtmppw  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+    http//tco/gsbydv  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/gsyx8p5a  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000
+  http//tco/h1dm4o5z  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/hcaq7dyv  0,0000  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/hg38zuo0  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/hignqn44  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/hrp9qc0l  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/hsvjiraj  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/idl4jcmr  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/ifokqmxh  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/iixhkpvq  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/imgknfgr  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/imkkvxk0  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/it0fetcm  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+   http//tco/j6j8rdz  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/jbgowu9i  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  9,0000  0,0000
+  http//tco/jitumiza  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/jm8lcns3  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/jnbeawpg  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+   http//tco/jqbvwuw  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/k0uxrvtj  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/ki8rthgb  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/kjqiqjmn  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/kojymlpi  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/kv40bmev  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/l2kzzqq7  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/l7cy86fa  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/lr9vjy01  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/ls6h5h4l  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/lw00djye  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/mbm63g4d  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  http//tco/mg1aqc5f  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  http//tco/mgpowluv  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  http//tco/miergxhy  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/ng5hte9o  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/njwgkblp  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/nqiexcay  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/nu0m7fvf  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/o6fbixhg  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/oc0x2g6x  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/ognxfsj3  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/ok3cxmc1  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/oz23o63t  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/ppiq1lkn  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/pt3vmuuw  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/q1jjebma  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/qkgxtrbq  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+  http//tco/quukgpxk  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+   http//tco/rja2yaz  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/rl0g97y3  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/ry9refys  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/s1ga3aug  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/sbzuwwos  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/scmlqfi7  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+  http//tco/slpkui0y  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  9,0000  0,0000
+  http//tco/smtefue6  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/t0anvkip  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+  http//tco/ua90w0gf  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/ujhilv1f  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/ulkvmhup  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/uwgx0zx9  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+  http//tco/v6mosiny  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  9,0000  0,0000
+  http//tco/vqv9rgrf  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/vx9dztsh  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/w1pnrfjk  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/wnwgpll3  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/wveyff0f  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/wxyrtbh1  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/xcccg9dx  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/xigs9gxz  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/y2ir4n7k  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/y4rfzfsv  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/yeo6dlwd  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+   http//tco/yof87ro  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/z0yrkd4i  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/zarq30at  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+   http//tco/zbbp1gj  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+  http//tco/zipyq9u1  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+  http//tco/zlwfpi5t  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+  http//tco/zzbn8aja  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+    http//vivoweborg  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                huge  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               human  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+          humanities  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            hundreds  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              hungry  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           hurricane  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              huzzah  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+hyperpublic???????????????????????????????????rt  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                   i  0,0000  8,0000  1,0000  7,0000  1,0000  5,0000  0,0000  0,0000
+                i'll  2,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                 i'm  0,0000  0,0000  0,0000  6,0000  0,0000  1,0000  0,0000  1,0000
+              icloud  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                idea  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               ideas  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+      identification  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         identifying  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                  ih  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               ihate  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  ii  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                ikfc  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 ile  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+     implementations  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           important  0,0000  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000  2,0000
+           importing  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           impressed  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  in  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 in!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+            includes  0,0000  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+           including  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         incremental  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              indoor  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                info  2,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+         informatics  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         information  0,0000  0,0000  2,0000  1,0000  3,0000  0,0000  0,0000  0,0000
+           installed  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            instance  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             instead  1,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+         integrating  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         integration  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           intellect  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+   interdisciplinary  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            interest  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         interesting  0,0000  0,0000  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000
+          interface!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+            internet  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+    interoperability  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+              invite  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 ios  0,0000  3,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              iphone  0,0000  4,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               isn't  0,0000  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               issue  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+               it'll  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                it's  0,0000  0,0000  2,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+    it??????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                   j  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                 jan  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             janning  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               japan  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  3,0000
+            japanese  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+       jasonbarton33  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+           jefferson  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              jerome  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              jetlag  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+                 jim  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                jobs  0,0000  3,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             journal  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+              jquery  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000
+                json  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               julia  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+                katy  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             keynote  1,0000  0,0000  3,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+            keynotes  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 kfc  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  ki  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                know  0,0000  2,0000  1,0000  2,0000  0,0000  1,0000  0,0000  0,0000
+           knowledge  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+     knowledge-based  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         kuniavsky's  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+kurt-georg-kiesinger-allee  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                lady  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                land  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              landed  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+            language  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                last  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                late  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               later  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                 law  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             learner  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            learning  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             lecture  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               lemon  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                 leo  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+              lesson  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+            lexitags  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+           libraries  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             library  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               libya  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                life  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            lifelong  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           lightning  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               liked  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              likely  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              liking  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             limited  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                line  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                link  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              linked  1,0000  3,0000  4,0000  2,0000  9,0000  0,0000  0,0000  5,0000
+          linkeddata  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000 11,0000  0,0000
+linkedeventsorg/ontology  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             linking  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               links  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+                list  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              listen  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               lists  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                 liu  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               llamo  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             located  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 lod  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               logic  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                logs  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+              london  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                long  1,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             looking  0,0000  0,0000  1,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+               looks  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+                lost  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                 lot  1,0000  0,0000  0,0000  0,0000  0,0000  3,0000  0,0000  0,0000
+                lot!  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                lots  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+               lotta  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               louis  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                lowe  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               lynch  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                 m(_  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                 mac  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                made  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+            magician  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             mailing  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                main  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+               makes  0,0000  2,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              making  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+          management  0,0000  0,0000  0,0000  0,0000  1,0000  1,0000  1,0000  0,0000
+           manifesto  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                maps  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 mar  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             maritim  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                mark  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                marl  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+             mashing  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            massey's  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               match  0,0000  0,0000  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000
+                mate  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              matter  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            matthias  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             matured  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+               maybe  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                meal  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             meeting  4,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               meets  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             meetups  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            memorial  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           mentioned  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             merrill  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            metadata  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             michael  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           microsoft  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                mike  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             million  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                min!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                mine  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+          mini-grant  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              mining  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+             minutes  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            miranker  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                miss  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              missed  0,0000  3,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              mobile  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             mobile!  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           modelling  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+            momento!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               money  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          monitoring  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                  mt  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  1,0000  0,0000
+                 mtg  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           myhaskell  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  9,0000  0,0000
+            national  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                navy  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             nearing  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                need  0,0000  1,0000  0,0000  1,0000  0,0000  3,0000  0,0000  0,0000
+              needed  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               needs  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             network  4,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          networking  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 new  1,0000  3,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                news  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 no!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               north  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               nosql  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                now!  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                  nz  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               oauth  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              object  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                 oct  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             october  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            official  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                 oix  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  ok  0,0000  0,0000  0,0000  0,0000  0,0000  3,0000  0,0000  0,0000
+                olaf  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                 one  1,0000  0,0000  1,0000  1,0000  1,0000  1,0000  0,0000  0,0000
+              online  1,0000  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            ontology  1,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  1,0000
+          ontolology  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                open  2,0000  0,0000  0,0000  1,0000  0,0000  1,0000  0,0000  5,0000
+               open!  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             opening  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               opens  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  2,0000
+             opinion  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+            opinions  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+           opinions"  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+            oppinion  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+        optimization  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              oracle  0,0000  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               orcid  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                out!  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000 39,0000  0,0000
+            overflow  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                   p  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              packed  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             packing  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                page  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+               panel  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               papas  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               paper  0,0000  0,0000  1,0000  0,0000  5,0000  0,0000  0,0000  1,0000
+              papers  0,0000  0,0000  0,0000  0,0000  3,0000  0,0000  0,0000  3,0000
+            parallel  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           parameter  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          parametric  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                park  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             parking  0,0000  0,0000  0,0000  0,0000  0,0000  4,0000  0,0000  0,0000
+                part  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            partners  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+               party  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+            passions  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+              patent  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            patterns  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+              paying  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         perceptions  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+              permit  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+                pero  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               peter  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  pg  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              phacts  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              photos  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            pictures  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                ping  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                plan  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             planner  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            platform  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+                play  0,0000  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000  1,0000
+             players  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             playing  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              please  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+             pleased  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 pls  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              police  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                pong  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                post  1,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              posted  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                 ppl  0,0000  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                pray  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             praying  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+          prediction  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           preprints  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                pres  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+        presentation  1,0000  1,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+       presentations  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+      presentations!  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           presented  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+            presents  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               preso  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          principles  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+       probabilistic  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         proceedings  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             process  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          production  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+        productivity  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                prof  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          professors  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           profiling  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             program  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             project  2,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           provoking  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          public-lod  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+        publications  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             publish  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           published  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+          publishing  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            pullable  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                quad  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               query  0,0000  0,0000  0,0000  1,0000  3,0000  0,0000  0,0000  0,0000
+            querying  0,0000  0,0000  0,0000  2,0000  1,0000  0,0000  0,0000  0,0000
+           questions  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               queue  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              quotes  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              racial  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             rangers  0,0000  0,0000  0,0000  0,0000  0,0000  3,0000  0,0000  0,0000
+              rating  0,0000  0,0000  2,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                 rdf  1,0000  1,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                rdfa  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                read  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               ready  0,0000  1,0000  0,0000  1,0000  0,0000  1,0000  0,0000  0,0000
+              really  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              reason  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+           reasoning  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               recap  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            recently  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+           reception  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+           recording  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 red  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+           reference  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            refinder  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+        refine+jabbr  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+        registration  0,0000  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                reif  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            released  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000
+             relief!  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            remember  0,0000  1,0000  0,0000  1,0000  0,0000  1,0000  0,0000  0,0000
+             reminds  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+            rephrase  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+          replanning  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              report  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          repository  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+      representation  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            required  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            research  3,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+          researcher  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+         researchers  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                rest  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+          restaurant  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             results  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           retrieval  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+            retweets  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               right  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                road  1,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               rocks  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+roemmele???????quora??????@_m  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                role  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                room  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+               round  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               route  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               rules  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                ruth  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                   s  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                 sad  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                safe  1,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              salute  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             sarkozy  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+           sauermann  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+              saying  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                says  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            schedule  0,0000  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+      schema-org-rdf  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+           schemaorg  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              scheme  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            schleyer  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           schnauzer  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             science  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            sciences  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+          scientific  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           scientist  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+          scientists  3,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               seals  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              search  1,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 sec  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              seeing  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+        segmentation  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+        self-service  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             selling  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            semantic  2,0000  0,0000  1,0000  0,0000  4,0000  0,0000  0,0000  3,0000
+           semantics  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  3,0000
+         semanticweb  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  9,0000  0,0000
+             sensing  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+             sensors  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+              series  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             session  1,0000  2,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            sessions  0,0000  1,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               share  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                show  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+             showing  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               shows  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                sick  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                sign  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              signed  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                siri  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+              siri's  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                site  0,0000  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+           situation  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                 six  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              slides  1,0000  2,0000  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+          slideshare  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+              slight  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              social  0,0000  0,0000  0,0000  0,0000  3,0000  0,0000  0,0000  2,0000
+            solyndra  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            somebody  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+           somewhere  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               soon!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               sorry  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                sort  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               sound  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              source  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               south  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               space  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              sparql  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                 spc  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               speak  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+            speakers  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              speaks  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             special  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             specify  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+              spider  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                spot  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               spots  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+          staircases  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            starting  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              starts  0,0000  0,0000  0,0000  1,0000  0,0000  2,0000  0,0000  1,0000
+               state  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+         statistical  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                stay  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            stephens  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            stepping  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+               steve  0,0000  3,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               stijn  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+              stones  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             storage  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             stories  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000 28,0000  0,0000
+             storify  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               story  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+        storytelling  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           streaming  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             streams  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              street  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+           structure  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+         submissions  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+          successful  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                suck  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           summarize  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+              summer  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              sunday  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                sunk  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             support  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+            surprise  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           surprises  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                sven  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  sw  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+              sydney  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             systems  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             tablets  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+                 tag  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+taggingwithwikipediaterms  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                talk  2,0000  5,0000  8,0000  1,0000  0,0000  0,0000  0,0000  1,0000
+             talking  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               talks  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+ talks&unfortunately  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               tasks  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                 tax  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           taxpayers  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                  te  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                team  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                tech  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  4,0000
+        technologies  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+     technologydaily  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  9,0000  0,0000
+             telekom  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                tell  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             telling  0,0000  2,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               tells  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+         temporarily  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               tests  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                text  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                  th  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+               thank  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+              thanks  2,0000  6,0000  1,0000  0,0000  1,0000  2,0000  0,0000  0,0000
+             thanks!  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               them!  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+   thielschergeneral  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               thing  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              things  0,0000  2,0000  0,0000  0,0000  0,0000  1,0000  0,0000  1,0000
+               think  0,0000  1,0000  1,0000  1,0000  0,0000  0,0000  0,0000  1,0000
+               this!  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+                thon  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             thought  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            thoughts  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           thoughts!  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+              thread  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+            thread(s  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+            throwing  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               thumb  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                thx!  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             tickets  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                time  0,0000  0,0000  1,0000  0,0000  1,0000  2,0000  0,0000  0,0000
+               time!  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            timeline  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               today  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000 28,0000  0,0000
+                tomo  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             tonight  0,0000  0,0000  1,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+           tonight's  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+                tons  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                too!  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                tool  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                 top  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000 28,0000  3,0000
+              topics  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             tornado  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               touch  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             touches  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             towards  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+               track  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+            tracking  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             traffic  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+               train  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+            training  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+      transformation  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+     transformations  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              travel  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+             travels  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              trends  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  3,0000
+              tricky  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                trip  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              triple  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             triples  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               trust  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             tsunami  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                  tu  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+              turkey  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            tutorial  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               tweet  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             twitter  1,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  tx  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+                 txl  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                   u  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               u-s-a  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+                ugly  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                  ui  0,0000  2,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                umls  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  un  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                 una  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+         uncertainty  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+          uniformity  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+        unstructured  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               until  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+             updated  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                uris  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 url  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  us  0,0000  2,0000  1,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+                 usb  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                usda  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                used  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              useful  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             useful!  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+        user-centric  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000
+               users  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                uses  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               using  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             usually  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                  ut  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                  va  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                vaca  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                 vas  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               veres  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             version  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                 via  0,0000  2,0000  0,0000  0,0000 30,0000  0,0000  0,0000  1,0000
+           viewpoint  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+          virtuoso's  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              vision  0,0000  0,0000  0,0000  1,0000  3,0000  0,0000  0,0000  0,0000
+       visualization  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+      visualization!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+         visualizing  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                vivo 15,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              vivo11  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 viz  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               voice  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              volume  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                vote  0,0000  0,0000  1,0000  1,0000  1,0000  0,0000  0,0000  0,0000
+           vrandecic  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                  vs  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                   w  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+          w/everyone  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 w3c  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            wahlster  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                wait  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             waiting  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                 war  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             warning  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               watch  0,0000  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000
+        watch/listen  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                ways  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               we've  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            wearable  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                 web  2,0000  3,0000  1,0000  1,0000  5,0000  0,0000  0,0000  3,0000
+          webservice  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             website  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                week  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              weekly  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000
+           weeklypub  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  9,0000  0,0000
+             welcome  0,0000  0,0000  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000
+                went  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                wfaa  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              what's  0,0000  0,0000  1,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+            whatever  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               wheel  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                whew  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               whole  0,0000  1,0000  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000
+                whom  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 why  0,0000  1,0000  1,0000  1,0000  0,0000  0,0000  0,0000  1,0000
+              winner  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+                wish  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              within  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+             without  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+            wolfgang  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               won't  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           wonderful  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           wondering  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+                 wor  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                work  3,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               work!  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               work"  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+           workbench  0,0000  0,0000  1,0000  1,0000  2,0000  0,0000  0,0000  0,0000
+           workgroup  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             working  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000
+            workshop  0,0000  0,0000  0,0000  3,0000  1,0000  0,0000  0,0000  0,0000
+               world  0,0000  1,0000  1,0000  0,0000  0,0000  0,0000  0,0000  2,0000
+              world"  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                 wow  0,0000  2,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+             wow!!!!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                writ  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               wrong  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                   x  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                  x9  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+              ya'll!  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                yell  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                yepp  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+               yes!!  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+            yielding  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000  0,0000
+                you!  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+              you've  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+               young  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                your  0,0000  2,0000  2,0000  1,0000  1,0000  0,0000  0,0000  0,0000
+             zapilko  0,0000  0,0000  0,0000  0,0000  2,0000  0,0000  0,0000  0,0000
+             zentrum  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+               zhang  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000  0,0000
+                 |on  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000
+                   ?  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000 28,0000  0,0000
+?lod???????????lod???????????????(!)????????????????????????????????????????????web??????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+???????????????????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+    ????????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+         ?????second  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+????????????????????????????????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+               ?????  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+              ??????  0,0000  0,0000  0,0000  0,0000  1,0000  0,0000  0,0000  0,0000
+            ????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+??????????????????github???????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+???????????????????????????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+             ????how  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+            ????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+?????????????????????????????????????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+????[???infographics]  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+???????????????3??????????????????????????230??????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+    ????????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+?????????????http//tco/vuxkd3gs  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+??????????????????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+???????????????????????????????????????????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+     ???????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+???????????????????????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+???????????????????????????????????????????????@_ma  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+        ????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+??????????????????????????/????????????????(^^;;  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+????????????????????  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  0,0000  1,0000
+=== Cosine Similarity (TF/IDF) ===
+                              VIVOcollab           davidseth           joernhees         juansequeda            nopiedra        pressn4truth             ralphtq             s3works
+          VIVOcollab  1,0000  0,0578  0,0311  0,0184  0,0340  0,0305  0,0033  0,0618
+           davidseth  0,0578  1,0000  0,0494  0,0486  0,0613  0,0655  0,0246  0,0532
+           joernhees  0,0311  0,0494  1,0000  0,1769  0,1248  0,0298  0,0003  0,0680
+         juansequeda  0,0184  0,0486  0,1769  1,0000  0,4449  0,0410  0,0125  0,1769
+            nopiedra  0,0340  0,0613  0,1248  0,4449  1,0000  0,0180  0,0014  0,2403
+        pressn4truth  0,0305  0,0655  0,0298  0,0410  0,0180  1,0000  0,0011  0,0347
+             ralphtq  0,0033  0,0246  0,0003  0,0125  0,0014  0,0011  1,0000  0,0398
+             s3works  0,0618  0,0532  0,0680  0,1769  0,2403  0,0347  0,0398  1,0000
+Results for query: [linkeddata rdf semantic web social sparql dbpedia]
+nopiedra (score =   0,0796)
+juansequeda (score =   0,0706)
+s3works (score =   0,0610)
+joernhees (score =   0,0549)
+ralphtq (score =   0,0390)
+davidseth (score =   0,0241)
+VIVOcollab (score =   0,0193)
+pressn4truth (score =   0,0080)

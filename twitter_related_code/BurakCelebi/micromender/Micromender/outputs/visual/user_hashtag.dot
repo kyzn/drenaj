@@ -1,0 +1,72 @@
+digraph G  {
+
+graph [fontsize=20 labelloc="t" label="" splines=true overlap=false rankdir = "LR" lwidth="8" lheight="11"];
+
+faviki [shape=circle,width=1,label="faviki ",style=filled,fillcolor="#8EC13A"];
+ivan_herman [shape=circle,width=1,label="ivan_herman ",style=filled,fillcolor="#8EC13A"];
+manusporny [shape=circle,width=1,label="manusporny ",style=filled,fillcolor="#8EC13A"];
+planetrdf [shape=circle,width=1,label="planetrdf ",style=filled,fillcolor="#8EC13A"];
+roylac [shape=circle,width=1,label="roylac ",style=filled,fillcolor="#8EC13A"];
+SemanticBlogs [shape=circle,width=1,label="SemanticBlogs ",style=filled,fillcolor="#8EC13A"];
+
+
+faviki -> "#iswc2011" [label="1"];
+faviki -> "#linkeddata" [label="3"];
+faviki -> "#rdf" [label="2"];
+faviki -> "#semanticweb" [label="1"];
+faviki -> "#semweb" [label="6"];
+faviki -> "#thankyousteve" [label="1"];
+faviki -> "#turtle" [label="1"];
+faviki -> "#webid" [label="1"];
+ivan_herman -> "#classicalmusic" [label="1"];
+ivan_herman -> "#force11" [label="1"];
+ivan_herman -> "#iswc2011" [label="3"];
+ivan_herman -> "#linkeddata" [label="4"];
+ivan_herman -> "#netrights" [label="1"];
+ivan_herman -> "#rdfa" [label="2"];
+ivan_herman -> "#rnews" [label="1"];
+ivan_herman -> "#semanticweb" [label="1"];
+ivan_herman -> "#semweb" [label="3"];
+ivan_herman -> "#w3c" [label="1"];
+ivan_herman -> "#xs4all" [label="1"];
+manusporny -> "#html5" [label="1"];
+manusporny -> "#jsonld" [label="1"];
+manusporny -> "#music" [label="1"];
+manusporny -> "#occupycal" [label="1"];
+manusporny -> "#ows" [label="1"];
+manusporny -> "#payswarm" [label="1"];
+manusporny -> "#poverty" [label="1"];
+manusporny -> "#programming" [label="1"];
+manusporny -> "#rdfa" [label="2"];
+manusporny -> "#systemd" [label="1"];
+manusporny -> "#ted" [label="1"];
+manusporny -> "#tpac" [label="1"];
+manusporny -> "#vie" [label="1"];
+manusporny -> "#vote" [label="1"];
+manusporny -> "#w3c" [label="6"];
+manusporny -> "#w3cdds" [label="1"];
+manusporny -> "#webid" [label="1"];
+planetrdf -> "#dotnetrdf" [label="1"];
+planetrdf -> "#html5" [label="1"];
+planetrdf -> "#jena" [label="1"];
+planetrdf -> "#linkeddata" [label="1"];
+planetrdf -> "#nosql" [label="1"];
+planetrdf -> "#rdf" [label="1"];
+planetrdf -> "#schemaorg" [label="1"];
+planetrdf -> "#semanticweb" [label="1"];
+planetrdf -> "#sesame" [label="2"];
+roylac -> "#linkeddata" [label="1"];
+roylac -> "#microdata" [label="2"];
+roylac -> "#rdf" [label="3"];
+roylac -> "#semantic" [label="1"];
+roylac -> "#semanticweb" [label="1"];
+roylac -> "#semweb" [label="1"];
+roylac -> "#seo" [label="1"];
+roylac -> "#stwg" [label="1"];
+roylac -> "#ted" [label="1"];
+roylac -> "#topicmaps" [label="1"];
+roylac -> "#w3c" [label="1"];
+SemanticBlogs -> "#semantic" [label="40"];
+
+
+}

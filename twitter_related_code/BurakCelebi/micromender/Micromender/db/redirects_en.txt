@@ -1,0 +1,21 @@
+LOAD DATA LOCAL INFILE 'D:\\Downloads\\redirects_en.nt' 
+INTO TABLE semantic.redirects_dbpedia
+FIELDS TERMINATED BY ' '
+LINES TERMINATED BY '\n'
+;
+
+LOAD DATA LOCAL INFILE 'D:\\Downloads\\freebase_links.nt' 
+INTO TABLE semantic.dbpedia_freebase
+FIELDS TERMINATED BY ' '
+LINES TERMINATED BY '\n'
+;
+
+LOAD DATA LOCAL INFILE 'D:\\Downloads\\disambiguations_en.nt' 
+INTO TABLE semantic.disambiguations_dbpedia
+FIELDS TERMINATED BY ' '
+LINES TERMINATED BY '\n'
+;
+
+
+
+// Query OK, 5074113 rows affected, 65535 warnings (3 hours 31 min 38.73 sec)

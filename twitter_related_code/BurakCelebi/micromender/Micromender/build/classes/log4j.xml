@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Perf4J appenders -->
+	<!-- 
+		This AsyncCoalescingStatisticsAppender groups StopWatch log messages 
+		into GroupedTimingStatistics messages which it sends on the file appender 
+		defined below 
+	-->
+	<appender name="micromender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="logs/micromender.log" />
+		<param name="Threshold" value="INFO" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} - %5p [%t] : %m%n" />
+		</layout>
+	</appender>
+
+	<root>
+		<priority value="info" />
+		<appender-ref ref="micromender" />
+	</root>
+
+</log4j:configuration>

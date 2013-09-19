@@ -1,0 +1,109 @@
+http://feeds.delicious.com/v2/json/tag/linkeddata
+["statistics","forward","linkeddata","Medium","ons","release","stats","uk"]
+["linkeddata","w3c_library_linked_data","w3c","rdf","semantic_web linked_data","reports","standards","automaticallyaddedvia:packrati.us","uri","w3"]
+["British","marc","linkeddata","linked","Library","data","data_model","linked_data","LOD","britishlibrary"]
+["timbl","semweb","web","slides","w3c","history","semanticweb","linkeddata","tbl"]
+["from:twitter","linkeddata","w3c"]
+["wikimedia","data","linkeddata","semanticweb","wikidata","apps","wikipedia","web","Wiki Wikipedia Wikimedia Wikidata MediaWiki deliverables","wikimania"]
+["conference","cnl","dbpedia","linkeddata","semantic","semanticweb","semweb"]
+["web3.0","semanticweb","web","semantic","trends","linkeddata","web2.0","socialmedia","data","semantic_web"]
+["LOD","W3C","bib_digital","datasets","Libarary","linked_data libraries metadata","linkeddata","metadatos","rdf"]
+["LOD","W3C","Library","linkeddata","Open_data"]
+data: 3
+linkeddata: 10
+lod: 3
+semanticweb: 4
+w3c: 5
+web: 3
+
+http://feeds.delicious.com/v2/json/tag/linkeddata+data
+["British","marc","linkeddata","linked","Library","data","data_model","linked_data","LOD","britishlibrary"]
+["wikimedia","data","linkeddata","semanticweb","wikidata","apps","wikipedia","web","Wiki Wikipedia Wikimedia Wikidata MediaWiki deliverables","wikimania"]
+["web3.0","semanticweb","web","semantic","trends","linkeddata","web2.0","socialmedia","data","semantic_web"]
+["opendata","w3c","data","government","standards","opengov","linkeddata","government2.0","reference","publishing"]
+["semanticweb","linkeddata","rdf","w3c","data","web","architecture","semantic","uri","metadata"]
+["linkeddata","tutorial","semanticweb","video","rdf","data","presentation","web","linked_data","videolectures"]
+["drupal","rdf","rdfa","linkeddata","semanticweb","data","architecture","foaf","cms","semantic"]
+["data","offdata","opendata","linkeddata","lod","semanticweb","dataset","search","open","datasets"]
+["web2.0","web","data","semanticweb","article","linkeddata","ibm","semantic","rdf","open"]
+["json","semanticweb","linkeddata","topicmaps","rdf","javascript","semantic","json-ld","data","linked-data"]
+data: 10
+linkeddata: 10
+rdf: 5
+semantic: 5
+semanticweb: 8
+web: 5
+
+http://feeds.delicious.com/v2/json/tag/linkeddata+lod
+["British","marc","linkeddata","linked","Library","data","data_model","linked_data","LOD","britishlibrary"]
+["LOD","W3C","bib_digital","datasets","Libarary","linked_data libraries metadata","linkeddata","metadatos","rdf"]
+["LOD","W3C","Library","linkeddata","Open_data"]
+["data","offdata","opendata","linkeddata","lod","semanticweb","dataset","search","open","datasets"]
+["rdf","semanticweb","data","freebase","linkeddata","semweb","semantic","toread","lod","!log"]
+["ontology","semanticweb","linkeddata","biology","semantic-web","semantic","Biodiversity","LOD","e-science","taxonomy-bio"]
+["ontology","event","vocabulary","owl","linkeddata","events","lod","semanticweb","temporal","lode"]
+["linkeddata","semantic","integration","framework","semanticweb","lod","data","software","linked","tools"]
+["api","linkeddata","rdf","semanticweb","json","programming","data","lod","rest","semantic"]
+["linkeddata","semanticweb","research","data","project","semantic","tools","opendata","eu","LOD"]
+data: 6
+linkeddata: 10
+lod: 10
+rdf: 3
+semantic: 5
+semanticweb: 7
+
+http://feeds.delicious.com/v2/json/tag/linkeddata+semanticweb
+["timbl","semweb","web","slides","w3c","history","semanticweb","linkeddata","tbl"]
+["wikimedia","data","linkeddata","semanticweb","wikidata","apps","wikipedia","web","Wiki Wikipedia Wikimedia Wikidata MediaWiki deliverables","wikimania"]
+["conference","cnl","dbpedia","linkeddata","semantic","semanticweb","semweb"]
+["web3.0","semanticweb","web","semantic","trends","linkeddata","web2.0","socialmedia","data","semantic_web"]
+["classification","ontology","taxonomy","semanticweb","research","metadata","NKOS","knowledge","kos","LinkedData"]
+["semanticweb","linkeddata","rdf","w3c","data","web","architecture","semantic","uri","metadata"]
+["linkeddata","tutorial","semanticweb","video","rdf","data","presentation","web","linked_data","videolectures"]
+["drupal","semantic","linkeddata","rdf","semanticweb","bibliopedia","links","reference"]
+["drupal","rdf","semanticweb","linkeddata","sparql","howto","research","php","semantic"]
+["rdf","ruby","semanticweb","gem","linkeddata","rails","library","semweb","tutorial","web"]
+data: 4
+linkeddata: 10
+rdf: 5
+semantic: 5
+semanticweb: 10
+semweb: 3
+web: 6
+
+http://feeds.delicious.com/v2/json/tag/linkeddata+w3c
+["linkeddata","w3c_library_linked_data","w3c","rdf","semantic_web linked_data","reports","standards","automaticallyaddedvia:packrati.us","uri","w3"]
+["timbl","semweb","web","slides","w3c","history","semanticweb","linkeddata","tbl"]
+["from:twitter","linkeddata","w3c"]
+["LOD","W3C","bib_digital","datasets","Libarary","linked_data libraries metadata","linkeddata","metadatos","rdf"]
+["LOD","W3C","Library","linkeddata","Open_data"]
+["opendata","w3c","data","government","standards","opengov","linkeddata","government2.0","reference","publishing"]
+["semanticweb","linkeddata","rdf","w3c","data","web","architecture","semantic","uri","metadata"]
+["w3c","linkeddata","data","semanticweb","semantic","mailinglist","linked","web","mail","semweb"]
+["datastories","iran","linkeddata","parasitisme","w3c"]
+["linkeddata","semanticweb","w3c","presentation","slides","data","timbl","rdf","web","tbl"]
+data: 4
+linkeddata: 10
+rdf: 4
+semanticweb: 4
+w3c: 10
+web: 4
+
+http://feeds.delicious.com/v2/json/tag/linkeddata+web
+["timbl","semweb","web","slides","w3c","history","semanticweb","linkeddata","tbl"]
+["wikimedia","data","linkeddata","semanticweb","wikidata","apps","wikipedia","web","Wiki Wikipedia Wikimedia Wikidata MediaWiki deliverables","wikimania"]
+["web3.0","semanticweb","web","semantic","trends","linkeddata","web2.0","socialmedia","data","semantic_web"]
+["semanticweb","linkeddata","rdf","w3c","data","web","architecture","semantic","uri","metadata"]
+["linkeddata","tutorial","semanticweb","video","rdf","data","presentation","web","linked_data","videolectures"]
+["rdf","ruby","semanticweb","gem","linkeddata","rails","library","semweb","tutorial","web"]
+["web2.0","web","data","semanticweb","article","linkeddata","ibm","semantic","rdf","open"]
+["semanticweb","visualization","linkeddata","data","rdf","semantic","cloud","web","opendata","web2.0"]
+["video","web","semanticweb","linkeddata","data","berners-lee","technology","future","web2.0","semantic"]
+["ontology","semanticweb","umbel","semantic","rdf","mapping","owl","web","linkeddata","semantic_web"]
+data: 7
+linkeddata: 10
+rdf: 6
+semantic: 6
+semanticweb: 10
+web: 10
+web2.0: 4

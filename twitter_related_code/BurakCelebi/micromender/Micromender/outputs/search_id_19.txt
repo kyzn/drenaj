@@ -1,0 +1,1226 @@
+http://feeds.delicious.com/v2/json/tag/semanticweb+rdf?count=20
+["semanticweb","ontology","sioc","rdf","community","foaf","semantic","social","web2.0","socialnetworking"]
+["foaf","rdf","social","semantic","tools","semanticweb","xml","web","search","old-delicious"]
+["foaf","rdf","xml","semanticweb","specification","metadata","social","ontology","semantic"]
+["foaf","semanticweb","rdf","web","visualization","SVG","social","visualisation","metadata","display"]
+["foaf","rdf","rdflib","semanticweb","redfoot","Scripts","Semantic","web","xml"]
+["foaf","rdf","xml","social","semanticweb","web","javascript","tools","web2.0"]
+["semanticweb","foaf","social","rdf","Interesante","semantic","web2.0","web","xml","community"]
+["semanticweb","semantic","desktop","social","software","research","ontology","rdf","opensource","semanticdesktop"]
+["wiki","semantic","semanticweb","mediawiki","web2.0","wikipedia","opensource","extension","software","rdf"]
+["semanticweb","visualization","linkeddata","data","rdf","semantic","cloud","web","opendata","web2.0"]
+["rdf","converter","semanticweb","talis","json","conversion","rdfa","semantic","sparql","xml"]
+["ontology","ecommerce","semanticweb","rdf","semantic","business","vocabulary","owl","metadata","goodrelations"]
+["ontology","semanticweb","owl","tools","eclipse","toolkit","rdf","framework","neon","management"]
+["sparql","rdf","semanticweb","void","talis","semantic","query","queries","2010","reference"]
+["semanticweb","skos","rdf","ontology","w3c","metadata","taxonomy","semantic","standards","thesauri"]
+["semanticweb","semantic","web","rdf","semantic_web","xml","semantic-web","tutorial","reference","ontology"]
+["semanticweb","government","data","science","research","rdf","web","linkeddata","ncbi","statistics"]
+["wikipedia","semanticweb","database","data","wiki","semantic","api","web2.0","rdf","web"]
+["rdf","semanticweb","ontology","schema","search","vocabulary","repository","owl","semantic","linkeddata"]
+["metadata","standards","dublincore","xml","web","semantic","semanticweb","rdf","reference","library"]
+ INFO [main] (AbstractApplicationContext.java:495) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@45a877: startup date [Thu Nov 03 13:54:40 EET 2011]; root of context hierarchy
+ INFO [main] (XmlBeanDefinitionReader.java:315) - Loading XML bean definitions from class path resource [applicationContext.xml]
+ INFO [main] (DefaultListableBeanFactory.java:557) - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1f17e77: defining beans [dataSource,dao]; root of factory hierarchy
+Results for query=semanticweb rdf, queryEnhanced=foaf OR ontology OR semantic OR social OR web OR web2.0 OR xml
+TweetJSONImpl{text='I need to parse SPARQL queries in python - any ideas? #linkeddata #rdf #semanticweb', toUserId=-1, toUser='null', fromUser='das05r', id=132063075225440256, fromUserId=56522, isoLanguageCode='en', source='<a href="http://itunes.apple.com/us/app/twitter/id409789998?mt=12" rel="nofollow">Twitter for Mac</a>', profileImageUrl='http://a1.twimg.com/profile_images/1206513452/IMG_1060-244px_square_normal.jpg', createdAt=Thu Nov 03 13:54:25 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='RT @nopiedra: OMG!! #Facebook has started to support #RDF and #LinkedData URIs #semanticweb http://t.co/z6iis4Xr (via @jovarela)', toUserId=-1, toUser='null', fromUser='MarcoBrambi', id=131989910587584512, fromUserId=99821225, isoLanguageCode='en', source='<a href="http://twitter.com" rel="nofollow">Tweetie for Mac</a>', profileImageUrl='http://a1.twimg.com/profile_images/1253121759/marcobrambilla2_normal.JPG', createdAt=Thu Nov 03 09:03:41 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='La revolución a comenzado Facebook ha comenzado a dar soporte a #RDF y URIs #LinkedData  #semanticweb http://t.co/uSuUSP79 y ahora...', toUserId=-1, toUser='null', fromUser='vtomasv', id=131925671189557248, fromUserId=34219954, isoLanguageCode='es', source='<a href="http://blackberry.com/twitter" rel="nofollow">Twitter for BlackBerry®</a>', profileImageUrl='http://a2.twimg.com/profile_images/991268669/a051481d-86fc-454c-b25e-ac31d3324e89_normal.png', createdAt=Thu Nov 03 04:48:25 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='OMG!! #Facebook has started to support #RDF and #LinkedData URIs #semanticweb http://t.co/z6iis4Xr (via @jovarela)', toUserId=-1, toUser='null', fromUser='nopiedra', id=131923760474365952, fromUserId=20474, isoLanguageCode='en', source='<a href="http://twitter.com" rel="nofollow">Tweetie for Mac</a>', profileImageUrl='http://a1.twimg.com/profile_images/816805879/twitterProfilePhoto_normal.jpg', createdAt=Thu Nov 03 04:40:50 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='contexts, graph names and so on http://t.co/QOFuxIpQ #LinkedData #RDF #SemanticWeb', toUserId=-1, toUser='null', fromUser='nopiedra', id=131892008448040961, fromUserId=20474, isoLanguageCode='en', source='<a href="http://twitter.com" rel="nofollow">Tweetie for Mac</a>', profileImageUrl='http://a1.twimg.com/profile_images/816805879/twitterProfilePhoto_normal.jpg', createdAt=Thu Nov 03 02:34:39 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Goodbye MARC. Hello RDF! http://t.co/QjbIGTmY #semanticweb #rdf', toUserId=-1, toUser='null', fromUser='jborrego', id=131822071708794881, fromUserId=10273, isoLanguageCode='es', source='<a href="http://www.zite.com/" rel="nofollow">Zite</a>', profileImageUrl='http://a1.twimg.com/profile_images/1281469165/80c47e33-2fe4-49f7-9ec8-ffafe1ea9c68_normal.jpg', createdAt=Wed Nov 02 21:56:45 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='RT @jrvosse: WordNet 3.0 in #RDF published as #linkeddata, feedback welcome. See http://t.co/8n8CbqHY', toUserId=-1, toUser='null', fromUser='nopiedra', id=131757946811068416, fromUserId=20474, isoLanguageCode='en', source='<a href="http://twitter.com" rel="nofollow">Tweetie for Mac</a>', profileImageUrl='http://a1.twimg.com/profile_images/816805879/twitterProfilePhoto_normal.jpg', createdAt=Wed Nov 02 17:41:57 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='RT @yokofakun: The library of congress will replace MARC by #RDF: http://t.co/NGZEmyAX #semanticweb  (via @lespetitescases )', toUserId=-1, toUser='null', fromUser='ekaw2010', id=131702405376122880, fromUserId=434580189, isoLanguageCode='en', source='<a href="http://twitter.com/">web</a>', profileImageUrl='http://a2.twimg.com/sticky/default_profile_images/default_profile_3_normal.png', createdAt=Wed Nov 02 14:01:15 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='another day of experimenting / learning #RDF / #SPARQL - programming the #semanticWeb.', toUserId=-1, toUser='null', fromUser='peteds', id=131687639567966208, fromUserId=2544371, isoLanguageCode='en', source='<a href="http://www.tweetdeck.com" rel="nofollow">TweetDeck</a>', profileImageUrl='http://a2.twimg.com/profile_images/1162778180/whaletailtooclose_normal.jpg', createdAt=Wed Nov 02 13:02:34 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='RT @yokofakun: The library of congress will replace MARC by #RDF: http://t.co/oCgdGFbv #semanticweb  (via @lespetitescases )', toUserId=-1, toUser='null', fromUser='secoresearch', id=131501904613224449, fromUserId=90369180, isoLanguageCode='en', source='<a href="http://twitterfeed.com" rel="nofollow">twitterfeed</a>', profileImageUrl='http://a3.twimg.com/profile_images/630423206/SeCo-logo-no-text_normal.png', createdAt=Wed Nov 02 00:44:31 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='RT @yokofakun: The library of congress will replace MARC by #RDF: http://t.co/NGZEmyAX #semanticweb  (via @lespetitescases )', toUserId=-1, toUser='null', fromUser='frankolken', id=131501338214404096, fromUserId=4018774, isoLanguageCode='en', source='<a href="http://twitter.com/">web</a>', profileImageUrl='http://a0.twimg.com/profile_images/262568589/fo_small4_normal.png', createdAt=Wed Nov 02 00:42:16 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='RT @yokofakun: The library of congress will replace MARC by #RDF: http://t.co/NGZEmyAX #semanticweb  (via @lespetitescases )', toUserId=-1, toUser='null', fromUser='FrankVanHarmele', id=131501270841307136, fromUserId=25512552, isoLanguageCode='en', source='<a href="http://twitter.com/">web</a>', profileImageUrl='http://a0.twimg.com/profile_images/290059989/FvH-2008-cropped_normal.jpg', createdAt=Wed Nov 02 00:42:00 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='OMG!! #Facebook has started to support #RDF and #LinkedData URIs #semanticweb http://t.co/e6HT6Ha0', toUserId=-1, toUser='null', fromUser='jovarela', id=131484204323184640, fromUserId=60142688, isoLanguageCode='en', source='<a href="http://www.hootsuite.com" rel="nofollow">HootSuite</a>', profileImageUrl='http://a2.twimg.com/profile_images/493234346/foto_personal_normal.jpg', createdAt=Tue Nov 01 23:34:11 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='RT @AxelPolleres: Last chance:submit to #WWW2012 #SemanticWeb track.Abstracts due today,full papers:1 week http://t.co/1WnnEgMS #linkeddata #RDF #SPARQL #OWL2', toUserId=-1, toUser='null', fromUser='natsteinmetz', id=131424458488557569, fromUserId=264963586, isoLanguageCode='en', source='<a href="http://itunes.apple.com/us/app/twitter/id409789998?mt=12" rel="nofollow">Twitter for Mac</a>', profileImageUrl='http://a0.twimg.com/profile_images/1362291917/IMG_1295_normal.JPG', createdAt=Tue Nov 01 19:36:47 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='RT @AxelPolleres: Last chance:submit to #WWW2012 #SemanticWeb track.Abstracts due today,full papers:1 week http://t.co/1WnnEgMS #linkeddata #RDF #SPARQL #OWL2', toUserId=-1, toUser='null', fromUser='smeh', id=131423629467582464, fromUserId=3357651, isoLanguageCode='en', source='<a href="http://itunes.apple.com/us/app/twitter/id409789998?mt=12" rel="nofollow">Twitter for Mac</a>', profileImageUrl='http://a2.twimg.com/profile_images/1519168031/linus_normal.jpg', createdAt=Tue Nov 01 19:33:29 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Word! Good man! RT @The_BORG: I'm stuck in the groove with Social Distortion on @GetGlue http://t.co/zEQwxrSH', toUserId=-1, toUser='null', fromUser='RoxiGunz', id=132063120502960128, fromUserId=7738028, isoLanguageCode='en', source='<a href="http://www.tweetcaster.com" rel="nofollow">TweetCaster for Android</a>', profileImageUrl='http://a0.twimg.com/profile_images/1611358421/profile_normal.jpg', createdAt=Thu Nov 03 13:54:36 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='????????????D????????????????????????????????????????????????????????Web????????????????????????????????
+?????????????????????????????????', toUserId=-1, toUser='null', fromUser='hotelocean', id=132063118661656576, fromUserId=411002199, isoLanguageCode='ja', source='<a href="http://twitter.com/">web</a>', profileImageUrl='http://a1.twimg.com/profile_images/1018525206/hotelocean_normal.jpg', createdAt=Thu Nov 03 13:54:35 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='RT @tahrir_sqr: New job post at Tahrir²,
+We are looking for an innovative and creative web designer who is capable of designing a... http://t.co/4x8bOZqM', toUserId=-1, toUser='null', fromUser='farahfayoumi', id=132063117340454914, fromUserId=102645928, isoLanguageCode='en', source='<a href="http://www.facebook.com/twitter" rel="nofollow">Facebook</a>', profileImageUrl='http://a3.twimg.com/profile_images/1490391864/IMG_1719__1__normal.JPG', createdAt=Thu Nov 03 13:54:35 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='A Seguridade Social perde 75.249 afiliados en España, un 1,73 %: 	
+		
+9.224 parados máis en Galicia, un 3,96% má... http://t.co/0CLMJhop', toUserId=-1, toUser='null', fromUser='galiciahoxe', id=132063116602245121, fromUserId=37705366, isoLanguageCode='es', source='<a href="http://twitterfeed.com" rel="nofollow">twitterfeed</a>', profileImageUrl='http://a2.twimg.com/profile_images/1134336754/gh_normal.jpg', createdAt=Thu Nov 03 13:54:35 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Join me at the upcoming The Sims Social  Worldwide Meetup Day! http://t.co/dfbP3JXd #TheSimsSocialMeetup @christinaxyusko', toUserId=-1, toUser='null', fromUser='JustTooSmexi', id=132063115545288704, fromUserId=275523869, isoLanguageCode='en', source='<a href="http://www.meetup.com/" rel="nofollow">Meetup</a>', profileImageUrl='http://a1.twimg.com/profile_images/1612339682/298975_2085321048293_1103152492_31740477_340188027_n_normal.jpg', createdAt=Thu Nov 03 13:54:35 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Fransen racen Schiphol rond in luchthavenwagentje http://t.co/TSu2cpur #schiphol #web', toUserId=-1, toUser='null', fromUser='Schipholweb', id=132063114702233600, fromUserId=131463409, isoLanguageCode='nl', source='<a href="http://www.schipholweb.nl" rel="nofollow">Schipholweb</a>', profileImageUrl='http://a3.twimg.com/profile_images/1605842281/7474kla2_normal.jpg', createdAt=Thu Nov 03 13:54:34 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Desarrollo de plan de negocio web http://t.co/AIIV6EeU', toUserId=-1, toUser='null', fromUser='xcolom', id=132063114622533632, fromUserId=101900592, isoLanguageCode='es', source='<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>', profileImageUrl='http://a3.twimg.com/profile_images/1615238382/foto_normal.png', createdAt=Thu Nov 03 13:54:34 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='??????????????!? ???????????????????? ? web???????? ?????????????? http://t.co/ITOdYT93', toUserId=-1, toUser='null', fromUser='oasis3310', id=132063114182135808, fromUserId=63244647, isoLanguageCode='ja', source='<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>', profileImageUrl='http://a2.twimg.com/profile_images/1615749359/p_02_01_0511_normal.jpg', createdAt=Thu Nov 03 13:54:34 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='@oozge_ Sur un réseau social, je dis ce que je veux tant que c'est avec respect. :)', toUserId=383635055, toUser='oozge_', fromUser='Arianouille', id=132063113343283200, fromUserId=136655996, isoLanguageCode='fr', source='<a href="http://twitter.com/#!/download/iphone" rel="nofollow">Twitter for iPhone</a>', profileImageUrl='http://a2.twimg.com/profile_images/1323989869/image_normal.jpg', createdAt=Thu Nov 03 13:54:34 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='What do young workers want: social media, device freedom http://t.co/iFgkX6k8', toUserId=-1, toUser='null', fromUser='Agent9T9', id=132063112936431616, fromUserId=3454451, isoLanguageCode='en', source='<a href="http://twitter.com/tweetbutton" rel="nofollow">Tweet Button</a>', profileImageUrl='http://a1.twimg.com/profile_images/1242011036/shoes_normal.jpg', createdAt=Thu Nov 03 13:54:34 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Carolina Stanley, la nueva ministra de Desarrollo Social porteña. Chequeen sus proyectos.... http://t.co/nbLRRKqs', toUserId=-1, toUser='null', fromUser='clubpolitica', id=132063112823177217, fromUserId=13831598, isoLanguageCode='es', source='<a href="http://www.facebook.com/twitter" rel="nofollow">Facebook</a>', profileImageUrl='http://a0.twimg.com/profile_images/448764753/escudo_vec_deg_public_normal.png', createdAt=Thu Nov 03 13:54:34 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='9.224 parados máis en Galicia, un 3,96% máis: 	
+		
+A Seguridade Social perde 75.249 afiliados en España, un 1,73... http://t.co/RXLmP9a2', toUserId=-1, toUser='null', fromUser='galiciahoxe', id=132063112743485440, fromUserId=37705366, isoLanguageCode='es', source='<a href="http://twitterfeed.com" rel="nofollow">twitterfeed</a>', profileImageUrl='http://a2.twimg.com/profile_images/1134336754/gh_normal.jpg', createdAt=Thu Nov 03 13:54:34 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Facebook será el beneficiario de la mayor parte del gasto en publicidad... http://t.co/0gx1gE7b', toUserId=-1, toUser='null', fromUser='iniziarSMM', id=132063111925596160, fromUserId=177136456, isoLanguageCode='es', source='<a href="http://www.facebook.com/twitter" rel="nofollow">Facebook</a>', profileImageUrl='http://a0.twimg.com/profile_images/1195095138/Iniziar-CW-cuadrado_normal.jpg', createdAt=Thu Nov 03 13:54:34 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='????????????????YYC??????????????????????????????????????????http://t.co/qFdhgclT', toUserId=-1, toUser='null', fromUser='assissau', id=132063111892041728, fromUserId=389354152, isoLanguageCode='ja', source='<a href="http://twittbot.net/" rel="nofollow">twittbot.net</a>', profileImageUrl='http://a1.twimg.com/profile_images/1564992860/12dchd-2-67eb_normal.jpg', createdAt=Thu Nov 03 13:54:34 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+TweetJSONImpl{text='Meet Mitt Romney's new social network', toUserId=-1, toUser='null', fromUser='jaeryumasu', id=132063110277246977, fromUserId=354801992, isoLanguageCode='en', source='<a href="http://mobile.twitter.com" rel="nofollow">Mobile Web</a>', profileImageUrl='http://a1.twimg.com/profile_images/1390827609/472_normal.gif', createdAt=Thu Nov 03 13:54:33 EET 2011, location='null', place=null, geoLocation=null, annotations=null}
+!!!! Not pure ascii: 132063112936431616
+!!!! Not pure ascii: 131667738983809025
+!!!! Not pure ascii: 132063170524225536
+!!!! Not pure ascii: 132063156519440384
+!!!! Not pure ascii: 132063113343283200
+!!!! Not pure ascii: 132062953850667008
+!!!! Not pure ascii: 132062688137314304
+!!!! Not pure ascii: 132062341511651329
+!!!! Not pure ascii: 132062188084006912
+!!!! Not pure ascii: 132060713425453056
+!!!! Not pure ascii: 132060654684221440
+!!!! Not pure ascii: 132060272247570432
+!!!! Not pure ascii: 132060230124179457
+!!!! Not pure ascii: 132059861591654400
+!!!! Not pure ascii: 132059525321719808
+!!!! Not pure ascii: 132059318857113600
+!!!! Not pure ascii: 132004976934400000
+!!!! Not pure ascii: 131989708124340224
+!!!! Not pure ascii: 131989194322087936
+!!!! Not pure ascii: 131877435821142016
+!!!! Not pure ascii: 131876048752226304
+!!!! Not pure ascii: 131875937636712450
+!!!! Not pure ascii: 131872798133063680
+!!!! Not pure ascii: 131870134192181248
+!!!! Not pure ascii: 131869543860666368
+!!!! Not pure ascii: 131868758426918913
+!!!! Not pure ascii: 131794593447559169
+!!!! Not pure ascii: 131749013178429440
+!!!! Not pure ascii: 126763477367926784
+!!!! Not pure ascii: 131873282411593729
+!!!! Not pure ascii: 131105181306855427
+ INFO [main] (XmlBeanDefinitionReader.java:315) - Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+ INFO [main] (SQLErrorCodesFactory.java:126) - SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+exception while insert_tokens for tweet=131773398283067394
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131726435231596544
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131709856049672192
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131364036242706432
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131347456473571328
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131001612805210112
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130985029491888128
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130639165216927747
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130622638996463616
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130276802856878081
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130260622452600832
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129914425800011776
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129897925538099201
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129552145866428416
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129535596757647360
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129189762652315649
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129173175215984641
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=128827381426298880
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=128810776394870785
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 131676810994913280
+!!!! Not pure ascii: 131152424990810113
+!!!! Not pure ascii: 131152401213304832
+!!!! Not pure ascii: 131061807619121152
+!!!! Not pure ascii: 131061715830976512
+!!!! Not pure ascii: 130971192885649408
+!!!! Not pure ascii: 130971150988742656
+!!!! Not pure ascii: 132017792382808064
+!!!! Not pure ascii: 131919679689211906
+!!!! Not pure ascii: 131768379957723136
+exception while insert_tokens for tweet=132048053346648064
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\x99...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\x99...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=132032922902478848
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x99\xAA\xE2\x99\xAA...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x99\xAA\xE2\x99\xAA...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131995185839218688
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\x81\x8B\xE4\xBA\xBA...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\x81\x8B\xE4\xBA\xBA...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131897051138109440
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\x99...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\x99...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131881963161264128
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x99\xAA\xE2\x99\xAA...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x99\xAA\xE2\x99\xAA...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131843850003152896
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\x81\x8B\xE4\xBA\xBA...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\x81\x8B\xE4\xBA\xBA...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131746069628461056
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\x99...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\x99...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 132063112823177217
+!!!! Not pure ascii: 132062980698423297
+!!!! Not pure ascii: 132062047969095680
+!!!! Not pure ascii: 132061299143225344
+!!!! Not pure ascii: 132061242738229248
+!!!! Not pure ascii: 132061215479439360
+!!!! Not pure ascii: 132059653180899329
+!!!! Not pure ascii: 132059411240861697
+!!!! Not pure ascii: 131855349924904960
+!!!! Not pure ascii: 131494917951324162
+!!!! Not pure ascii: 131379711837356032
+!!!! Not pure ascii: 131362037879156736
+!!!! Not pure ascii: 131190178227294208
+!!!! Not pure ascii: 131182333079470081
+!!!! Not pure ascii: 131139491246243840
+!!!! Not pure ascii: 131111866045968384
+!!!! Not pure ascii: 131111469709410305
+!!!! Not pure ascii: 131111451216711680
+!!!! Not pure ascii: 131111200950984706
+!!!! Not pure ascii: 131100675257016321
+!!!! Not pure ascii: 131095619325538304
+!!!! Not pure ascii: 131095437997383680
+!!!! Not pure ascii: 131094152850046977
+!!!! Not pure ascii: 131036314299674624
+!!!! Not pure ascii: 131029872272351232
+!!!! Not pure ascii: 131028012027215873
+!!!! Not pure ascii: 131004455641550848
+!!!! Not pure ascii: 130845855782666241
+!!!! Not pure ascii: 116536916442234881
+!!!! Not pure ascii: 132063117340454914
+exception while insert_tokens for tweet=131653718214066176
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x99\xBB,Sc...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x99\xBB,Sc...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131652397276737536
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x99\xBB,He...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x99\xBB,He...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 132063116602245121
+!!!! Not pure ascii: 132063115302010881
+!!!! Not pure ascii: 132063113959837697
+!!!! Not pure ascii: 132063112743485440
+!!!! Not pure ascii: 132054463845380097
+!!!! Not pure ascii: 132054462394138624
+!!!! Not pure ascii: 132054460485746688
+!!!! Not pure ascii: 132054458849959936
+!!!! Not pure ascii: 132054456937361408
+!!!! Not pure ascii: 131885440386072577
+!!!! Not pure ascii: 131885436862857217
+!!!! Not pure ascii: 131885435352920064
+!!!! Not pure ascii: 131885433910083584
+!!!! Not pure ascii: 131834154961735680
+!!!! Not pure ascii: 131825500862693376
+!!!! Not pure ascii: 131825498069270528
+!!!! Not pure ascii: 131825496420917249
+!!!! Not pure ascii: 131825494843858944
+!!!! Not pure ascii: 131774134265982976
+!!!! Not pure ascii: 131774132261097473
+!!!! Not pure ascii: 131765343784939521
+!!!! Not pure ascii: 131765342606331904
+!!!! Not pure ascii: 131765340635017216
+!!!! Not pure ascii: 131765339183783936
+!!!! Not pure ascii: 131756449515835392
+!!!! Not pure ascii: 131756448228196352
+!!!! Not pure ascii: 131756446646927360
+!!!! Not pure ascii: 131756442758811649
+!!!! Not pure ascii: 131681205396574208
+!!!! Not pure ascii: 131681204259930112
+!!!! Not pure ascii: 131681202712219648
+!!!! Not pure ascii: 131511513860145152
+!!!! Not pure ascii: 131450635735404544
+!!!! Not pure ascii: 131424340553117698
+!!!! Not pure ascii: 131424338850226176
+!!!! Not pure ascii: 131397651815084032
+!!!! Not pure ascii: 131397650338689025
+exception while insert_tokens for tweet=132063118661656576
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\xBE\xA1\xE7\x84\xA1...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\xBE\xA1\xE7\x84\xA1...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=127868901123039232
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126766407064109056
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x83\x8F\xE3\x82\xA4...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x83\x8F\xE3\x82\xA4...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126450137999478784
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=126261132989181952
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x93\xE3\x82\x93...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x93\xE3\x82\x93...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=125336356821008384
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x82\xE3\x81\xA3...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x82\xE3\x81\xA3...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=125336090180714496
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=124769297162706944
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\xAF\xE3\x81\x84...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\xAF\xE3\x81\x84...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=123536906880430080
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=123161862383747072
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x83\x9D\xE3\x83\xAB...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x83\x9D\xE3\x83\xAB...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=122794469111234560
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=122432638039506944
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=122253363340517376
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x93\xE3\x82\x93...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x93\xE3\x82\x93...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=121739428170440704
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=121323676313456641
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=121211631622557699
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x93\xE3\x82\x93...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x93\xE3\x82\x93...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=120596318103150592
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x84\xE3\x81\xA4...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x84\xE3\x81\xA4...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=120595335230930944
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE4\xBB\x8A\xE6\x97\xA5...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE4\xBB\x8A\xE6\x97\xA5...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=120231032778784768
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=119524562546339840
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x8A\xE3\x81\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=119179823196282883
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\xAF\xE3\x81\x98...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\xAF\xE3\x81\x98...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=115956128755625985
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\x9C\xAC\xE6\x97\xA5...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\x9C\xAC\xE6\x97\xA5...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=16889743386
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x83\x84\xE3\x82\xA4...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x83\x84\xE3\x82\xA4...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 132063111925596160
+!!!! Not pure ascii: 132043760006737921
+!!!! Not pure ascii: 132031473183227904
+!!!! Not pure ascii: 132026019061305344
+!!!! Not pure ascii: 131762518325600258
+!!!! Not pure ascii: 131712891127730176
+!!!! Not pure ascii: 131690022972821505
+!!!! Not pure ascii: 131672273051590656
+!!!! Not pure ascii: 131670947492134912
+!!!! Not pure ascii: 131037776035594242
+!!!! Not pure ascii: 130985386867556352
+!!!! Not pure ascii: 130966896219656192
+!!!! Not pure ascii: 130948904719106048
+!!!! Not pure ascii: 130942412221710336
+!!!! Not pure ascii: 129876231360491520
+!!!! Not pure ascii: 129868157967011840
+!!!! Not pure ascii: 129854928876343296
+!!!! Not pure ascii: 129836007544717313
+!!!! Not pure ascii: 129528005872721922
+!!!! Not pure ascii: 129521489341972481
+!!!! Not pure ascii: 129487363012444161
+!!!! Not pure ascii: 129471722821910529
+!!!! Not pure ascii: 129151429490380800
+!!!! Not pure ascii: 129125276054601729
+!!!! Not pure ascii: 129118878293962753
+!!!! Not pure ascii: 129110783396294656
+!!!! Not pure ascii: 128863472078426112
+!!!! Not pure ascii: 128778079844827137
+!!!! Not pure ascii: 128764311597363201
+!!!! Not pure ascii: 128749278515576832
+!!!! Not pure ascii: 128545024534261761
+!!!! Not pure ascii: 128543221113565184
+!!!! Not pure ascii: 131220077071712256
+!!!! Not pure ascii: 131877077539500032
+!!!! Not pure ascii: 131875602033684483
+!!!! Not pure ascii: 131868982918656001
+!!!! Not pure ascii: 131866467758112768
+!!!! Not pure ascii: 131865372579213312
+!!!! Not pure ascii: 131864449882669056
+!!!! Not pure ascii: 131864392294862848
+!!!! Not pure ascii: 131863869009301504
+!!!! Not pure ascii: 131862205330235394
+!!!! Not pure ascii: 131861060096491521
+!!!! Not pure ascii: 131860654054322179
+!!!! Not pure ascii: 131860147315294209
+!!!! Not pure ascii: 131831500122501120
+!!!! Not pure ascii: 131831156525117440
+!!!! Not pure ascii: 131830332579250176
+!!!! Not pure ascii: 131829603055575040
+!!!! Not pure ascii: 131822071708794881
+!!!! Not pure ascii: 131818407438974976
+!!!! Not pure ascii: 132033029085462530
+!!!! Not pure ascii: 131982688675573760
+!!!! Not pure ascii: 131783242834653184
+!!!! Not pure ascii: 131641724886982657
+!!!! Not pure ascii: 131637928861503488
+!!!! Not pure ascii: 131292089685262336
+!!!! Not pure ascii: 131075476369321984
+!!!! Not pure ascii: 130970459104743424
+!!!! Not pure ascii: 128778057308835840
+!!!! Not pure ascii: 128725623903498240
+!!!! Not pure ascii: 128422396771303425
+!!!! Not pure ascii: 128402158298214400
+!!!! Not pure ascii: 128401221085184000
+!!!! Not pure ascii: 128390771211636736
+400:The request was invalid. An accompanying error message will explain why. This is the status code will be returned during rate limiting (https://dev.twitter.com/pages/rate-limiting).
+error - Rate limit exceeded. Clients may not make more than 150 requests per hour.
+request - /1/users/show.json?include_entities=true&screen_name=burakcelebi
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=400, retryAfter=3470, rateLimitStatus=RateLimitStatusJSONImpl{remainingHits=0, hourlyLimit=150, resetTimeInSeconds=1320324, secondsUntilReset=3470, resetTime=Thu Nov 03 14:54:42 EET 2011}, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=124.42.77.180:80
+400:The request was invalid. An accompanying error message will explain why. This is the status code will be returned during rate limiting (https://dev.twitter.com/pages/rate-limiting).
+error - Rate limit exceeded. Clients may not make more than 150 requests per hour.
+request - /1/users/show.json?include_entities=true&screen_name=burakcelebi
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=400, retryAfter=3470, rateLimitStatus=RateLimitStatusJSONImpl{remainingHits=0, hourlyLimit=150, resetTimeInSeconds=1320324, secondsUntilReset=3470, resetTime=Thu Nov 03 14:54:42 EET 2011}, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=123.62.6.58:80
+Software caused connection abort: recv failedRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=160.79.35.27:80
+Software caused connection abort: recv failedRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=187.5.185.89:80
+!!!! Not pure ascii: 131049416391012352
+!!!! Not pure ascii: 131043001844768769
+!!!! Not pure ascii: 129958650692382720
+!!!! Not pure ascii: 129941533502873600
+!!!! Not pure ascii: 129930203068776448
+!!!! Not pure ascii: 129575525843865600
+!!!! Not pure ascii: 129208111880876032
+!!!! Not pure ascii: 128963944185462784
+!!!! Not pure ascii: 127031877872787456
+!!!! Not pure ascii: 126016437960708096
+!!!! Not pure ascii: 131925261120839680
+!!!! Not pure ascii: 131924040469331969
+!!!! Not pure ascii: 131923875779985411
+!!!! Not pure ascii: 131770339410714624
+!!!! Not pure ascii: 131758127124185088
+!!!! Not pure ascii: 131756311464513537
+!!!! Not pure ascii: 131755693920362496
+!!!! Not pure ascii: 131750935931265024
+!!!! Not pure ascii: 131748740716429313
+!!!! Not pure ascii: 131747628437348352
+!!!! Not pure ascii: 131747196482752514
+!!!! Not pure ascii: 131744225929854976
+!!!! Not pure ascii: 131742354255253504
+!!!! Not pure ascii: 131742256192434176
+exception while insert_tokens for tweet=132063114182135808
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x82\xAA\xE3\x83\xBC...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x82\xAA\xE3\x83\xBC...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=132062521292107777
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\x90\x8C\xE7\xAA\x93...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\x90\x8C\xE7\xAA\x93...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=132059888732999680
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=132055929284866048
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\x9C\xA8\xE6\x9B\x9C...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\x9C\xA8\xE6\x9B\x9C...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=132051386442584064
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\x9C\xA8\xE6\x9B\x9C...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\x9C\xA8\xE6\x9B\x9C...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=132022332586868736
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xEF\xBC\x8DNot...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xEF\xBC\x8DNot...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=132016918092713984
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x9D\xE3\x82\x8C...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x9D\xE3\x82\x8C...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=132013154795393024
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'hashTagsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'hashTagsCVS' at row 2
+exception while insert_tokens for tweet=132011129516998656
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'hashTagsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'hashTagsCVS' at row 2
+exception while insert_tokens for tweet=132010890018045952
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'hashTagsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'hashTagsCVS' at row 2
+exception while insert_tokens for tweet=131968145358471168
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'hashTagsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'hashTagsCVS' at row 2
+exception while insert_tokens for tweet=131965443027107840
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE7\xB4\xA0\xE4\xBA\xBA...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE7\xB4\xA0\xE4\xBA\xBA...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131965398408118274
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\xAC\xA1\xE3\x81\xAE...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\xAC\xA1\xE3\x81\xAE...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131965370784419840
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\xAC\xA1\xE3\x81\xAE...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\xAC\xA1\xE3\x81\xAE...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131962404505518080
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\x9C\x9D\xE6\x97\xA5...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\x9C\x9D\xE6\x97\xA5...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131961693122215936
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'hashTagsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'hashTagsCVS' at row 2
+exception while insert_tokens for tweet=131961199612002304
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131856309556477952
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\x85\xA8\xE5\x9B\xBD...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\x85\xA8\xE5\x9B\xBD...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131855682386407424
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xEF\xBC\x88\xE5\x86\x8D...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xEF\xBC\x88\xE5\x86\x8D...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131855598340939776
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xEF\xBC\x88\xE5\x86\x8D...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xEF\xBC\x88\xE5\x86\x8D...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131855512139608064
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xEF\xBC\x88\xE5\x86\x8D...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xEF\xBC\x88\xE5\x86\x8D...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131855435895541760
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xEF\xBC\x88\xE5\x86\x8D...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xEF\xBC\x88\xE5\x86\x8D...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131855350126231554
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xEF\xBC\x88\xE5\x86\x8D...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xEF\xBC\x88\xE5\x86\x8D...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131855176742076416
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\x94\xBF\xE6\xB2\xBB...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\x94\xBF\xE6\xB2\xBB...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131854667738132482
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE8\xAD\xB0\xE5\x93\xA1...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE8\xAD\xB0\xE5\x93\xA1...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131854505737326592
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\x9C\xB0\xE6\x96\xB9...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\x9C\xB0\xE6\x96\xB9...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131854000499863553
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE8\xAD\xB0\xE5\x93\xA1...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE8\xAD\xB0\xE5\x93\xA1...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131853625394855936
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\x9C\xB0\xE6\x96\xB9...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\x9C\xB0\xE6\x96\xB9...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131853382179758080
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x83\x90\xE3\x82\xAB...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x83\x90\xE3\x82\xAB...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131853154856861698
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\xBE\xE3\x81\xA1...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\xBE\xE3\x81\xA1...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131852832482656256
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xEF\xBC\x88\xE5\x86\x8D...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xEF\xBC\x88\xE5\x86\x8D...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131851221643436032
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x80\x90\xE5\xB8\x8C...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x80\x90\xE5\xB8\x8C...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131848428144705536
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'hashTagsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'hashTagsCVS' at row 2
+exception while insert_tokens for tweet=131848202096885760
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE9\x9D\x9E\xE5\x85\x9A...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE9\x9D\x9E\xE5\x85\x9A...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131848050724442112
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x83\x89\xE7\xB4\xA0...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x83\x89\xE7\xB4\xA0...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131847931149037569
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\xAC\xA1\xE4\xB8\x96...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\xAC\xA1\xE4\xB8\x96...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131847792342728704
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE9\x97\x98\xE3\x81\x86...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE9\x97\x98\xE3\x81\x86...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131847669629980672
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE4\xBB\x96\xE4\xBA\xBA...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE4\xBB\x96\xE4\xBA\xBA...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=131847477807681536
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\xB0\x8F\xE9\x87\x91...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 131710409320308739
+!!!! Not pure ascii: 131481136491798528
+!!!! Not pure ascii: 131875639031627777
+!!!! Not pure ascii: 128095880346734592
+!!!! Not pure ascii: 131785350434660353
+!!!! Not pure ascii: 131925671189557248
+!!!! Not pure ascii: 130255695533719552
+!!!! Not pure ascii: 129909644964528128
+!!!! Not pure ascii: 129904650915819522
+!!!! Not pure ascii: 129297817603817472
+!!!! Not pure ascii: 129039950741118976
+!!!! Not pure ascii: 125909761840525312
+!!!! Not pure ascii: 124845868963725312
+!!!! Not pure ascii: 121179082640732161
+!!!! Not pure ascii: 121177282227347458
+!!!! Not pure ascii: 120862400428785664
+!!!! Not pure ascii: 132061757815537664
+!!!! Not pure ascii: 131674794428084224
+!!!! Not pure ascii: 131657897649246209
+!!!! Not pure ascii: 131650737527721984
+!!!! Not pure ascii: 131646097415348224
+!!!! Not pure ascii: 131643026962518016
+!!!! Not pure ascii: 131630947761266688
+!!!! Not pure ascii: 130965151674413056
+!!!! Not pure ascii: 130934872729595904
+!!!! Not pure ascii: 130919287664812032
+!!!! Not pure ascii: 130917077446959104
+!!!! Not pure ascii: 128489749043359744
+!!!! Not pure ascii: 116477377416138753
+!!!! Not pure ascii: 116120975489253376
+!!!! Not pure ascii: 116120520201748480
+!!!! Not pure ascii: 116120305545646080
+!!!! Not pure ascii: 116118182451875840
+!!!! Not pure ascii: 116079006742347777
+!!!! Not pure ascii: 116072239744557056
+!!!! Not pure ascii: 115751060437602304
+!!!! Not pure ascii: 115740451813851136
+Results for query: [2010 api business cloud community community conversion converter data data data database desktop display dublincore eclipse ecommerce extension foaf foaf foaf foaf foaf foaf foaf framework goodrelations government interesante javascript json library linkeddata linkeddata linkeddata management mediawiki metadata metadata metadata metadata metadata ncbi neon old-delicious ontology ontology ontology ontology ontology ontology ontology ontology opendata opensource opensource owl owl owl queries query rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdfa rdflib redfoot reference reference reference repository research research schema science scripts search search semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic-web semantic_web semanticdesktop semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb sioc skos social social social social social social social socialnetworking software software sparql sparql specification standards standards statistics svg talis talis taxonomy thesauri toolkit tools tools tools tutorial visualisation visualization visualization vocabulary vocabulary void w3c web web web web web web web web web web web2.0 web2.0 web2.0 web2.0 web2.0 web2.0 wiki wiki wikipedia wikipedia xml xml xml xml xml xml xml xml]
+            0,209521: [ screen_name=        secoresearch, statusesCount=  1628, followersCount=   237, friendsCount=    78, location=     Aalto University, Finland, name=           SeCo Research Group ]
+            0,199506: [ screen_name=            nopiedra, statusesCount= 18695, followersCount=  1594, friendsCount=  1635, location=                 Ecuador, Loja, name=                 Nelson Piedra ]
+            0,191819: [ screen_name=     FrankVanHarmele, statusesCount=  1617, followersCount=  1092, friendsCount=    46, location=                     Amsterdam, name=            Frank van Harmelen ]
+            0,098461: [ screen_name=              das05r, statusesCount=  1064, followersCount=   177, friendsCount=    34, location=               Southampton, UK, name=           Dr. Daniel A. Smith ]
+            0,096806: [ screen_name=          frankolken, statusesCount=  7456, followersCount=   710, friendsCount=  1574, location=             Berkeley, CA, USA, name=                   Frank Olken ]
+            0,084408: [ screen_name=              peteds, statusesCount= 10756, followersCount=   537, friendsCount=   403, location=                Shore Area, NJ, name=                          Pete ]
+            0,083757: [ screen_name=        natsteinmetz, statusesCount=   340, followersCount=   245, friendsCount=   610, location=                   Seattle, WA, name=            Nathalie Steinmetz ]
+            0,068465: [ screen_name=            ekaw2010, statusesCount=     4, followersCount=     0, friendsCount=     1, location=                          null, name=                        mmnnll ]
+            0,056239: [ screen_name=         Schipholweb, statusesCount=  3138, followersCount=    73, friendsCount=   258, location=                      Schiphol, name=                Schipholweb.nl ]
+            0,033093: [ screen_name=         MarcoBrambi, statusesCount=  3081, followersCount=   472, friendsCount=   294, location=                   Como, Italy, name=               Marco Brambilla ]
+            0,031835: [ screen_name=                smeh, statusesCount= 13649, followersCount=   275, friendsCount=   248, location=               Galway, Ireland, name=                 David Crowley ]
+            0,029012: [ screen_name=          jaeryumasu, statusesCount=    10, followersCount=     0, friendsCount=     2, location=                 Philadelphia
+, name=             Melville Richmond ]
+            0,027529: [ screen_name=            jovarela, statusesCount=   616, followersCount=   100, friendsCount=   127, location=                              , name=                  Jordi Varela ]
+            0,016634: [ screen_name=              xcolom, statusesCount=   573, followersCount=   351, friendsCount=   680, location=                        Lleida, name=                    Xavi Colom ]
+            0,013017: [ screen_name=            jborrego, statusesCount= 30264, followersCount=   621, friendsCount=   299, location=                       sevilla, name=          Joaquin Borrego Díaz ]
+            0,010799: [ screen_name=             vtomasv, statusesCount=   752, followersCount=   192, friendsCount=   429, location=   huechuraba, Santiago, Chile, name=                    Tomas Vera ]
+            0,006489: [ screen_name=        clubpolitica, statusesCount=  1664, followersCount=  3293, friendsCount=   177, location=       Buenos Aires, Argentina, name=           Club de la Política ]
+            0,005089: [ screen_name=            Agent9T9, statusesCount=  2805, followersCount=   607, friendsCount=   771, location=        Sydney, NSW, Australia, name=                       janeara ]
+            0,004965: [ screen_name=        JustTooSmexi, statusesCount=  1595, followersCount=    65, friendsCount=   212, location=             ????????? ????? ?, name=                       N!ckk ? ]
+            0,003412: [ screen_name=            RoxiGunz, statusesCount= 16125, followersCount=   243, friendsCount=   292, location=                     Hellaware, name=                  Nikki Knight ]
+!!!! Not pure ascii: 122026203124219905
+!!!! Not pure ascii: 126604628400943104
+!!!! Not pure ascii: 126604027856302080
+!!!! Not pure ascii: 114271978285826048
+!!!! Not pure ascii: 88561009517793281
+!!!! Not pure ascii: 131105670459162624
+!!!! Not pure ascii: 128777955584385024
+!!!! Not pure ascii: 125688188361654272
+!!!! Not pure ascii: 124411727482851328
+!!!! Not pure ascii: 109667361837166593
+!!!! Not pure ascii: 101318295235473408
+!!!! Not pure ascii: 131794107424178176
+!!!! Not pure ascii: 130759539044777984
+!!!! Not pure ascii: 131385445316694017
+!!!! Not pure ascii: 130343201730080768
+!!!! Not pure ascii: 129588303556124672
+!!!! Not pure ascii: 131929545690464256
+!!!! Not pure ascii: 131877353386283009
+!!!! Not pure ascii: 131866999151267840
+!!!! Not pure ascii: 131826164246392832
+!!!! Not pure ascii: 131825361305608193
+!!!! Not pure ascii: 131824339392790530
+!!!! Not pure ascii: 131824201404395521
+!!!! Not pure ascii: 131787552767213568
+!!!! Not pure ascii: 131551828709089281
+!!!! Not pure ascii: 131521221488685056
+!!!! Not pure ascii: 127359361545805824
+!!!! Not pure ascii: 122934632298721280
+!!!! Not pure ascii: 119685040975261696
+!!!! Not pure ascii: 119337043640856576
+!!!! Not pure ascii: 117561753071652864
+!!!! Not pure ascii: 116802512866115584
+NewProxy=183.181.164.180:80
+400:The request was invalid. An accompanying error message will explain why. This is the status code will be returned during rate limiting (https://dev.twitter.com/pages/rate-limiting).
+error - Rate limit exceeded. Clients may not make more than 150 requests per hour.
+request - /1/users/show.json?include_entities=true&screen_name=burakcelebi
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=400, retryAfter=1040, rateLimitStatus=RateLimitStatusJSONImpl{remainingHits=0, hourlyLimit=150, resetTimeInSeconds=1320325, secondsUntilReset=1040, resetTime=Thu Nov 03 14:57:30 EET 2011}, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=195.57.148.4:80
+!!!! Not pure ascii: 132054079114452992
+!!!! Not pure ascii: 131928568539258880
+!!!! Not pure ascii: 131831722047311873
+!!!! Not pure ascii: 131774745036324864
+!!!! Not pure ascii: 131765359006068737
+!!!! Not pure ascii: 131754601383866368
+!!!! Not pure ascii: 131751829376745474
+!!!! Not pure ascii: 131700469365096449
+!!!! Not pure ascii: 131554196649549825
+!!!! Not pure ascii: 131540818526875648
+!!!! Not pure ascii: 131540124340199424
+!!!! Not pure ascii: 131419927407099904
+!!!! Not pure ascii: 131373841908908032
+!!!! Not pure ascii: 131185054914322432
+!!!! Not pure ascii: 131184360496967680
+!!!! Not pure ascii: 131150534957731841
+!!!! Not pure ascii: 131148848285499392
+!!!! Not pure ascii: 131145673910403073
+!!!! Not pure ascii: 131087553972539394
+!!!! Not pure ascii: 131023500172464128
+!!!! Not pure ascii: 131012291570315265
+!!!! Not pure ascii: 130994076282662913
+!!!! Not pure ascii: 130805954504699904
+!!!! Not pure ascii: 130794526968266752
+exception while insert_tokens for tweet=131418810606551040
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x80\x8E1,H...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x80\x8E1,H...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 131910341302030336
+!!!! Not pure ascii: 130174180548292608
+!!!! Not pure ascii: 127720542244577280
+!!!! Not pure ascii: 123657898420207616
+!!!! Not pure ascii: 122775570156240896
+!!!! Not pure ascii: 122767742850969600
+!!!! Not pure ascii: 121584839131541505
+!!!! Not pure ascii: 126737194181332993
+!!!! Not pure ascii: 108836696736542720
+!!!! Not pure ascii: 107120708307525633
+!!!! Not pure ascii: 130433879554260992
+!!!! Not pure ascii: 130283043033321472
+exception while insert_tokens for tweet=131620871755403264
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xD8\xA7\xD9\x84\xD9\x81...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xD8\xA7\xD9\x84\xD9\x81...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130905364794327041
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xD8\xB4\xD9\x83\xD8\xB1...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xD8\xB4\xD9\x83\xD8\xB1...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130904365048401920
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xD8\xA8\xD8\xA7\xD9\x84...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xD8\xA8\xD8\xA7\xD9\x84...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130479171402076160
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xD8\xA7\xD9\x84\xD8\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xD8\xA7\xD9\x84\xD8\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130367306432913408
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xD8\xA7\xD9\x84\xD8\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xD8\xA7\xD9\x84\xD8\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130325182819733506
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xD8\xA7\xD9\x84\xD8\xAE...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xD8\xA7\xD9\x84\xD8\xAE...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130318624979296256
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xD9\x82\xD9\x88\xD9\x88...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xD9\x82\xD9\x88\xD9\x88...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130302046015471616
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xD9\x85\xD8\xA7,\xD8...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xD9\x85\xD8\xA7,\xD8...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 131761745155981312
+!!!! Not pure ascii: 131776860974624768
+!!!! Not pure ascii: 131704229097246720
+!!!! Not pure ascii: 129133592046608385
+!!!! Not pure ascii: 129101975483723776
+!!!! Not pure ascii: 128386615646240768
+!!!! Not pure ascii: 128095619368755200
+!!!! Not pure ascii: 128090442154770433
+401:Authentication credentials (https://dev.twitter.com/docs/auth) were missing or incorrect. Ensure that you have set valid conumer key/secret, access token/secret, and the system clock in in sync.
+error - Not authorized
+request - /1/statuses/user_timeline.json?screen_name=ja&include_rts=true&include_entities=true&include_my_retweet=1&page=1
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=ced778ef or
+	http://www.google.co.jp/search?q=0faf2c6f
+TwitterException{exceptionCode=[ced778ef-0faf2c6f], statusCode=401, retryAfter=-1, rateLimitStatus=RateLimitStatusJSONImpl{remainingHits=60, hourlyLimit=150, resetTimeInSeconds=1320324, secondsUntilReset=434, resetTime=Thu Nov 03 14:48:48 EET 2011}, featureSpecificRateLimitStatus=null, version=2.2.4}
+	at twitter4j.internal.http.HttpClientImpl.request(HttpClientImpl.java:185)
+	at twitter4j.internal.http.HttpClientWrapper.request(HttpClientWrapper.java:65)
+	at twitter4j.internal.http.HttpClientWrapper.get(HttpClientWrapper.java:85)
+	at twitter4j.TwitterImpl.get(TwitterImpl.java:1886)
+	at twitter4j.TwitterImpl.getUserTimeline(TwitterImpl.java:224)
+	at search.SearchServiceImpl.fetchStatusList(SearchServiceImpl.java:305)
+	at search.SearchServiceImpl.fetchMyTweets(SearchServiceImpl.java:269)
+	at search.SearchServiceImpl.buildMyUser(SearchServiceImpl.java:228)
+	at search.SearchServiceImpl.queryExtendedUsers(SearchServiceImpl.java:152)
+	at Main.main(Main.java:43)
+!!!! Not pure ascii: 131908656450125824
+!!!! Not pure ascii: 131736105765715968
+!!!! Not pure ascii: 132042486456647680
+!!!! Not pure ascii: 130984501487730688
+!!!! Not pure ascii: 130971245880688640
+!!!! Not pure ascii: 130940272493330433
+!!!! Not pure ascii: 130935520896360448
+!!!! Not pure ascii: 129904482359316480
+!!!! Not pure ascii: 129899015042121728
+!!!! Not pure ascii: 129891622199635968
+!!!! Not pure ascii: 129806034977046528
+!!!! Not pure ascii: 129571206453149699
+!!!! Not pure ascii: 129302696527265794
+!!!! Not pure ascii: 129223351964139520
+!!!! Not pure ascii: 128860397037039616
+!!!! Not pure ascii: 8065664593
+!!!! Not pure ascii: 21407035101
+!!!! Not pure ascii: 15172664680
+!!!! Not pure ascii: 131892745051705344
+!!!! Not pure ascii: 129972203390386176
+!!!! Not pure ascii: 129896934465998849
+!!!! Not pure ascii: 131882111350214656
+!!!! Not pure ascii: 129242800939208705
+!!!! Not pure ascii: 129133847110631424
+!!!! Not pure ascii: 129131629057810433
+!!!! Not pure ascii: 129115152107839491
+!!!! Not pure ascii: 128733062270943232
+!!!! Not pure ascii: 126747898573635584
+!!!! Not pure ascii: 126026004278943745
+!!!! Not pure ascii: 131090996623708161
+400:The request was invalid. An accompanying error message will explain why. This is the status code will be returned during rate limiting (https://dev.twitter.com/pages/rate-limiting).
+error - Rate limit exceeded. Clients may not make more than 150 requests per hour.
+request - /1/users/show.json?include_entities=true&screen_name=burakcelebi
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=400, retryAfter=377, rateLimitStatus=RateLimitStatusJSONImpl{remainingHits=0, hourlyLimit=150, resetTimeInSeconds=1320324, secondsUntilReset=377, resetTime=Thu Nov 03 14:48:48 EET 2011}, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=183.181.31.248:80
+400:The request was invalid. An accompanying error message will explain why. This is the status code will be returned during rate limiting (https://dev.twitter.com/pages/rate-limiting).
+error - Rate limit exceeded. Clients may not make more than 150 requests per hour.
+request - /1/users/show.json?include_entities=true&screen_name=burakcelebi
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=400, retryAfter=376, rateLimitStatus=RateLimitStatusJSONImpl{remainingHits=0, hourlyLimit=150, resetTimeInSeconds=1320324, secondsUntilReset=376, resetTime=Thu Nov 03 14:48:48 EET 2011}, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=202.149.74.167:80
+!!!! Not pure ascii: 131381934701035522
+!!!! Not pure ascii: 123351617394315264
+!!!! Not pure ascii: 102882440607055872
+!!!! Not pure ascii: 132066875956920320
+!!!! Not pure ascii: 132017948838735872
+!!!! Not pure ascii: 132012548043186176
+!!!! Not pure ascii: 132012216965808128
+!!!! Not pure ascii: 132011987612860416
+!!!! Not pure ascii: 132011762483601408
+!!!! Not pure ascii: 132005241242664960
+!!!! Not pure ascii: 131878415526666242
+!!!! Not pure ascii: 131877754642763777
+!!!! Not pure ascii: 131867692025126913
+!!!! Not pure ascii: 131859228792061952
+!!!! Not pure ascii: 131853735117852674
+!!!! Not pure ascii: 131837020996780032
+!!!! Not pure ascii: 131836759196704768
+!!!! Not pure ascii: 131836575666552832
+!!!! Not pure ascii: 131827242866196480
+!!!! Not pure ascii: 131824362776039424
+!!!! Not pure ascii: 131795757220118529
+!!!! Not pure ascii: 131787901699756033
+!!!! Not pure ascii: 131786542694924288
+!!!! Not pure ascii: 131779108664393728
+!!!! Not pure ascii: 131720935219806209
+!!!! Not pure ascii: 131712148073222144
+!!!! Not pure ascii: 131699564959895552
+!!!! Not pure ascii: 131057710845280256
+!!!! Not pure ascii: 131048117587034113
+!!!! Not pure ascii: 130567218160340992
+!!!! Not pure ascii: 129891176684851200
+!!!! Not pure ascii: 129890088372019201
+!!!! Not pure ascii: 129821860056662016
+!!!! Not pure ascii: 129492266292215808
+!!!! Not pure ascii: 128382713534226432
+!!!! Not pure ascii: 128048833434365952
+!!!! Not pure ascii: 126334604595560449
+!!!! Not pure ascii: 126314433361354753
+!!!! Not pure ascii: 126031333582577664
+!!!! Not pure ascii: 125833271882948609
+!!!! Not pure ascii: 124898977081597952
+!!!! Not pure ascii: 124898842675130368
+!!!! Not pure ascii: 124887118219718656
+!!!! Not pure ascii: 124522712377982976
+!!!! Not pure ascii: 124513590261714944
+!!!! Not pure ascii: 124242265907531776
+!!!! Not pure ascii: 124241422034550784
+!!!! Not pure ascii: 124102389115518976
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=203.126.139.165:80
+!!!! Not pure ascii: 117966304278888448
+!!!! Not pure ascii: 110814929593970688
+!!!! Not pure ascii: 110814837147320320
+!!!! Not pure ascii: 91812720676048896
+!!!! Not pure ascii: 91807923168227328
+!!!! Not pure ascii: 91802638940782592
+!!!! Not pure ascii: 90881286918520833
+!!!! Not pure ascii: 126246488811642880
+!!!! Not pure ascii: 126244335447588864
+!!!! Not pure ascii: 121937717499133952
+!!!! Not pure ascii: 121936623456878592
+!!!! Not pure ascii: 121936158459568128
+!!!! Not pure ascii: 121858408201732096
+!!!! Not pure ascii: 121852561316786176
+!!!! Not pure ascii: 121851803653509120
+!!!! Not pure ascii: 121850717299417088
+!!!! Not pure ascii: 129179752522186753
+!!!! Not pure ascii: 128803721395183616
+!!!! Not pure ascii: 132022761387339776
+!!!! Not pure ascii: 131865044307804160
+!!!! Not pure ascii: 131849495716696064
+!!!! Not pure ascii: 131788896076959744
+!!!! Not pure ascii: 131738531449159680
+!!!! Not pure ascii: 131698370682175488
+!!!! Not pure ascii: 131663591026855936
+!!!! Not pure ascii: 131662159678668800
+!!!! Not pure ascii: 131660999458697217
+!!!! Not pure ascii: 131659814492315648
+!!!! Not pure ascii: 131499196598595584
+!!!! Not pure ascii: 131421265562042368
+!!!! Not pure ascii: 131420209339842560
+!!!! Not pure ascii: 129967704898666496
+!!!! Not pure ascii: 129949795275116544
+!!!! Not pure ascii: 129908006128324609
+!!!! Not pure ascii: 129901631662866432
+!!!! Not pure ascii: 129678265035145216
+!!!! Not pure ascii: 129664299063980032
+!!!! Not pure ascii: 131998529932627968
+!!!! Not pure ascii: 131996079683145728
+!!!! Not pure ascii: 131985360866643968
+!!!! Not pure ascii: 131976257117241345
+!!!! Not pure ascii: 131972819113345024
+!!!! Not pure ascii: 131954607772532738
+!!!! Not pure ascii: 131941812918169600
+!!!! Not pure ascii: 131932186826915840
+!!!! Not pure ascii: 131866075750080512
+!!!! Not pure ascii: 131861042534940676
+!!!! Not pure ascii: 131852682406277121
+!!!! Not pure ascii: 131833385260810242
+!!!! Not pure ascii: 131830063023931392
+!!!! Not pure ascii: 131828353933127680
+!!!! Not pure ascii: 131818672732905472
+!!!! Not pure ascii: 131805892755734528
+!!!! Not pure ascii: 131800573937844225
+!!!! Not pure ascii: 131799293530079232
+!!!! Not pure ascii: 131784740092133376
+!!!! Not pure ascii: 131783945804185600
+!!!! Not pure ascii: 131783317614899200
+!!!! Not pure ascii: 131782865968054274
+!!!! Not pure ascii: 129861855979110400
+!!!! Not pure ascii: 129469796994646016
+!!!! Not pure ascii: 129224951403253761
+!!!! Not pure ascii: 132010251292643328
+!!!! Not pure ascii: 131995281045733376
+!!!! Not pure ascii: 131752592551321601
+!!!! Not pure ascii: 131742434601349121
+!!!! Not pure ascii: 131742325427814400
+!!!! Not pure ascii: 131435939787587584
+!!!! Not pure ascii: 131049311214641152
+!!!! Not pure ascii: 131004536113467392
+!!!! Not pure ascii: 130665773453684736
+!!!! Not pure ascii: 130292501176254464
+!!!! Not pure ascii: 130283718672781312
+!!!! Not pure ascii: 130222444307955712
+!!!! Not pure ascii: 130022984911036416
+!!!! Not pure ascii: 129967689438478336
+!!!! Not pure ascii: 129947144391098368
+!!!! Not pure ascii: 129842778606809088
+!!!! Not pure ascii: 129669748773502977
+!!!! Not pure ascii: 129666578999545857
+!!!! Not pure ascii: 129666051872002048
+!!!! Not pure ascii: 129664826665476096
+!!!! Not pure ascii: 129634516854771712
+!!!! Not pure ascii: 128415130814918657
+!!!! Not pure ascii: 129900528388943872
+!!!! Not pure ascii: 129900485980327936
+!!!! Not pure ascii: 129130815635460096
+!!!! Not pure ascii: 128120282622857218
+!!!! Not pure ascii: 126920141819752448
+!!!! Not pure ascii: 126917486514941952
+exception while insert_tokens for tweet=126218862361456640
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x80\x90Ser...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x80\x90Ser...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 132044465891328000
+!!!! Not pure ascii: 132030551908556800
+!!!! Not pure ascii: 131848051089354752
+!!!! Not pure ascii: 131835351252733954
+!!!! Not pure ascii: 131835092137021440
+!!!! Not pure ascii: 131808984997969920
+!!!! Not pure ascii: 131802820226719744
+!!!! Not pure ascii: 131801188923482114
+!!!! Not pure ascii: 131795504119037952
+!!!! Not pure ascii: 131794837103058944
+!!!! Not pure ascii: 131794639396159488
+!!!! Not pure ascii: 131791590535598080
+!!!! Not pure ascii: 131790212991954944
+!!!! Not pure ascii: 131785856850735104
+!!!! Not pure ascii: 131782676368719872
+!!!! Not pure ascii: 131779747867918336
+!!!! Not pure ascii: 131778720829673472
+!!!! Not pure ascii: 131778582002405377
+!!!! Not pure ascii: 131774229396996096
+!!!! Not pure ascii: 131773247518818304
+!!!! Not pure ascii: 131772531366563841
+!!!! Not pure ascii: 131763753531342848
+!!!! Not pure ascii: 131700718859071489
+!!!! Not pure ascii: 131696332447559680
+!!!! Not pure ascii: 131679598495797249
+!!!! Not pure ascii: 131504167566049280
+!!!! Not pure ascii: 117002934125993985
+!!!! Not pure ascii: 69534037622013953
+NewProxy=202.116.160.89:80
+400:The request was invalid. An accompanying error message will explain why. This is the status code will be returned during rate limiting (https://dev.twitter.com/pages/rate-limiting).
+error - Rate limit exceeded. Clients may not make more than 150 requests per hour.
+request - /1/users/show.json?include_entities=true&screen_name=burakcelebi
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=400, retryAfter=2843, rateLimitStatus=RateLimitStatusJSONImpl{remainingHits=0, hourlyLimit=150, resetTimeInSeconds=1320327, secondsUntilReset=2843, resetTime=Thu Nov 03 15:39:54 EET 2011}, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=203.135.198.67:80
+502:Twitter is down or being upgraded.
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>502 Proxy Error</title>
+</head><body>
+<h1>Proxy Error</h1>
+<p>The proxy server received an invalid
+response from an upstream server.<br />
+The proxy server could not handle the request <em><a href="http://api.twitter.com/1/account/rate_limit_status.json">GET&nbsp;http://api.twitter.com/1/account/rate_limit_status.json</a></em>.<p>
+Reason: <strong>Error reading from remote server</strong></p></p>
+<hr>
+<address>Apache/2.2.3 (CentOS) Server at api.twitter.com Port 80</address>
+</body></html>
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=f68ccb24 or
+	http://www.google.co.jp/search?q=49ac5546
+TwitterException{exceptionCode=[f68ccb24-49ac5546], statusCode=502, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=210.27.80.13:80
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=217.219.115.140:80
+403:The request is understood, but it has been refused. An accompanying error message will explain why. This code is used when requests are being denied due to update limits (https://support.twitter.com/articles/15364-about-twitter-limits-update-api-dm-and-following).
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1256"><title>IM3-5
+</title></head><body><iframe src="http://10.10.34.34?type=Invalid Site&policy=MainPolicy " style="width: 100%; height: 100%" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0"></iframe></body></html>
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=403, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=211.233.134.47:80
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=ced778ef or
+	http://www.google.co.jp/search?q=0faf2c7e
+TwitterException{exceptionCode=[ced778ef-0faf2c7e b71ddc86-e6365f09], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+	at twitter4j.internal.http.HttpClientImpl.request(HttpClientImpl.java:200)
+	at twitter4j.internal.http.HttpClientWrapper.request(HttpClientWrapper.java:65)
+	at twitter4j.internal.http.HttpClientWrapper.get(HttpClientWrapper.java:85)
+	at twitter4j.TwitterImpl.get(TwitterImpl.java:1886)
+	at twitter4j.TwitterImpl.getUserTimeline(TwitterImpl.java:224)
+	at search.SearchServiceImpl.fetchStatusList(SearchServiceImpl.java:305)
+	at search.SearchServiceImpl.fetchMyTweets(SearchServiceImpl.java:269)
+	at search.SearchServiceImpl.buildMyUser(SearchServiceImpl.java:228)
+	at search.SearchServiceImpl.queryExtendedUsers(SearchServiceImpl.java:152)
+	at Main.main(Main.java:43)
+Caused by: java.net.SocketTimeoutException: connect timed out
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.PlainSocketImpl.doConnect(Unknown Source)
+	at java.net.PlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at sun.net.NetworkClient.doConnect(Unknown Source)
+	at sun.net.www.http.HttpClient.openServer(Unknown Source)
+	at sun.net.www.http.HttpClient$4.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.net.www.http.HttpClient.privilegedOpenServer(Unknown Source)
+	at sun.net.www.http.HttpClient.openServer(Unknown Source)
+	at sun.net.www.http.HttpClient.<init>(Unknown Source)
+	at sun.net.www.http.HttpClient.New(Unknown Source)
+	at sun.net.www.http.HttpClient.New(Unknown Source)
+	at sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(Unknown Source)
+	at sun.net.www.protocol.http.HttpURLConnection.plainConnect(Unknown Source)
+	at sun.net.www.protocol.http.HttpURLConnection.connect(Unknown Source)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(Unknown Source)
+	at java.net.HttpURLConnection.getResponseCode(Unknown Source)
+	at twitter4j.internal.http.HttpResponseImpl.<init>(HttpResponseImpl.java:35)
+	at twitter4j.internal.http.HttpClientImpl.request(HttpClientImpl.java:164)
+	... 9 more
+!!!! Not pure ascii: 131953852420337664
+!!!! Not pure ascii: 131951947916914689
+!!!! Not pure ascii: 131819489502314496
+!!!! Not pure ascii: 131603103744135168
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=78.46.210.37:80
+301:
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="http://www.ktvm.de/1/users/show.json?include_entities=true&amp;screen_name=burakcelebi">here</a>.</p>
+<hr>
+<address>Apache Server at api.twitter.com Port 80</address>
+</body></html>
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=301, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=68.169.49.209:80
+301:
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>301 Moved Permanently</title>
+</head><body>
+<h1>Moved Permanently</h1>
+<p>The document has moved <a href="http://www.ktvm.de/1/users/show.json?include_entities=true&amp;screen_name=burakcelebi">here</a>.</p>
+<hr>
+<address>Apache Server at api.twitter.com Port 80</address>
+</body></html>
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=301, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=68.169.55.98:80
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=72.32.84.10:80
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=72.52.126.3:80
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=74.92.138.234:80
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=200.146.119.90:80
+403:The request is understood, but it has been refused. An accompanying error message will explain why. This code is used when requests are being denied due to update limits (https://support.twitter.com/articles/15364-about-twitter-limits-update-api-dm-and-following).
+<html><head><script type="text/javascript">location.replace("http://block.a.id.opendns.com/?url=api%2Etwitter%2Ecom%2F1%2Fusers%2Fshow%2Ejson%3Finclude%5Fentities%3Dtrue%26screen%5Fname%3Dburakcelebi&nref");</script></head></html>                                                                                                                                                                                                                                                                                           
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=403, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=61.167.28.30:80
+403:The request is understood, but it has been refused. An accompanying error message will explain why. This code is used when requests are being denied due to update limits (https://support.twitter.com/articles/15364-about-twitter-limits-update-api-dm-and-following).
+<html><head><script type="text/javascript">location.replace("http://block.a.id.opendns.com/?url=api%2Etwitter%2Ecom%2F1%2Fusers%2Fshow%2Ejson%3Finclude%5Fentities%3Dtrue%26screen%5Fname%3Dburakcelebi&nref");</script></head></html>                                                                                                                                                                                                                                                                                           
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=403, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=203.122.223.237:80
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=217.219.115.133:80
+403:The request is understood, but it has been refused. An accompanying error message will explain why. This code is used when requests are being denied due to update limits (https://support.twitter.com/articles/15364-about-twitter-limits-update-api-dm-and-following).
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1256"><title>IM2-4
+</title></head><body><iframe src="http://10.10.34.34?type=&policy=MainPolicy " style="width: 100%; height: 100%" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0"></iframe></body></html>
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=403, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=219.141.216.88:80
+Software caused connection abort: recv failedRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=223.19.105.5:80
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=59.151.109.51:80
+403:The request is understood, but it has been refused. An accompanying error message will explain why. This code is used when requests are being denied due to update limits (https://support.twitter.com/articles/15364-about-twitter-limits-update-api-dm-and-following).
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>403 Forbidden</title>
+</head><body>
+<h1>Forbidden</h1>
+<p>You don't have permission to access /1/users/show.json
+on this server.</p>
+<hr>
+<address>Apache/2.2.21 (EL) Server at api.twitter.com Port 80</address>
+</body></html>
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=403, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=202.171.253.99:80
+403:The request is understood, but it has been refused. An accompanying error message will explain why. This code is used when requests are being denied due to update limits (https://support.twitter.com/articles/15364-about-twitter-limits-update-api-dm-and-following).
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>403 Forbidden</title>
+</head><body>
+<h1>Forbidden</h1>
+<p>You don't have permission to access /1/users/show.json
+on this server.</p>
+<hr>
+<address>Apache/2.2.21 (EL) Server at api.twitter.com Port 80</address>
+</body></html>
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=403, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=203.114.122.27:80
+Software caused connection abort: recv failedRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=203.126.139.154:80
+400:The request was invalid. An accompanying error message will explain why. This is the status code will be returned during rate limiting (https://dev.twitter.com/pages/rate-limiting).
+error - Rate limit exceeded. Clients may not make more than 150 requests per hour.
+request - /1/users/show.json?include_entities=true&screen_name=burakcelebi
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=400, retryAfter=1989, rateLimitStatus=RateLimitStatusJSONImpl{remainingHits=0, hourlyLimit=150, resetTimeInSeconds=1320327, secondsUntilReset=1989, resetTime=Thu Nov 03 15:39:54 EET 2011}, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=210.51.165.164:80
+Software caused connection abort: recv failedRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=202.91.235.165:80
+Read timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=67.202.108.170:80
+!!!! Not pure ascii: 129102464367595520
+!!!! Not pure ascii: 131390468759101440
+!!!! Not pure ascii: 131322567276511232
+!!!! Not pure ascii: 130136509637599232
+!!!! Not pure ascii: 130094169359265792
+!!!! Not pure ascii: 129910161014931456
+!!!! Not pure ascii: 129562573740838913
+!!!! Not pure ascii: 128402465191231488
+!!!! Not pure ascii: 128189334447865856
+!!!! Not pure ascii: 123754625575821313
+!!!! Not pure ascii: 122274339377782784
+!!!! Not pure ascii: 131906123702874113
+!!!! Not pure ascii: 131391779609133057
+!!!! Not pure ascii: 131015011861671937
+!!!! Not pure ascii: 131001671328346112
+!!!! Not pure ascii: 129546102159585280
+!!!! Not pure ascii: 128666888430551040
+!!!! Not pure ascii: 128475670291546112
+!!!! Not pure ascii: 128475167147032576
+!!!! Not pure ascii: 128214674574540802
+!!!! Not pure ascii: 128213187656036353
+!!!! Not pure ascii: 128208107938648064
+!!!! Not pure ascii: 128011166185291776
+!!!! Not pure ascii: 128011062732795906
+!!!! Not pure ascii: 128007775476396032
+!!!! Not pure ascii: 127481923378483200
+!!!! Not pure ascii: 127431354068643840
+exception while insert_tokens for tweet=128644494139723776
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x80\x8E400...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x80\x8E400...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 131603058722476032
+!!!! Not pure ascii: 131601212440195072
+!!!! Not pure ascii: 131547277939572737
+!!!! Not pure ascii: 130844509859880960
+!!!! Not pure ascii: 130828993694928897
+!!!! Not pure ascii: 127251881973125121
+!!!! Not pure ascii: 126180264870293504
+!!!! Not pure ascii: 125093784458506240
+!!!! Not pure ascii: 124853802263248896
+!!!! Not pure ascii: 123652987812986880
+!!!! Not pure ascii: 122363243875401729
+!!!! Not pure ascii: 120258164464693248
+!!!! Not pure ascii: 119296919595003904
+!!!! Not pure ascii: 119289638325198848
+!!!! Not pure ascii: 111317066782482432
+exception while insert_tokens for tweet=121843695111770113
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xEF\xA3\xBF' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xEF\xA3\xBF' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 131762479859642369
+!!!! Not pure ascii: 111689057486127104
+!!!! Not pure ascii: 109409516168286208
+!!!! Not pure ascii: 131690032124796928
+!!!! Not pure ascii: 131646210321813504
+!!!! Not pure ascii: 131626930742112256
+!!!! Not pure ascii: 131474168909803520
+!!!! Not pure ascii: 131429685421809664
+!!!! Not pure ascii: 131310810122305536
+!!!! Not pure ascii: 131147174896599041
+!!!! Not pure ascii: 131127332248367105
+!!!! Not pure ascii: 130958490213691392
+exception while insert_tokens for tweet=131434131132395522
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x99\xBB,In...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x99\xBB,In...' for column 'wordsCVS' at row 2
+Results for query: [2010 api business cloud community community conversion converter data data data database desktop display dublincore eclipse ecommerce extension foaf foaf foaf foaf foaf foaf foaf framework goodrelations government interesante javascript json library linkeddata linkeddata linkeddata management mediawiki metadata metadata metadata metadata metadata ncbi neon old-delicious ontology ontology ontology ontology ontology ontology ontology ontology opendata opensource opensource owl owl owl queries query rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdf rdfa rdflib redfoot reference reference reference repository research research schema science scripts search search semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic semantic-web semantic_web semanticdesktop semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb semanticweb sioc skos social social social social social social social socialnetworking software software sparql sparql specification standards standards statistics svg talis talis taxonomy thesauri toolkit tools tools tools tutorial visualisation visualization visualization vocabulary vocabulary void w3c web web web web web web web web web web web2.0 web2.0 web2.0 web2.0 web2.0 web2.0 wiki wiki wikipedia wikipedia xml xml xml xml xml xml xml xml]
+            0,236934: [ screen_name=      marin_dimitrov, statusesCount=  1335, followersCount=   457, friendsCount=   224, location=              Sofia | Bulgaria, name=                Marin Dimitrov ]
+            0,177698: [ screen_name=        secoresearch, statusesCount=  1628, followersCount=   237, friendsCount=    78, location=     Aalto University, Finland, name=           SeCo Research Group ]
+            0,171613: [ screen_name=         lod2project, statusesCount=   233, followersCount=   298, friendsCount=    96, location=                        Europe, name=                  LOD2 Project ]
+            0,169133: [ screen_name=       semwebcompany, statusesCount=   669, followersCount=  1207, friendsCount=   362, location=                              , name=          Semantic Web Company ]
+            0,165655: [ screen_name=         ivan_herman, statusesCount=  1954, followersCount=  2134, friendsCount=   151, location=        Amsterdam, Netherlands, name=                   Ivan Herman ]
+            0,150514: [ screen_name=     FrankVanHarmele, statusesCount=  1617, followersCount=  1092, friendsCount=    46, location=                     Amsterdam, name=            Frank van Harmelen ]
+            0,140481: [ screen_name=            nopiedra, statusesCount= 18695, followersCount=  1594, friendsCount=  1635, location=                 Ecuador, Loja, name=                 Nelson Piedra ]
+            0,128194: [ screen_name=         knudmoeller, statusesCount=    87, followersCount=   123, friendsCount=    54, location=                        Galway, name=                   Knud Möller ]
+            0,111185: [ screen_name=         BasDeblieck, statusesCount=   554, followersCount=   195, friendsCount=   348, location=                       Belgium, name=             Bastiaan Deblieck ]
+            0,109190: [ screen_name=        semanticnews, statusesCount=  9169, followersCount=  1542, friendsCount=     5, location=               Toronto, Canada, name=           SemanticWeb Eqentia ]
+            0,108812: [ screen_name=               pmika, statusesCount=   104, followersCount=   661, friendsCount=    83, location=              Barcelona, Spain, name=                    Peter Mika ]
+            0,107884: [ screen_name=              ecolix, statusesCount=   299, followersCount=    55, friendsCount=   109, location=                              , name=                Antoine Logean ]
+            0,106668: [ screen_name=     lespetitescases, statusesCount=  1908, followersCount=   743, friendsCount=   225, location=                     Paris, FR, name=               Gautier Poupeau ]
+            0,094492: [ screen_name=             kidehen, statusesCount= 23347, followersCount=  2707, friendsCount=  2950, location=                 Lexington, MA, name=           Kingsley Uyi Idehen ]
+            0,091372: [ screen_name=       LinkedScience, statusesCount=    96, followersCount=   507, friendsCount=  1999, location=                              , name=                Tomi Kauppinen ]
+            0,089688: [ screen_name=       journalWebSem, statusesCount=    23, followersCount=   573, friendsCount=     0, location=                              , name=                 Web Semantics ]
+            0,080988: [ screen_name=           mgarrigap, statusesCount= 12872, followersCount=  1697, friendsCount=   831, location=  La Garriga, Barcelona, Spain, name=                  Marc Garriga ]
+            0,080462: [ screen_name=              phaase, statusesCount=   491, followersCount=   115, friendsCount=   103, location=             Walldorf, Germany, name=                   Peter Haase ]
+            0,080122: [ screen_name=       webfoundation, statusesCount=   726, followersCount=  3017, friendsCount=   423, location=               Boston, MA, USA, name=                Web Foundation ]
+            0,074982: [ screen_name=            gromgull, statusesCount=  1135, followersCount=   321, friendsCount=   204, location=       Kaiserslautern, Germany, name=                Gunnar Grimnes ]
+            0,073554: [ screen_name=            fzablith, statusesCount=   354, followersCount=    80, friendsCount=    68, location=             Milton Keynes, UK, name=                 Fouad Zablith ]
+            0,072807: [ screen_name=      serena_villata, statusesCount=     7, followersCount=    17, friendsCount=    23, location=      Sophia Antipolis, France, name=                Serena Villata ]
+            0,070966: [ screen_name=           jahendler, statusesCount=  6537, followersCount=  2420, friendsCount=   345, location=                   usually USA, name=                     jahendler ]
+            0,067279: [ screen_name=       RinkeHoekstra, statusesCount=   809, followersCount=   252, friendsCount=   159, location=                              , name=                Rinke Hoekstra ]
+            0,066693: [ screen_name=              das05r, statusesCount=  1064, followersCount=   177, friendsCount=    34, location=               Southampton, UK, name=           Dr. Daniel A. Smith ]
+            0,066335: [ screen_name=          fabianabel, statusesCount=   275, followersCount=    99, friendsCount=    51, location=        Delft, the Netherlands, name=                   Fabian Abel ]
+            0,066076: [ screen_name=                ciro, statusesCount=   590, followersCount=   576, friendsCount=   577, location=              Torino, Piedmont, name=                  Ciro Cattuto ]
+            0,064301: [ screen_name=            JBezivin, statusesCount=  7168, followersCount=  1725, friendsCount=  1313, location=                        Nantes, name=                  Jean Bezivin ]
+            0,062051: [ screen_name=              peteds, statusesCount= 10756, followersCount=   537, friendsCount=   403, location=                Shore Area, NJ, name=                          Pete ]
+            0,056734: [ screen_name=          frankolken, statusesCount=  7456, followersCount=   710, friendsCount=  1574, location=             Berkeley, CA, USA, name=                   Frank Olken ]
+            0,055473: [ screen_name=        natsteinmetz, statusesCount=   340, followersCount=   245, friendsCount=   610, location=                   Seattle, WA, name=            Nathalie Steinmetz ]
+            0,054638: [ screen_name=        peterhaglich, statusesCount=   233, followersCount=    43, friendsCount=   348, location=            Virginia Beach, VA, name=                  peterhaglich ]
+            0,054372: [ screen_name=             iCharts, statusesCount=  2226, followersCount=   768, friendsCount=  1993, location=           USA, Germany, India, name=                       iCharts ]
+            0,054309: [ screen_name=          jluismarin, statusesCount=  4251, followersCount=   388, friendsCount=   101, location=                    Valladolid, name=                 Jose L. Marin ]
+            0,052025: [ screen_name=      lorenzobenussi, statusesCount=   231, followersCount=   158, friendsCount=   120, location=                              , name=               lorenzo benussi ]
+            0,051587: [ screen_name=            ekaw2010, statusesCount=     4, followersCount=     0, friendsCount=     1, location=                          null, name=                        mmnnll ]
+            0,047799: [ screen_name=             jrvosse, statusesCount=    19, followersCount=    75, friendsCount=    74, location=                  Ouder-Amstel, name=          Jacco v Ossenbruggen ]
+            0,047432: [ screen_name=              pgroth, statusesCount=  1322, followersCount=   357, friendsCount=   107, location=                 Amsterdam, NL, name=                    Paul Groth ]
+            0,046710: [ screen_name=        richards1000, statusesCount= 25622, followersCount=  1806, friendsCount=  1405, location=             State College, PA, name=               Robert Richards ]
+            0,039699: [ screen_name=           yokofakun, statusesCount= 11579, followersCount=  1552, friendsCount=   464, location=                Nantes, France, name=             Pierre Lindenbaum ]
+            0,037581: [ screen_name=             ststaab, statusesCount=   455, followersCount=   503, friendsCount=   101, location=                       Koblenz, name=                 Steffen Staab ]
+            0,035399: [ screen_name=             iBadawi, statusesCount=  2630, followersCount=   612, friendsCount=   399, location=                         Dubai, name=              Ibrahim Elbadawi ]
+            0,033580: [ screen_name=               kasei, statusesCount=  1965, followersCount=   220, friendsCount=   181, location=                 Troy, NY, USA, name=              Gregory Williams ]
+            0,031174: [ screen_name=         Schipholweb, statusesCount=  3138, followersCount=    73, friendsCount=   258, location=                      Schiphol, name=                Schipholweb.nl ]
+            0,027824: [ screen_name=     National_Ag_Lib, statusesCount= 15405, followersCount=  9594, friendsCount=    52, location=                 Beltsville MD, name=                      USDA NAL ]
+            0,027714: [ screen_name=            FuturICT, statusesCount=   220, followersCount=   298, friendsCount=     0, location=                        Europe, name=                      FuturICT ]
+            0,027600: [ screen_name=              lernys, statusesCount= 12357, followersCount=  1518, friendsCount=   627, location=   iPhone: 42.611370,-5.585012, name=           Fernando Santamaría ]
+            0,027313: [ screen_name=         peterkz_swe, statusesCount=  5635, followersCount=  1023, friendsCount=   341, location=             Stockholm, Sweden, name=                  Peter Krantz ]
+            0,026127: [ screen_name=       janestevenson, statusesCount=  1921, followersCount=   370, friendsCount=   151, location=  The University of Manchester, name=                 janestevenson ]
+            0,026085: [ screen_name=              tommyh, statusesCount=  4253, followersCount=  1407, friendsCount=   484, location=                              , name=                     Tom Heath ]
+            0,025866: [ screen_name=                iand, statusesCount= 14520, followersCount=  1537, friendsCount=   462, location=                         Rugby, name=                     Ian Davis ]
+            0,023180: [ screen_name=         MarcoBrambi, statusesCount=  3081, followersCount=   472, friendsCount=   294, location=                   Como, Italy, name=               Marco Brambilla ]
+            0,022326: [ screen_name=                smeh, statusesCount= 13649, followersCount=   275, friendsCount=   248, location=               Galway, Ireland, name=                 David Crowley ]
+            0,020458: [ screen_name=                   j, statusesCount=  1174, followersCount=  8019, friendsCount=   407, location=                 San Francisco, name=               Juliette Melton ]
+            0,019629: [ screen_name=            jovarela, statusesCount=   616, followersCount=   100, friendsCount=   127, location=                              , name=                  Jordi Varela ]
+            0,019408: [ screen_name=            ISWC2011, statusesCount=   185, followersCount=   331, friendsCount=   102, location=                       Koblenz, name=                      ISWC2011 ]
+            0,018573: [ screen_name=          jaeryumasu, statusesCount=    10, followersCount=     0, friendsCount=     2, location=                 Philadelphia
+, name=             Melville Richmond ]
+            0,018556: [ screen_name=              vitroc, statusesCount=   157, followersCount=   131, friendsCount=   117, location=                   Seattle, WA, name=                Vitor Carvalho ]
+            0,016012: [ screen_name=       marie_wallace, statusesCount=  1412, followersCount=   558, friendsCount=   171, location=               Dublin, Ireland, name=                 Marie Wallace ]
+            0,014695: [ screen_name=             bparsia, statusesCount=  1412, followersCount=   139, friendsCount=    74, location=                Manchester, UK, name=                  Bijan Parsia ]
+            0,011644: [ screen_name=             onpause, statusesCount=  9257, followersCount=   638, friendsCount=   648, location=          twisting in the wind, name=                chris sizemore ]
+            0,011451: [ screen_name=              xcolom, statusesCount=   573, followersCount=   351, friendsCount=   680, location=                        Lleida, name=                    Xavi Colom ]
+            0,008298: [ screen_name=            jborrego, statusesCount= 30264, followersCount=   621, friendsCount=   299, location=                       sevilla, name=          Joaquin Borrego Díaz ]
+            0,007691: [ screen_name=         juansequeda, statusesCount=  9856, followersCount=  1539, friendsCount=   580, location=  Austin, TX or Cali, Colombia, name=                  Juan Sequeda ]
+            0,007504: [ screen_name=        alvarograves, statusesCount=  9202, followersCount=   199, friendsCount=   174, location=                      Troy, NY, name=                 Alvaro Graves ]
+            0,006993: [ screen_name=             vtomasv, statusesCount=   752, followersCount=   192, friendsCount=   429, location=   huechuraba, Santiago, Chile, name=                    Tomas Vera ]
+            0,005126: [ screen_name=     ClairePressTeam, statusesCount=   137, followersCount=   259, friendsCount=    98, location=              Brussels, mostly, name=                 Claire Hewitt ]
+            0,005079: [ screen_name=          piscitelli, statusesCount= 13207, followersCount= 14111, friendsCount=   217, location=              Tigre, Argentina, name=          Alejandro Piscitelli ]
+            0,003792: [ screen_name=            Agent9T9, statusesCount=  2805, followersCount=   607, friendsCount=   771, location=        Sydney, NSW, Australia, name=                       janeara ]
+            0,003767: [ screen_name=        JustTooSmexi, statusesCount=  1595, followersCount=    65, friendsCount=   212, location=             ????????? ????? ?, name=                       N!ckk ? ]
+            0,003653: [ screen_name=        clubpolitica, statusesCount=  1664, followersCount=  3293, friendsCount=   177, location=       Buenos Aires, Argentina, name=           Club de la Política ]
+            0,002717: [ screen_name=            RoxiGunz, statusesCount= 16125, followersCount=   243, friendsCount=   292, location=                     Hellaware, name=                  Nikki Knight ]

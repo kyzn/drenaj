@@ -1,0 +1,53 @@
+<?php include_once 'includes/template/preprocess.php'; ?>
+
+<?php
+$searchId = $_GET['id']; 
+
+$con = connect();
+
+$result = mysql_query('SELECT DATE, QUERY, TWITTER_QUERY, VECTOR_QUERY FROM T_SEARCH WHERE ID = ' . $searchId);
+while($row = mysql_fetch_array($result)) {
+	echo '<p><b>'.$row['QUERY'].'</b></p>';
+}
+?>
+
+<fieldset>
+	<legend>Top Tags</legend>
+	<?php echo get_tag_cloud("select tag, weight from t_search_extended where search_id = $searchId and type = 1"); ?>
+</fieldset>	
+
+<hr>
+
+<a onclick ="javascript:showHide('allTagsDiv')" href="javascript:;" >All Tags</a>
+<div id="allTagsDiv" style="DISPLAY: none" >	
+		<?php echo get_tag_cloud("select tag, weight from t_search_extended where search_id = $searchId and type = 2"); ?>
+</div>
+
+<hr>
+
+<table class="sortable" border="1">
+
+<thead><tr>
+	<th>Rank</th>
+	<th>Score</th>
+	<th>Screen Name</th>
+	<th>Statuses</th>
+	<th>Followers</th>
+	<th>Friends</th>
+	<th>Chattiness</th>
+	<th>Feedness</th>
+	<th>Retweeted Mean</th>
+	<th>Retweet Ratio</th>
+	<th>Term Variation</th>
+</tr></thead>
+<?php 
+$result = mysql_query('SELECT screen_name, name, statuses_count, followers_count, friends_count, location, format(score, 4) score, format(chattiness,3) chattiness, format(feedness,3) feedness, format(retweeted_mean,3) retweeted_mean, format(retweet_ratio,3) retweet_ratio, format(term_variation,3) term_variation from t_user where search_id = ' . $searchId . ' order by score desc;');
+$rowId = 1;
+while($row = mysql_fetch_array($result)) {
+	echo '<tr><td>' . $rowId++  . '</td><td>' . $row['score'] . '</td><td><a href="http://twitter.com/' . $row['screen_name'] . '"title="' . $row['name'] . ' @ ' . $row['location'] . '">' . $row['screen_name'] . '</a></td><td>' . $row['statuses_count'] . '</td><td>' . $row['followers_count'] . '</td><td>' . $row['friends_count'] . '</td><td>' . $row['chattiness'] . '</td><td>' . $row['feedness'] . '</td><td>' . $row['retweeted_mean'] . '</td><td>' . $row['retweet_ratio'] . '</td><td>' . $row['term_variation'] . '</td></tr>';
+}
+closeCon($con);
+?>
+</table>
+
+<?php include_once 'includes/template/postprocess.php'; ?>

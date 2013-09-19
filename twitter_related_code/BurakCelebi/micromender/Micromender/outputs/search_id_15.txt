@@ -1,0 +1,541 @@
+Results for query: [adoption automaticallyaddedvia:packrati.us berners-lee blog ckan opendata-openknowledge data dataset datasets dwitzel data opendata government framework future google googlerefine howto interface kim lianza11 library linked linked_data linked_data_deployment linkeddata lod metadata offdata open open_data www opendata opendata linkeddata libraries opendata open openlink rails rdf refine reports search semantic semantic-web semantic_web linked_data semanticweb sponger standards technology toread triple_store tutorial tutorials ty:conf via:packrati.us video virtuoso vos w3c w3c_library_linked_data web web2.0]
+            0,278282: [ screen_name=                 rjw, statusesCount=  2089, followersCount=   785, friendsCount=   104, location=                   Evesham, UK, name=                Richard Wallis ]
+            0,219657: [ screen_name=     TalisConsulting, statusesCount=   138, followersCount=   128, friendsCount=    42, location=                              , name=              Talis Consulting ]
+            0,207224: [ screen_name=             s3works, statusesCount=   841, followersCount=    43, friendsCount=    89, location=                         Japan, name=                       s3works ]
+            0,097065: [ screen_name=          realpoirot, statusesCount=  2100, followersCount=   225, friendsCount=   280, location=     Zuid Holland, Netherlands, name=               Quentin H. Reul ]
+            0,092298: [ screen_name=               kaiec, statusesCount=   446, followersCount=   135, friendsCount=   157, location=                              , name=                    Kai Eckert ]
+            0,087043: [ screen_name=               Lambo, statusesCount=  4111, followersCount=  1270, friendsCount=   842, location=             Hannover, Germany, name=                Lambert Heller ]
+            0,081851: [ screen_name=          ian_harrow, statusesCount=   351, followersCount=    49, friendsCount=   123, location=                Whitstable, UK, name=           IanHarrowConsulting ]
+            0,079814: [ screen_name=             busaco_, statusesCount=   772, followersCount=   242, friendsCount=    50, location=                within a dream, name=                  Sabin Buraga ]
+            0,070767: [ screen_name=           DigitalNZ, statusesCount=   326, followersCount=  2283, friendsCount=   678, location=                   New Zealand, name=           Digital New Zealand ]
+            0,069917: [ screen_name=               cmwbb, statusesCount=   149, followersCount=   182, friendsCount=   185, location=    West Kalimantan, Indonesia, name=                      Cam Webb ]
+            0,061673: [ screen_name=             ragerri, statusesCount=    11, followersCount=    14, friendsCount=    24, location=               Vitoria-Gasteiz, name=            R Agerri at Deusto ]
+            0,061335: [ screen_name=     olegshilovitsky, statusesCount=  4229, followersCount=  1271, friendsCount=   681, location=                 Brookline, MA, name=               olegshilovitsky ]
+            0,052189: [ screen_name=             kavango, statusesCount=  2062, followersCount=   543, friendsCount=   245, location=                       Campezo, name=                Joseba Abaitua ]
+            0,048272: [ screen_name=           bibliohan, statusesCount=  2104, followersCount=   432, friendsCount=   595, location=                              , name=                  Johan Stapel ]
+            0,038002: [ screen_name=          cottinstef, statusesCount=  1445, followersCount=   679, friendsCount=   499, location=  Paris, Ile-de-France, France, name=               Stephane Cottin ]
+            0,028838: [ screen_name=               310ig, statusesCount= 12075, followersCount=    89, friendsCount=    94, location=                           ???, name=                  kiro pannda? ]
+            0,020844: [ screen_name=        OpenLobbyist, statusesCount= 21736, followersCount=    33, friendsCount=     3, location=                     Amsterdam, name=            Open Data Lobbyist ]
+            0,020374: [ screen_name=     socioinnovation, statusesCount= 29761, followersCount=  4567, friendsCount=  3506, location=                  online 24/24, name=            Innovation Sociale ]
+            0,012154: [ screen_name=       Meteor_Mobile, statusesCount= 10162, followersCount=  5590, friendsCount=  1145, location=               Dublin, Ireland, name=                Meteor Mobile  ]
+            0,011261: [ screen_name=             Janaxrz, statusesCount=  1350, followersCount=    69, friendsCount=     0, location=                      New York, name=                  Jana Metters ]
+            0,010755: [ screen_name=     MariaGraziaTort, statusesCount=  1035, followersCount=    62, friendsCount=    64, location=                              , name=                  Maria Grazia ]
+            0,008527: [ screen_name=       brookecaution, statusesCount=   539, followersCount=    32, friendsCount=   287, location=        Daylesford, Australia., name=                Brooke de Regt ]
+            0,008167: [ screen_name=         TAMAirlines, statusesCount= 27186, followersCount=259169, friendsCount=  5452, location=                        Brazil, name=                  TAM Airlines ]
+            0,005033: [ screen_name=       DevonCastagna, statusesCount=   865, followersCount=    31, friendsCount=     0, location=                          null, name=                Devon Castagna ]
+            0,004236: [ screen_name=       aMusingFoodie, statusesCount=  8672, followersCount=  1477, friendsCount=  1421, location=                 Frederick, MD, name=                  Liza Hawkins ]
+            0,002915: [ screen_name=          RolandBaum, statusesCount=  4316, followersCount=   113, friendsCount=   179, location=      Naarden, The Netherlands, name=             Roland Baumgarten ]
+            0,002034: [ screen_name=         JameCichosz, statusesCount=  6951, followersCount=   184, friendsCount=     0, location=                          null, name=                  Jame Cichosz ]
+            0,001774: [ screen_name=       alykhansatchu, statusesCount= 95852, followersCount= 16523, friendsCount= 14918, location=                      Nairobi , name=               Aly-Khan Satchu ]
+
+Results for query: [adoption automaticallyaddedvia:packrati.us berners-lee blog ckan opendata-openknowledge data dataset datasets dwitzel data opendata government framework future google googlerefine howto interface kim lianza11 library linked linked_data linked_data_deployment linkeddata lod metadata offdata open open_data www opendata opendata linkeddata libraries opendata open openlink rails rdf refine reports search semantic semantic-web semantic_web linked_data semanticweb sponger standards technology toread triple_store tutorial tutorials ty:conf via:packrati.us video virtuoso vos w3c w3c_library_linked_data web web2.0]
+            0,275686: [ screen_name=                 rjw, statusesCount=  2089, followersCount=   785, friendsCount=   104, location=                   Evesham, UK, name=                Richard Wallis ]
+            0,214013: [ screen_name=     TalisConsulting, statusesCount=   138, followersCount=   128, friendsCount=    42, location=                              , name=              Talis Consulting ]
+            0,200568: [ screen_name=             s3works, statusesCount=   841, followersCount=    43, friendsCount=    89, location=                         Japan, name=                       s3works ]
+            0,100152: [ screen_name=             gothwin, statusesCount=  9587, followersCount=  1166, friendsCount=  1088, location=               Southampton, UK, name=                  John Goodwin ]
+            0,097138: [ screen_name=          realpoirot, statusesCount=  2100, followersCount=   225, friendsCount=   280, location=     Zuid Holland, Netherlands, name=               Quentin H. Reul ]
+            0,087389: [ screen_name=               kaiec, statusesCount=   446, followersCount=   135, friendsCount=   157, location=                              , name=                    Kai Eckert ]
+            0,081886: [ screen_name=               Lambo, statusesCount=  4111, followersCount=  1270, friendsCount=   842, location=             Hannover, Germany, name=                Lambert Heller ]
+            0,079452: [ screen_name=          ian_harrow, statusesCount=   351, followersCount=    49, friendsCount=   123, location=                Whitstable, UK, name=           IanHarrowConsulting ]
+            0,078045: [ screen_name=            mmmmmrob, statusesCount=  6766, followersCount=  1022, friendsCount=  1019, location=                Birmingham, UK, name=                    Rob Styles ]
+            0,077242: [ screen_name=             busaco_, statusesCount=   772, followersCount=   242, friendsCount=    50, location=                within a dream, name=                  Sabin Buraga ]
+            0,068530: [ screen_name=               cmwbb, statusesCount=   149, followersCount=   182, friendsCount=   185, location=    West Kalimantan, Indonesia, name=                      Cam Webb ]
+            0,067640: [ screen_name=           DigitalNZ, statusesCount=   326, followersCount=  2283, friendsCount=   678, location=                   New Zealand, name=           Digital New Zealand ]
+            0,060849: [ screen_name=             ragerri, statusesCount=    11, followersCount=    14, friendsCount=    24, location=               Vitoria-Gasteiz, name=            R Agerri at Deusto ]
+            0,056991: [ screen_name=     olegshilovitsky, statusesCount=  4229, followersCount=  1271, friendsCount=   681, location=                 Brookline, MA, name=               olegshilovitsky ]
+            0,049490: [ screen_name=             kavango, statusesCount=  2062, followersCount=   543, friendsCount=   245, location=                       Campezo, name=                Joseba Abaitua ]
+            0,047173: [ screen_name=           bibliohan, statusesCount=  2104, followersCount=   432, friendsCount=   595, location=                              , name=                  Johan Stapel ]
+            0,040273: [ screen_name=            ISWC2011, statusesCount=   185, followersCount=   331, friendsCount=   102, location=                       Koblenz, name=                      ISWC2011 ]
+            0,037243: [ screen_name=           timhodson, statusesCount=  3079, followersCount=   152, friendsCount=   178, location=                 Wolverhampton, name=                    Tim Hodson ]
+            0,035802: [ screen_name=          cottinstef, statusesCount=  1445, followersCount=   679, friendsCount=   499, location=  Paris, Ile-de-France, France, name=               Stephane Cottin ]
+            0,028384: [ screen_name=               310ig, statusesCount= 12075, followersCount=    89, friendsCount=    94, location=                           ???, name=                  kiro pannda? ]
+            0,019520: [ screen_name=        OpenLobbyist, statusesCount= 21736, followersCount=    33, friendsCount=     3, location=                     Amsterdam, name=            Open Data Lobbyist ]
+            0,017839: [ screen_name=     socioinnovation, statusesCount= 29761, followersCount=  4567, friendsCount=  3506, location=                  online 24/24, name=            Innovation Sociale ]
+            0,011450: [ screen_name=       Meteor_Mobile, statusesCount= 10162, followersCount=  5590, friendsCount=  1145, location=               Dublin, Ireland, name=                Meteor Mobile  ]
+            0,011132: [ screen_name=             Janaxrz, statusesCount=  1350, followersCount=    69, friendsCount=     0, location=                      New York, name=                  Jana Metters ]
+            0,010657: [ screen_name=     MariaGraziaTort, statusesCount=  1035, followersCount=    62, friendsCount=    64, location=                              , name=                  Maria Grazia ]
+            0,008550: [ screen_name=       brookecaution, statusesCount=   539, followersCount=    32, friendsCount=   287, location=        Daylesford, Australia., name=                Brooke de Regt ]
+            0,007557: [ screen_name=         TAMAirlines, statusesCount= 27186, followersCount=259169, friendsCount=  5452, location=                        Brazil, name=                  TAM Airlines ]
+            0,004647: [ screen_name=       DevonCastagna, statusesCount=   865, followersCount=    31, friendsCount=     0, location=                          null, name=                Devon Castagna ]
+            0,003949: [ screen_name=       aMusingFoodie, statusesCount=  8672, followersCount=  1477, friendsCount=  1421, location=                 Frederick, MD, name=                  Liza Hawkins ]
+            0,002701: [ screen_name=          RolandBaum, statusesCount=  4316, followersCount=   113, friendsCount=   179, location=      Naarden, The Netherlands, name=             Roland Baumgarten ]
+            0,001891: [ screen_name=         JameCichosz, statusesCount=  6951, followersCount=   184, friendsCount=     0, location=                          null, name=                  Jame Cichosz ]
+            0,001645: [ screen_name=       alykhansatchu, statusesCount= 95852, followersCount= 16523, friendsCount= 14918, location=                      Nairobi , name=               Aly-Khan Satchu ]
+
+All related users (mention+retweets): 597 occurrences
+kymmeb kymmeb kymmeb chris_collison CoLab_AUT lambo nichtich DCMI11 makxdekkers lambo nichtich ktochtermann Lambo SethGrimes opengovpart livpre lukask lukask mcaleaa rachelcoldicutt TeamKasabi figoblog rjw urvics rjw urvics marciazeng ldodds mfhepp mmmmmrob rjw TalisConsulting timhodson TalisConsulting mmmmmrob TeamKasabi mmmmmrob mmmmmrob PaulMiller TeamKasabi chrpr mmmmmrob Philipp_Mayr maxkaiser timhodson mmmmmrob gothwin JeniT mmmmmrob giaso1971 mjhan margueritelou kayakr gothwin SehrchDotCom margueritelou ICOnews johanoomen TalisConsulting cpt_ahag jindrichmynarz jindrichmynarz jindrichmynarz jindrichmynarz OKFN thirdmandesign starlajo thirdmandesign mmmmmrob mixandmashnz cyclemeter mmmmmrob LondonMidland _philjohn mauvedeity mauvedeity zbeauvais londonmidland _philjohn JarredMcGinnis kerfors rjw JarredMcGinnis TalisConsulting JarredMcGinnis TalisConsulting PaulMiller newsquestnigel IanHolt jonsowler _millymoo TalisConsulting grechaw ShiftyStudios digitalnz cyclemeter david_bawden marciazeng helenzille T
+			
+Top 3 users' ('rjw','TalisConsulting','s3works') related users: 79 occurrences
+[ISWC2011, JarredMcGinnis, JeniT, NetIKX, OKFN, OnlineInfo_expo, PaulMiller, RWW, Storify, TalisConsulting, TeamKasabi, UKTransparency, bsletten, buzzdata, ckanproject, datamarket, david_bawden, davidseth, ecgoodman, epsiplatform, fantasticlife, giaso1971, gothwin, ivan_herman, knudmoeller, libbymiller, lldzne, magdmartin, marciazeng, mfhepp, mmmmmrob, nicolastorzec, nopiedra, oreillymedia, radar, rjw, rtroncy, rufuspollock, semanticnews, takechan2000, timhodson, tomayac, tommyh, urvics, webfoundation]
+
+Top 3 users' related Users (mention+retweets) having min 3 occurrences:
+[ISWC2011, gothwin, mmmmmrob, timhodson]
+
+select distinct t.screen_name
+from t_search_result sr, t_tweet t
+where sr.search_id = 15
+and sr.type = 3
+and sr.tweet_id = t.id
+
+ INFO [main] (AbstractApplicationContext.java:495) - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@c39a20: startup date [Wed Nov 02 14:00:49 EET 2011]; root of context hierarchy
+ INFO [main] (XmlBeanDefinitionReader.java:315) - Loading XML bean definitions from class path resource [applicationContext.xml]
+ INFO [main] (DefaultListableBeanFactory.java:557) - Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@29ea31: defining beans [dataSource,dao]; root of factory hierarchy
+Results for query: [adoption automaticallyaddedvia:packrati.us berners-lee blog ckan opendata-openknowledge data dataset datasets dwitzel data opendata government framework future google googlerefine howto interface kim lianza11 library linked linked_data linked_data_deployment linkeddata lod metadata offdata open open_data www opendata opendata linkeddata libraries opendata open openlink rails rdf refine reports search semantic semantic-web semantic_web linked_data semanticweb sponger standards technology toread triple_store tutorial tutorials ty:conf via:packrati.us video virtuoso vos w3c w3c_library_linked_data web web2.0]
+            0,278282: [ screen_name=                 rjw, statusesCount=  2089, followersCount=   785, friendsCount=   104, location=                   Evesham, UK, name=                Richard Wallis ]
+            0,219657: [ screen_name=     TalisConsulting, statusesCount=   138, followersCount=   128, friendsCount=    42, location=                              , name=              Talis Consulting ]
+            0,207224: [ screen_name=             s3works, statusesCount=   841, followersCount=    43, friendsCount=    89, location=                         Japan, name=                       s3works ]
+            0,097065: [ screen_name=          realpoirot, statusesCount=  2100, followersCount=   225, friendsCount=   280, location=     Zuid Holland, Netherlands, name=               Quentin H. Reul ]
+            0,092298: [ screen_name=               kaiec, statusesCount=   446, followersCount=   135, friendsCount=   157, location=                              , name=                    Kai Eckert ]
+            0,087043: [ screen_name=               Lambo, statusesCount=  4111, followersCount=  1270, friendsCount=   842, location=             Hannover, Germany, name=                Lambert Heller ]
+            0,081851: [ screen_name=          ian_harrow, statusesCount=   351, followersCount=    49, friendsCount=   123, location=                Whitstable, UK, name=           IanHarrowConsulting ]
+            0,079814: [ screen_name=             busaco_, statusesCount=   772, followersCount=   242, friendsCount=    50, location=                within a dream, name=                  Sabin Buraga ]
+            0,070767: [ screen_name=           DigitalNZ, statusesCount=   326, followersCount=  2283, friendsCount=   678, location=                   New Zealand, name=           Digital New Zealand ]
+            0,069917: [ screen_name=               cmwbb, statusesCount=   149, followersCount=   182, friendsCount=   185, location=    West Kalimantan, Indonesia, name=                      Cam Webb ]
+            0,061673: [ screen_name=             ragerri, statusesCount=    11, followersCount=    14, friendsCount=    24, location=               Vitoria-Gasteiz, name=            R Agerri at Deusto ]
+            0,061335: [ screen_name=     olegshilovitsky, statusesCount=  4229, followersCount=  1271, friendsCount=   681, location=                 Brookline, MA, name=               olegshilovitsky ]
+            0,052189: [ screen_name=             kavango, statusesCount=  2062, followersCount=   543, friendsCount=   245, location=                       Campezo, name=                Joseba Abaitua ]
+            0,048272: [ screen_name=           bibliohan, statusesCount=  2104, followersCount=   432, friendsCount=   595, location=                              , name=                  Johan Stapel ]
+            0,038002: [ screen_name=          cottinstef, statusesCount=  1445, followersCount=   679, friendsCount=   499, location=  Paris, Ile-de-France, France, name=               Stephane Cottin ]
+            0,028838: [ screen_name=               310ig, statusesCount= 12075, followersCount=    89, friendsCount=    94, location=                           ???, name=                  kiro pannda? ]
+            0,020844: [ screen_name=        OpenLobbyist, statusesCount= 21736, followersCount=    33, friendsCount=     3, location=                     Amsterdam, name=            Open Data Lobbyist ]
+            0,020374: [ screen_name=     socioinnovation, statusesCount= 29761, followersCount=  4567, friendsCount=  3506, location=                  online 24/24, name=            Innovation Sociale ]
+            0,012154: [ screen_name=       Meteor_Mobile, statusesCount= 10162, followersCount=  5590, friendsCount=  1145, location=               Dublin, Ireland, name=                Meteor Mobile  ]
+            0,011261: [ screen_name=             Janaxrz, statusesCount=  1350, followersCount=    69, friendsCount=     0, location=                      New York, name=                  Jana Metters ]
+            0,010755: [ screen_name=     MariaGraziaTort, statusesCount=  1035, followersCount=    62, friendsCount=    64, location=                              , name=                  Maria Grazia ]
+            0,008527: [ screen_name=       brookecaution, statusesCount=   539, followersCount=    32, friendsCount=   287, location=        Daylesford, Australia., name=                Brooke de Regt ]
+            0,008167: [ screen_name=         TAMAirlines, statusesCount= 27186, followersCount=259169, friendsCount=  5452, location=                        Brazil, name=                  TAM Airlines ]
+            0,005033: [ screen_name=       DevonCastagna, statusesCount=   865, followersCount=    31, friendsCount=     0, location=                          null, name=                Devon Castagna ]
+            0,004236: [ screen_name=       aMusingFoodie, statusesCount=  8672, followersCount=  1477, friendsCount=  1421, location=                 Frederick, MD, name=                  Liza Hawkins ]
+            0,002915: [ screen_name=          RolandBaum, statusesCount=  4316, followersCount=   113, friendsCount=   179, location=      Naarden, The Netherlands, name=             Roland Baumgarten ]
+            0,002034: [ screen_name=         JameCichosz, statusesCount=  6951, followersCount=   184, friendsCount=     0, location=                          null, name=                  Jame Cichosz ]
+            0,001774: [ screen_name=       alykhansatchu, statusesCount= 95852, followersCount= 16523, friendsCount= 14918, location=                      Nairobi , name=               Aly-Khan Satchu ]
+!!!! Not pure ascii: 131128775747448832
+!!!! Not pure ascii: 129491634709741568
+!!!! Not pure ascii: 127520227880730624
+!!!! Not pure ascii: 127480293597790220
+!!!! Not pure ascii: 65370284873625601
+!!!! Not pure ascii: 52344771267661824
+!!!! Not pure ascii: 29189329771307008
+!!!! Not pure ascii: 22231660569296896
+!!!! Not pure ascii: 28017245962
+!!!! Not pure ascii: 127295627846615040
+ INFO [main] (XmlBeanDefinitionReader.java:315) - Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+ INFO [main] (SQLErrorCodesFactory.java:126) - SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+exception while insert_tokens for tweet=129955224319307776
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xC2\x92t,fo...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xC2\x92t,fo...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 131492121797591040
+!!!! Not pure ascii: 131372845627478016
+!!!! Not pure ascii: 131108856922259456
+!!!! Not pure ascii: 130917092034752512
+!!!! Not pure ascii: 130916539288387587
+!!!! Not pure ascii: 130913306834763777
+!!!! Not pure ascii: 129974815586123776
+!!!! Not pure ascii: 128902009775603712
+!!!! Not pure ascii: 127422433761308673
+!!!! Not pure ascii: 127061562241462272
+!!!! Not pure ascii: 126737421659410433
+!!!! Not pure ascii: 122771965625909248
+!!!! Not pure ascii: 121703895394287616
+!!!! Not pure ascii: 116529848264044544
+!!!! Not pure ascii: 119363891397533696
+!!!! Not pure ascii: 131397276198387713
+!!!! Not pure ascii: 131254782802411520
+!!!! Not pure ascii: 131249784521633792
+!!!! Not pure ascii: 131249447136014336
+!!!! Not pure ascii: 131249008311156736
+!!!! Not pure ascii: 131247525222035456
+!!!! Not pure ascii: 131241644526796800
+!!!! Not pure ascii: 131233139191324672
+!!!! Not pure ascii: 131213444748812288
+!!!! Not pure ascii: 131192319440470017
+!!!! Not pure ascii: 131186388736540672
+!!!! Not pure ascii: 131087776945946624
+!!!! Not pure ascii: 131087612067848192
+exception while insert_tokens for tweet=131403777642209281
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE4\xB9\xBE\xE6\x9D\xAF' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE4\xB9\xBE\xE6\x9D\xAF' for column 'wordsCVS' at row 2
+400:The request was invalid. An accompanying error message will explain why. This is the status code will be returned during rate limiting (https://dev.twitter.com/pages/rate-limiting).
+error - Rate limit exceeded. Clients may not make more than 150 requests per hour.
+request - /1/users/show.json?include_entities=true&screen_name=burakcelebi
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=400, retryAfter=2204, rateLimitStatus=RateLimitStatusJSONImpl{remainingHits=0, hourlyLimit=150, resetTimeInSeconds=1320237, secondsUntilReset=2204, resetTime=Wed Nov 02 14:44:10 EET 2011}, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=163.30.32.90:80
+400:The request was invalid. An accompanying error message will explain why. This is the status code will be returned during rate limiting (https://dev.twitter.com/pages/rate-limiting).
+error - Rate limit exceeded. Clients may not make more than 150 requests per hour.
+request - /1/users/show.json?include_entities=true&screen_name=burakcelebi
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=400, retryAfter=2204, rateLimitStatus=RateLimitStatusJSONImpl{remainingHits=0, hourlyLimit=150, resetTimeInSeconds=1320237, secondsUntilReset=2204, resetTime=Wed Nov 02 14:44:10 EET 2011}, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=69.138.46.194:9090
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=200.252.201.144:80
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=189.20.207.150:8080
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=200.112.84.5:6588
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=82.9.52.183:9090
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=85.168.233.221:9090
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=62.119.28.242:80
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=74.77.117.65:9090
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=207.38.251.111:9090
+Connection refused: connectRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=200.104.104.91:6588
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=202.143.177.200:8080
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=72.174.161.51:9090
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=92.236.137.151:9090
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=123.232.119.100:80
+502:Twitter is down or being upgraded.
+<html>
+<head><title>502 Bad Gateway</title></head>
+<body bgcolor="white">
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.0.8</center>
+</body>
+</html>
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=502, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=88.171.218.44:9090
+502:Twitter is down or being upgraded.
+<html>
+<head><title>502 Bad Gateway</title></head>
+<body bgcolor="white">
+<center><h1>502 Bad Gateway</h1></center>
+<hr><center>nginx/1.0.8</center>
+</body>
+</html>
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=502, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=201.91.90.114:8081
+exception while insert_tokens for tweet=78096564014419968
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE2\x96\xB8,To...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 131147388650926081
+!!!! Not pure ascii: 124180269363240960
+!!!! Not pure ascii: 121157122405830656
+!!!! Not pure ascii: 130981337216716800
+!!!! Not pure ascii: 121481395133624321
+!!!! Not pure ascii: 130660594268381184
+!!!! Not pure ascii: 127002144778891264
+!!!! Not pure ascii: 126271801927020545
+!!!! Not pure ascii: 124770565272780800
+!!!! Not pure ascii: 121858144644243458
+!!!! Not pure ascii: 121583241718280192
+!!!! Not pure ascii: 117196097562222592
+exception while insert_tokens for tweet=121840931107385345
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xEF\xA3\xBF,' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xEF\xA3\xBF,' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 129593304751947776
+!!!! Not pure ascii: 128397929571557377
+!!!! Not pure ascii: 129465350621364224
+!!!! Not pure ascii: 128928212725141504
+!!!! Not pure ascii: 55446057089368064
+!!!! Not pure ascii: 34310829809598464
+!!!! Not pure ascii: 34310825426550784
+!!!! Not pure ascii: 34310824017264640
+!!!! Not pure ascii: 32931454442799104
+!!!! Not pure ascii: 32455983242412032
+!!!! Not pure ascii: 32455971947155457
+!!!! Not pure ascii: 32455965521477633
+!!!! Not pure ascii: 32455963520802816
+!!!! Not pure ascii: 32455959339077632
+!!!! Not pure ascii: 31729143112531968
+!!!! Not pure ascii: 28279690653335552
+!!!! Not pure ascii: 27553219441856512
+!!!! Not pure ascii: 131108585840185345
+!!!! Not pure ascii: 130615470897373184
+!!!! Not pure ascii: 131704229097246720
+!!!! Not pure ascii: 129133592046608385
+!!!! Not pure ascii: 129101975483723776
+!!!! Not pure ascii: 128386615646240768
+!!!! Not pure ascii: 128095619368755200
+!!!! Not pure ascii: 128090442154770433
+!!!! Not pure ascii: 131381934701035522
+!!!! Not pure ascii: 123351617394315264
+!!!! Not pure ascii: 102882440607055872
+!!!! Not pure ascii: 131308011900768256
+!!!! Not pure ascii: 131511687118467072
+!!!! Not pure ascii: 130932062776594432
+!!!! Not pure ascii: 129532923706748928
+!!!! Not pure ascii: 129243326930108417
+!!!! Not pure ascii: 128542385213943809
+!!!! Not pure ascii: 124561156504424449
+!!!! Not pure ascii: 124341023504736256
+!!!! Not pure ascii: 121611914324361218
+!!!! Not pure ascii: 124222294133456896
+!!!! Not pure ascii: 120955968052920321
+!!!! Not pure ascii: 120951221476540416
+exception while insert_tokens for tweet=96309072374140929
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xEF\xBC\x8DCat...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xEF\xBC\x8DCat...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 129184941996122112
+!!!! Not pure ascii: 129107620874297344
+!!!! Not pure ascii: 131437325736620033
+!!!! Not pure ascii: 128649308370239488
+!!!! Not pure ascii: 131694936818073600
+!!!! Not pure ascii: 131688282579943424
+!!!! Not pure ascii: 131358538906877954
+!!!! Not pure ascii: 131355592810962945
+!!!! Not pure ascii: 131355497210200064
+!!!! Not pure ascii: 131350278820732929
+!!!! Not pure ascii: 131350252430163968
+!!!! Not pure ascii: 131346856344158208
+!!!! Not pure ascii: 131207176386641920
+!!!! Not pure ascii: 131116116188733441
+!!!! Not pure ascii: 131115991131361280
+!!!! Not pure ascii: 131058957430177792
+!!!! Not pure ascii: 131055671918596097
+!!!! Not pure ascii: 131033915526873088
+!!!! Not pure ascii: 131033881389432834
+!!!! Not pure ascii: 131033677131030528
+!!!! Not pure ascii: 131033652686622721
+!!!! Not pure ascii: 131026625298042881
+NewProxy=165.193.102.220:80
+400:The request was invalid. An accompanying error message will explain why. This is the status code will be returned during rate limiting (https://dev.twitter.com/pages/rate-limiting).
+error - Rate limit exceeded. Clients may not make more than 150 requests per hour.
+request - /1/users/show.json?include_entities=true&screen_name=burakcelebi
+Relevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7442
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7442], statusCode=400, retryAfter=3099, rateLimitStatus=RateLimitStatusJSONImpl{remainingHits=0, hourlyLimit=150, resetTimeInSeconds=1320239, secondsUntilReset=3099, resetTime=Wed Nov 02 15:12:45 EET 2011}, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=60.29.231.126:8081
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=72.197.212.200:7212
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=218.248.20.160:6588
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=97.91.188.113:9090
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=72.190.122.130:9090
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=67.163.161.226:9090
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=189.55.219.176:6588
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=202.191.127.3:8080
+!!!! Not pure ascii: 131505904129552386
+!!!! Not pure ascii: 131409679053094912
+!!!! Not pure ascii: 130702463790624768
+!!!! Not pure ascii: 131064244098711552
+!!!! Not pure ascii: 131018500432080897
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=61.187.187.28:80
+connect timed outRelevant discussions can be on the Internet at:
+	http://www.google.co.jp/search?q=bb0a5eb5 or
+	http://www.google.co.jp/search?q=1f2d7451
+TwitterException{exceptionCode=[bb0a5eb5-1f2d7451 5147af80-c6811196], statusCode=-1, retryAfter=-1, rateLimitStatus=null, featureSpecificRateLimitStatus=null, version=2.2.4}
+NewProxy=201.23.79.34:80
+!!!! Not pure ascii: 129590953207005185
+!!!! Not pure ascii: 126607482444460032
+!!!! Not pure ascii: 123440746035544064
+!!!! Not pure ascii: 122736015348731905
+!!!! Not pure ascii: 131390468759101440
+!!!! Not pure ascii: 131322567276511232
+!!!! Not pure ascii: 130136509637599232
+!!!! Not pure ascii: 130094169359265792
+!!!! Not pure ascii: 129910161014931456
+!!!! Not pure ascii: 129562573740838913
+!!!! Not pure ascii: 131173913785929728
+!!!! Not pure ascii: 131172871677554689
+!!!! Not pure ascii: 130178880945393664
+!!!! Not pure ascii: 129929391705817089
+!!!! Not pure ascii: 129927707743096833
+!!!! Not pure ascii: 129912322000031744
+!!!! Not pure ascii: 129491273823428608
+!!!! Not pure ascii: 129491233239343104
+!!!! Not pure ascii: 129491216659259392
+!!!! Not pure ascii: 129483009442316288
+!!!! Not pure ascii: 129478960164773889
+!!!! Not pure ascii: 129478451236315136
+!!!! Not pure ascii: 129469475778076673
+exception while insert_tokens for tweet=131166935122583552
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x80\x8CISW...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x80\x8CISW...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=130180784400240640
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x99\xE3\x81\xA3...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x99\xE3\x81\xA3...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129962005984579584
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE6\x98\xA8\xE5\xA4\x9C...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE6\x98\xA8\xE5\xA4\x9C...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129952843674296320
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE7\xA9\xBA\xE6\xB8\xAF...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE7\xA9\xBA\xE6\xB8\xAF...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129926552589828096
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\x8C\x97\xE6\xB5\xB7...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\x8C\x97\xE6\xB5\xB7...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129497884029759488
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x83\x95\xE3\x82\xA1...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x83\x95\xE3\x82\xA1...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129496103954550784
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x82\xAA\xE3\x83\xB3...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x82\xAA\xE3\x83\xB3...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129495594300481539
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x82\x92\xE3\x83\x95...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x82\x92\xE3\x83\x95...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129488557806071808
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x80\x80/\xE3\x82...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x80\x80/\xE3\x82...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129485094166597632
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\x88\xEF\xBC\x9F...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\x88\xEF\xBC\x9F...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129460743274897409
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xEF\xBC\x93\xE6\x97\xA5...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xEF\xBC\x93\xE6\x97\xA5...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129233849887621120
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x81\xBE\xE3\x81\x98...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x81\xBE\xE3\x81\x98...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129193926014939137
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x82\xBB\xE3\x83\x9E...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x82\xBB\xE3\x83\x9E...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129192502816284673
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x82\xB9\xE3\x83\x88...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x82\xB9\xE3\x83\x88...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129188104274837505
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE3\x82\xA4\xE3\x83\xB3...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE3\x82\xA4\xE3\x83\xB3...' for column 'wordsCVS' at row 2
+exception while insert_tokens for tweet=129181906486046720
+org.springframework.jdbc.UncategorizedSQLException: PreparedStatementCallback; uncategorized SQLException for SQL [call recommicro.insert_tokens (?,?,?,?,?)]; SQL state [HY000]; error code [1366]; Incorrect string value: '\xE5\xA4\xA7\xE9\x87\x8F...' for column 'wordsCVS' at row 2; nested exception is java.sql.SQLException: Incorrect string value: '\xE5\xA4\xA7\xE9\x87\x8F...' for column 'wordsCVS' at row 2
+!!!! Not pure ascii: 125860805097947136
+!!!! Not pure ascii: 124454956492263424
+!!!! Not pure ascii: 131324125506584577
+!!!! Not pure ascii: 131321657750069248
+!!!! Not pure ascii: 131302821143384064
+!!!! Not pure ascii: 131293758384902144
+!!!! Not pure ascii: 129930482442960896
+!!!! Not pure ascii: 129913062265327616
+!!!! Not pure ascii: 129860952681234432
+!!!! Not pure ascii: 129221434882007040
+!!!! Not pure ascii: 103773787509633024
+!!!! Not pure ascii: 111689057486127104
+!!!! Not pure ascii: 109409516168286208
+!!!! Not pure ascii: 108539833089134592
+Results for query: [adoption automaticallyaddedvia:packrati.us berners-lee blog ckan opendata-openknowledge data dataset datasets dwitzel data opendata government framework future google googlerefine howto interface kim lianza11 library linked linked_data linked_data_deployment linkeddata lod metadata offdata open open_data www opendata opendata linkeddata libraries opendata open openlink rails rdf refine reports search semantic semantic-web semantic_web linked_data semanticweb sponger standards technology toread triple_store tutorial tutorials ty:conf via:packrati.us video virtuoso vos w3c w3c_library_linked_data web web2.0]
+            0,262107: [ screen_name=          marciazeng, statusesCount=   120, followersCount=    73, friendsCount=     9, location=                    Kent, Ohio, name=                   Marcia Zeng ]
+            0,234222: [ screen_name=          MagdMartin, statusesCount=  1511, followersCount=   217, friendsCount=   291, location=                       Toronto, name=              Martin Magdinier ]
+            0,231248: [ screen_name=                 rjw, statusesCount=  2089, followersCount=   785, friendsCount=   104, location=                   Evesham, UK, name=                Richard Wallis ]
+            0,227468: [ screen_name=         ckanproject, statusesCount=    64, followersCount=   161, friendsCount=    96, location=               Everywhere soon, name=                          CKAN ]
+            0,195362: [ screen_name=         ivan_herman, statusesCount=  1954, followersCount=  2134, friendsCount=   151, location=        Amsterdam, Netherlands, name=                   Ivan Herman ]
+            0,182423: [ screen_name=              mfhepp, statusesCount=  2321, followersCount=  1561, friendsCount=  1997, location=          Munich and traveling, name=                   martin hepp ]
+            0,176909: [ screen_name=     TalisConsulting, statusesCount=   138, followersCount=   128, friendsCount=    42, location=                              , name=              Talis Consulting ]
+            0,171427: [ screen_name=             s3works, statusesCount=   841, followersCount=    43, friendsCount=    89, location=                         Japan, name=                       s3works ]
+            0,162292: [ screen_name=       webfoundation, statusesCount=   726, followersCount=  3017, friendsCount=   423, location=               Boston, MA, USA, name=                Web Foundation ]
+            0,143799: [ screen_name=        rufuspollock, statusesCount=   363, followersCount=   838, friendsCount=    23, location=                              , name=                 Rufus Pollock ]
+            0,139491: [ screen_name=       nicolastorzec, statusesCount=  1779, followersCount=   531, friendsCount=   187, location=               Sunnyvale (USA), name=                Nicolas Torzec ]
+            0,137228: [ screen_name=        semanticnews, statusesCount=  9169, followersCount=  1542, friendsCount=     5, location=               Toronto, Canada, name=           SemanticWeb Eqentia ]
+            0,126907: [ screen_name=            nopiedra, statusesCount= 18695, followersCount=  1594, friendsCount=  1635, location=                 Ecuador, Loja, name=                 Nelson Piedra ]
+            0,117575: [ screen_name=         knudmoeller, statusesCount=    87, followersCount=   123, friendsCount=    54, location=                        Galway, name=                   Knud Möller ]
+            0,107653: [ screen_name=        epsiplatform, statusesCount=  4667, followersCount=  1440, friendsCount=  1025, location=      Europe and International, name=                  ePSIplatform ]
+            0,101989: [ screen_name=      UKTransparency, statusesCount=   147, followersCount=  1160, friendsCount=     0, location=                United Kingdom, name=               UK Transparency ]
+            0,089625: [ screen_name=                OKFN, statusesCount=  1179, followersCount=  2487, friendsCount=   338, location=                            UK, name=                          OKFN ]
+            0,085863: [ screen_name=            buzzdata, statusesCount=  1258, followersCount=   800, friendsCount=   259, location=               Toronto, Canada, name=                      BuzzData ]
+            0,083871: [ screen_name=          realpoirot, statusesCount=  2100, followersCount=   225, friendsCount=   280, location=     Zuid Holland, Netherlands, name=               Quentin H. Reul ]
+            0,078165: [ screen_name=             gothwin, statusesCount=  9587, followersCount=  1166, friendsCount=  1088, location=               Southampton, UK, name=                  John Goodwin ]
+            0,073368: [ screen_name=           davidseth, statusesCount=   593, followersCount=   300, friendsCount=   163, location=                    hobart tas, name=                David Peterson ]
+            0,073266: [ screen_name=          TeamKasabi, statusesCount=   332, followersCount=   333, friendsCount=    35, location=                              , name=                        KASABI ]
+            0,068891: [ screen_name=               kaiec, statusesCount=   446, followersCount=   135, friendsCount=   157, location=                              , name=                    Kai Eckert ]
+            0,067834: [ screen_name=               radar, statusesCount=  3709, followersCount= 19621, friendsCount=   144, location=                Sebastopol, CA, name=                O'Reilly Radar ]
+            0,066241: [ screen_name=             busaco_, statusesCount=   772, followersCount=   242, friendsCount=    50, location=                within a dream, name=                  Sabin Buraga ]
+            0,065885: [ screen_name=               Lambo, statusesCount=  4111, followersCount=  1270, friendsCount=   842, location=             Hannover, Germany, name=                Lambert Heller ]
+            0,065081: [ screen_name=          datamarket, statusesCount=  1393, followersCount=  3081, friendsCount=   301, location=            Reykjavik, Iceland, name=                    DataMarket ]
+            0,064315: [ screen_name=          ian_harrow, statusesCount=   351, followersCount=    49, friendsCount=   123, location=                Whitstable, UK, name=           IanHarrowConsulting ]
+            0,060131: [ screen_name=            mmmmmrob, statusesCount=  6766, followersCount=  1022, friendsCount=  1019, location=                Birmingham, UK, name=                    Rob Styles ]
+            0,057654: [ screen_name=        takechan2000, statusesCount=  2332, followersCount=   454, friendsCount=    90, location=                            ??, name=                Hideaki Takeda ]
+            0,055764: [ screen_name=           DigitalNZ, statusesCount=   326, followersCount=  2283, friendsCount=   678, location=                   New Zealand, name=           Digital New Zealand ]
+            0,054304: [ screen_name=               cmwbb, statusesCount=   149, followersCount=   182, friendsCount=   185, location=    West Kalimantan, Indonesia, name=                      Cam Webb ]
+            0,051534: [ screen_name=             ragerri, statusesCount=    11, followersCount=    14, friendsCount=    24, location=               Vitoria-Gasteiz, name=            R Agerri at Deusto ]
+            0,040064: [ screen_name=                 RWW, statusesCount= 23513, followersCount=1116607, friendsCount=  2024, location=                World Wide Web, name=                  ReadWriteWeb ]
+            0,040037: [ screen_name=     olegshilovitsky, statusesCount=  4229, followersCount=  1271, friendsCount=   681, location=                 Brookline, MA, name=               olegshilovitsky ]
+            0,039670: [ screen_name=             kavango, statusesCount=  2062, followersCount=   543, friendsCount=   245, location=                       Campezo, name=                Joseba Abaitua ]
+            0,038328: [ screen_name=        david_bawden, statusesCount=   336, followersCount=   216, friendsCount=    44, location=                        London, name=                  david bawden ]
+            0,036076: [ screen_name=           bibliohan, statusesCount=  2104, followersCount=   432, friendsCount=   595, location=                              , name=                  Johan Stapel ]
+            0,035098: [ screen_name=            ISWC2011, statusesCount=   185, followersCount=   331, friendsCount=   102, location=                       Koblenz, name=                      ISWC2011 ]
+            0,034509: [ screen_name=       fantasticlife, statusesCount=  9819, followersCount=   547, friendsCount=   337, location=                              , name=             Michael Smethurst ]
+            0,030675: [ screen_name=              urvics, statusesCount=    75, followersCount=    15, friendsCount=    28, location=                              , name=                 Victoria Uren ]
+            0,029820: [ screen_name=             rtroncy, statusesCount=  2384, followersCount=   638, friendsCount=   350, location=         Sophia Antipolis (FR), name=                Raphaël Troncy ]
+            0,028307: [ screen_name=           timhodson, statusesCount=  3079, followersCount=   152, friendsCount=   178, location=                 Wolverhampton, name=                    Tim Hodson ]
+            0,027733: [ screen_name=          cottinstef, statusesCount=  1445, followersCount=   679, friendsCount=   499, location=  Paris, Ile-de-France, France, name=               Stephane Cottin ]
+            0,025038: [ screen_name=         libbymiller, statusesCount=  7324, followersCount=  1164, friendsCount=  1327, location=                              , name=                  Libby Miller ]
+            0,024437: [ screen_name=              NetIKX, statusesCount=    43, followersCount=    71, friendsCount=    62, location=                        London, name=                        NetIKX ]
+            0,024339: [ screen_name=           giaso1971, statusesCount=   645, followersCount=    59, friendsCount=    19, location=                              , name=              Giacomo Cambiaso ]
+            0,024132: [ screen_name=           ecgoodman, statusesCount=  1465, followersCount=   393, friendsCount=   295, location=                            UK, name=             Elisabeth Goodman ]
+            0,022567: [ screen_name=        OReillyMedia, statusesCount= 10895, followersCount= 36158, friendsCount= 20599, location=Sebastopol, Cambridge, Farnham, name=                O'Reilly Media ]
+            0,021946: [ screen_name=              tommyh, statusesCount=  4253, followersCount=  1407, friendsCount=   484, location=                              , name=                     Tom Heath ]
+            0,021203: [ screen_name=               JeniT, statusesCount=  4749, followersCount=  1996, friendsCount=   447, location=                        London, name=                 Jeni Tennison ]
+            0,020717: [ screen_name=             tomayac, statusesCount=  3360, followersCount=   889, friendsCount=   256, location=              Hamburg, Germany, name=                Thomas Steiner ]
+            0,018739: [ screen_name=               310ig, statusesCount= 12075, followersCount=    89, friendsCount=    94, location=                           ???, name=                  kiro pannda? ]
+            0,017036: [ screen_name=        OpenLobbyist, statusesCount= 21736, followersCount=    33, friendsCount=     3, location=                     Amsterdam, name=            Open Data Lobbyist ]
+            0,015777: [ screen_name=            bsletten, statusesCount= 26683, followersCount=  1819, friendsCount=  1895, location=               Los Angeles, CA, name=                      bsletten ]
+            0,014168: [ screen_name=     socioinnovation, statusesCount= 29761, followersCount=  4567, friendsCount=  3506, location=                  online 24/24, name=            Innovation Sociale ]
+            0,011622: [ screen_name=          PaulMiller, statusesCount= 11734, followersCount=  4226, friendsCount=   759, location=  Beverley, East Yorkshire, UK, name=                   Paul Miller ]
+            0,010943: [ screen_name=     OnlineInfo_expo, statusesCount=   202, followersCount=   874, friendsCount=   231, location=                        London, name=            Online Information ]
+            0,009648: [ screen_name=       Meteor_Mobile, statusesCount= 10162, followersCount=  5590, friendsCount=  1145, location=               Dublin, Ireland, name=                Meteor Mobile  ]
+            0,008964: [ screen_name=             Janaxrz, statusesCount=  1350, followersCount=    69, friendsCount=     0, location=                      New York, name=                  Jana Metters ]
+            0,008403: [ screen_name=     MariaGraziaTort, statusesCount=  1035, followersCount=    62, friendsCount=    64, location=                              , name=                  Maria Grazia ]
+            0,008082: [ screen_name=       brookecaution, statusesCount=   539, followersCount=    32, friendsCount=   287, location=        Daylesford, Australia., name=                Brooke de Regt ]
+            0,006638: [ screen_name=             Storify, statusesCount=  4767, followersCount= 14454, friendsCount=     8, location=                        Global, name=                       Storify ]
+            0,005918: [ screen_name=         TAMAirlines, statusesCount= 27186, followersCount=259169, friendsCount=  5452, location=                        Brazil, name=                  TAM Airlines ]
+            0,004716: [ screen_name=              lldzne, statusesCount=  3074, followersCount=    77, friendsCount=   130, location=      Northeast UK and the USA, name=             lawrence serewicz ]
+            0,003612: [ screen_name=       DevonCastagna, statusesCount=   865, followersCount=    31, friendsCount=     0, location=                          null, name=                Devon Castagna ]
+            0,002800: [ screen_name=       aMusingFoodie, statusesCount=  8672, followersCount=  1477, friendsCount=  1421, location=                 Frederick, MD, name=                  Liza Hawkins ]
+            0,002112: [ screen_name=          RolandBaum, statusesCount=  4316, followersCount=   113, friendsCount=   179, location=      Naarden, The Netherlands, name=             Roland Baumgarten ]
+            0,001483: [ screen_name=         JameCichosz, statusesCount=  6951, followersCount=   184, friendsCount=     0, location=                          null, name=                  Jame Cichosz ]
+            0,001353: [ screen_name=       alykhansatchu, statusesCount= 95852, followersCount= 16523, friendsCount= 14918, location=                      Nairobi , name=               Aly-Khan Satchu ]

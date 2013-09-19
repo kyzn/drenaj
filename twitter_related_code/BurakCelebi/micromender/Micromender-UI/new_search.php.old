@@ -1,0 +1,8 @@
+<?php include_once 'includes/template/preprocess.php'; ?>
+
+<form name="searchForm" method="post" action="new_search_action.php">
+	<input name="query"  type="text"    id="query" size="25">
+	<input name="submit" type="submit"  value="Submit">
+</form>
+
+<?php include_once 'includes/template/postprocess.php'; ?>

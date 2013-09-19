@@ -1,0 +1,5 @@
+<?php include_once 'includes/template/preprocess.php'; ?>
+
+Hello, welcome to the recommendation system...
+
+<?php include_once 'includes/template/postprocess.php'; ?>
