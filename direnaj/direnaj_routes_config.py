@@ -4,7 +4,6 @@
 
 '''
 
-from homepagehandler import *
 from followerhandler import *
 from statuseshandler import *
 from userhandler import *
@@ -14,7 +13,6 @@ from schedulerMainHandler import SchedulerReportHandler
 from schedulerMainHandler import SchedulerProfilesHandler
 
 routes_config = [
-    (r"/", HomepageHandler),
     (r"/scheduler/suggestUseridToGet_profiles", SchedulerProfilesHandler),
     (r"/scheduler/suggestUseridToGet_(friends|followers)", SchedulerMainHandler),
     (r"/scheduler/reportProtectedUserid", SchedulerReportHandler),
