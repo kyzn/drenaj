@@ -8,7 +8,7 @@ controller('MyCtrl1', [function() {
 }])
 .controller('StatusesFilterCtrl', ['$scope', '$http', function(scope, http) {
     /*scope.statuses = [{name:'a'}, {name: 'b'}];*/
-    http.post('http://localhost:9999/statuses/filter', {
+    http.post('/statuses/filter', {
         limit: 1,
         campaign_id: 'default',
         auth_user_id: 'direnaj',
