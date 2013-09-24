@@ -1,0 +1,36 @@
+body {
+  padding: 10px;
+  height: 100px;
+}
+
+.common_first_color {
+  color: #99AFBA;
+}
+
+/*99AFBA - 02111A*/
+
+.common_second_color {
+  color: #02111A;
+}
+
+.common_background_color {
+  background-color: #C5D9E3;
+}
+
+/*59859C - silver*/
+
+.common_panel_border_style {
+  border: 3px double #93B3C4;
+}
+
+.common_border_style {
+  border: 3px double silver;
+}
+
+.gwt-SplitLayoutPanel-HDragger {
+ position: fixed;
+ background-color: #C5D9E3;
+} 
+
+
+

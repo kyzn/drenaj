@@ -1,0 +1,22 @@
+/*
+    The CSS for navigation panel
+*/
+
+.navigationPanel {
+  margin: 10px 10px 10px 10px;
+}
+
+.scrollPanel {
+  height: 100%;
+  width: 100%;
+}
+
+.wordListTable {
+  padding:10px;
+}
+
+.wordListTableHeader {
+  background-color: #C5D9E3;
+  color: 02111A;
+  font-style: italic;
+}
