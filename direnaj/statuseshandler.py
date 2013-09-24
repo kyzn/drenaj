@@ -12,6 +12,8 @@ from tornado.web import MissingArgumentError
 
 from tornado.escape import json_decode,json_encode
 
+from jinja2 import Environment, FileSystemLoader
+
 import json
 import time, datetime
 
@@ -122,6 +124,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                 campaign_id = self.get_argument('campaign_id')
                 skip = self.get_argument('skip', 0)
                 limit = self.get_argument('limit', 100)
+                res_format = self.get_argument('format', 'json')
 
                 tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
                 cursor = tweets_coll.find({'campaign_id' : '%s' % campaign_id})\
@@ -131,17 +134,25 @@ class StatusesHandler(tornado.web.RequestHandler):
                            # TypeError: if no direction is specified, key_or_list must be an instance of list
                            # .sort({"$natural" : 1})\
                 tmp = [x for x in cursor]
-                self.write(bson.json_util.dumps(
-                        {'results': tmp,
-                        # TODO: Replace this DB_TEST_VERSION with source code
-                        # version later
-                        "direnaj_service_version": DB_TEST_VERSION,
-                        "requested_by": keywords['drnjID'],
-                        "campaign_id": campaign_id,
-                        "served_at": drnj_time.now_in_drnj_time(),
-                         'skip': int(skip),
-                         'limit': int(limit)}))
-                self.add_header('Content-Type', 'application/json')
+                if res_format == 'json':
+                    self.write(bson.json_util.dumps(
+                            {'results': tmp,
+                            # TODO: Replace this DB_TEST_VERSION with source code
+                            # version later
+                            "direnaj_service_version": DB_TEST_VERSION,
+                            "requested_by": keywords['drnjID'],
+                            "campaign_id": campaign_id,
+                            "served_at": drnj_time.now_in_drnj_time(),
+                             'skip': int(skip),
+                             'limit': int(limit)}))
+                    self.add_header('Content-Type', 'application/json')
+                elif res_format == 'html':
+                    env = Environment(loader=FileSystemLoader('templates'))
+
+                    template = env.get_template('statuses/filter.html')
+                    result = template.render(statuses=[x['tweet'] for x in tmp])
+                    self.write(result)
+
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)

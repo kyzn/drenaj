@@ -1,11 +1,11 @@
 # UserHandlers:  Code for retrieving, storing and showing Profiles
 #
 # Date			Time		Prog	Note
-# 31-Aug-2013	 2:18 AM	ATC		
+# 31-Aug-2013	 2:18 AM	ATC
 
 # ATC = Ali Taylan Cemgil,
 # Department of Computer Engineering, Bogazici University
-# e-mail :  taylan.cemgil@boun.edu.tr 
+# e-mail :  taylan.cemgil@boun.edu.tr
 
 # TODO: Having separate code for a single and multiple profiles is not necessary
 # store_*_profile functions can be merged
@@ -42,11 +42,11 @@ class UserProfilesHandler(tornado.web.RequestHandler):
         #self.write("not implemented yet")
 
     def post(self, *args):
-        """ 
-                
+        """
+
         Note: OG: I chose to handle all options at once, using only POST requests
         for API requests. GET requests will be used for browser examination.
-        
+
         """
 
         store_or_view = args[0]
@@ -62,7 +62,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 graph_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['graph']
                 profiles_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles']
                 profiles_history_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles_history']
-                
+
                 # if no user_id is supplied.
                 if user_id is None:
                     # running the query
@@ -70,7 +70,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                         lim_count = 20
                     else:
                         lim_count = int(lim_count)
-                        
+
                     if lim_count>MAX_LIM_TO_VIEW_PROFILES:
                         lim_count = MAX_LIM_TO_VIEW_PROFILES
                     cursor = profiles_coll.find().sort('record_retrieved_at', -1).limit(lim_count)
@@ -84,15 +84,15 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                         id = user['id']
                         user['known_followers_count'] = graph_coll.find({'friend_id': id}).count();
                         user['known_friends_count'] = graph_coll.find({'id': id}).count();
-                        
+
                         tmp.append(user)
-                        
+
                     env = Environment(loader=FileSystemLoader('templates'))
 
-                    template = env.get_template('direnaj_user_view_template01.html')
+                    template = env.get_template('user/view.html')
                     result = template.render(profiles=tmp, len=len(tmp), href=app_root_url)
                     self.write(result)
-                    
+
                 else:
                     # TODO: View the specified user ID profiles
                     pass
@@ -108,9 +108,9 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 S = json.loads(json_data)
 
                 nids = store_multiple_profiles(ids, S, drnjID=auth_user_id)
-                
+
                 if len(nids)>0:
-    
+
                     for i in range(len(nids)):
                         markProtected(nids[i], True, auth_user_id)
                         print "User not Found, Removing from queue: ",
@@ -126,26 +126,26 @@ class UserProfilesHandler(tornado.web.RequestHandler):
             pass
 
 def store_multiple_profiles(ids, S, drnjID):
-    """ 
-        
+    """
+
     """
     # print "Received recent profile of ", v['name'], ' a.k.a. ', v['screen_name']
-    
+
     db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
     queue_collection = db['queue']
     profiles_collection = db['profiles']
     profiles_history_collection = db['profiles_history']
-    
+
     for i in range(len(S)):
         profile_dat = drnj_copy2doc(new_profiles_document(), S[i]);
         profile_dat["created_at"] = py_utc_time2drnj_time(S[i]['created_at'])
         profile_dat["record_retrieved_at"] = now_in_drnj_time()
         profile_dat["retrieved_by"] = drnjID
         user_id = S[i]['id']
-        
+
         # print profile_dat
-    
-        # Check Queue 
+
+        # Check Queue
         queue_query = {"id": user_id}
         id_exists = queue_collection.find(queue_query).count() > 0
         dt = drnj_time.now_in_drnj_time()
@@ -168,7 +168,7 @@ def store_multiple_profiles(ids, S, drnjID):
                             "retrieved_by": drnjID
                         })
 
-        # Insert to profiles 
+        # Insert to profiles
         profiles_query = {"id": user_id}
         prof = profiles_collection.find_and_modify(profiles_query, remove=True)
         if prof!=None:
@@ -178,12 +178,12 @@ def store_multiple_profiles(ids, S, drnjID):
 
         ids.remove(str(user_id))
 
-        
-    
+
+
     return ids
-            
-            
-            
+
+
+
 
 class UserSingleProfileHandler(tornado.web.RequestHandler):
     def get(self, *args):
@@ -208,7 +208,7 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
                 graph_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['graph']
                 profiles_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles']
                 profiles_history_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles_history']
-                
+
                 # if no user_id is supplied.
                 if user_id is None:
                     lim_count = 1
@@ -220,15 +220,15 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
                         id_str = user['id_str']
                         user['known_followers_count'] = graph_coll.find({'friend_id_str': id_str}).count();
                         user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
-                        
+
                         tmp.append(user)
-                        
+
                     env = Environment(loader=FileSystemLoader('templates'))
 
-                    template = env.get_template('direnaj_user_view_template01.html')
+                    template = env.get_template('user/view.html')
                     result = template.render(profiles=tmp, len=len(tmp), href=app_root_url)
                     self.write(result)
-                    
+
                 else:
 
                     # running the query
@@ -241,11 +241,11 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
                         x['ctime'] = time.ctime(drnj_time2py_time(x['record_retrieved_at']))
                         x['created_at_ctime'] = time.ctime(drnj_time2py_time(x['created_at']))
                         tmp.append(x)
-                    
+
                     cursor = profiles_history_coll.find({
                         'id_str': user_id,
                     }).sort('record_retrieved_at', -1)
-                    
+
                     for x in cursor:
                         x['ctime'] = time.ctime(drnj_time2py_time(x['record_retrieved_at']))
                         x['created_at_ctime'] = time.ctime(drnj_time2py_time(x['created_at']))
@@ -253,7 +253,7 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
 
                     env = Environment(loader=FileSystemLoader('templates'))
 
-                    template = env.get_template('direnaj_profile_history_view_template01.html')
+                    template = env.get_template('profiles/history_view.html')
                     result = template.render(profiles=tmp)
                     self.write(result)
 
@@ -271,7 +271,7 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
                 v = json.loads(json_data)
 
                 ret = store_single_profile(user_id, v, drnjID=auth_user_id)
-                
+
                 # Returns true when a new profile is discovered
                 print ret
                 self.write(json_encode(ret))
@@ -282,18 +282,18 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
             pass
 
 def store_single_profile(user_id, v, drnjID):
-    """ 
-        
+    """
+
     """
     print "Received recent profile of ", v['name'], ' a.k.a. ', v['screen_name']
-    
+
     db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
     queue_collection = db['queue']
     profiles_collection = db['profiles']
     profiles_history_collection = db['profiles_history']
-    
-   
-    
+
+
+
     profile_dat = drnj_doc(new_profiles_document(), {
     "id": v['id'],
     "id_str": v['id_str'],
@@ -310,10 +310,10 @@ def store_single_profile(user_id, v, drnjID):
     "record_retrieved_at": now_in_drnj_time(),
     "retrieved_by": drnjID
     });
-    
+
     # print profile_dat
-    
-    # Check Queue 
+
+    # Check Queue
     queue_query = {"id": user_id}
     id_exists = queue_collection.find(queue_query).count() > 0
     dt = drnj_time.now_in_drnj_time()
@@ -336,8 +336,8 @@ def store_single_profile(user_id, v, drnjID):
                             "retrieved_by": drnjID
                         })
 
-    # Insert to profiles 
-    
+    # Insert to profiles
+
     profiles_query = {"id": user_id}
     prof = profiles_collection.find_and_modify(profiles_query, remove=True)
     if prof!=None:
