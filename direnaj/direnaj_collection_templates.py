@@ -17,9 +17,9 @@
 from drnj_time import py_utc_time2drnj_time
 
 def drnj_doc(new_doc, data):
-    """
- Copy the fields in data to the new document
- Typical usage is
+    """Copy the fields in data to the new document
+
+    Typical usage is
     drnj_doc(new_queue_document(), {"id": 23932})
 
     - creates a database document with all fields and possible default values
@@ -27,12 +27,14 @@ def drnj_doc(new_doc, data):
     - some fields in the new document may not be set
 
     raises a NameError exception if <data> contains fields that do not exist in <new_doc>
+
     :param new_doc: new document.
-    :type new_doc: dict.
+    :type new_doc: dict
     :param data: A dictionary which includes the fields to be filled in.
-    :type state: dict.
+    :type data: dict
     :returns:  new_doc -- xxx.
     :raises: NameError
+
     """
     for fn in data.iterkeys():
         if new_doc.has_key(fn):
@@ -43,10 +45,10 @@ def drnj_doc(new_doc, data):
     return new_doc
 
 def drnj_copy2doc(new_doc, data):
-    """
- Tries to set all the fields in new_doc from data
- Typical usage is
-    drnj_copy2doc(new_queue_document(), {"id": 23932})
+    """Tries to set all the fields in new_doc from data
+
+    Typical usage is
+    ``drnj_copy2doc(new_queue_document(), {"id": 23932})``
 
     - creates a database document with all fields and possible default values
     - and sets the field values from data

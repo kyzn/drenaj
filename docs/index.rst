@@ -22,6 +22,7 @@ As of 13 September 2013, I included all the modules in the documentation. But
 if you need to add new modules, just run the following in `./docs`.
 
 >>> python generate_modules.py -s rst -d modules/ ../direnaj/
+>>> make html
 
 We'll develop as we go on.
 
@@ -37,6 +38,7 @@ Modules
    :maxdepth: 2
    :glob:
 
+   modules/direnaj_collection_templates
    modules/*
 
 
