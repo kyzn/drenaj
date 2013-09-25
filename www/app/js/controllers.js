@@ -22,6 +22,7 @@ controller('MyCtrl1', [function() {
         angular.forEach(data.results, function(result, key) {
             if (result.tweet.id_str) {
                 scope.statuses.push(result.tweet);
+                alert('testing x');
             }
         });
     }).error(function(data, status, headers, config) {
