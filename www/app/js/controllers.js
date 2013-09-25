@@ -20,6 +20,7 @@ controller('MyCtrl1', [function() {
         // when the response is available
         console.log(data);
         angular.forEach(data.results, function(result, key) {
+            console.log(result.tweet.id_str);
             if (result.tweet.id_str) {
                 scope.statuses.push(result.tweet);
                 alert('testing x');
