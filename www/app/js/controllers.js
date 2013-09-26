@@ -48,7 +48,7 @@ controller('MyCtrl1', [function() {
         currentPage: 1
     };  
     $scope.setPagingData = function(data, page, pageSize){  
-        var pagedData = data.results.slice((page - 1) * pageSize, page * pageSize);
+        var pagedData = data.results;
         var mappedData = pagedData.map(function(item, index) {
             return {
                     id_str: item.tweet.id_str,
@@ -78,7 +78,8 @@ controller('MyCtrl1', [function() {
             } else {*/
             $http.get('/statuses/filter', {
                 params: {
-                    limit: 100,
+                    skip: (page-1) * pageSize,
+                    limit: pageSize,
                 campaign_id: campaign_id,
                 auth_user_id: 'direnaj',
                 auth_password: 'tamtam'
