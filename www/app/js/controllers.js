@@ -54,7 +54,8 @@ controller('MyCtrl1', [function() {
                     id_str: item.tweet.id_str,
                     text: item.tweet.text,
                     screen_name: item.tweet.user.screen_name,
-                    user_id_str: item.tweet.user.id_str
+                    user_id_str: item.tweet.user.id_str,
+                    user_profile_image_url: item.tweet.user.profile_image_url,
             };
         });
         console.log(mappedData);

@@ -4,8 +4,17 @@
         <input type="text" class="form-control" ng-model="query_params.campaign_id" placeholder="Enter a campaign ID">
     </div>
     <h1>Campaign ID: {{ query_params.campaign_id }}</h1>
+    <tabset>
+    <tab heading="As a table">
     <div class="col-xs-12 gridStyle" ng-grid="gridOptions"></div>
+    </tab>
+    <tab heading="As a nicer view">
+    <div ng-include="'partials/statuses/filter_niceview.html'">
+
+    </div>
+    </tab>
+    </tabset>
     <footer>
-        <div>Client version: v<span app-version></span></div>
+    <div>Client version: v<span app-version></span></div>
     </footer>
 </div>
