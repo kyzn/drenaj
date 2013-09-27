@@ -50,13 +50,23 @@ controller('MyCtrl1', [function() {
     $scope.setPagingData = function(data, page, pageSize){  
         var pagedData = data.results;
         var mappedData = pagedData.map(function(item, index) {
-            return {
+            if (item.tweet.id_str) {
+                return {
                     id_str: item.tweet.id_str,
                     text: item.tweet.text,
                     screen_name: item.tweet.user.screen_name,
                     user_id_str: item.tweet.user.id_str,
                     user_profile_image_url: item.tweet.user.profile_image_url,
-            };
+                };
+            } else {
+                return {
+                    id_str: 'NA',
+                    text:  'NA',
+                    screen_name:  'NA',
+                    user_id_str:  'NA',
+                    user_profile_image_url:  'NA',
+                };
+            }
         });
         console.log(mappedData);
         $scope.myData = mappedData;
