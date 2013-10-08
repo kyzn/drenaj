@@ -17,7 +17,7 @@ Example for autodoc
 
 import oauth2 as oauth
 
-import threading
+import multiprocessing
 
 import sys, time, datetime
 import os
@@ -28,11 +28,15 @@ import requests
 # local
 from config import *
 
-class StreamCatcher(threading.Thread):
+class StreamCatcher(multiprocessing.Process):
     '''
     This is a fantastic class!
     '''
     def __init__(self, url = "", campaign_id="", postdata = {}, keystore = KeyStore()):
+
+        signal.signal(signal.SIGINT, signal.SIG_IGN)
+
+        signal.signal(signal.SIGTERM, self.on_terminate)
 
         # required for threads
         super(StreamCatcher, self).__init__()
@@ -51,9 +55,15 @@ class StreamCatcher(threading.Thread):
 
         self.filter_request = self.prepare_request(postdata, keystore)
 
-        self.abortEvent = threading.Event()
+        self.abortEvent = multiprocessing.Event()
         self.direnaj_store_url = 'http://'+DIRENAJ_APP_HOST+':'+str(DIRENAJ_APP_PORT[DIRENAJ_APP_ENVIRONMENT])+'/statuses/store'
         self.campaign_id = campaign_id
+
+        self.streamer_id = ":".join([campaign_id, postdata['track']])
+
+    def on_terminate(self, signal, frame):
+        print "Cleaning up for streamer_id=%s..." % self.streamer_id
+        sys.exit(0)
 
     def prepare_request(self, postdata, keystore=KeyStore()):
         authorization_header = self.sign_request(postdata, keystore)
@@ -176,16 +186,13 @@ class StreamCatcher(threading.Thread):
             print e
             raise e
 
-    def progress(self, download_t, download_d, upload_t, upload_d):
-        pass
-
 threads = []
 
 import signal
 def stop_all_threads(signal, frame):
     print 'Stopping all threads'
     for t in threads:
-        t.command('stop')
+        t.terminate()
     sys.exit(0)
 
 import argparse
@@ -207,3 +214,5 @@ if __name__ == "__main__":
 
     signal.signal(signal.SIGINT, stop_all_threads)
     signal.pause()
+    #while True:
+    #    time.sleep(0.5)
