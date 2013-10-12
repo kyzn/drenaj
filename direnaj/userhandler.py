@@ -27,7 +27,6 @@ from tornado.escape import json_decode,json_encode
 import json
 import time
 
-from jinja2 import Environment, FileSystemLoader
 from schedulerMainHandler import markProtected
 
 import bson.json_util
@@ -36,6 +35,7 @@ app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[DIRENAJ
 
 MAX_LIM_TO_VIEW_PROFILES = 10000
 
+#  route: (r"/profiles/(store|view)", UserProfilesHandler),
 class UserProfilesHandler(tornado.web.RequestHandler):
     def get(self, *args):
         self.post(*args)
@@ -51,7 +51,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
 
         store_or_view = args[0]
 
-        print 'UserProfileHandler. Command:', store_or_view
+        print 'UserProfilesHandler. Command:', store_or_view
 
         if ((store_or_view != None and store_or_view == 'view') or (store_or_view == None)):
             try:
@@ -84,18 +84,21 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                         id = user['id']
                         user['known_followers_count'] = graph_coll.find({'friend_id': id}).count();
                         user['known_friends_count'] = graph_coll.find({'id': id}).count();
-
+                        user.pop('_id'); # Remove as this is not serializable
                         tmp.append(user)
 
-                    env = Environment(loader=FileSystemLoader('templates'))
-
-                    template = env.get_template('user/view.html')
-                    result = template.render(profiles=tmp, len=len(tmp), href=app_root_url)
+                    result = json_encode(tmp);
                     self.write(result)
 
                 else:
                     # TODO: View the specified user ID profiles
+                    result = json_encode({'message': 'Not implemented yet, View the specified user ID profiles'});
+                    self.write(result);
                     pass
+                    
+                    
+                    
+                    
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
@@ -184,7 +187,7 @@ def store_multiple_profiles(ids, S, drnjID):
 
 
 
-
+#     (r"/user/(store|view)", UserSingleProfileHandler),
 class UserSingleProfileHandler(tornado.web.RequestHandler):
     def get(self, *args):
         self.post(*args)
@@ -211,22 +214,8 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
 
                 # if no user_id is supplied.
                 if user_id is None:
-                    lim_count = 1
-                    cursor = profiles_coll.find().sort('record_retrieved_at', -1).limit(lim_count)
-
-                    #tmp = [x for x in cursor]
-                    tmp = []
-                    for user in cursor:
-                        id_str = user['id_str']
-                        user['known_followers_count'] = graph_coll.find({'friend_id_str': id_str}).count();
-                        user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
-
-                        tmp.append(user)
-
-                    env = Environment(loader=FileSystemLoader('templates'))
-
-                    template = env.get_template('user/view.html')
-                    result = template.render(profiles=tmp, len=len(tmp), href=app_root_url)
+                    result = json_encode({'error': 'user_id not specified'})
+                
                     self.write(result)
 
                 else:
@@ -251,14 +240,11 @@ class UserSingleProfileHandler(tornado.web.RequestHandler):
                         x['created_at_ctime'] = time.ctime(drnj_time2py_time(x['created_at']))
                         tmp.append(x)
 
-                    env = Environment(loader=FileSystemLoader('templates'))
-
-                    template = env.get_template('profiles/history_view.html')
-                    result = template.render(profiles=tmp)
-                    self.write(result)
-
-#                    self.write(bson.json_util.dumps({'results': tmp}))
-#                    self.add_header('Content-Type', 'application/json')
+                    tmp.pop('_id');
+#                    self.write(json_encode([tmp]))
+#                    self.write(bson.json_util.dumps({'result': tmp}))
+                    self.write(bson.json_util.dumps(tmp))
+                    self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)

@@ -12,7 +12,7 @@ def bind_server(environment):
     http_server.listen(DIRENAJ_VIS_PORT[environment])
 
 def start(environment):
-    print "Local Visualization and Interaction Manager Starting on port %s" % DIRENAJ_VIS_PORT[environment]
+    print "Direnaj Local Visualization and Interaction Manager Starting on port %s" % DIRENAJ_VIS_PORT[environment]
     bind_server(environment)
     tornado.ioloop.IOLoop.instance().start()
     return application
