@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>Direnaj!</title>
+</head>
+<body>
+    <h1>{{ len }} Most Recently Retrieved User Profiles</h1>
+    <table border="1">
+    <th> id_str</th>
+    <th> screen_name </th>
+    <th> statuses_count </th>
+    <th></th>
+    <th> name </th>
+    <th> friends_count </th>
+    <th> followers_count </th>
+    <th> known_friends_count </th>
+    <th> known_followers_count </th>
+    {% for user in profiles %}
+     {% if user.protected %}
+    <tr style="background-color:gray">
+    {% else %}
+    <tr>
+    {% endif %}
+    <th>
+    <a href="{{ href }}/user/view?user_id={{ user.id_str}}">
+    {{ user.id_str}}
+    </a>
+    </th>
+    <th>{{user.screen_name}}</th>
+    <th>{{ user.statuses_count}}</th>
+    <th><img src="{{ user.profile_image_url }}" height="64" width="64"></th>
+    <th>{{ user.name}}</th>
+    <th>
+    <a href="{{ href }}/friends/crawl?user_id={{ user.id_str}}">
+    {{ user.friends_count}}
+    </a>
+    </th>
+    <th>
+    <a href="{{ href }}/followers/crawl?user_id={{ user.id_str}}">
+    {{ user.followers_count}}
+    </a>
+    </th>
+    <th>{{ user.known_friends_count}}</th>
+    <th>{{ user.known_followers_count}}</th>
+  </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>
