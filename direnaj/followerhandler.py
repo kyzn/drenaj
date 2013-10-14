@@ -149,7 +149,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
         elif fof == 'followers':
             queue_document = drnj_doc(new_queue_document(),{
                             "id": user_id,
-                            "id_str": str(id),
+                            "id_str": str(user_id),
                             "profile_retrieved_at": 0,
                             "friends_retrieved_at": 0,
                             "followers_retrieved_at": dt,
