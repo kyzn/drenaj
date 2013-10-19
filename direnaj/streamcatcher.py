@@ -20,13 +20,14 @@ import oauth2 as oauth
 import multiprocessing
 
 import sys, time, datetime
-import os
+
 import bson.json_util
 
 import requests
 
 # local
 from config import *
+
 
 class StreamCatcher(multiprocessing.Process):
     '''
