@@ -72,7 +72,7 @@ def drnj_graph_crawler(fof, root):
     except TwythonError as e:
         print e
         print "Error while fetching user profile from twitter, quitting ..."
-        return 
+        return e
     
     if v['protected']:
         post_data = {"user_id": root, "isProtected": 1, "auth_user_id": auth_user_id, "auth_password": auth_password}
@@ -116,10 +116,12 @@ def drnj_graph_crawler(fof, root):
             post_data = {"user_id": root, "ids": json_encode(IDS),"auth_user_id":auth_user_id, "auth_password": auth_password}
             post_response = requests.post(url=app_root_url + '/' + fof + '/ids/store', data=post_data)
             print "%s" % post_response.content
+            return post_response.content
         else:
             post_data = {"user_id": root, "isProtected": 1, "auth_user_id":auth_user_id, "auth_password": auth_password}
             post_response = requests.post(url=app_root_url+'/scheduler/reportProtectedUserid', data=post_data)
             print "Reported User as having a Protected Account %d" % root
+            return post_response.content
 
 
 if __name__ == "__main__":

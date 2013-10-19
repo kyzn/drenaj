@@ -30,8 +30,16 @@
     <th>{{ user.statuses_count}}</th>
     <th><img src="{{ user.profile_image_url }}" height="64" width="64"></th>
     <th>{{ user.name}}</th>
-    <th>{{ user.friends_count}}</th>
-    <th>{{ user.followers_count}}</th>
+    <th>
+    <a href="{{ href }}/friends/crawl?user_id={{ user.id_str}}">
+    {{ user.friends_count}}
+    </a>
+    </th>
+    <th>
+    <a href="{{ href }}/followers/crawl?user_id={{ user.id_str}}">
+    {{ user.followers_count}}
+    </a>
+    </th>
     <th>{{ user.known_friends_count}}</th>
     <th>{{ user.known_followers_count}}</th>
   </tr>

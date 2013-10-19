@@ -1,5 +1,5 @@
 '''
-    This file contains the definition of the direnaj gateway and schedulre interface
+    This file contains the definition of the direnaj gateway and scheduler interface
     accessible via http requests
 
 '''
@@ -20,4 +20,14 @@ routes_config = [
     (r"/statuses/(store|view|filter|retweets)", StatusesHandler),
     (r"/user/(store|view)", UserSingleProfileHandler),
     (r"/profiles/(store|view)", UserProfilesHandler),
+]
+
+from visHandler import *
+
+
+vis_routes_config = [
+    (r"/(friends|followers)/(crawl|view)", visFollowerHandler),
+    (r"/statuses/(crawl|view)", visStatusesHandler),
+    (r"/user/(crawl|view)", visSingleProfileHandler),
+    (r"/profiles/(crawl|view)", visUserProfilesHandler),
 ]
