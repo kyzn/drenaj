@@ -116,7 +116,7 @@ public class TestServlet extends HttpServlet {
 
 
     	    String cmd = "java -jar /home/direnaj/direnaj/envs/staging/toolkit/DirenajToolkitService/WebContent/WEB-INF/lib/ibm-word-cloud.jar "
-    	    		+ "-c /home/direnaj/direnaj/tools/caner.conf -w 800 -h 600 "
+    	    		+ "-c /home/direnaj/direnaj/tools/ibm-word-cloud.conf -w 800 -h 600 "
     	    		+ "-i /tmp/tags.txt "
     	    		+ "-o /home/direnaj/direnaj/tools/images/caner.png";
 
