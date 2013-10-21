@@ -109,6 +109,8 @@ def setup_environment():
 
     ensure_apt_package("supervisor")
 
+    ensure_apt_package("tomcat7")
+
     # ensure nginx
     ensure_nginx()
 
