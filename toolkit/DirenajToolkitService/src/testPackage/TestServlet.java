@@ -94,7 +94,7 @@ public class TestServlet extends HttpServlet {
 
     		counts = driver.countHastags(campaignId, skip, limit);
 
-    		PrintWriter pw = new PrintWriter(new File("/home/direnaj/direnaj/tools/tags.txt"));
+    		PrintWriter pw = new PrintWriter(new File("/tmp/tags.txt"));
 
 
     		boolean skipFirst = true;
@@ -117,7 +117,7 @@ public class TestServlet extends HttpServlet {
 
     	    String cmd = "java -jar /home/direnaj/direnaj/envs/staging/toolkit/DirenajToolkitService/WebContent/WEB-INF/lib/ibm-word-cloud.jar "
     	    		+ "-c /home/direnaj/direnaj/tools/caner.conf -w 800 -h 600 "
-    	    		+ "-i /home/direnaj/direnaj/tools/tags.txt "
+    	    		+ "-i /tmp/tags.txt "
     	    		+ "-o /home/direnaj/direnaj/tools/images/caner.png";
 
     	    Process proc = Runtime.getRuntime().exec(new String[] {"/bin/sh", "-c", cmd});
