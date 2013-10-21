@@ -94,7 +94,7 @@ public class TestServlet extends HttpServlet {
 
     		counts = driver.countHastags(campaignId, skip, limit);
 
-    		PrintWriter pw = new PrintWriter(new File("/home/caner/IBMWordCloud/tags.txt"));
+    		PrintWriter pw = new PrintWriter(new File("/home/direnaj/direnaj/tools/tags.txt"));
 
 
     		boolean skipFirst = true;
@@ -115,10 +115,10 @@ public class TestServlet extends HttpServlet {
     		pw.close();
 
 
-    	    String cmd = "java -jar /home/caner/IBMWordCloud/ibm-word-cloud.jar "
-    	    		+ "-c /home/caner/IBMWordCloud/caner.conf -w 800 -h 600 "
-    	    		+ "-i /home/caner/IBMWordCloud/tags.txt "
-    	    		+ "-o /home/caner/IBMWordCloud/images/caner.png";
+    	    String cmd = "java -jar /home/direnaj/direnaj/envs/staging/toolkit/DirenajToolkitService/WebContent/WEB-INF/lib/ibm-word-cloud.jar "
+    	    		+ "-c /home/direnaj/direnaj/tools/caner.conf -w 800 -h 600 "
+    	    		+ "-i /home/direnaj/direnaj/tools/tags.txt "
+    	    		+ "-o /home/direnaj/direnaj/tools/images/caner.png";
 
     	    Process proc = Runtime.getRuntime().exec(new String[] {"/bin/sh", "-c", cmd});
 
@@ -131,7 +131,7 @@ public class TestServlet extends HttpServlet {
 
             proc.waitFor();
 
-            retHtmlStr += "<img src=\"/images/caner.png\"/>   </td></tr></table>";
+            retHtmlStr += "<img src=\"images/caner.png\"/>   </td></tr></table>";
 
 
     	} else if(operation.equals("getTweetTexts")) {
