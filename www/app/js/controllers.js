@@ -33,7 +33,7 @@ controller('ToolkitCtrl', ['$scope', '$http', function($scope, $http) {
     });*/
 
     $scope.query_params = {
-        campaign_id: 'default'
+        campaign_id: 'direnodtu'
     };
     $scope.word = /^[\w0-9]*$/;
 
