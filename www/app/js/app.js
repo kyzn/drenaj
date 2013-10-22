@@ -2,7 +2,7 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('direnaj', 
+angular.module('direnaj',
         ['direnaj.filters',
          'direnaj.services',
          'direnaj.directives',
@@ -10,7 +10,7 @@ angular.module('direnaj',
          'ui.bootstrap',
          'ngGrid']).
   config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/users/view', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
+    $routeProvider.when('/toolkit/test', {templateUrl: 'partials/toolkit/test.html', controller: 'ToolkitCtrl'});
     $routeProvider.when('/statuses/filter', {templateUrl: 'partials/statuses/filter.html', controller: 'StatusesFilterCtrl'});
     $routeProvider.otherwise({redirectTo: '/'});
   }]);

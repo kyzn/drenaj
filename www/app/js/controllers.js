@@ -3,7 +3,7 @@
 /* Controllers */
 
 angular.module('direnaj.controllers', []).
-controller('MyCtrl1', [function() {
+controller('ToolkitCtrl', ['$scope', '$http', function($scope, $http) {
 
 }])
 .controller('StatusesFilterCtrl', ['$scope', '$http', function($scope, $http) {
@@ -40,14 +40,14 @@ controller('MyCtrl1', [function() {
     $scope.filterOptions = {
         filterText: "",
         useExternalFilter: true
-    }; 
+    };
     $scope.totalServerItems = 0;
     $scope.pagingOptions = {
         pageSizes: [5, 10, 20],
         pageSize: 10,
         currentPage: 1
-    };  
-    $scope.setPagingData = function(data, page, pageSize){  
+    };
+    $scope.setPagingData = function(data, page, pageSize){
         var pagedData = data.results;
         var mappedData = pagedData.map(function(item, index) {
             if (item.tweet.id_str) {
@@ -80,12 +80,12 @@ controller('MyCtrl1', [function() {
             var data;
             /*if (searchText) {
                 var ft = searchText.toLowerCase();
-                $http.get('jsonFiles/largeLoad.json').success(function (largeLoad) {        
+                $http.get('jsonFiles/largeLoad.json').success(function (largeLoad) {
                     data = largeLoad.filter(function(item) {
                         return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;
                     });
                     $scope.setPagingData(data,page,pageSize);
-                });            
+                });
             } else {*/
             $http.get('/statuses/filter', {
                 params: {
