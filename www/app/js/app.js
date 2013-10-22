@@ -11,6 +11,7 @@ angular.module('direnaj',
          'ngGrid']).
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/toolkit/test', {templateUrl: 'partials/toolkit/test.html', controller: 'ToolkitCtrl'});
-    $routeProvider.when('/statuses/filter', {templateUrl: 'partials/statuses/filter.html', controller: 'StatusesFilterCtrl'});
+    $routeProvider.when('/statuses/filter/:campaign_id', {templateUrl: 'partials/statuses/filter.html', controller: 'StatusesFilterCtrl'});
+    $routeProvider.when('/', {templateUrl: 'partials/homepage/index.html', controller: 'HomepageCtrl'});
     $routeProvider.otherwise({redirectTo: '/'});
   }]);

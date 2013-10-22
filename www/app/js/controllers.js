@@ -3,10 +3,26 @@
 /* Controllers */
 
 angular.module('direnaj.controllers', []).
-controller('ToolkitCtrl', ['$scope', '$http', function($scope, $http) {
+controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
+    $scope.campaigns =
+            [
+            "12eylul",
+            "29ekim",
+            "ahmetatakan",
+            "anlamsiz",
+            "cumacandir",
+            "default",
+            "direnodtu",
+            "merhaba",
+            "odtu",
+            "solokuyoruz",
+            "syria"
+            ];
+}])
+.controller('ToolkitCtrl', ['$scope', '$http', function($scope, $http) {
 
 }])
-.controller('StatusesFilterCtrl', ['$scope', '$http', function($scope, $http) {
+.controller('StatusesFilterCtrl', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
     /*$scope.statuses = [];
     $http.get('/statuses/filter', {
         params: {
@@ -32,8 +48,12 @@ controller('ToolkitCtrl', ['$scope', '$http', function($scope, $http) {
         alert(data);
     });*/
 
+    var init_campaign_id = 'direnodtu';
+    if ($routeParams.campaign_id !== '') {
+        init_campaign_id = $routeParams.campaign_id;
+    }
     $scope.query_params = {
-        campaign_id: 'direnodtu'
+        campaign_id: init_campaign_id
     };
     $scope.word = /^[\w0-9]*$/;
 

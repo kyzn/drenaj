@@ -1,0 +1,11 @@
+<div class="row">
+    <h2> Current Campaigns </h2>
+    <div class="container xs-col-4">
+        <ul>
+            <li ng-repeat="campaign_id in campaigns"> <a ng-href="#/statuses/filter/{{ campaign_id }}">{{ campaign_id }}</a> </li>
+        </ul>
+        <footer>
+        <div>Client version: v<span app-version></span></div>
+        </footer>
+    </div>
+</div>
