@@ -12,6 +12,11 @@ from schedulerMainHandler import SchedulerMainHandler
 from schedulerMainHandler import SchedulerReportHandler
 from schedulerMainHandler import SchedulerProfilesHandler
 
+from oauthHandler import OAuthHandler
+from oauthHandler import SigninHandler
+from oauthHandler import SignupHandler
+from oauthHandler import SignoutHandler
+
 routes_config = [
     (r"/scheduler/suggestUseridToGet_profiles", SchedulerProfilesHandler),
     (r"/scheduler/suggestUseridToGet_(friends|followers)", SchedulerMainHandler),
@@ -30,4 +35,10 @@ vis_routes_config = [
     (r"/statuses/(crawl|view)", visStatusesHandler),
     (r"/user/(crawl|view)", visSingleProfileHandler),
     (r"/profiles/(crawl|view)", visUserProfilesHandler),
+
+    (r'/sign_in', SigninHandler),
+    (r'/sign_up', SignupHandler),
+    (r'/sign_out', SignoutHandler),
+    (r'/start_oauth', OAuthHandler),
+    (r"/oauth/callback", OAuthHandler),
 ]

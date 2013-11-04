@@ -39,8 +39,9 @@ app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[environ
 auth_user_id = 'direnaj'
 auth_password = 'tamtam'
 
-def drnj_graph_crawler(fof, root):
-    twitter = Twython(consumer_key, consumer_secret, access_token_key, access_token_secret)
+def drnj_graph_crawler(fof, root, access_token_key, access_token_secret):
+    keystore = KeyStore()
+    twitter = Twython(keystore.app_consumer_key, keystore.app_consumer_secret, access_token_key, access_token_secret)
 
     cur = -1L
     

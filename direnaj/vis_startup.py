@@ -5,7 +5,8 @@ import tornado.ioloop
 import tornado.web
 from tornado.httpserver import HTTPServer
 
-application = tornado.web.Application(vis_routes_config)
+application = tornado.web.Application(vis_routes_config, 
+                                      cookie_secret = 'vospRVBgTF6HTnghpd/za+UgiZ/NXUDUkTnYGx1d4hY=')
 
 def bind_server(environment):
     http_server = HTTPServer(application, xheaders=True)

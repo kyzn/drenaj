@@ -8,3 +8,12 @@ direnaj_app_db_staging: 'direnaj_staging'
 direnaj_app_db_development: 'direnaj_dev'
 direnaj_app_db_test: 'direnaj_test'
 
+direnaj_vis_port_production: 19997
+direnaj_vis_port_staging: 19998
+direnaj_vis_port_development: 19999
+direnaj_vis_port_test: 110000
+
+direnaj_vis_db_production: 'direnaj_vis_prod' 
+direnaj_vis_db_staging: 'direnaj_vis_staging'
+direnaj_vis_db_development: 'direnaj_vis_dev'
+direnaj_vis_db_test: 'direnaj_vis_test'
