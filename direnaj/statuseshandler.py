@@ -123,15 +123,15 @@ class StatusesHandler(tornado.web.RequestHandler):
                         ### tmp_users.append(validate_document(new_user_template(), tweet_obj['user']))
                         if 'entities' in tweet_obj:
                             if 'hashtags' in tweet_obj['entities']:
-                                tmp_hashtags.append([tweet_obj['id_str'], tweet_obj['campaign_id'], tweet_obj['created_at']] + tweet_obj['entities']['hashtags'])
+                                tmp_hashtags.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['hashtags'])
                             if 'urls' in tweet_obj['entities']:
-                                tmp_urls.append([tweet_obj['id_str'], tweet_obj['campaign_id'], tweet_obj['created_at']] + tweet_obj['entities']['urls'])
+                                tmp_urls.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['urls'])
                             if 'user_mentions' in tweet_obj['entities']:
-                                tmp_user_mentions.append([tweet_obj['id_str'], tweet_obj['campaign_id'], tweet_obj['created_at']] + tweet_obj['entities']['user_mentions'])
+                                tmp_user_mentions.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['user_mentions'])
                             if 'media' in tweet_obj['entities']:
-                                tmp_medias.append([tweet_obj['id_str'], tweet_obj['campaign_id'], tweet_obj['created_at']] + tweet_obj['entities']['media'])
+                                tmp_medias.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['media'])
                         if 'coordinates' in tweet_obj:
-                            tmp_coordinates.append([tweet_obj['id_str'], tweet_obj['campaign_id'], tweet_obj['created_at']] + tweet_obj['coordinates'])
+                            tmp_coordinates.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['coordinates'])
                     # TODO: parametrize these 4 for loops later.
                     for el in tmp_hashtags:
                         status_id = el[0]
