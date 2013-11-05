@@ -17,7 +17,9 @@ env.direnaj['environment'] = 'staging'
 
 env.direnaj['deployment_repo_remote_name'] = 'deployment_repo_cank'
 env.direnaj['repo_user'] = 'onur'
-env.direnaj['repo_uri'] = 'ssh://%s@78.47.211.238//home/can/siteler/direnaj/git_repos/code' % env.direnaj['repo_user']
+
+# env.direnaj['repo_uri'] = 'ssh://%s@78.47.211.238//home/can/siteler/direnaj/git_repos/code' % env.direnaj['repo_user']
+env.direnaj['repo_uri'] = 'ssh://redmine@voltran.cmpe.boun.edu.tr//home/redmine/code'
 
 env.direnaj['supervisor_socket_path'] = '/var/run/supervisor.sock'
 
