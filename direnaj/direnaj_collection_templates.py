@@ -231,6 +231,16 @@ def new_user_mention_template():
 
     return template
 
+def new_media_template():
+
+    template = {
+        "media": True,
+        "status_id_str": is_string,
+        "created_at": is_drnj_time,
+    }
+
+    return template
+
 def new_queue_document():
     rec = {
     "id": 0,
