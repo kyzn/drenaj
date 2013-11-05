@@ -123,6 +123,7 @@ def new_tweet_template():
             "id_str": is_string,
             "text":  is_string,
             "user_id_str" : is_string, #: a foreign key into `profiles'
+            "coordinates": True,
             "geometry": {
                 "geo": nullify,
                 "coordinates": True,
@@ -153,6 +154,7 @@ def new_tweet_template():
     }
 
     return template
+
 
 def new_profile_document():
 
@@ -206,6 +208,7 @@ def new_hashtag_template():
     template = {
         "hashtag": True,
         "status_id_str": is_string,
+        "campaign_id": is_string,
         "created_at": is_drnj_time,
     }
 
@@ -216,6 +219,7 @@ def new_url_template():
     template = {
         "url": True,
         "status_id_str": is_string,
+        "campaign_id": is_string,
         "created_at": is_drnj_time,
     }
 
@@ -226,6 +230,7 @@ def new_user_mention_template():
     template = {
         "user_mention": True,
         "status_id_str": is_string,
+        "campaign_id": is_string,
         "created_at": is_drnj_time,
     }
 
@@ -236,10 +241,24 @@ def new_media_template():
     template = {
         "media": True,
         "status_id_str": is_string,
+        "campaign_id": is_string,
         "created_at": is_drnj_time,
     }
 
     return template
+
+
+def new_coordinates_template():
+
+    template = {
+        "coordinates": True,
+        "status_id_str": is_string,
+        "campaign_id": is_string,
+        "created_at": is_drnj_time,
+    }
+
+    return template
+
 
 def new_queue_document():
     rec = {
@@ -251,6 +270,7 @@ def new_queue_document():
     "protected": False,
     "retrieved_by": "",
     "user_data": 0,             # Extra data relevant for the scheduling task
+    "campaign_id": is_string,
     }
     return rec
 
