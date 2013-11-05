@@ -157,6 +157,7 @@ class StreamCatcher(multiprocessing.Process):
         # TODO: here, error no 111 connection refused exception must be try-catched.
         stop_trying = False
         exp_backoff_duration = 1
+        response = None
         while not stop_trying:
             try:
                 response = requests.post(self.direnaj_store_url,
@@ -170,7 +171,8 @@ class StreamCatcher(multiprocessing.Process):
                     time.sleep(exp_backoff_duration)
                     exp_backoff_duration *= 2
 
-        print response.content
+        if response:
+            print response.content
 
     def run(self):
         self.r = self.requests_session.send(self.filter_request)
