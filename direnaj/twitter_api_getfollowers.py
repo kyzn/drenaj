@@ -21,7 +21,7 @@ from tornado.escape import json_encode
 environment = DIRENAJ_APP_ENVIRONMENT
 app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[environment])
 
-# TODO: Direnaj Login 
+# TODO: Direnaj Login
 # Create DirenjUser and Password the first time
 
 # These mongodb indices must be defined
@@ -39,46 +39,56 @@ app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[environ
 auth_user_id = 'direnaj'
 auth_password = 'tamtam'
 
+try:
+    key_store = KeyStore()
+    consumer_key = key_store.app_consumer_key
+    consumer_secret = key_store.app_consumer_secret
+    access_token_key = key_store.access_token_key
+    access_token_secret = key_store.access_token_secret
+except Exception, e:
+    print "WARN: You are using the old config schema"
+
+
 def drnj_graph_crawler(fof, root):
     twitter = Twython(consumer_key, consumer_secret, access_token_key, access_token_secret)
 
     cur = -1L
-    
+
     # The friends/followers IDS to be retrieved will be stored here
     IDS = list()
     #SS = list()
 
     # Number of calls to the twitter API
     remain = 0
-    
+
     # True if data is fetched correctly
     success = True
-    
+
     # Seconds to wait before trying again twitter limit
     wait = 120;
 
     print "Retrieving the recent profile of user %d\n" % root
-    
+
     # First, try to get the recent profile settings of the user
     try:
         v = twitter.get('users/show', {"user_id": root})
-        print v['screen_name'], v['name']
+        print v['screen_name'], v['name'], json_encode(v)
 
-        post_data = {"user_id": root, "v": json_encode(v), "auth_user_id": auth_user_id, "auth_password": auth_password}
-        post_response = requests.post(url=app_root_url + '/user/store', data=post_data)
+        post_data = {"user_id": json_encode([root]), "v": json_encode([v]), "auth_user_id": auth_user_id, "auth_password": auth_password}
+        print post_data
+        post_response = requests.post(url=app_root_url + '/profiles/store', data=post_data)
 #       post_response = requests.post(url=app_root_url + '/user/store', data={"user_id": root, "v": v})
-        
-        
+
     except TwythonError as e:
         print e
         print "Error while fetching user profile from twitter, quitting ..."
         return e
-    
+
     if v['protected']:
         post_data = {"user_id": root, "isProtected": 1, "auth_user_id": auth_user_id, "auth_password": auth_password}
         post_response = requests.post(url=app_root_url+'/scheduler/reportProtectedUserid', data=post_data)
         print "Reported User %d as having a Protected Account" % root
-        
+
     else:
         print "Retrieving %s of user %d\n" % (fof, root)
 
@@ -135,7 +145,7 @@ if __name__ == "__main__":
     fof = args.fof
     root = int(args.user_id)
     N = int(args.iteration)
-    
+
     if root==0:
         for i in range(N):
             print i
@@ -155,4 +165,3 @@ if __name__ == "__main__":
     else:
         print "Ignoring N"
         drnj_graph_crawler(fof, root)
-            

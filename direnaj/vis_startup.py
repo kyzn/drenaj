@@ -1,15 +1,25 @@
 from config import *
-from direnaj_routes_config import vis_routes_config
 
 import tornado.ioloop
 import tornado.web
 from tornado.httpserver import HTTPServer
 
+import visHandler
+
+vis_routes_config = [
+    (r"/(friends|followers)/(crawl|view)", visHandler.visFollowerHandler),
+    (r"/statuses/(crawl|view)", visHandler.visStatusesHandler),
+    (r"/user/(crawl|view)", visHandler.visSingleProfileHandler),
+    (r"/profiles/(crawl|view)", visHandler.visUserProfilesHandler),
+]
+
 application = tornado.web.Application(vis_routes_config)
+
 
 def bind_server(environment):
     http_server = HTTPServer(application, xheaders=True)
     http_server.listen(DIRENAJ_VIS_PORT[environment])
+
 
 def start(environment):
     print "Direnaj Local Visualization and Interaction Manager Starting on port %s" % DIRENAJ_VIS_PORT[environment]

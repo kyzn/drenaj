@@ -1,9 +1,9 @@
-''' 
+'''
 visHandler
 
 Contains the visualization handlers
 
-''' 
+'''
 
 # Change History :
 # Date                                          Prog    Note
@@ -49,8 +49,8 @@ class visFollowerHandler(tornado.web.RequestHandler):
         #self.write("not implemented yet")
 
     def post(self, *args):
-        """ 
-        
+        """
+
         """
 
         (friends_or_followers, crawl_or_view) = args
@@ -59,14 +59,13 @@ class visFollowerHandler(tornado.web.RequestHandler):
         if crawl_or_view=='crawl':
             user_id = self.get_argument('user_id', None)
             res = drnj_graph_crawler(friends_or_followers, int(user_id))
-            
+
             env = Environment(loader=FileSystemLoader('templates'))
             template = env.get_template('profiles/crawl_graph_notification.html')
             result = template.render(user_id=user_id, fof=friends_or_followers, res=res, href=vis_root_url)
 
             self.write(result)
 
-            
         else:
             pass
 
@@ -79,8 +78,8 @@ class visStatusesHandler(tornado.web.RequestHandler):
         #self.write("not implemented yet")
 
     def post(self, *args):
-        """ 
-        
+        """
+
         """
 
         (crawl_or_view) = args
@@ -88,8 +87,8 @@ class visStatusesHandler(tornado.web.RequestHandler):
         print "visStatusesHandler: {} ".format(crawl_or_view)
 
 
-       
-        
+
+
 #    (r"/user/(crawl|view)", visSingleProfileHandler),
 class visSingleProfileHandler(tornado.web.RequestHandler):
     def get(self, *args):
@@ -97,8 +96,8 @@ class visSingleProfileHandler(tornado.web.RequestHandler):
         #self.write("not implemented yet")
 
     def post(self, *args):
-        """ 
-        
+        """
+
         """
 
         (crawl_or_view) = args
@@ -107,14 +106,15 @@ class visSingleProfileHandler(tornado.web.RequestHandler):
 
         user_id = self.get_argument('user_id', None)
         post_data = {"user_id": user_id}
-        post_response = requests.post(url=app_root_url + '/user/view', data=post_data)
+        post_response = requests.post(url=app_root_url + '/profiles/view', data=post_data)
 
         dat = json_decode(post_response.content)
-        
+        print dat
+
         env = Environment(loader=FileSystemLoader('templates'))
         template = env.get_template('profiles/history_view.html')
         result = template.render(profiles=dat)
-        
+
         self.write(result)
 
 #    (r"/profiles/(crawl|view)", visUserProfilesHandler),
@@ -124,14 +124,14 @@ class visUserProfilesHandler(tornado.web.RequestHandler):
         #self.write("not implemented yet")
 
     def post(self, *args):
-        """ 
-        
+        """
+
         """
 
         (crawl_or_view) = args
 
         print "visUserProfilesHandler: {} ".format(crawl_or_view)
-        
+
         if crawl_or_view=='crawl':
             pass
         else:
@@ -143,13 +143,13 @@ class visUserProfilesHandler(tornado.web.RequestHandler):
             # post_data = {"user_id": root}
             # post_response = requests.post(url=app_root_url + '/profiles/view', data=post_data)
             dat = {"limit": lim_count}
-            
+
             tmp = requests.post(url=app_root_url + '/profiles/view',data=dat)
-            
+
             #print tmp
-            
+
             dat = json_decode(tmp.content)
-            
+
             env = Environment(loader=FileSystemLoader('templates'))
             template = env.get_template('profiles/view.html')
             result = template.render(profiles=dat, len=len(dat), href=vis_root_url)

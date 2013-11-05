@@ -1,6 +1,8 @@
 from config import *
 import drnj_time
 
+from direnaj_collection_templates import *
+
 from direnajmongomanager import *
 from direnaj_auth import direnaj_simple_auth
 
@@ -21,14 +23,14 @@ import bson.json_util
 
 class StatusesHandler(tornado.web.RequestHandler):
 
-    def datetime_hook(self, dct):
-        # TODO: this only checks for the first level 'created_at'
-        # We should think about whether making this recursive.
-        if 'created_at' in dct:
-            time_struct = time.strptime(dct['created_at'], "%a %b %d %H:%M:%S +0000 %Y") #Tue Apr 26 08:57:55 +0000 2011
-            dct['created_at'] = datetime.datetime.fromtimestamp(time.mktime(time_struct))
-            return bson.json_util.object_hook(dct)
-        return bson.json_util.object_hook(dct)
+    ## def datetime_hook(self, dct):
+    ##     # TODO: this only checks for the first level 'created_at'
+    ##     # We should think about whether making this recursive.
+    ##     if 'created_at' in dct:
+    ##         time_struct = time.strptime(dct['created_at'], "%a %b %d %H:%M:%S +0000 %Y") #Tue Apr 26 08:57:55 +0000 2011
+    ##         dct['created_at'] = datetime.datetime.fromtimestamp(time.mktime(time_struct))
+    ##         return bson.json_util.object_hook(dct)
+    ##     return bson.json_util.object_hook(dct)
 
     def get(self, *args):
         self.post(*args)
@@ -63,6 +65,7 @@ class StatusesHandler(tornado.web.RequestHandler):
 
         if (action == 'view'):
             try:
+                # TODO: we need to get here again.
                 user_id = self.get_argument('user_id')
                 # if no user_id is supplied.
                 if user_id == '':
@@ -72,7 +75,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                     tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
                     # running the query
                     cursor = tweets_coll.find({
-                        'id_str': str(user_id),
+                        'tweet.user_id_str': str(user_id),
                     })
 
                     tmp = [x for x in cursor]
@@ -87,20 +90,71 @@ class StatusesHandler(tornado.web.RequestHandler):
                 tweet_data = self.get_argument('tweet_data')
                 campaign_id = self.get_argument('campaign_id', 'default')
                 if tweet_data:
-                    tweet_array = bson.json_util.loads(tweet_data, object_hook=self.datetime_hook)
+                    #tweet_array = bson.json_util.loads(tweet_data, object_hook=self.datetime_hook)
+                    tweet_array = bson.json_util.loads(tweet_data)
+                    tmp_tweets = []
+                    tmp_hashtags = []
+                    tmp_urls = []
+                    tmp_user_mentions = []
+                    tmp_medias = []
+                    tmp_status_id_strs = []
+                    tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
+                    campaigns_tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['campaigns_tweets']
+                    hashtags_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['hashtags']
+                    urls_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['urls']
+                    user_mentions_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['user_mentions']
+                    medias_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['medias']
                     # TODO: Sanity check the data!
                     # For example, treat 'entities', 'user' specially.
-                    tmp = [{
-                        "tweet": self.datetime_hook(tweet_obj),
-                        # TODO: Replace this DB_TEST_VERSION with source code
-                        # version later
-                        "direnaj_service_version": DB_TEST_VERSION,
-                        "retrieved_by": keywords['drnjID'],
-                        "campaign_id": campaign_id,
-                        "record_retrieved_at": drnj_time.now_in_drnj_time(),
-                    } for tweet_obj in tweet_array]
-                    tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
-                    tweets_coll.insert(tmp)
+                    for tweet_obj in tweet_array:
+                        tmp_status_id_strs.append(tweet_obj['id_str'])
+                        tmp_tweets.append(validate_document(new_tweet_template(), {
+                            "tweet": tweet_obj,
+                            # TODO: Replace this DB_TEST_VERSION with source code
+                            # version later
+                            "direnaj_service_version": DB_TEST_VERSION,
+                            "retrieved_by": keywords['drnjID'],
+                            "campaign_id": campaign_id,
+                            "record_retrieved_at": drnj_time.now_in_drnj_time(),
+                        }, fail=False))
+                        ### TODO: add these users later.
+                        ### tmp_users.append(validate_document(new_user_template(), tweet_obj['user']))
+                        if 'entities' in tweet_obj:
+                            if 'hashtags' in tweet_obj['entities']:
+                                tmp_hashtags.append([tweet_obj['id_str'], tweet_obj['created_at']] + tweet_obj['entities']['hashtags'])
+                            if 'urls' in tweet_obj['entities']:
+                                tmp_urls.append([tweet_obj['id_str'], tweet_obj['created_at']] + tweet_obj['entities']['urls'])
+                            if 'user_mentions' in tweet_obj['entities']:
+                                tmp_user_mentions.append([tweet_obj['id_str'], tweet_obj['created_at']] + tweet_obj['entities']['user_mentions'])
+                            if 'media' in tweet_obj['entities']:
+                                tmp_medias.append([tweet_obj['id_str'], tweet_obj['created_at']] + tweet_obj['entities']['media'])
+                    # TODO: parametrize these 4 for loops later.
+                    for el in tmp_hashtags:
+                        status_id = el[0]
+                        created_at = el[1]
+                        for hashtag in el[2:]:
+                            hashtags_coll.insert(validate_document(new_hashtag_template(),
+                                {"hashtag": hashtag, "status_id_str": status_id, "created_at": created_at}, fail=False))
+                    for el in tmp_urls:
+                        status_id = el[0]
+                        created_at = el[1]
+                        for url in el[2:]:
+                            urls_coll.insert(validate_document(new_url_template(),
+                                {"url": url, "status_id_str": status_id, "created_at": created_at}, fail=False))
+                    for el in tmp_user_mentions:
+                        status_id = el[0]
+                        created_at = el[1]
+                        for user_mention in el[2:]:
+                            user_mentions_coll.insert(validate_document(new_user_mention_template(),
+                                {"user_mention": user_mention, "status_id_str": status_id, "created_at": created_at}, fail=False))
+                    for el in tmp_medias:
+                        status_id = el[0]
+                        created_at = el[1]
+                        for media in el[2:]:
+                            medias_coll.insert(validate_document(new_media_template(),
+                                {"media": media, "status_id_str": status_id, "created_at": created_at}, fail=False))
+                    tweets_coll.insert(tmp_tweets)
+                    campaigns_tweets_coll.insert([{'status_id_str': x, 'campaign_id': campaign_id} for x in tmp_status_id_strs])
                 else:
                     tmp = []
 

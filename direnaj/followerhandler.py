@@ -137,7 +137,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
 
     else:
         if fof == 'friends':
-            queue_document = drnj_doc(new_queue_document(), {
+            queue_document = validate_document(new_queue_document(), {
                             "id": user_id,
                             "id_str": str(user_id),
                             "profile_retrieved_at": 0,
@@ -147,7 +147,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
                             })
 
         elif fof == 'followers':
-            queue_document = drnj_doc(new_queue_document(),{
+            queue_document = validate_document(new_queue_document(),{
                             "id": user_id,
                             "id_str": str(user_id),
                             "profile_retrieved_at": 0,
@@ -163,7 +163,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     for id in reversed(IDS):
         # Insert the newly discovered id into the queue
         # insert will be rejected if _id exists
-        queue_document = drnj_doc(new_queue_document(),{
+        queue_document = validate_document(new_queue_document(),{
                             "id": id,
                             "id_str": str(id),
                             "profile_retrieved_at": 0,
@@ -190,7 +190,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
         edge = graph_collection.find_one({"id": source, "friend_id": sink})
         
         if edge == None:
-            doc = drnj_doc(new_graph_document(),{
+            doc = validate_document(new_graph_document(),{
              'id': source,
              'friend_id': sink,
              'id_str': str(source),

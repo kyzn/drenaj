@@ -18,16 +18,7 @@ routes_config = [
     (r"/scheduler/reportProtectedUserid", SchedulerReportHandler),
     (r"/(friends|followers)/(ids|list)/?(store|view)?", FollowerHandler),
     (r"/statuses/(store|view|filter|retweets)", StatusesHandler),
-    (r"/user/(store|view)", UserSingleProfileHandler),
+#    (r"/user/(store|view)", UserSingleProfileHandler),
     (r"/profiles/(store|view)", UserProfilesHandler),
 ]
 
-from visHandler import *
-
-
-vis_routes_config = [
-    (r"/(friends|followers)/(crawl|view)", visFollowerHandler),
-    (r"/statuses/(crawl|view)", visStatusesHandler),
-    (r"/user/(crawl|view)", visSingleProfileHandler),
-    (r"/profiles/(crawl|view)", visUserProfilesHandler),
-]
