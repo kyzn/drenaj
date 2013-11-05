@@ -130,41 +130,41 @@ class StatusesHandler(tornado.web.RequestHandler):
                                 tmp_user_mentions.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['user_mentions'])
                             if 'media' in tweet_obj['entities']:
                                 tmp_medias.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['media'])
-                        if 'coordinates' in tweet_obj:
+                        if 'coordinates' in tweet_obj and tweet_obj['coordinates']:
                             tmp_coordinates.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['coordinates'])
                     # TODO: parametrize these 4 for loops later.
                     for el in tmp_hashtags:
                         status_id = el[0]
-                        created_at = el[1]
-                        campaign_id = el[2]
+                        created_at = el[2]
+                        campaign_id = el[1]
                         for hashtag in el[3:]:
                             hashtags_coll.insert(validate_document(new_hashtag_template(),
                                 {"hashtag": hashtag, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
                     for el in tmp_urls:
                         status_id = el[0]
-                        created_at = el[1]
-                        campaign_id = el[2]
+                        created_at = el[2]
+                        campaign_id = el[1]
                         for url in el[3:]:
                             urls_coll.insert(validate_document(new_url_template(),
                                 {"url": url, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
                     for el in tmp_user_mentions:
                         status_id = el[0]
-                        created_at = el[1]
-                        campaign_id = el[2]
+                        created_at = el[2]
+                        campaign_id = el[1]
                         for user_mention in el[3:]:
                             user_mentions_coll.insert(validate_document(new_user_mention_template(),
                                 {"user_mention": user_mention, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
                     for el in tmp_medias:
                         status_id = el[0]
-                        created_at = el[1]
-                        campaign_id = el[2]
+                        created_at = el[2]
+                        campaign_id = el[1]
                         for media in el[3:]:
                             medias_coll.insert(validate_document(new_media_template(),
                                 {"media": media, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
                     for el in tmp_coordinates:
                         status_id = el[0]
-                        created_at = el[1]
-                        campaign_id = el[2]
+                        created_at = el[2]
+                        campaign_id = el[1]
                         for coordinates in el[3:]:
                             coordinates_coll.insert(validate_document(new_coordinates_template(),
                                 {"coordinates": coordinates, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
