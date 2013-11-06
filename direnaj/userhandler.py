@@ -24,8 +24,6 @@ from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
 from tornado.escape import json_decode,json_encode
 
-from utils import db
-
 import json
 import time
 
