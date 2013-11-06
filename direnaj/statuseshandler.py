@@ -3,6 +3,7 @@ import drnj_time
 
 from direnaj_collection_templates import *
 
+import direnajmongomanager
 from direnajmongomanager import *
 from direnaj_auth import direnaj_simple_auth
 
