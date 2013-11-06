@@ -144,6 +144,7 @@ def new_tweet_template():
                 "urls": True,
                 "user_mentions": True
             },
+            "user": True,
             "source_id": is_integer, #: reference to `sources' collection.
             "created_at": is_drnj_time,
         },

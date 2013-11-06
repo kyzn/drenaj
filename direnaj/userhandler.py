@@ -13,7 +13,7 @@
 from config import *
 import drnj_time
 
-from direnajmongomanager import *
+import direnajmongomanager
 from drnj_time import *
 from direnaj_collection_templates import *
 
@@ -23,6 +23,8 @@ import tornado.web
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
 from tornado.escape import json_decode,json_encode
+
+from utils import db
 
 import json
 import time
@@ -59,8 +61,6 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 auth_user_id = self.get_argument('auth_user_id', 'direnaj')
                 lim_count = self.get_argument('limit', None)
                 print user_id
-                graph_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['graph']
-                profiles_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles']
 
                 if lim_count is None:
                     lim_count = 20
@@ -73,22 +73,22 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 # if no user_id is supplied.
                 if user_id is None:
                     # running the query
-                    cursor = profiles_coll.find().sort('record_retrieved_at', -1).limit(lim_count)
+                    cursor = direnajmongomanager.tweets_coll.find().sort('tweet.created_at', -1).limit(lim_count)
                 else:
-                    cursor = profiles_coll.find({'profile.id_str': user_id}).sort('record_retrieved_at', -1).limit(lim_count)
+                    cursor = direnajmongomanager.tweets_coll.find({'tweet.user.id_str': user_id}).sort('tweet.created_at', -1).limit(lim_count)
 
                 #tmp = [x for x in cursor]
                 tmp = []
                 for record in cursor:
-                    user = record['profile']
+                    user = record['tweet']['user']
                     #id_str = user['id_str']
                     #user['known_followers_count'] = graph_coll.find({'friend_id_str': id_str}).count();
                     #user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
                     id = user['id']
                     user['known_followers_count'] = \
-                        graph_coll.find({'friend_id': id}).count()
+                        direnajmongomanager.graph_coll.find({'friend_id': id}).count()
                     user['known_friends_count'] = \
-                        graph_coll.find({'id': id}).count()
+                        direnajmongomanager.graph_coll.find({'id': id}).count()
                     tmp.append(user)
 
                 result = bson.json_util.dumps(tmp)
@@ -106,12 +106,13 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 json_user_id = self.get_argument('user_id')
                 ids = json.loads(json_user_id)
                 auth_user_id = self.get_argument('auth_user_id')
+                campaign_id = self.get_argument('campaign_id', 'default')
                 json_data = self.get_argument('v', None)
-                S = json.loads(json_data)
+                S = bson.json_util.loads(json_data)
 
-                nids = store_multiple_profiles(ids, S, drnjID=auth_user_id)
+                nids = store_multiple_profiles(ids, S, drnjID=auth_user_id, campaign_id=campaign_id)
 
-                if len(nids)>0:
+                if len(nids) > 0:
 
                     for i in range(len(nids)):
                         markProtected(nids[i], True, auth_user_id)
@@ -204,35 +205,44 @@ class UserProfilesHandler(tornado.web.RequestHandler):
 ##             pass
 
 
-def store_multiple_profiles(ids, S, drnjID):
+def store_multiple_profiles(ids, S, drnjID, campaign_id):
     """
 
     """
     # print "Received recent profile of ", v['name'], ' a.k.a. ', v['screen_name']
 
-    db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
-    queue_collection = db['queue']
-    profiles_collection = db['profiles']
-    profiles_history_collection = db['profiles_history']
 
     print S
     for i in range(len(S)):
-        profile_dat = validate_document(new_profile_document(), {
-                "profile": S[i],
-                "record_retrieved_at": drnj_time.now_in_drnj_time(),
-                "retrieved_by": drnjID,
+        status = None
+        if 'status' in S[i]:
+            status = S[i]['status']
+            del S[i]['status']
+        else:
+            status = {}
+            status['text'] = None
+
+        status['user'] = S[i]
+
+        tweet_dat = validate_document(new_tweet_template(), {
+            "tweet": status,
+            # TODO: Replace this DB_TEST_VERSION with source code
+            # version later
+            "direnaj_service_version": DB_TEST_VERSION,
+            "campaign_id": campaign_id,
+            "record_retrieved_at": drnj_time.now_in_drnj_time(),
+            "retrieved_by": drnjID,
         }, fail=False)
-        # TODO: I removed this because this is done automatically in direnaj_collection_templates.py
-        # profile_dat["created_at"] = py_utc_time2drnj_time(S[i]['created_at'])
-        # profile_dat["record_retrieved_at"] = drnj_time.now_in_drnj_time()
-        # profile_dat["retrieved_by"] = drnjID
-        user_id = S[i]['id']
+
+        print tweet_dat
+
+        user_id = S[i]['id_str']
 
         # print profile_dat
 
         # Check Queue
         queue_query = {"id": user_id}
-        id_exists = queue_collection.find(queue_query).count() > 0
+        id_exists = direnajmongomanager.queue_coll.find(queue_query).count() > 0
         now = drnj_time.now_in_drnj_time()
 
         if id_exists:
@@ -242,11 +252,11 @@ def store_multiple_profiles(ids, S, drnjID):
                                   "retrieved_by": drnjID}
                               }
             # creates entry if query does not exist
-            queue_collection.update(queue_query, queue_document)
+            direnajmongomanager.queue_coll.update(queue_query, queue_document)
         else:
             queue_document = validate_document(new_queue_document(), {
-                "id": user_id,
-                "id_str": str(user_id),
+                "id": int(user_id),
+                "id_str": user_id,
                 "profile_retrieved_at": now,
                 "friends_retrieved_at": 0,
                 "followers_retrieved_at": 0,
@@ -254,14 +264,17 @@ def store_multiple_profiles(ids, S, drnjID):
             })
 
         # Insert to profiles
-        profiles_query = {"profile.id": user_id}
-        prof = profiles_collection.find_and_modify(profiles_query, remove=True)
-        if prof is not None:
-            profiles_history_collection.insert(prof)
+##         profiles_query = {"profile.id": user_id}
+##         prof = profiles_collection.find_and_modify(profiles_query, remove=True)
+##         if prof is not None:
+##             profiles_history_collection.insert(prof)
+##
+##         profiles_collection.insert(profile_dat)
 
-        profiles_collection.insert(profile_dat)
+        direnajmongomanager.insert_tweet(tweet_dat)
+#        tweets_collection.insert(tweet_dat)
 
-        ids.remove(user_id)
+        ids.remove(int(user_id))
 
     return ids
 

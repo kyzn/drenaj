@@ -72,7 +72,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                     tmp = []
                 else:
 
-                    tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
+                    tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
                     # running the query
                     cursor = tweets_coll.find({
                         'tweet.user_id_str': str(user_id),
@@ -99,13 +99,13 @@ class StatusesHandler(tornado.web.RequestHandler):
                     tmp_medias = []
                     tmp_coordinates = []
                     tmp_status_id_strs = []
-                    tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
-                    campaigns_tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['campaigns_tweets']
-                    hashtags_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['hashtags']
-                    urls_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['urls']
-                    user_mentions_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['user_mentions']
-                    medias_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['medias']
-                    coordinates_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['coordinates']
+                    tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
+                    campaigns_tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['campaigns_tweets']
+                    hashtags_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['hashtags']
+                    urls_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['urls']
+                    user_mentions_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['user_mentions']
+                    medias_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['medias']
+                    coordinates_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['coordinates']
                     # TODO: Sanity check the data!
                     # For example, treat 'entities', 'user' specially.
                     for tweet_obj in tweet_array:
@@ -168,7 +168,8 @@ class StatusesHandler(tornado.web.RequestHandler):
                         for coordinates in el[3:]:
                             coordinates_coll.insert(validate_document(new_coordinates_template(),
                                 {"coordinates": coordinates, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
-                    tweets_coll.insert(tmp_tweets)
+                    direnajmongomanager.insert_tweet(tmp_tweets)
+#                    tweets_coll.insert(tmp_tweets)
                     campaigns_tweets_coll.insert([{'status_id_str': x, 'campaign_id': campaign_id} for x in tmp_status_id_strs])
                 else:
                     tmp = []
@@ -195,7 +196,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                 limit = self.get_argument('limit', 100)
                 res_format = self.get_argument('format', 'json')
 
-                tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
+                tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
                 cursor = tweets_coll.find({'campaign_id' : '%s' % campaign_id})\
                            .skip(int(skip))\
                            .limit(int(limit))

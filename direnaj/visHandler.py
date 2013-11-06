@@ -108,7 +108,8 @@ class visSingleProfileHandler(tornado.web.RequestHandler):
         post_data = {"user_id": user_id}
         post_response = requests.post(url=app_root_url + '/profiles/view', data=post_data)
 
-        dat = json_decode(post_response.content)
+        #dat = json_decode(post_response.content)
+        dat = bson.json_util.loads(post_response.content)
         print dat
 
         env = Environment(loader=FileSystemLoader('templates'))
