@@ -54,10 +54,11 @@ def insert_tweet(tweet_obj_array):
         if 'entities' in tweet_obj and 'hashtags' in tweet_obj['entities']:
             for hashtag in tweet_obj['entities']['hashtags']:
                 if 'text' in hashtag:
-                    if hashtag['text'] in freq['hashtags']:
-                        freq['hashtags'][hashtag] += 1
+                    item_key = hashtag['text']
+                    if item_key in freq['hashtags']:
+                        freq['hashtags'][item_key] += 1
                     else:
-                        freq['hashtags'][hashtag] = 1
+                        freq['hashtags'][item_key] = 1
                 else:
                     # log this missing attribute.
                     pass
@@ -93,7 +94,8 @@ def insert_tweet(tweet_obj_array):
         hour = time.strftime('%H')
         minute = "%04d" % (int(hour)*60 + int(time.strftime('%M')))
 
-        for key in freq.keys():
+        for key in freq:
+            print 'inserting into collection %s' % key
             for item in freq[key].keys():
                 count = freq[key][item]
                 colls[key].update({'campaign_id': campaign_id, 'date': today_str, 'key': item}, {'$inc': {('hour.%s' % hour): count, ('minute.%s' % minute): count}}, upsert=True)
