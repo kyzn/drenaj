@@ -36,8 +36,29 @@ import requests
 import bson.json_util
 from jinja2 import Environment, FileSystemLoader
 
+import hashlib
+import tweepy
+
 app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[DIRENAJ_APP_ENVIRONMENT])
 vis_root_url = 'http://' + DIRENAJ_VIS_HOST + ':' + str(DIRENAJ_VIS_PORT[DIRENAJ_VIS_ENVIRONMENT])
+
+db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
+accounts = db['accounts']
+keystore = KeyStore()
+
+def get_api(user):
+    auth = tweepy.OAuthHandler(keystore.app_consumer_key, keystore.app_consumer_secret)
+    auth.set_access_token(user['creds_AccessToken'], user['creds_AccessTokenSecret'])
+    api = tweepy.API(auth)
+
+    #print "------------------------"
+    #print "get api for user ", user
+    #print api
+    #print user['creds_AccessToken'], user['creds_AccessTokenSecret']
+    #print "------------------------"
+
+    return api
+
 
 from twitter_api_getfollowers import drnj_graph_crawler
 
@@ -55,11 +76,18 @@ class visFollowerHandler(tornado.web.RequestHandler):
 
         (friends_or_followers, crawl_or_view) = args
 
+        user = accounts.find_one( {'username': self.get_secure_cookie('tai_user')} )
+        if user:
+            access_token_key = user['creds_AccessToken']
+            access_token_secret = user['creds_AccessTokenSecret']
+        else:
+            access_token_key = keystore.access_token_key
+            access_token_secret = keystore.access_token_secret
+
         print "visFollowerHandler: {} {}".format(friends_or_followers, crawl_or_view)
         if crawl_or_view=='crawl':
             user_id = self.get_argument('user_id', None)
-            res = drnj_graph_crawler(friends_or_followers, int(user_id))
-
+            res = drnj_graph_crawler(friends_or_followers, int(user_id), access_token_key, access_token_secret)
             env = Environment(loader=FileSystemLoader('templates'))
             template = env.get_template('profiles/crawl_graph_notification.html')
             result = template.render(user_id=user_id, fof=friends_or_followers, res=res, href=vis_root_url)
@@ -133,6 +161,19 @@ class visUserProfilesHandler(tornado.web.RequestHandler):
 
         print "visUserProfilesHandler: {} ".format(crawl_or_view)
 
+        user = accounts.find_one( {'username': self.get_secure_cookie('tai_user')} )
+        if user:
+            access_token_key = user['creds_AccessToken']
+            #access_token_secret = user['creds_AccessTokenSecret']
+
+        if user and 'creds_AccessToken' in user and user['creds_AccessToken']:
+            oauth_complete = True
+            rem_req_num = get_api(user).rate_limit_status()['resources']['friends']['/friends/ids']['remaining']
+        else:
+            oauth_complete = False
+            rem_req_num = -1
+            access_token_key = 'shared'
+
         if crawl_or_view=='crawl':
             pass
         else:
@@ -153,6 +194,10 @@ class visUserProfilesHandler(tornado.web.RequestHandler):
 
             env = Environment(loader=FileSystemLoader('templates'))
             template = env.get_template('profiles/view.html')
-            result = template.render(profiles=dat, len=len(dat), href=vis_root_url)
+            result = template.render(profiles=dat, len=len(dat), href=vis_root_url,
+                                     username = self.get_secure_cookie('tai_user'),
+                                     oauth_complete = oauth_complete,
+                                     rem_req_num = rem_req_num,
+                                     access_token_key = access_token_key)
 
             self.write(result)

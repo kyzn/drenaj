@@ -6,14 +6,26 @@ from tornado.httpserver import HTTPServer
 
 import visHandler
 
+from oauthHandler import OAuthHandler
+from oauthHandler import SigninHandler
+from oauthHandler import SignupHandler
+from oauthHandler import SignoutHandler
+
 vis_routes_config = [
     (r"/(friends|followers)/(crawl|view)", visHandler.visFollowerHandler),
     (r"/statuses/(crawl|view)", visHandler.visStatusesHandler),
     (r"/user/(crawl|view)", visHandler.visSingleProfileHandler),
     (r"/profiles/(crawl|view)", visHandler.visUserProfilesHandler),
+
+    (r'/sign_in', SigninHandler),
+    (r'/sign_up', SignupHandler),
+    (r'/sign_out', SignoutHandler),
+    (r'/start_oauth', OAuthHandler),
+    (r"/oauth/callback", OAuthHandler),
 ]
 
-application = tornado.web.Application(vis_routes_config)
+application = tornado.web.Application(vis_routes_config,
+                                      cookie_secret = 'vospRVBgTF6HTnghpd/za+UgiZ/NXUDUkTnYGx1d4hY=')
 
 
 def bind_server(environment):

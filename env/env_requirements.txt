@@ -28,3 +28,4 @@ supervisor==3.0
 tornado==3.1
 twython==3.0.0
 wsgiref==0.1.2
+tweepy==2.1
