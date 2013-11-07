@@ -95,8 +95,6 @@ def insert_tweet(tweet_obj_array):
         minute = "%04d" % (int(hour)*60 + int(time.strftime('%M')))
 
         for key in freq:
-            print 'inserting into collection %s' % key
             for item in freq[key].keys():
                 count = freq[key][item]
                 colls[key].update({'campaign_id': campaign_id, 'date': today_str, 'key': item}, {'$inc': {('hour.%s' % hour): count, ('minute.%s' % minute): count}}, upsert=True)
-
