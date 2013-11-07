@@ -42,6 +42,10 @@ def insert_tweet(tweet_obj_array):
         freq = {}
 
         campaign_id = tweet_obj['campaign_id']
+
+        # strip unnecessary fields
+        tweet_obj = tweet_obj['tweet']
+
         freq['campaigns'] = {campaign_id: 1}
 
     # freq['tokens'] = {'ali': 1, 'veli': 1}
