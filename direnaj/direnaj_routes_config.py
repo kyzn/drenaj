@@ -7,6 +7,7 @@
 from followerhandler import *
 from statuseshandler import *
 from userhandler import *
+from campaignshandler import *
 
 from schedulerMainHandler import SchedulerMainHandler
 from schedulerMainHandler import SchedulerReportHandler
@@ -20,5 +21,5 @@ routes_config = [
     (r"/statuses/(store|view|filter|retweets)", StatusesHandler),
 #    (r"/user/(store|view)", UserSingleProfileHandler),
     (r"/profiles/(store|view)", UserProfilesHandler),
+    (r"/campaigns/(new|view|filter)", CampaignsHandler),
 ]
-

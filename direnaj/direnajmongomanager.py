@@ -31,6 +31,14 @@ tweets_coll.create_index([('campaign_id', pymongo.ASCENDING), ('tweet.created_at
 for key in colls.keys():
     colls[key].create_index([('campaign_id', pymongo.ASCENDING), ('date', pymongo.ASCENDING), ('key', pymongo.ASCENDING)])
 
+
+def get_campaign_list_with_freqs(skip, limit):
+#    cursor = db.freq_campaigns.aggregate({"$group": { "campaign_id": "$key", "totalTweets": {"$sum": "$day_total"}}})
+    cursor = colls["campaigns"].aggregate(
+        [{"$group": { "_id": "$key", "total": {"$sum": "$day_total"}, "last_date": {"$max": "$date"}}},
+         {"$sort": {"last_date": -1, "total": -1}}, {"$skip": skip}, {"$limit": limit}])
+    return cursor['result']
+
 def insert_tweet(tweet_obj_array):
 
     # actual tweet insertion
@@ -97,4 +105,5 @@ def insert_tweet(tweet_obj_array):
         for key in freq:
             for item in freq[key].keys():
                 count = freq[key][item]
-                colls[key].update({'campaign_id': campaign_id, 'date': today_str, 'key': item}, {'$inc': {('hour.%s' % hour): count, ('minute.%s' % minute): count}}, upsert=True)
+                colls[key].update({'campaign_id': campaign_id, 'date': today_str, 'key': item},
+                                  {'$inc': {('hour.%s' % hour): count, ('minute.%s' % minute): count, ('day_total'): count}}, upsert=True)

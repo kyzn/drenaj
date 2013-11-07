@@ -119,7 +119,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
 
                 # Returns profile ids that could not be retrieved
                 print nids
-                self.write(json_encode(nids))
+                self.write(bson.json_util.dumps(nids))
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
