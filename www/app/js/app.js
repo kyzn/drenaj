@@ -12,6 +12,11 @@ angular.module('direnaj',
   config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/toolkit/test', {templateUrl: 'partials/toolkit/test.html', controller: 'ToolkitCtrl'});
     $routeProvider.when('/statuses/filter/:campaign_id', {templateUrl: 'partials/statuses/filter.html', controller: 'StatusesFilterCtrl'});
+    $routeProvider.when('/campaigns/:campaign_id', {templateUrl: 'partials/campaigns/index.html', controller: 'CampaignsCtrl'});
     $routeProvider.when('/', {templateUrl: 'partials/homepage/index.html', controller: 'HomepageCtrl'});
     $routeProvider.otherwise({redirectTo: '/'});
   }]);
+
+// setup dependency injection
+angular.module('d3', []);
+angular.module('direnaj.directives', ['d3']);

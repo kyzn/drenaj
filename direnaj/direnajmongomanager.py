@@ -36,7 +36,17 @@ def get_campaign_list_with_freqs(skip, limit):
 #    cursor = db.freq_campaigns.aggregate({"$group": { "campaign_id": "$key", "totalTweets": {"$sum": "$day_total"}}})
     cursor = colls["campaigns"].aggregate(
         [{"$group": { "_id": "$key", "total": {"$sum": "$day_total"}, "last_date": {"$max": "$date"}}},
-         {"$sort": {"last_date": -1, "total": -1}}, {"$skip": skip}, {"$limit": limit}])
+         {"$sort": {"last_date": -1, "total": -1}}, {"$skip": skip},
+         {"$limit": limit}])
+    return cursor['result']
+
+def get_campaign_with_freqs(campaign_id):
+#        [{"$match": {"campaign_id": campaign_id, "date": today}},
+    today = time.strftime('%Y-%m-%d', time.gmtime())
+    cursor = colls['campaigns'].aggregate(
+        [{"$match": {"campaign_id": campaign_id}},
+         {"$sort": {"date": -1}}, {"$limit": 1},
+         {"$project": {"campaign_id": 1, "series": {"hour": "$hour", "minute": "$minute"}}}])
     return cursor['result']
 
 def insert_tweet(tweet_obj_array):

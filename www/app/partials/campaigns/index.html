@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-xs-2">
+        <tabset vertical="true" type="pills">
+
+        <h3> Campaigns </h3>
+        <p> bla bla </p>
+        <tab ng-repeat="campaign in campaigns" heading="{{campaign._id}}" active="active" select="selectCampaign(campaign._id)">
+        {{campaign._id}}
+        </tab>
+        </tabset>
+    </div>
+    <div class="col-xs-10">
+        <div ng-model="campaign_in_tab">
+            <h2> {{campaign_in_tab.campaign_id}} </h2>
+            <p> {{ campaign_in_tab.series }} </p>
+            <d3-bars data='campaign_in_tab.series.hour'></d3-bars>
+            <br>
+            <br>
+<!--            <span>First Item</span>
+            <input type="text" ng-model="d3Data[0].score"></input>
+            <br>
+            <span>Second Item</span>
+            <input type="text" ng-model="d3Data[1].score"></input>
+            <br>
+            <span>Third Item</span>
+            <input type="text" ng-model="d3Data[2].score"></input>-->
+        </div>
+    </div>
+    <footer>
+    <div>Client version: v<span app-version></span></div>
+    </footer>
+</div>

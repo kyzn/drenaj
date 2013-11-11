@@ -39,11 +39,19 @@ class CampaignsHandler(tornado.web.RequestHandler):
         if (action == 'new'):
             self.write('not implemented yet')
         elif (action == 'view'):
-            self.write('not implemented yet')
+            try:
+                campaign_id = self.get_argument('campaign_id', 'default')
+                campaign = direnajmongomanager.get_campaign_with_freqs(campaign_id)
+
+                self.write(bson.json_util.dumps(campaign))
+                self.add_header('Content-Type', 'application/json')
+            except MissingArgumentError as e:
+                # TODO: implement logging.
+                raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
         elif (action == 'filter'):
             try:
-                skip = self.get_argument('skip', 0)
-                limit = self.get_argument('limit', 10)
+                skip = int(self.get_argument('skip', 0))
+                limit = int(self.get_argument('limit', 10))
                 campaigns = direnajmongomanager.get_campaign_list_with_freqs(skip, limit)
 
                 self.write(bson.json_util.dumps(campaigns))
@@ -52,6 +60,5 @@ class CampaignsHandler(tornado.web.RequestHandler):
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
-
         else:
             self.write('not recognized')

@@ -4,20 +4,65 @@
 
 angular.module('direnaj.controllers', []).
 controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
+
+}])
+.controller('CampaignsCtrl', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+
+    var page = 1;
+    var pageSize = 10;
+
+    var init_campaign_id = 'direnodtu';
+    if ($routeParams.campaign_id !== '') {
+        init_campaign_id = $routeParams.campaign_id;
+    }
+
+    // loading campaigns on direnaj
     $scope.campaigns =
-            [
-            "12eylul",
-            "29ekim",
-            "ahmetatakan",
-            "anlamsiz",
-            "cumacandir",
-            "default",
-            "direnodtu",
-            "merhaba",
-            "odtu",
-            "solokuyoruz",
-            "syria"
-            ];
+    [
+        {"last_date": "2013-11-07", "total": 0, "_id": "kizlierkekli"},
+        {"last_date": "2013-11-07", "total": 0, "_id": "default"}
+    ];
+    $http.get('/campaigns/filter', {
+        params: {
+            skip: (page-1) * pageSize,
+            limit: pageSize,
+        auth_user_id: 'direnaj',
+        auth_password: 'tamtam'
+        }
+    }).success(function (data) {
+        $scope.campaigns = data;
+    });
+
+    $scope.d3Data = [
+          {name: "Greg", score:28},
+          {name: "Ari", score:96},
+          {name: "Loser", score: 48}
+    ];
+
+    console.log($scope.d3Data);
+
+    $scope.campaign_in_tab = {
+        "campaign_id": "cok guzel bir kampanya",
+        "series": {"hour": { "00": 11, "01": 22 }, "minute": { "0000": 7 }},
+    };
+    $scope.selectCampaign = function(campaign_id) {
+        console.log("You've selected the tab:  " + campaign_id);
+        $http.get('/campaigns/view', {
+            params: {
+                campaign_id: campaign_id,
+                auth_user_id: 'direnaj',
+                auth_password: 'tamtam'
+            }
+        }).success(function (data) {
+            console.log(data[0]);
+            $scope.campaign_in_tab = {
+                "campaign_id": data[0].campaign_id,
+                "series": data[0].series,
+            };
+            console.log($scope.campaign_in_tab);
+        });
+    };
+
 }])
 .controller('ToolkitCtrl', ['$scope', '$http', function($scope, $http) {
 
