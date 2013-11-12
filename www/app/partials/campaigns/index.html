@@ -13,7 +13,11 @@
         <div ng-model="campaign_in_tab">
             <h2> {{campaign_in_tab.campaign_id}} </h2>
             <p> {{ campaign_in_tab.series }} </p>
-            <d3-bars data='campaign_in_tab.series.hour'></d3-bars>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default" ng-click="switchSeries('hour')">Hours</button>
+              <button type="button" class="btn btn-default" ng-click="switchSeries('minute')">Minutes</button>
+            </div>
+            <d3-bars data='campaign_series_to_plot'></d3-bars>
             <br>
             <br>
 <!--            <span>First Item</span>

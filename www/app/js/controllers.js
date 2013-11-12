@@ -45,6 +45,9 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
         "campaign_id": "cok guzel bir kampanya",
         "series": {"hour": { "00": 11, "01": 22 }, "minute": { "0000": 7 }},
     };
+
+    $scope.campaign_series_to_plot = $scope.campaign_in_tab.series.hour;
+
     $scope.selectCampaign = function(campaign_id) {
         console.log("You've selected the tab:  " + campaign_id);
         $http.get('/campaigns/view', {
@@ -59,8 +62,18 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
                 "campaign_id": data[0].campaign_id,
                 "series": data[0].series,
             };
+            $scope.campaign_series_to_plot = $scope.campaign_in_tab.series.hour;
             console.log($scope.campaign_in_tab);
         });
+    };
+
+    $scope.switchSeries = function(series_key) {
+        if (series_key === 'hour') {
+            $scope.campaign_series_to_plot = $scope.campaign_in_tab.series[series_key];
+        } else if (series_key === 'minute') {
+            $scope.campaign_series_to_plot = $scope.campaign_in_tab.series[series_key];
+        }
+        console.log($scope.campaign_series_to_plot);
     };
 
 }])
