@@ -11,6 +11,10 @@ direnaj_app_host: 'direnaj-staging.cmpe.boun.edu.tr'
 direnaj_vis_environment: 'staging'
 direnaj_vis_host: 'direnaj-staging.cmpe.boun.edu.tr'
 
+# App related keys
+app_consumer_key: 'SyyLuKNdeJ9lFeItE0Bg'
+app_consumer_secret: 'eOqzcigVBydHqDTaQLP1fcQY7wFZXPZICIBuIgOnb4'
+
 # Obtain these from Twitter, see project wiki
 access_token_key: "788884670-zi7wAqsq0AINNY6kNTVRw78eXt3PzNtIaJJQE5Lj"
 access_token_secret: "WNsG44DfKdbUEXwG5byFcskFcz2lZxvvYJtq59GM"
