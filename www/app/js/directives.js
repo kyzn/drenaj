@@ -17,9 +17,18 @@ angular.module('direnaj.directives').
           data: "="
       },
       link: function(scope, iElement, iAttrs) {
+
+          var margin = {top: 20, right: 20, bottom: 30, left: 50},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
           var svg = d3.select(iElement[0])
               .append("svg")
-              .attr("width", "100%");
+//              .attr("width", "100%")
+                 .attr("width", width + margin.left + margin.right)
+                 .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
             // dummy data
 
         // on window resize, re-render d3 canvas
@@ -67,9 +76,6 @@ angular.module('direnaj.directives').
 
             console.log(data);
 
-            var margin = {top: 20, right: 20, bottom: 30, left: 50},
-                width = 960 - margin.left - margin.right,
-                height = 500 - margin.top - margin.bottom;
 
             var parseDate = d3.time.format("%d-%b-%y").parse;
 
@@ -84,6 +90,7 @@ angular.module('direnaj.directives').
             var xAxis = d3.svg.axis()
                 .scale(x)
                 .orient("bottom");
+//                .tickFormat(function(d) { return d+":00"; });
 
             var yAxis = d3.svg.axis()
                 .scale(y)
@@ -108,6 +115,11 @@ angular.module('direnaj.directives').
             x.domain(d3.extent(data, function(d) { return d.x; }));
             y.domain(d3.extent(data, function(d) { return d.y; }));
 
+            svg.append("path")
+                .datum(data)
+                .attr("class", "line")
+                .attr("d", line);
+
             svg.append("g")
                 .attr("class", "x axis")
                 .attr("transform", "translate(0," + height + ")")
@@ -122,11 +134,6 @@ angular.module('direnaj.directives').
                 .attr("dy", ".71em")
                 .style("text-anchor", "end")
                 .text("Frequency");
-
-            svg.append("path")
-                .datum(data)
-                .attr("class", "line")
-                .attr("d", line);
             //});
 
 //            // your changing d3 code here
