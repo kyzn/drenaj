@@ -56,9 +56,14 @@ angular.module('direnaj.directives').
 
             var data = [];
 
-            input_map.forEach(function(key, value) {
-                data = data.concat({'x': key, 'y': value});
-            });
+            var keys = input_map.keys().sort();
+            for (var j = 0; j < keys.length; j++) {
+              data = data.concat({'x': keys[j], 'y': input_map.get(keys[j])});
+            }
+
+//            input_map.forEach(function(key, value) {
+//                data = data.concat({'x': key, 'y': value});
+//            });
 
             console.log(data);
 
