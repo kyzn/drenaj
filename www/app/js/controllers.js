@@ -60,6 +60,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
             console.log(data[0]);
             $scope.campaign_in_tab = {
                 "campaign_id": data[0].campaign_id,
+                "date": data[0].date,
                 "series": data[0].series,
             };
             $scope.campaign_series_to_plot = $scope.campaign_in_tab.series.hour;

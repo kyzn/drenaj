@@ -46,7 +46,7 @@ def get_campaign_with_freqs(campaign_id):
     cursor = colls['campaigns'].aggregate(
         [{"$match": {"campaign_id": campaign_id}},
          {"$sort": {"date": -1}}, {"$limit": 1},
-         {"$project": {"campaign_id": 1, "series": {"hour": "$hour", "minute": "$minute"}}}])
+         {"$project": {"campaign_id": 1, "date": 1, "series": {"hour": "$hour", "minute": "$minute"}}}])
     return cursor['result']
 
 def insert_tweet(tweet_obj_array):

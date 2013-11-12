@@ -11,23 +11,18 @@
     </div>
     <div class="col-xs-10">
         <div ng-model="campaign_in_tab">
-            <h2> {{campaign_in_tab.campaign_id}} </h2>
-            <p> {{ campaign_in_tab.series }} </p>
+          <h2> {{campaign_in_tab.campaign_id}} </h2>
+          <div class="xs-col-1 pull-left">
+            <p>Date: {{ campaign_in_tab.date }} </p>
+          </div>
+          <div class="xs-col-11 pull-right">
             <div class="btn-group">
               <button type="button" class="btn btn-default" ng-click="switchSeries('hour')">Hours</button>
               <button type="button" class="btn btn-default" ng-click="switchSeries('minute')">Minutes</button>
             </div>
-            <d3-bars data='campaign_series_to_plot'></d3-bars>
-            <br>
-            <br>
-<!--            <span>First Item</span>
-            <input type="text" ng-model="d3Data[0].score"></input>
-            <br>
-            <span>Second Item</span>
-            <input type="text" ng-model="d3Data[1].score"></input>
-            <br>
-            <span>Third Item</span>
-            <input type="text" ng-model="d3Data[2].score"></input>-->
+          </div>
+          <d3-bars data='campaign_series_to_plot'></d3-bars>
+          <p> {{ campaign_in_tab.series }} </p>
         </div>
     </div>
     <footer>
