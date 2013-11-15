@@ -63,11 +63,29 @@ angular.module('direnaj.directives').
             console.log('render 2' + input_map);
             console.log(input_map);
 
+            var parseHourMinute = d3.time.format("%H:%M").parse;
+
             var data = [];
 
             var keys = input_map.keys().sort();
             for (var j = 0; j < keys.length; j++) {
-              data = data.concat({'x': keys[j], 'y': input_map.get(keys[j])});
+              var key = keys[j];
+              var x_value = "00";
+              if (key.length == 2) {
+                x_value = key + ":00";
+              } else if (key.length == 4) {
+                var tmp = Math.floor(key/60);
+                var mins = (key-tmp*60);
+                console.log(tmp);
+                if (tmp < 10) {
+                  x_value =  "0"+tmp+":"+mins;
+                } else {
+                  x_value =  tmp+":"+mins;
+                }
+              } else {
+                x_value = ''+j;
+              }
+              data = data.concat({'x': parseHourMinute(x_value), 'y': input_map.get(key)});
             }
 
 //            input_map.forEach(function(key, value) {
@@ -77,12 +95,11 @@ angular.module('direnaj.directives').
             console.log(data);
 
 
-            var parseDate = d3.time.format("%d-%b-%y").parse;
 
-            var x = d3.scale.linear()
-                .range([0, width]);
-            //var x = d3.time.scale()
+            //var x = d3.scale.linear()
             //    .range([0, width]);
+            var x = d3.time.scale()
+                .range([0, width]);
 
             var y = d3.scale.linear()
                 .range([height, 0]);
