@@ -24,6 +24,7 @@ import sys, time, datetime
 import bson.json_util
 
 import requests
+import httplib
 
 # local
 from config import *
@@ -53,6 +54,9 @@ class StreamCatcher(multiprocessing.Process):
 
         self.requests_session = requests.Session()
         self.requests_session.stream = True
+
+        self.postdata = postdata
+        self.keystore = keystore
 
         self.filter_request = self.prepare_request(postdata, keystore)
 
@@ -177,17 +181,23 @@ class StreamCatcher(multiprocessing.Process):
     def run(self):
         self.r = self.requests_session.send(self.filter_request)
 
-        try:
-            for line in self.r.iter_lines():
-                print line
-                self.writefunction(line)
-                if self.abortEvent.wait(0.0001):
-                    # stop
-                    print "shutting down.."
-                    return 0
-        except Exception, e:
-            print e
-            raise e
+        while True:
+            try:
+                for line in self.r.iter_lines():
+                    print line
+                    self.writefunction(line)
+                    if self.abortEvent.wait(0.0001):
+                        # stop
+                        print "shutting down.."
+                        return 0
+            except httplib.IncompleteRead, e:
+                print "IncompleteRead exception is catched. We'll restart the connection"
+                self.filter_request = self.prepare_request(self.postdata, self.keystore)
+                self.r = self.requests_session.send(self.filter_request)
+                ## contine running
+            except Exception, e:
+                print e
+                raise e
 
 threads = []
 
