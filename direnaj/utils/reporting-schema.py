@@ -95,7 +95,7 @@ sec_title = "Histogram of user creation dates?"
 
 tmp_dates = [py_utc_time2drnj_time(x['user']['created_at']) for x in users]
 
-(hist['user_creation']['data'], hist['user_creation']['bins']) = numpy.histogram(tmp_dates)
+(hist['user_creation']['data'], hist['user_creation']['bins']) = numpy.histogram(tmp_dates, bins=100)
 
 if plotGraphs:
     bins = hist['user_creation']['bins'][:-1]
@@ -113,7 +113,7 @@ if plotGraphs:
 sec_title = "Histogram of number of tweets of each user in this campaign"
 tmp_counts = [int(x['n_user_tweets']) for x in users]
 #
-(hist['user_n_tweets']['data'], hist['user_n_tweets']['bins']) = numpy.histogram(tmp_counts)
+(hist['user_n_tweets']['data'], hist['user_n_tweets']['bins']) = numpy.histogram(tmp_counts, bins=100)
 
 if plotGraphs:
     bins = hist['user_n_tweets']['bins'][:-1]
@@ -141,7 +141,7 @@ print "%s: %0.2f%%" % (sec_title, 100*(float(n_default_profile_image)/n_unique_u
 sec_title = "Histogram of tweet counts of unique users"
 tmp_counts = [int(x['user']['statuses_count']) for x in users]
 #
-(hist['user_n_tweets_overall']['data'], hist['user_n_tweets_overall']['bins']) = numpy.histogram(tmp_counts)
+(hist['user_n_tweets_overall']['data'], hist['user_n_tweets_overall']['bins']) = numpy.histogram(tmp_counts, bins=100)
 
 if plotGraphs:
     bins = hist['user_n_tweets_overall']['bins'][:-1]
@@ -156,7 +156,7 @@ if plotGraphs:
     #plot.show()
     plot.savefig('3.pdf', dpi=600)
 #
-# What percentage of them have lower than 5 tweets?
+sec_title = "What percentage of them have lower than 5 tweets?"
 n_lower_than_threshold = 0
 for u in users:
     if u['user']['statuses_count'] < 5:
