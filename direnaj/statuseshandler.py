@@ -132,7 +132,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                             if 'media' in tweet_obj['entities']:
                                 tmp_medias.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['media'])
                         if 'coordinates' in tweet_obj and tweet_obj['coordinates']:
-                            tmp_coordinates.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['coordinates'])
+                            tmp_coordinates.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at'], tweet_obj['coordinates']])
                     # TODO: parametrize these 4 for loops later.
                     for el in tmp_hashtags:
                         status_id = el[0]
@@ -166,8 +166,8 @@ class StatusesHandler(tornado.web.RequestHandler):
                         status_id = el[0]
                         created_at = el[2]
                         campaign_id = el[1]
-                        for coordinates in el[3:]:
-                            coordinates_coll.insert(validate_document(new_coordinates_template(),
+                        coordinates = el[3]
+                        coordinates_coll.insert(validate_document(new_coordinates_template(),
                                 {"coordinates": coordinates, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
                     direnajmongomanager.insert_tweet(tmp_tweets)
 #                    tweets_coll.insert(tmp_tweets)
