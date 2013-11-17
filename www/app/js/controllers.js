@@ -77,6 +77,52 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
         console.log($scope.campaign_series_to_plot);
     };
 
+    $scope.campaign_histogram_to_plot = null;
+
+    $scope.getCampaignHistogram = function(campaign_id, recalculate, n_bins) {
+        console.log("You've requested the histogram for campaign:  " + campaign_id);
+
+        var params = {
+            campaign_id: campaign_id,
+            auth_user_id: 'direnaj',
+            auth_password: 'tamtam',
+        };
+
+        if (recalculate) {
+            params.re_calculate = 'yes';
+        } else {
+            params.re_calculate = 'no';
+        }
+
+        if (n_bins) {
+            params.n_bins = n_bins;
+        }
+
+        $http.get('/campaigns/histograms', {
+            params: params
+        }).success(function (data) {
+            $scope.campaign_histogram = data.histogram;
+            $scope.campaign_histogram_to_plot = data.histogram.user_creation;
+        });
+
+    };
+
+
+
+    $scope.setCampaignHistogram = function(histogram_type, time_based) {
+        if (time_based) {
+            $scope.campaign_histogram_is_time_based = true;
+        }
+
+        if (histogram_type === 'user_creation') {
+            $scope.campaign_histogram_to_plot = $scope.campaign_histogram.user_creation;
+        } else if (histogram_type === 'user_n_tweets') {
+            $scope.campaign_histogram_to_plot = $scope.campaign_histogram.user_n_tweets;
+        } if (histogram_type === 'user_n_tweets_overall') {
+            $scope.campaign_histogram_to_plot = $scope.campaign_histogram.user_n_tweets_overall;
+        }
+    };
+
 }])
 .controller('ToolkitCtrl', ['$scope', '$http', function($scope, $http) {
 

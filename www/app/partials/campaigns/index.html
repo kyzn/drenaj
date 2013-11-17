@@ -21,9 +21,39 @@
               <button type="button" class="btn btn-default" ng-click="switchSeries('minute')">Minutes</button>
             </div>
           </div>
-          <d3-bars data='campaign_series_to_plot'></d3-bars>
-          <div class="xs-col-12"><p> {{ campaign_in_tab.series }} </p></div>
-        </div>
+          <div class="xs-col-12"><d3-lines data='campaign_series_to_plot'></d3-lines></div>
+          <div class="row">
+              <div class="xs-col-1 pull-left">
+                  <p>Histograms</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="xs-col-1">
+                  <p>For now, we can only calculate for only campaigns with 200000 or lower tweets</p>
+                  <button type="button" class="btn btn-primary" ng-click="getCampaignHistogram(campaign_in_tab.campaign_id, false)">Retrieve the histogram</button>
+              </div>
+              <br/>
+              <div class="xs-col-1">
+                  <div class="input-group">
+                      <span class="input-group-addon">Recalculate with</span>
+                      <input type="text" class="form-control" value="100" ng-model="n_bins">
+                      <span class="input-group-addon">bins</span>
+                      <span class="input-group-btn">
+                          <button class="btn btn-default" type="button" ng-click="getCampaignHistogram(campaign_in_tab.campaign_id, true, n_bins)">Go!</button>
+                      </span>
+                  </div>
+              </div>
+              <br/>
+              <div class="xs-col-3">
+                  <div class="btn-group">
+                      <button type="button" class="btn btn-default" ng-click="setCampaignHistogram('user_creation', 'time')">User creation dates</button>
+                      <button type="button" class="btn btn-default" ng-click="setCampaignHistogram('user_n_tweets')"># of tweets in this campaign</button>
+                      <button type="button" class="btn btn-default" ng-click="setCampaignHistogram('user_n_tweets_overall')"># of tweets overall</button>
+                  </div>
+              </div>
+              <div class="xs-col-12"><d3-bars data='campaign_histogram_to_plot' time-axis="campaign_histogram_is_time_based"></d3-bars></div>
+          </div>
+      </div>
     </div>
     <footer>
     <div>Client version: v<span app-version></span></div>

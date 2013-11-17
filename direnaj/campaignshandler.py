@@ -60,5 +60,24 @@ class CampaignsHandler(tornado.web.RequestHandler):
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
+        elif (action == 'histograms'):
+            try:
+                campaign_id = self.get_argument('campaign_id', 'default')
+                re_calculate = self.get_argument('re_calculate', 'no')
+                n_bins = self.get_argument('n_bins', "100")
+
+                if re_calculate == 'no':
+                    hist = direnajmongomanager.get_campaign_histograms(campaign_id)
+                    if not hist:
+                        re_calculate = 'yes'
+
+                if re_calculate == 'yes':
+                    hist = direnajmongomanager.calculate_campaign_histograms(campaign_id, n_bins)
+
+                self.write(bson.json_util.dumps(hist[0]))
+                self.add_header('Content-Type', 'application/json')
+            except MissingArgumentError as e:
+                # TODO: implement logging.
+                raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
         else:
             self.write('not recognized')

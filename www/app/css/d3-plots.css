@@ -14,3 +14,12 @@
     stroke: steelblue;
     stroke-width: 1.5px;
 }
+
+.bar rect {
+    fill: steelblue;
+    shape-rendering: crispEdges;
+}
+
+.bar text {
+    fill: #fff;
+}

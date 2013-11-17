@@ -33,9 +33,9 @@ if len(sys.argv) > 2:
 else:
     plotGraphs = False
 
+#######
+import numpy
 campaign_query = {'campaign_id': campaign_name}
-
-result = {}
 
 projection_query = {'tweet.user.id_str': 1,
                     'tweet.user.default_profile_image': 1,
@@ -60,19 +60,6 @@ pipeline = [{'$match': campaign_query},
 tmp = tweets_coll.aggregate(pipeline)
 users = tmp['result']
 
-# How many tweets?
-n_tweets = tweets_coll.find(campaign_query).count()
-print "How many tweets? %d" % n_tweets
-result['n_tweets'] = n_tweets
-#
-# How many unique users?
-#
-n_unique_users = len(users)
-print "How many unique users? %d" % n_unique_users
-result['n_unique_users'] = n_unique_users
-
-import numpy
-
 hist = {
     'user_creation': {
         'data': None,
@@ -86,8 +73,22 @@ hist = {
         'data': None,
         'bins': None,
     },
+    'n_tweets': None,
+    'n_unique_users': None,
+    'n_default_profile_image': None,
+    'n_lower_than_threshold': None,
 }
 
+# How many tweets?
+n_tweets = tweets_coll.find(campaign_query).count()
+print "How many tweets? %d" % n_tweets
+hist['n_tweets'] = n_tweets
+#
+# How many unique users?
+#
+n_unique_users = len(users)
+print "How many unique users? %d" % n_unique_users
+hist['n_unique_users'] = n_unique_users
 
 ######
 sec_title = "Histogram of user creation dates?"
@@ -136,6 +137,7 @@ for u in users:
     if u['user']['default_profile_image'] == True:
         n_default_profile_image += 1
 
+hist['n_default_profile_image'] = n_default_profile_image
 print "%s: %0.2f%%" % (sec_title, 100*(float(n_default_profile_image)/n_unique_users))
 #####
 sec_title = "Histogram of tweet counts of unique users"
@@ -162,6 +164,7 @@ for u in users:
     if u['user']['statuses_count'] < 5:
         n_lower_than_threshold += 1
 
+hist['n_lower_than_threshold'] = n_lower_than_threshold
 print "%s: %0.2f%%" % (sec_title, 100*(float(n_lower_than_threshold)/n_unique_users))
 
 print hist
