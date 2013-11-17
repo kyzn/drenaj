@@ -110,10 +110,13 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
     };
 
 
+    $scope.campaign_histogram_is_time_based = true;
 
     $scope.setCampaignHistogram = function(histogram_type, time_based) {
         if (time_based) {
             $scope.campaign_histogram_is_time_based = true;
+        } else {
+            $scope.campaign_histogram_is_time_based = false;
         }
 
         if (histogram_type === 'user_creation') {

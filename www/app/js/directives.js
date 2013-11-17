@@ -145,6 +145,10 @@ angular.module('direnaj.directives').
           x_axis_time_based: "=timeAxis"
       },
       link: function(scope, iElement, iAttrs) {
+          var number_of_days_from_1_Jan_0000_to_1_Jan_1970 = 719529.0;
+
+          var drnj_time2epoch = function (dt) {
+              return (dt-number_of_days_from_1_Jan_0000_to_1_Jan_1970)*24.0*60*60*1000;         }
 
           var margin = {top: 20, right: 20, bottom: 30, left: 50},
                 width = 960 - margin.left - margin.right,
@@ -178,9 +182,6 @@ angular.module('direnaj.directives').
           // define render function
           scope.render = function(input_map){
 
-              if (scope.x_axis_time_based) {
-                  console.log('axis is time based');
-              }
               svg.selectAll("*").remove();
               console.log('render bars 1 ' + input_map);
               if (!input_map) {
@@ -189,6 +190,7 @@ angular.module('direnaj.directives').
               console.log(input_map);
 
               var formatCount = d3.format(",.0f");
+              var timeFormat = d3.time.format("%Y-%m-%d");
 
               var data = [];
               var bins = input_map.bins;
@@ -215,6 +217,14 @@ angular.module('direnaj.directives').
                   .scale(x_axis_scale)
                   .orient("bottom");
 
+              if (scope.x_axis_time_based) {
+                  console.log('axis is time based');
+                  xAxis.tickFormat(function (d) {
+                        var date = new Date(drnj_time2epoch(d));
+                        return timeFormat(date);
+                  });
+              }
+
               var bar = svg.selectAll(".bar")
                   .data(data)
                   .enter().append("g")
@@ -232,6 +242,15 @@ angular.module('direnaj.directives').
                   .attr("x", x(data[0].dx) / 2)
                   .attr("text-anchor", "middle")
                   .text(function(d) { return formatCount(d.y); });
+
+              bar.append("svg:title")
+                  .text(function(d) {
+                      if (scope.x_axis_time_based) {
+                          return timeFormat(new Date(drnj_time2epoch(d.x)));
+                      } else {
+                          return d.x;
+                      }
+                  });
 
               svg.append("g")
                   .attr("class", "x axis")
