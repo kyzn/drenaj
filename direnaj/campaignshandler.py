@@ -67,14 +67,14 @@ class CampaignsHandler(tornado.web.RequestHandler):
                 n_bins = self.get_argument('n_bins', "100")
 
                 if re_calculate == 'no':
-                    hist = direnajmongomanager.get_campaign_histograms(campaign_id)
-                    if not hist:
+                    hists = direnajmongomanager.get_campaign_histograms(campaign_id)
+                    if len(hists) == 0:
                         re_calculate = 'yes'
 
                 if re_calculate == 'yes':
-                    hist = direnajmongomanager.calculate_campaign_histograms(campaign_id, n_bins)
+                    hists = direnajmongomanager.calculate_campaign_histograms(campaign_id, n_bins)
 
-                self.write(bson.json_util.dumps(hist[0]))
+                self.write(bson.json_util.dumps(hists[0]))
                 self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
                 # TODO: implement logging.
