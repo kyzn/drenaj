@@ -79,6 +79,8 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.campaign_histogram_to_plot = null;
 
+    $scope.n_bins = 100;
+
     $scope.getCampaignHistogram = function(campaign_id, recalculate, n_bins) {
         console.log("You've requested the histogram for campaign:  " + campaign_id);
 
