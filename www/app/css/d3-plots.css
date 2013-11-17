@@ -21,5 +21,6 @@
 }
 
 .bar text {
-    fill: #fff;
+    fill: #f00;
+    stroke-width: 3px;
 }

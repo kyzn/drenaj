@@ -246,7 +246,7 @@ angular.module('direnaj.directives').
               bar.append("svg:title")
                   .text(function(d) {
                       if (scope.x_axis_time_based) {
-                          return timeFormat(new Date(drnj_time2epoch(d.x)));
+                          return 'y: ' + d.y + ' x: ' + timeFormat(new Date(drnj_time2epoch(d.x)));
                       } else {
                           return d.x;
                       }
