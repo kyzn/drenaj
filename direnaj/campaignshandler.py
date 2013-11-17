@@ -68,7 +68,7 @@ class CampaignsHandler(tornado.web.RequestHandler):
 
                 if re_calculate == 'no':
                     hists = direnajmongomanager.get_campaign_histograms(campaign_id)
-                    if len(hists) == 0:
+                    if hists.count() == 0:
                         re_calculate = 'yes'
 
                 if re_calculate == 'yes':
