@@ -2,11 +2,20 @@
     <div class="col-xs-2">
         <tabset vertical="true" type="pills">
 
-        <h3> Campaigns </h3>
-        <p> bla bla </p>
-        <tab ng-repeat="campaign in campaigns" heading="{{campaign._id}}" active="active" select="selectCampaign(campaign._id)">
-        {{campaign._id}}
-        </tab>
+            <h3> Campaigns </h3>
+            <p> bla bla </p>
+
+            <tab ng-repeat="campaign in campaigns" heading="" active="active" select="selectCampaign(campaign)">
+
+            <tab-heading>
+
+            {{campaign._id}} - <a href='#/statuses/filter/{{campaign._id}}'><span class="glyphicon glyphicon-list"></span></a>
+
+            </tab-heading>
+
+            </tab>
+            {{campaign._id}}
+            </tab>
         </tabset>
     </div>
     <div class="col-xs-10">

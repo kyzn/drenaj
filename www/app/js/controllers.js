@@ -19,8 +19,8 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
     // loading campaigns on direnaj
     $scope.campaigns =
     [
-        {"last_date": "2013-11-07", "total": 0, "_id": "kizlierkekli"},
-        {"last_date": "2013-11-07", "total": 0, "_id": "default"}
+        {"last_date": "2013-11-07", "total": 0, "_id": "kizlierkekli", "active": false},
+        {"last_date": "2013-11-07", "total": 0, "_id": "default", "active": true}
     ];
     $http.get('/campaigns/filter', {
         params: {
@@ -48,11 +48,11 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.campaign_series_to_plot = $scope.campaign_in_tab.series.hour;
 
-    $scope.selectCampaign = function(campaign_id) {
-        console.log("You've selected the tab:  " + campaign_id);
+    $scope.selectCampaign = function(campaign) {
+        console.log("You've selected the tab:  " + campaign._id);
         $http.get('/campaigns/view', {
             params: {
-                campaign_id: campaign_id,
+                campaign_id: campaign._id,
                 auth_user_id: 'direnaj',
                 auth_password: 'tamtam'
             }
