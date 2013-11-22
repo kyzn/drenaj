@@ -288,10 +288,19 @@ def insert_tweet(tweet_obj_array):
                     # log this missing attribute.
                     pass
 
-        today_str = time.strftime('%Y-%m-%d')
+        if 'created_at' in tweet_obj:
+            # turns out that we've already transformed into drnj_time
+            t = drnj_time2py_time(tweet_obj['created_at'])
+        else:
+            t = time.time()
 
-        hour = time.strftime('%H')
-        minute = "%04d" % (int(hour)*60 + int(time.strftime('%M')))
+        gm_t = time.gmtime(t)
+
+        today_str = time.strftime('%Y-%m-%d', gm_t)
+        hour = time.strftime('%H', gm_t)
+        minute = "%04d" % (int(hour)*60 + int(time.strftime('%M', gm_t)))
+        print today_str
+        print hour + ':' + minute
 
         for key in freq:
             for item in freq[key].keys():
