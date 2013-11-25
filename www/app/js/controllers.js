@@ -9,7 +9,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
 .controller('CampaignsCtrl', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
 
     var page = 1;
-    var pageSize = 10;
+    var pageSize = 100;
 
     var init_campaign_id = 'direnodtu';
     if ($routeParams.campaign_id !== '') {
