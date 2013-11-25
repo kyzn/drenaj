@@ -127,7 +127,13 @@ def calculate_campaign_histograms(campaign_id, n_bins=100):
     sec_title = "Histogram of user creation dates?"
     #
 
-    tmp_dates = [py_utc_time2drnj_time(x['user']['created_at']) for x in users]
+    tmp_dates = []
+    for x in users:
+        tmp_date = x['user']['created_at']
+        if type(tmp_date) != float:
+            tmp_date = py_utc_time2drnj_time(tmp_date)
+        tmp_dates.append(tmp_date)
+#    tmp_dates = [py_utc_time2drnj_time(x['user']['created_at']) for x in users]
 
     (hist['user_creation']['data'], hist['user_creation']['bins']) = numpy.histogram(tmp_dates, bins=n_bins)
 
