@@ -19,7 +19,7 @@ def py_time2drnj_time(t):
     dt = number_of_days_from_1_Jan_0000_to_1_Jan_1970 + t/(24.0*60*60)
     return dt
 
-
+# javascript version: utc_time2drnj_time = function (date_str) { return 719529.0 + new Date(date_str).getTime()/(24.0*60*60*1000) }
 def py_utc_time2drnj_time(time_str):
     """
 
