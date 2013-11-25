@@ -237,9 +237,10 @@ angular.module('direnaj.directives').
                   .attr("height", function(d) { return height - y(d.y); });
 
               bar.append("text")
+                  .attr("transform", "rotate(-90)")
                   .attr("dy", ".75em")
-                  .attr("y", 6)
-                  .attr("x", x(data[0].dx) / 2)
+                  .attr("y", x(data[0].dx) / 2)
+                  .attr("x", "-4em")
                   .attr("text-anchor", "middle")
                   .text(function(d) { return formatCount(d.y); });
 
