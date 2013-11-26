@@ -190,8 +190,15 @@ class StreamCatcher(multiprocessing.Process):
                         # stop
                         print "shutting down.."
                         return 0
+            # TODO: log these
             except httplib.IncompleteRead, e:
                 print "IncompleteRead exception is catched. We'll restart the connection"
+                self.filter_request = self.prepare_request(self.postdata, self.keystore)
+                self.r = self.requests_session.send(self.filter_request)
+                ## contine running
+            except TypeError, e:
+                print e
+                print "Restarting"
                 self.filter_request = self.prepare_request(self.postdata, self.keystore)
                 self.r = self.requests_session.send(self.filter_request)
                 ## contine running
