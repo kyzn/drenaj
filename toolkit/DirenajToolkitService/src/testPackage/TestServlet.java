@@ -211,7 +211,6 @@ public class TestServlet extends HttpServlet {
                 }
                 retHtmlStr += "</table>";
             } else if (operation.equals("getHashtagTimeline")) {
-
                 request.setAttribute("campaignId", campaignId);
                 request.setAttribute("operation", operation);
                 request.setAttribute("limit", limit);
@@ -220,21 +219,6 @@ public class TestServlet extends HttpServlet {
                 ServletContext context = getServletContext();
                 RequestDispatcher dispatcher = context.getRequestDispatcher("/hashtagTimeLineRequest.jsp");
                 dispatcher.forward(request, response);
-
-                //                // get counts
-                //                // table html
-                //                retHtmlStr += "<table width=100% border=0><tr valign=top><td><ul>";
-                //                for (Entry<String, Integer> entry : counts) {
-                //                    retHtmlStr += "<li><font size=\"2\">(" + entry.getKey() + " : " + entry.getValue()
-                //                            + ")</font></li>";
-                //          
-                //                }
-                //                retHtmlStr += "</ul></td><td align=right>";
-                //
-                //
-                //
-                //
-                //                retHtmlStr += "</td></tr></table>";
             } else {
                 retHtmlStr += "OPERATION NOT SUPPORTED!";
             }

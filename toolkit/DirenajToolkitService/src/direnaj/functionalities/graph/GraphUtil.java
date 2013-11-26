@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import direnaj.adapter.DirenajInvalidJSONException;
 import direnaj.domain.User;
 import direnaj.driver.DirenajDriver;
 import direnaj.driver.DirenajDriverUtils;
