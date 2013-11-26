@@ -1,4 +1,4 @@
-package testPackage;
+package testPackage.nlpTests;
 
 import java.io.IOException;
 import java.util.HashMap;
