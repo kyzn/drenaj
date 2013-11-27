@@ -20,7 +20,7 @@
 	</servlet>
 	<servlet>
 		<servlet-name>HashtagServlet</servlet-name>
-		<servlet-class>testPackage.HashtagServlet</servlet-class>
+		<servlet-class>testPackage.nlpTests.HashtagServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ChartDisplayServlet</servlet-name>

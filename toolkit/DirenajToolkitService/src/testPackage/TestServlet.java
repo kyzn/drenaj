@@ -1,13 +1,9 @@
 package testPackage;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -24,6 +20,8 @@ import direnaj.domain.User;
 import direnaj.driver.DirenajDriver;
 import direnaj.functionalities.sna.CentralityAnalysis;
 import direnaj.functionalities.sna.CentralityTypes;
+
+import testPackage.generalTests.*;
 
 /**
  * Simple servlet for testing.
@@ -69,6 +67,8 @@ public class TestServlet extends HttpServlet {
         // constructing the driver object that will handle our data retrieval
         // and processing requests, using DirenajDataHandler as a backbone
         DirenajDriver driver = new DirenajDriver(userId, password);
+        
+        GeneralTester tester = new GeneralTester();
 
         ArrayList<String> tweetTexts = new ArrayList<String>();
         ArrayList<ArrayList<String>> allTags = new ArrayList<ArrayList<String>>();
@@ -83,71 +83,21 @@ public class TestServlet extends HttpServlet {
         try {
             if (operation.equals("getTags")) {
 
-                allTags = driver.collectHashtags(campaignId, skip, limit);
-
-                retHtmlStr += "<ul>";
-                for (ArrayList<String> singleTweetTags : allTags) {
-                    // if(singleTweetTags.size() != 0) {
-                    retHtmlStr += "<li>";
-                    for (String tag : singleTweetTags) {
-                        retHtmlStr += tag + " - ";
-                    }
-                    retHtmlStr += "</li>";
-                    // }
-                }
-                retHtmlStr += "</ul>";
+            	allTags = driver.collectHashtags(campaignId, skip, limit);
+            	
+            	retHtmlStr += tester.testGetTags(allTags);
 
             } else if (operation.equals("getTagCounts")) {
 
                 counts = driver.countHastags(campaignId, skip, limit);
 
-                PrintWriter pw = new PrintWriter(new File("/tmp/tags.txt"));
-
-                boolean skipFirst = true;
-
-                retHtmlStr += "<table width=100% border=0><tr valign=top><td><ul>";
-                for (Map.Entry<String, Integer> entry : counts) {
-                    retHtmlStr += "<li><font size=\"2\">(" + entry.getKey() + " : " + entry.getValue()
-                            + ")</font></li>";
-
-                    if (skipFirst) {
-                        skipFirst = false;
-                        continue;
-                    } else {
-                        pw.println(entry.getKey() + "\t" + entry.getValue());
-                    }
-                }
-                retHtmlStr += "</ul></td><td align=right>";
-
-                pw.close();
-
-                String cmd = "java -jar /home/direnaj/direnaj/envs/staging/toolkit/DirenajToolkitService/WebContent/WEB-INF/lib/ibm-word-cloud.jar "
-                        + "-c /home/direnaj/direnaj/tools/ibm-word-cloud.conf -w 800 -h 600 "
-                        + "-i /tmp/tags.txt "
-                        + "-o /home/direnaj/direnaj/tools/images/caner.png";
-
-                Process proc = Runtime.getRuntime().exec(new String[] { "/bin/sh", "-c", cmd });
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
-
-                String line = null;
-                while ((line = br.readLine()) != null) {
-                    System.out.println(line);
-                }
-
-                proc.waitFor();
-
-                retHtmlStr += "<img src=\"images/caner.png\"/>   </td></tr></table>";
+                retHtmlStr += tester.testTagCounter(counts);
 
             } else if (operation.equals("getTweetTexts")) {
 
                 tweetTexts = driver.collectTweetTexts(campaignId, skip, limit);
 
-                retHtmlStr += "<ul>";
-                for (String tweetText : tweetTexts) {
-                    retHtmlStr += "<li><font size=\"2\">" + tweetText + "</font></li>";
-                }
-                retHtmlStr += "</ul>";
+                retHtmlStr += tester.testTweetTextGetter(tweetTexts);
 
             } else if (operation.equals("getSingleTweet")) {
 
@@ -156,60 +106,27 @@ public class TestServlet extends HttpServlet {
             } else if (operation.equals("getFrequentUsers")) {
                 ArrayList<Entry<User, Integer>> distinctUserPostCounts = driver.getBulkDistinctDomainObjectCount(
                         campaignId, skip, limit, DirenajObjects.User);
-                retHtmlStr += "<b> Total Distinct User Count is " + distinctUserPostCounts.size() + "</b></p>";
-                for (Map.Entry<User, Integer> entry : distinctUserPostCounts) {
-
-                    retHtmlStr += "<li><font size=\"2\">(" + entry.getKey().getUserScreenName() + " : "
-                            + entry.getValue() + ")</font></li>";
-                }
+                
+                retHtmlStr += tester.testFreqUser(distinctUserPostCounts);
+                
             } else if (operation.equals("getFrequentMentionedUsers")) {
                 ArrayList<Entry<User, Integer>> distinctMentionedUserCounts = driver.getBulkDistinctDomainObjectCount(
                         campaignId, skip, limit, DirenajObjects.MentionedUser);
-                retHtmlStr += "<b> Total Distinct Mentioned User Count is " + distinctMentionedUserCounts.size()
-                        + "</b></p>";
-                for (Map.Entry<User, Integer> entry : distinctMentionedUserCounts) {
-
-                    retHtmlStr += "<li><font size=\"2\">(" + entry.getKey().getUserScreenName() + " : "
-                            + entry.getValue() + ")</font></li>";
-                }
+                
+                retHtmlStr += tester.testFreqMentionedUser(distinctMentionedUserCounts);
+                
             } else if (operation.equals("getFrequentUrls")) {
                 ArrayList<Entry<String, Integer>> distinctUrlCounts = driver.getBulkDistinctDomainObjectCount(
                         campaignId, skip, limit, DirenajObjects.Url);
-                retHtmlStr += "<b> Total Distinct URL Count is " + distinctUrlCounts.size() + "</b></p>";
-                for (Map.Entry<String, Integer> entry : distinctUrlCounts) {
-
-                    retHtmlStr += "<li><font size=\"2\">(" + entry.getKey() + " : " + entry.getValue()
-                            + ")</font></li>";
-                }
+                
+                retHtmlStr += tester.testFreqURL(distinctUrlCounts);
+                
             } else if (operation.equals("getUserCentralities")) {
-                Map<CentralityTypes, ArrayList<Entry<User, BigDecimal>>> centralitiesOfUsers = CentralityAnalysis
+            	Map<CentralityTypes, ArrayList<Entry<User, BigDecimal>>> centralitiesOfUsers = CentralityAnalysis
                         .calculateCentralityOfUsers(userId, password, campaignId, skip, limit);
-                retHtmlStr += "<b> Centralities of Users </b></p>";
-                retHtmlStr += "<table>";
-                ArrayList<Entry<User, BigDecimal>> betweennessCentralities = centralitiesOfUsers
-                        .get(CentralityTypes.Betweenness);
-                ArrayList<Entry<User, BigDecimal>> inDegreeCentralities = centralitiesOfUsers
-                        .get(CentralityTypes.InDegree);
-                // get max count
-                int maxUserCount = Math.max(betweennessCentralities.size(), inDegreeCentralities.size());
-                Iterator<Entry<User, BigDecimal>> inDegreeIterator = inDegreeCentralities.iterator();
-                Iterator<Entry<User, BigDecimal>> betweennessIterator = betweennessCentralities.iterator();
-                retHtmlStr += "<tr><td><b>Betweenness Calculations</b></td>";
-                retHtmlStr += "<td><b>Indegree Calculations</td></b></tr>";
-                for (int i = 0; i < maxUserCount; i++) {
-                    retHtmlStr += "<tr><td>";
-                    if (betweennessIterator.hasNext()) {
-                        Entry<User, BigDecimal> next = betweennessIterator.next();
-                        retHtmlStr += next.getKey().getUserScreenName() + " - " + next.getValue();
-                    }
-                    retHtmlStr += "</td><td>";
-                    if (inDegreeIterator.hasNext()) {
-                        Entry<User, BigDecimal> next = inDegreeIterator.next();
-                        retHtmlStr += next.getKey().getUserScreenName() + " - " + next.getValue();
-                    }
-                    retHtmlStr += "</td></tr>";
-                }
-                retHtmlStr += "</table>";
+            	
+            	retHtmlStr += tester.testCentrality(centralitiesOfUsers);
+            	
             } else if (operation.equals("getHashtagTimeline")) {
                 request.setAttribute("campaignId", campaignId);
                 request.setAttribute("operation", operation);
