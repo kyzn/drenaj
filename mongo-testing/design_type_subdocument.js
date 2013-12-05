@@ -1,10 +1,8 @@
-t = new Date();
+var db_design_type = 'subdocument';
 
-Random.srand(t.getTime());
-var conn = new Mongo();
-var db = conn.getDB("perf_test");
-db.dropDatabase();
+var reset_db = false;
 
+load('init_db.js');
 
 // query number of tweets made by randomly selected get_tweets_for_profiles_query_profile_number number of user
 var query_profile_inds = [];

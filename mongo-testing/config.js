@@ -1,7 +1,9 @@
 t = new Date();
 Random.srand(t.getTime());
 
-var db_design_type = 'subdocument'; // or 'normalized'
+if (typeof db_design_type == 'undefined') {
+    var db_design_type = 'subdocument'; // or 'normalized'
+}
 
 var conn = new Mongo();
 
