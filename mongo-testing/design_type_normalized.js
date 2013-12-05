@@ -1,6 +1,6 @@
 var db_design_type = 'normalized';
 
-var reset_db = true;
+var reset_db = false;
 
 load('init_db.js');
 
@@ -16,7 +16,7 @@ print(profiles.length);
 var query_profile_ids = [];
 for( var i=0; i<get_tweets_for_profiles_query_profile_number; i++){
     var tmp_index = Random.randInt(profile_num);
-    print(tmp_index);
+    // print(tmp_index);
     var tmp_profile = profiles[tmp_index];
     query_profile_ids.push( tmp_profile.id_str );
 }

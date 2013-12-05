@@ -96,7 +96,7 @@ function init_db(db, db_design_type) {
         var tic, toc, execution_secs;
         tic = new Date();
         for( var i=0; i<tweet_num; i++){
-            db.tweets.save( tweets[i] );
+            db.tweets.insert( tweets[i] );
         };
         toc = new Date();
         execution_secs = (toc - tic) / 1000.0;
