@@ -9,7 +9,13 @@ load('init_db.js');
 //
 //
 print(db);
+
+var tic, toc, execution_secs;
+tic = new Date();
+
 profiles = db.profiles.aggregate([{'$group': {'_id': 'result', 'ids': {'$push': '$id_str'}}}]).result[0].ids;
+
+lap1 = new Date();
 
 print(profiles.length);
 
@@ -20,11 +26,10 @@ for( var i=0; i<get_tweets_for_profiles_query_profile_number; i++){
     var tmp_profile = profiles[tmp_index];
     query_profile_ids.push( tmp_profile.id_str );
 }
-var tic, toc, execution_secs;
-tic = new Date();
+lap2 = new Date();
 var res = db.tweets.find({ "user_id_str": { $in : query_profile_ids } }).count();
 toc = new Date();
-execution_secs = (toc - tic);
+execution_secs = (toc - lap2) +  (lap1-tic);
 print( "!## IDs: Count number of tweets of " + get_tweets_for_profiles_query_profile_number + ' profiles. Result: ' + res + ' Time: '  + execution_secs );
 
 
