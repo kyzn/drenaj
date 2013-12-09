@@ -6,9 +6,9 @@ load('init_db.js');
 
 var tic, toc, execution_secs;
 tmp = new Date();
-interval_unit = 5*24*3600;
-start_date = new Date(tmp.getTime()/1000 - 2*interval_unit);
-end_date = new Date(tmp.getTime()/1000 - interval_unit);
+interval_unit = 5*24*3600*1000;
+start_date = new Date(tmp.getTime() - 2*interval_unit);
+end_date = new Date(tmp.getTime() - interval_unit);
 
 tic = new Date();
 users = db.tweets.find({'tweet.user.created_at': {'$gte': start_date, '$lt': end_date}});
