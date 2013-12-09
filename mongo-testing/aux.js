@@ -24,6 +24,9 @@ function init_db(db, db_design_type) {
         // generate profiles
         for( var profile_ind=0; profile_ind<profile_num; profile_ind++){
             var tid = Random.randInt(max_id);
+            var now = new Date();
+            var rand_radius = 30*24*3600;
+            var created_at_randomness = Random.randInt(2*rand_radius) - rand_radius;
             profile = {
                 "id": tid,
                 "id_str": String(tid),
@@ -34,7 +37,7 @@ function init_db(db, db_design_type) {
                 "favourites_count": Random.randInt(10000),
                 "listed_count": Random.randInt(10000),
                 "geo_enabled": Boolean( Random.randInt(2) ),
-                "created_at": Date()
+                "created_at": now + created_at_randomness,
             };
             profiles.push(profile);
         }
@@ -70,6 +73,9 @@ function init_db(db, db_design_type) {
                 profile = {};
             }
 
+            var rand_radius_for_tweet = 24*3600;
+            var created_at_randomness_for_tweet = Random.randInt(2*rand_radius_for_tweet) - rand_radius_for_tweet;
+
             var tweet = {
                 "tweet":
                 {
@@ -82,7 +88,7 @@ function init_db(db, db_design_type) {
                     "retweeted": Boolean( Random.randInt(2) ),
                     "truncated": Boolean( Random.randInt(2) ),
                     "entities": { "hashtags": hashtags },
-                    "created_at": Date(),
+                    "created_at": now + created_at_randomness_for_tweet,
                 },
                 "profile": profile,
             }
@@ -111,6 +117,9 @@ function init_db(db, db_design_type) {
         // generate profiles
         for( var profile_ind=0; profile_ind<profile_num; profile_ind++){
             var tid = Random.randInt(max_id);
+            var now = new Date();
+            var rand_radius = 30*24*3600;
+            var created_at_randomness = Random.randInt(2*rand_radius) - rand_radius;
             profile = {
                 "id": tid,
                 "id_str": String(tid),
@@ -121,7 +130,7 @@ function init_db(db, db_design_type) {
                 "favourites_count": Random.randInt(10000),
                 "listed_count": Random.randInt(10000),
                 "geo_enabled": Boolean( Random.randInt(2) ),
-                "created_at": Date()
+                "created_at": now + created_at_randomness
             };
             profiles.push(profile);
         }
@@ -156,6 +165,10 @@ function init_db(db, db_design_type) {
             }else{
                 author_id = String(Random.randInt(max_id));
             }
+
+            var rand_radius_for_tweet = 24*3600;
+            var created_at_randomness_for_tweet = Random.randInt(2*rand_radius_for_tweet) - rand_radius_for_tweet;
+
             var tweet = {
                 "id_str": String(tid),
                 "text": randomString(5,140),
@@ -166,7 +179,7 @@ function init_db(db, db_design_type) {
                 "retweeted": Boolean( Random.randInt(2) ),
                 "truncated": Boolean( Random.randInt(2) ),
                 "entities": { "hashtags": hashtags },
-                "created_at": Date(),
+                "created_at": now + created_at_randomness_for_tweet,
             }
             tweets.push(tweet);
         }

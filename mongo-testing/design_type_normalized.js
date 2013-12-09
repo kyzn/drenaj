@@ -11,6 +11,9 @@ load('init_db.js');
 print(db);
 
 var tic, toc, execution_secs;
+
+
+
 tic = new Date();
 
 profiles = db.profiles.aggregate([{'$group': {'_id': 'result', 'ids': {'$push': '$id_str'}}}]).result[0].ids;
