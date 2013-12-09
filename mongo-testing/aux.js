@@ -37,7 +37,7 @@ function init_db(db, db_design_type) {
                 "favourites_count": Random.randInt(10000),
                 "listed_count": Random.randInt(10000),
                 "geo_enabled": Boolean( Random.randInt(2) ),
-                "created_at": now + created_at_randomness,
+                "created_at": new Date(now.getTime()/1000 + created_at_randomness),
             };
             profiles.push(profile);
         }
@@ -88,7 +88,7 @@ function init_db(db, db_design_type) {
                     "retweeted": Boolean( Random.randInt(2) ),
                     "truncated": Boolean( Random.randInt(2) ),
                     "entities": { "hashtags": hashtags },
-                    "created_at": now + created_at_randomness_for_tweet,
+                    "created_at": new Date(now.getTime()/1000 + created_at_randomness_for_tweet),
                 },
                 "profile": profile,
             }
@@ -130,7 +130,7 @@ function init_db(db, db_design_type) {
                 "favourites_count": Random.randInt(10000),
                 "listed_count": Random.randInt(10000),
                 "geo_enabled": Boolean( Random.randInt(2) ),
-                "created_at": now + created_at_randomness
+                "created_at": new Date(now.getTime()/1000 + created_at_randomness),
             };
             profiles.push(profile);
         }
@@ -179,7 +179,7 @@ function init_db(db, db_design_type) {
                 "retweeted": Boolean( Random.randInt(2) ),
                 "truncated": Boolean( Random.randInt(2) ),
                 "entities": { "hashtags": hashtags },
-                "created_at": now + created_at_randomness_for_tweet,
+                "created_at": new Date(now.getTime()/1000 + created_at_randomness),
             }
             tweets.push(tweet);
         }

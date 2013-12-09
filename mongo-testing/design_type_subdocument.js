@@ -11,7 +11,7 @@ start_date = new Date(tmp.getTime()/1000 - 2*interval_unit);
 end_date = new Date(tmp.getTime()/1000 - interval_unit);
 
 tic = new Date();
-db.tweets.find({'tweet.user.created_at': {'$gte': start_date, '$lt': end_date}});
+users = db.tweets.find({'tweet.user.created_at': {'$gte': start_date, '$lt': end_date}});
 toc = new Date();
 
 execution_secs = (toc - tic) ;
