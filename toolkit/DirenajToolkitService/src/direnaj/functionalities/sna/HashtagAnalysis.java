@@ -74,7 +74,6 @@ public class HashtagAnalysis {
 
         for (int i = 0; i < allTimeIntervals.length; i++) {
             DateTime dateTime = (DateTime) allTimeIntervals[i];
-
             pop.add(new Minute(dateTime.toDate()), hashtaggedTweetsInInterval.get(allTimeIntervals[i]));
         }
         // Create a time series chart

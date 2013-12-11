@@ -21,6 +21,7 @@ public class ChartDisplayServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession session = request.getSession(true);
         // get session params
         HashMap<DateTime, Integer> timelyIntervalAnalysis = (HashMap<DateTime, Integer>) session
@@ -29,11 +30,13 @@ public class ChartDisplayServlet extends HttpServlet {
         String searchedHashtag = request.getParameter("searchedHashtagName");
         String timeInterval = request.getParameter("timeInterval");
         // get jChart
-        JFreeChart chartOfHashtags = HashtagAnalysis.getGraphicsOfHashtags(timelyIntervalAnalysis, AnalysisIntervals.valueOf(timeInterval), searchedHashtag);
+        JFreeChart chartOfHashtags = HashtagAnalysis.getGraphicsOfHashtags(timelyIntervalAnalysis,
+                AnalysisIntervals.valueOf(timeInterval), searchedHashtag);
         // push chart to OutputStream
         OutputStream out = response.getOutputStream(); /* Get the output stream from the response object */
         response.setContentType("image/png"); /* Set the HTTP Response Type */
-        ChartUtilities.writeChartAsPNG(out, chartOfHashtags, 400, 300);
+        ChartUtilities.writeChartAsJPEG(out, chartOfHashtags, 400, 300);
+
     }
 
 }
