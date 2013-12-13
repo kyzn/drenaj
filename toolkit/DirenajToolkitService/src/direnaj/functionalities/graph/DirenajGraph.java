@@ -6,8 +6,7 @@ import java.util.Collection;
 import javax.swing.JFrame;
 
 import direnaj.domain.User;
-
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import direnaj.util.DateTimeUtils;
 import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
@@ -28,7 +27,8 @@ public class DirenajGraph<T> {
 
     public void addEdge2Graph(T node, T node2, Relations relation) {
         if (node != null && node2 != null) {
-            graph.addEdge(relation + "-" + node.toString() + "-" + node2.toString(), node, node2, EdgeType.DIRECTED);
+            graph.addEdge(relation + "-" + node.toString() + "-" + node2.toString() + "-"
+                    + DateTimeUtils.getLocalDate().getTime() + Math.random(), node, node2, EdgeType.DIRECTED);
         }
     }
 
@@ -59,7 +59,7 @@ public class DirenajGraph<T> {
         // The BasicVisualizationServer<V,E> is parameterized by the edge types
         BasicVisualizationServer<User, String> vv = new BasicVisualizationServer<User, String>(layout);
         vv.setPreferredSize(new Dimension(1100, 600)); //Sets the viewing area size
-        
+
         JFrame frame = new JFrame("Simple Graph View");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(vv);

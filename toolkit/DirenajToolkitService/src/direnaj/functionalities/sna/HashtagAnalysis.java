@@ -56,7 +56,7 @@ public class HashtagAnalysis {
         return hashtaggedTweetsInInterval;
     }
 
-    public JFreeChart getGraphicsOfHashtags(HashMap<DateTime, Integer> hashtaggedTweetsInInterval,
+    public static JFreeChart getGraphicsOfHashtags(HashMap<DateTime, Integer> hashtaggedTweetsInInterval,
             AnalysisIntervals intervals, String searchedHashtag) {
         Object[] allTimeIntervals = hashtaggedTweetsInInterval.keySet().toArray();
         Arrays.sort(allTimeIntervals);
@@ -74,7 +74,6 @@ public class HashtagAnalysis {
 
         for (int i = 0; i < allTimeIntervals.length; i++) {
             DateTime dateTime = (DateTime) allTimeIntervals[i];
-
             pop.add(new Minute(dateTime.toDate()), hashtaggedTweetsInInterval.get(allTimeIntervals[i]));
         }
         // Create a time series chart
@@ -103,7 +102,7 @@ public class HashtagAnalysis {
         for (int i = 0; i < allDates.length; i++) {
             Date tweetDate = (Date) allDates[i];
             DateTime dateTime = new DateTime(tweetDate);
-            if (dateTime.compareTo(incrementedDate) < 0) {
+            if (dateTime.compareTo(incrementedDate) > 0) {
                 switch (timeInterval) {
                 case MINUTE:
                     incrementedDate = incrementedDate.plusMinutes(Integer.valueOf(timeDuration));
