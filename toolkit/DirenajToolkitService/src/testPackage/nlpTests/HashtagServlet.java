@@ -43,6 +43,7 @@ public class HashtagServlet extends HttpServlet {
                     Integer.valueOf(limit), searchedHashtag, AnalysisIntervals.valueOf(timeInterval), timeDuration);
             // assign request variables
             request.setAttribute("hashTagTimelyIntervalAnalysis", timelyIntervalAnalysis);
+            session.setAttribute("hashTagTimelyIntervalAnalysis", timelyIntervalAnalysis);
             Set<DateTime> keySet = timelyIntervalAnalysis.keySet();
             request.setAttribute("dateTimeKeys", keySet);
             request.setAttribute("timeAmount", timeDuration);
@@ -50,7 +51,7 @@ public class HashtagServlet extends HttpServlet {
             request.setAttribute("timeInterval",timeInterval);
             // get context
             ServletContext context = getServletContext();
-            RequestDispatcher dispatcher = context.getRequestDispatcher("/hashtagChartDisplay.jsp");
+            RequestDispatcher dispatcher = context.getRequestDispatcher("/hashtagDetailedList.jsp");
             dispatcher.forward(request, resp);
         } catch (Exception e) {
             // TODO Auto-generated catch block
