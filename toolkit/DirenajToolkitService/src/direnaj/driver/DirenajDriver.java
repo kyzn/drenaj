@@ -28,17 +28,17 @@ public class DirenajDriver {
     }
 
     /*
-     * METHODS SUMMARY
+     * PUBLIC METHODS SUMMARY
      * 
-     * public collectTweetTexts public countHashtags public collectHashTags
-     * public getSingleTweeInfo
+     * ArrayList<String> collectTweetTexts 
+     * ArrayList<JSONObject> collectTweets
+     * ArrayList<Entry<String,Integer>> countHashtags
+     * ArrayList<ArrayList<String>> collectHashtags
+     * <T> : ArrayList<Entry<T, Integer>> getBulkDistinctDomainObjectCount
+     * String getSingleTweetInfo
      * 
-     * private collectHashtagsBIG private collecTweetTextsBIG
      */
-
-    /*
-     * collectTweetTexts
-     */
+    
     public ArrayList<String> collectTweetTexts(String campaignID, int skip, int limit) throws Exception,
             DirenajInvalidJSONException {
         if (limit > 1000) {
