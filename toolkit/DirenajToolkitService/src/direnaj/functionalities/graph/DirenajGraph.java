@@ -2,11 +2,13 @@ package direnaj.functionalities.graph;
 
 import java.awt.Dimension;
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.JFrame;
 
 import direnaj.domain.User;
 import direnaj.util.DateTimeUtils;
+import direnaj.util.TextUtils;
 import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
@@ -17,6 +19,7 @@ import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 public class DirenajGraph<T> {
 
     private Graph<T, String> graph;
+    private Integer edgeCount = null;
 
     /**
      * FIXME istenilen Graph yapýsýna göre, burada parametrik olarak farklý graphlar yaratýlabilir
@@ -49,6 +52,38 @@ public class DirenajGraph<T> {
 
     public Double getInDegree(T node) {
         return (double) graph.inDegree(node);
+    }
+
+    public Double getVertexDegree(T node) {
+        return (double) graph.degree(node);
+    }
+
+    public boolean isTwoVertexConnected(T node, T node2) {
+        if (graph.isNeighbor(node, node2)) {
+            return true;
+        }
+        return false;
+    }
+
+    public Integer getEdgeCount() {
+        if (edgeCount == null) {
+            edgeCount = graph.getEdgeCount();
+        }
+        return edgeCount;
+    }
+
+    public String printAdjecencyMatrix() {
+        String userAdjecencies = "";
+        Collection<User> vertices = (Collection<User>) graph.getVertices();
+        for (User user : vertices) {
+            userAdjecencies += user.getUserScreenName() + "  -> ";
+            Collection<User> neighbours = (Collection<User>) graph.getNeighbors((T) user);
+            for (User neighbourUser : neighbours) {
+                userAdjecencies += neighbourUser.getUserScreenName() + ",";
+            }
+            userAdjecencies += "\n";
+        }
+        return userAdjecencies;
     }
 
     public void visualizeGraph() {

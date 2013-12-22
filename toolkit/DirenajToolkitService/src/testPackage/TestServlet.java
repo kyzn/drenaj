@@ -20,6 +20,8 @@ import direnaj.domain.User;
 import direnaj.driver.DirenajDriver;
 import direnaj.functionalities.sna.CentralityAnalysis;
 import direnaj.functionalities.sna.CentralityTypes;
+import direnaj.functionalities.sna.communityDetection.CommunityDetector;
+import direnaj.functionalities.sna.communityDetection.DetectedCommunities;
 
 import testPackage.generalTests.*;
 
@@ -67,7 +69,7 @@ public class TestServlet extends HttpServlet {
         // constructing the driver object that will handle our data retrieval
         // and processing requests, using DirenajDataHandler as a backbone
         DirenajDriver driver = new DirenajDriver(userId, password);
-        
+
         GeneralTester tester = new GeneralTester();
 
         ArrayList<String> tweetTexts = new ArrayList<String>();
@@ -83,9 +85,9 @@ public class TestServlet extends HttpServlet {
         try {
             if (operation.equals("getTags")) {
 
-            	allTags = driver.collectHashtags(campaignId, skip, limit);
-            	
-            	retHtmlStr += tester.testGetTags(allTags);
+                allTags = driver.collectHashtags(campaignId, skip, limit);
+
+                retHtmlStr += tester.testGetTags(allTags);
 
             } else if (operation.equals("getTagCounts")) {
 
@@ -106,27 +108,26 @@ public class TestServlet extends HttpServlet {
             } else if (operation.equals("getFrequentUsers")) {
                 ArrayList<Entry<User, Integer>> distinctUserPostCounts = driver.getBulkDistinctDomainObjectCount(
                         campaignId, skip, limit, DirenajObjects.User);
-                
+
                 retHtmlStr += tester.testFreqUser(distinctUserPostCounts);
-                
+
             } else if (operation.equals("getFrequentMentionedUsers")) {
                 ArrayList<Entry<User, Integer>> distinctMentionedUserCounts = driver.getBulkDistinctDomainObjectCount(
                         campaignId, skip, limit, DirenajObjects.MentionedUser);
-                
+
                 retHtmlStr += tester.testFreqMentionedUser(distinctMentionedUserCounts);
-                
+
             } else if (operation.equals("getFrequentUrls")) {
                 ArrayList<Entry<String, Integer>> distinctUrlCounts = driver.getBulkDistinctDomainObjectCount(
                         campaignId, skip, limit, DirenajObjects.Url);
-                
+
                 retHtmlStr += tester.testFreqURL(distinctUrlCounts);
-                
+
             } else if (operation.equals("getUserCentralities")) {
-            	Map<CentralityTypes, ArrayList<Entry<User, BigDecimal>>> centralitiesOfUsers = CentralityAnalysis
+                Map<CentralityTypes, ArrayList<Entry<User, BigDecimal>>> centralitiesOfUsers = CentralityAnalysis
                         .calculateCentralityOfUsers(userId, password, campaignId, skip, limit);
-            	
-            	retHtmlStr += tester.testCentrality(centralitiesOfUsers);
-            	
+
+                retHtmlStr += tester.testCentrality(centralitiesOfUsers);
             } else if (operation.equals("getHashtagTimeline")) {
                 request.setAttribute("campaignId", campaignId);
                 request.setAttribute("operation", operation);
@@ -135,6 +136,14 @@ public class TestServlet extends HttpServlet {
                 request.setAttribute("hashtagCounts", counts);
                 ServletContext context = getServletContext();
                 RequestDispatcher dispatcher = context.getRequestDispatcher("/hashtagTimeLineRequest.jsp");
+                dispatcher.forward(request, response);
+            } else if (operation.equals("findCommunities")) {
+                DetectedCommunities communitiesInCampaign = CommunityDetector.getCommunitiesInCampaign(userId, password, campaignId, skip, limit);
+                request.setAttribute("detectedCommunities", communitiesInCampaign);
+                request.setAttribute("campaignId", campaignId);
+                request.setAttribute("limit", limit);
+                ServletContext context = getServletContext();
+                RequestDispatcher dispatcher = context.getRequestDispatcher("/communityDisplay.jsp");
                 dispatcher.forward(request, response);
             } else {
                 retHtmlStr += "OPERATION NOT SUPPORTED!";
