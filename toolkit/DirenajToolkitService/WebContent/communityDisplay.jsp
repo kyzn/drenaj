@@ -29,7 +29,7 @@
 			        List<User> usersInCommunity = foundCommunity.getUsersInCommunity();
 			        str += "<tr><td> Community - " + communityIndex + 1 + " </td></tr>";
 			        for (int i = 0; i < usersInCommunity.size(); i++) {
-			            str += "<tr><td> " + usersInCommunity.get(i).getUserScreenName() + " </td></tr>";
+			            str += "<tr><td> <font size=1>" + usersInCommunity.get(i).getUserScreenName() + " </font></td></tr>";
 			        }
 			        str += "</table></td>";
 			        out.println(str);

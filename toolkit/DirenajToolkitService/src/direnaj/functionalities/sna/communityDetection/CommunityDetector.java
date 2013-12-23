@@ -30,14 +30,14 @@ public class CommunityDetector {
         HashMap<Integer, Community> communityMapping = makeInitialCommunityMappings4MatrixIndices(userRelationsGraph);
         RealMatrix communityMatrix = calculateMatrix4InitialCommunities(communityMapping, userRelationsGraph);
         //            printMatrix(communityMatrix);
-        printUserRelationsGraph(userRelationsGraph);
+        //printUserRelationsGraph(userRelationsGraph);
         // make n-1 joins
         int vertexCount = userRelationsGraph.getJungGraph().getVertexCount();
         for (int i = 1; i <= vertexCount - 1; i++) {
             MatrixElement matrixElement4Join = getMaxDeltaModularity(communityMatrix);
             modularity += matrixElement4Join.getValue();
             System.out.println("Detected Max Modularity Value : " + matrixElement4Join.toString());
-            printMatrix(communityMatrix, communityMapping, i);
+            //printMatrix(communityMatrix, communityMapping, i);
             // if max delta Q_ij is smaller then 0.3, we finish the detection
             if (modularity > 0.3d || matrixElement4Join.getValue() == 0d) {
                 System.out.println("Community Detection is finished in join " + i);
@@ -99,7 +99,7 @@ public class CommunityDetector {
             newMatrixIndice++;
         }
         // make calculation after merge
-        // FIXME dikkat edilmesi gereken nokta - biz X'teki community'nin row & column'ý siliyoruz
+        // FIXME dikkat edilmesi gereken nokta - biz X'teki community'nin row & column'ï¿½ siliyoruz
         calculateNewMatrixAfterMerge(communityMatrix, newMatrix, matrixElement4Join, communityMapping);
         calculateNewCommunityFractions(newCommunityMapping);
         System.out.println("New Community Dimension : " + newMatrix.getColumnDimension());

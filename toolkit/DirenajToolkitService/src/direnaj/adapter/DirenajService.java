@@ -70,7 +70,7 @@ public class DirenajService extends HttpServlet {
 		try {
 			allTags = driver.collectHashtags(campaignId, skip, limit);
 			
-			 if (operation.equals("getTags")) {
+			 if (operation.equals("getHashTags")) {
 
 	            	allTags = driver.collectHashtags(campaignId, skip, limit);
 	            	
@@ -78,7 +78,7 @@ public class DirenajService extends HttpServlet {
 	            	
 	            	printout.println(gson.toJson(allTags));
 	            	
-			 } else if (operation.equals("getTagCounts")) {
+			 } else if (operation.equals("getHashTagCounts")) {
 
 	                counts = driver.countHastags(campaignId, skip, limit);
 
@@ -125,6 +125,8 @@ public class DirenajService extends HttpServlet {
 	            	printout.println(gson.toJson(centralitiesOfUsers));
 	            	
 	            } else if (operation.equals("getHashtagTimeline")) {
+	            	printout.println("Not Supported Yet.");
+        			/*
 	                request.setAttribute("campaignId", campaignId);
 	                request.setAttribute("operation", operation);
 	                request.setAttribute("limit", limit);
@@ -133,6 +135,7 @@ public class DirenajService extends HttpServlet {
 	                ServletContext context = getServletContext();
 	                RequestDispatcher dispatcher = context.getRequestDispatcher("/hashtagTimeLineRequest.jsp");
 	                dispatcher.forward(request, response);
+	                */
 	            } else {
 	                printout.println("OPERATION NOT SUPPORTED!");
 	            }
