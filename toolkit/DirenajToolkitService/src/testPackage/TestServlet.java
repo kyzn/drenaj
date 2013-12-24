@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -15,15 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import testPackage.generalTests.GeneralTester;
 import direnaj.domain.DirenajObjects;
 import direnaj.domain.User;
 import direnaj.driver.DirenajDriver;
+import direnaj.functionalities.graph.Relations;
 import direnaj.functionalities.sna.CentralityAnalysis;
 import direnaj.functionalities.sna.CentralityTypes;
 import direnaj.functionalities.sna.communityDetection.CommunityDetector;
 import direnaj.functionalities.sna.communityDetection.DetectedCommunities;
-
-import testPackage.generalTests.*;
 
 /**
  * Simple servlet for testing.
@@ -37,6 +40,11 @@ public class TestServlet extends HttpServlet {
 	 *
 	 */
     private static final long serialVersionUID = 1L;
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -138,7 +146,14 @@ public class TestServlet extends HttpServlet {
                 RequestDispatcher dispatcher = context.getRequestDispatcher("/hashtagTimeLineRequest.jsp");
                 dispatcher.forward(request, response);
             } else if (operation.equals("findCommunities")) {
-                DetectedCommunities communitiesInCampaign = CommunityDetector.getCommunitiesInCampaign(userId, password, campaignId, skip, limit);
+                List<Relations> relations = new Vector<Relations>();
+                String[] checkBoxValues = request.getParameterValues("graphRelation");
+                for (int i = 0; i < checkBoxValues.length; i++) {
+                    relations.add(Relations.fromString(checkBoxValues[i]));
+                }
+                String modularityValue = request.getParameter("modularityValue");
+                DetectedCommunities communitiesInCampaign = CommunityDetector.getCommunitiesInCampaign(userId,
+                        password, campaignId, skip, limit, Double.valueOf(modularityValue).doubleValue(), relations);
                 request.setAttribute("detectedCommunities", communitiesInCampaign);
                 request.setAttribute("campaignId", campaignId);
                 request.setAttribute("limit", limit);

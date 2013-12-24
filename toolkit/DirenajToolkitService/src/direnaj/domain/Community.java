@@ -1,6 +1,7 @@
 package direnaj.domain;
 
 import java.util.List;
+import java.util.TreeMap;
 import java.util.Vector;
 
 import direnaj.functionalities.graph.DirenajGraph;
@@ -49,13 +50,20 @@ public class Community {
         double fraction = degrees / (2d * allEdgeCountInNetwork);
         fractionOfEdges = fraction;
     }
-    
+
     @Override
     public String toString() {
-        String users="";
+        String users = "";
         for (User user : usersInCommunity) {
-            users+=user.getUserScreenName() + " , ";
+            users += user.getUserScreenName() + " , ";
         }
         return users;
+    }
+
+    public void retrivePostOfUsersInCommunity(TreeMap<User, Vector<String>> vertexObjectMapping) {
+        for (User user : usersInCommunity) {
+            Vector<String> posts = vertexObjectMapping.get(user);
+            user.addPostsToUser(posts);
+        }
     }
 }

@@ -2,13 +2,11 @@ package direnaj.functionalities.graph;
 
 import java.awt.Dimension;
 import java.util.Collection;
-import java.util.List;
 
 import javax.swing.JFrame;
 
 import direnaj.domain.User;
 import direnaj.util.DateTimeUtils;
-import direnaj.util.TextUtils;
 import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;

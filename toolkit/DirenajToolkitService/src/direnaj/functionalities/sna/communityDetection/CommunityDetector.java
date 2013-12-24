@@ -4,7 +4,9 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.Vector;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
@@ -16,16 +18,22 @@ import direnaj.domain.Community;
 import direnaj.domain.User;
 import direnaj.functionalities.graph.DirenajGraph;
 import direnaj.functionalities.graph.GraphUtil;
+import direnaj.functionalities.graph.Relations;
 import direnaj.util.matrix.MatrixElement;
 
 public class CommunityDetector {
 
     public static DetectedCommunities getCommunitiesInCampaign(String direnajId, String pass, String campaignID,
-            int skip, int limit) {
+            int skip, int limit, double expectedModularityValue, List<Relations> relationsDemanded4Graph) {
+        TreeMap<User, Vector<String>> vertexObjectMapping = new TreeMap<User, Vector<String>>(); 
         double modularity = 0d;
+        // check expected modularity value
+        if (expectedModularityValue <= 0d) {
+            expectedModularityValue = 0.3d;
+        }
         // get user graphs
         DirenajGraph<User> userRelationsGraph = GraphUtil.formUserRelationsGraph(direnajId, pass, campaignID, skip,
-                limit);
+                limit, relationsDemanded4Graph,vertexObjectMapping);
         // form matrix
         HashMap<Integer, Community> communityMapping = makeInitialCommunityMappings4MatrixIndices(userRelationsGraph);
         RealMatrix communityMatrix = calculateMatrix4InitialCommunities(communityMapping, userRelationsGraph);
@@ -52,17 +60,19 @@ public class CommunityDetector {
             System.out.println("Community Dimension : " + communityMatrix.getColumnDimension());
             System.out.println("Community Size : " + communityMapping.keySet().size());
         }
-        return getDetectedCommunities(communityMapping, modularity);
+        return getDetectedCommunities(communityMapping, modularity,vertexObjectMapping);
     }
 
     private static DetectedCommunities getDetectedCommunities(HashMap<Integer, Community> communityMapping,
-            double modularity) {
+            double modularity, TreeMap<User,Vector<String>> vertexObjectMapping) {
         // initialize community
         DetectedCommunities communities = new DetectedCommunities(modularity);
         // set communities
         Set<Integer> communityIndices = communityMapping.keySet();
         for (Integer indice : communityIndices) {
-            communities.getDetectedCommunties().add(communityMapping.get(indice));
+            Community community = communityMapping.get(indice);
+            community.retrivePostOfUsersInCommunity(vertexObjectMapping);
+            communities.getDetectedCommunties().add(community);
         }
         return communities;
     }
@@ -212,12 +222,9 @@ public class CommunityDetector {
             if (rowIndex == 0) {
                 continue;
             }
-            if(rowIndex == 241){
-                System.out.println("Geldi");
-            }
             User rowUser = communityMapping.get(rowIndex).getUsersInCommunity().get(0);
             double degreeOfCommunityX = userRelationsGraph.getVertexDegree(rowUser);
-            if(degreeOfCommunityX == 0){
+            if (degreeOfCommunityX == 0) {
                 continue;
             }
             for (int columnIndex = 0; columnIndex < rowIndex; columnIndex++) {
@@ -230,7 +237,7 @@ public class CommunityDetector {
                 if (userRelationsGraph.isTwoVertexConnected(rowUser, columnUser)) {
                     System.out.println("Connected");
                     modularityValue = (1d / (2d * edgeCountInNetwork))
-                            - (degreeOfCommunityX * degreeOfCommunityY / Math.pow(2d * edgeCountInNetwork, 2));
+                            - (degreeOfCommunityX * degreeOfCommunityY / Math.pow(2d * edgeCountInNetwork, 2d));
                 } else {
                     modularityValue = 0d;
                 }
