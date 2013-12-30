@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -27,6 +26,7 @@ import direnaj.functionalities.sna.CentralityAnalysis;
 import direnaj.functionalities.sna.CentralityTypes;
 import direnaj.functionalities.sna.communityDetection.CommunityDetector;
 import direnaj.functionalities.sna.communityDetection.DetectedCommunities;
+import direnaj.util.d3Lib.D3GraphicType;
 
 /**
  * Simple servlet for testing.
@@ -149,7 +149,7 @@ public class TestServlet extends HttpServlet {
                 List<Relations> relations = new Vector<Relations>();
                 String[] checkBoxValues = request.getParameterValues("graphRelation");
                 for (int i = 0; i < checkBoxValues.length; i++) {
-                    relations.add(Relations.fromString(checkBoxValues[i]));
+                    relations.add(Relations.valueOf(checkBoxValues[i]));
                 }
                 String modularityValue = request.getParameter("modularityValue");
                 DetectedCommunities communitiesInCampaign = CommunityDetector.getCommunitiesInCampaign(userId,
@@ -160,6 +160,38 @@ public class TestServlet extends HttpServlet {
                 ServletContext context = getServletContext();
                 RequestDispatcher dispatcher = context.getRequestDispatcher("/communityDisplay.jsp");
                 dispatcher.forward(request, response);
+            } else if (operation.equals("showCommunities")) {
+                // get relations
+                List<Relations> relations = new Vector<Relations>();
+                String[] checkBoxValues = request.getParameterValues("graphRelation");
+                for (int i = 0; i < checkBoxValues.length; i++) {
+                    relations.add(Relations.valueOf(checkBoxValues[i]));
+                }
+                session.setAttribute("graphRelation", relations);
+                // get modularity
+                String modularityValue = request.getParameter("modularityValue");
+                session.setAttribute("modularityValue", modularityValue);
+                // get d3 Lib Format
+                String d3LibFormatValue = request.getParameter("d3LibFormat");
+                D3GraphicType d3GraphicType = D3GraphicType.valueOf(d3LibFormatValue);
+                session.setAttribute("d3LibFormat", d3GraphicType);
+                
+                // forward to jsp
+                ServletContext context = getServletContext();
+                RequestDispatcher dispatcher = null;
+                switch (d3GraphicType) {
+                case HierarchicalEdgeBundle:
+                    dispatcher = context.getRequestDispatcher("/hierarchicalEdgeBundle.jsp");
+                    break;
+                case CirclePack:
+                    dispatcher = context.getRequestDispatcher("/zoomableCommunityCirclePack.jsp");
+                    break;
+                case ForceDirectedGraph:
+                    dispatcher = context.getRequestDispatcher("/forceDirectedGraph.jsp");
+                    break;
+                }
+                dispatcher.forward(request, response);
+
             } else {
                 retHtmlStr += "OPERATION NOT SUPPORTED!";
             }

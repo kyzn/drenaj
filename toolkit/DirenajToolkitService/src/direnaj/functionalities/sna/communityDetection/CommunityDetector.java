@@ -25,7 +25,7 @@ public class CommunityDetector {
 
     public static DetectedCommunities getCommunitiesInCampaign(String direnajId, String pass, String campaignID,
             int skip, int limit, double expectedModularityValue, List<Relations> relationsDemanded4Graph) {
-        TreeMap<User, Vector<String>> vertexObjectMapping = new TreeMap<User, Vector<String>>(); 
+        TreeMap<User, Vector<String>> vertexObjectMapping = new TreeMap<User, Vector<String>>();
         double modularity = 0d;
         // check expected modularity value
         if (expectedModularityValue <= 0d) {
@@ -33,7 +33,7 @@ public class CommunityDetector {
         }
         // get user graphs
         DirenajGraph<User> userRelationsGraph = GraphUtil.formUserRelationsGraph(direnajId, pass, campaignID, skip,
-                limit, relationsDemanded4Graph,vertexObjectMapping);
+                limit, relationsDemanded4Graph, vertexObjectMapping);
         // form matrix
         HashMap<Integer, Community> communityMapping = makeInitialCommunityMappings4MatrixIndices(userRelationsGraph);
         RealMatrix communityMatrix = calculateMatrix4InitialCommunities(communityMapping, userRelationsGraph);
@@ -60,11 +60,11 @@ public class CommunityDetector {
             System.out.println("Community Dimension : " + communityMatrix.getColumnDimension());
             System.out.println("Community Size : " + communityMapping.keySet().size());
         }
-        return getDetectedCommunities(communityMapping, modularity,vertexObjectMapping);
+        return getDetectedCommunities(communityMapping, modularity, vertexObjectMapping);
     }
 
     private static DetectedCommunities getDetectedCommunities(HashMap<Integer, Community> communityMapping,
-            double modularity, TreeMap<User,Vector<String>> vertexObjectMapping) {
+            double modularity, TreeMap<User, Vector<String>> vertexObjectMapping) {
         // initialize community
         DetectedCommunities communities = new DetectedCommunities(modularity);
         // set communities
@@ -72,7 +72,7 @@ public class CommunityDetector {
         for (Integer indice : communityIndices) {
             Community community = communityMapping.get(indice);
             community.retrivePostOfUsersInCommunity(vertexObjectMapping);
-            communities.getDetectedCommunties().add(community);
+            communities.getDetectedCommunties(false).add(community);
         }
         return communities;
     }
@@ -255,9 +255,11 @@ public class CommunityDetector {
         int matrixIndice = 0;
         for (Iterator<User> iterator = allUsersInGraph.iterator(); iterator.hasNext();) {
             User user = (User) iterator.next();
+            // set user degree in network
+            double userDegree = (double) userRelationsGraph.getJungGraph().degree(user);
+            user.setUserDegree(userDegree);
             // calculate ai value (edge frequency of community)
-            double communityEdgeFrequency = (double) userRelationsGraph.getJungGraph().degree(user)
-                    / ((double) userRelationsGraph.getEdgeCount() * 2d);
+            double communityEdgeFrequency = userDegree / ((double) userRelationsGraph.getEdgeCount() * 2d);
             communityInMatrixIndex.put(matrixIndice, new Community(user, communityEdgeFrequency,
                     (double) userRelationsGraph.getEdgeCount(), userRelationsGraph));
             // increment matrix indice

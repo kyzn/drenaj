@@ -70,6 +70,11 @@ public class DirenajGraph<T> {
         return edgeCount;
     }
 
+    public Collection<T> getSuccessorsOfVertex(T node){
+        Collection<T> successors = graph.getSuccessors(node);
+        return successors;
+    }
+    
     public String printAdjecencyMatrix() {
         String userAdjecencies = "";
         Collection<User> vertices = (Collection<User>) graph.getVertices();
@@ -98,6 +103,13 @@ public class DirenajGraph<T> {
         frame.getContentPane().add(vv);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    public int getSuccessorEdgeCount(T source, T target) {
+        if(graph.isSuccessor(source, target)){
+            return graph.findEdgeSet(source, target).size();
+        }
+        return 0;
     }
 
 }

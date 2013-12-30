@@ -8,6 +8,7 @@ public class User implements Comparable<User> {
     private String userId;
     private String userScreenName;
     private List<String> posts;
+    private double userDegree;
 
     public User(String userId, String screenName) {
         posts = new Vector<String>();
@@ -43,6 +44,14 @@ public class User implements Comparable<User> {
         if (otherPosts != null) {
             posts.addAll(otherPosts);
         }
+    }
+
+    public double getUserDegree() {
+        return userDegree;
+    }
+
+    public void setUserDegree(double userDegree) {
+        this.userDegree = userDegree;
     }
 
     @Override

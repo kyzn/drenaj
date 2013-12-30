@@ -1,5 +1,6 @@
 package direnaj.domain;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.Vector;
@@ -8,6 +9,7 @@ import direnaj.functionalities.graph.DirenajGraph;
 
 public class Community {
 
+    private String communityName;
     private Vector<User> usersInCommunity;
     private double fractionOfEdges;
     private double allEdgeCountInNetwork;
@@ -42,6 +44,11 @@ public class Community {
         this.fractionOfEdges = fractionOfEdges;
     }
 
+    public Collection<User> getSuccessorsOfUser(User user) {
+        Collection<User> successorsOfVertex = userGraph.getSuccessorsOfVertex(user);
+        return successorsOfVertex;
+    }
+
     public void calculateNewFraction() {
         double degrees = 0d;
         for (User communityUser : usersInCommunity) {
@@ -49,6 +56,14 @@ public class Community {
         }
         double fraction = degrees / (2d * allEdgeCountInNetwork);
         fractionOfEdges = fraction;
+    }
+
+    public String getCommunityName() {
+        return communityName;
+    }
+
+    public void setCommunityName(String communityName) {
+        this.communityName = communityName;
     }
 
     @Override
@@ -65,5 +80,9 @@ public class Community {
             Vector<String> posts = vertexObjectMapping.get(user);
             user.addPostsToUser(posts);
         }
+    }
+
+    public int getSuccessorEdgeCount(User user, User successorUser) {
+        return userGraph.getSuccessorEdgeCount(user,successorUser);
     }
 }

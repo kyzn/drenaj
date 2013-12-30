@@ -21,18 +21,8 @@
 			<%
 			    DetectedCommunities communitiesInCampaign = (DetectedCommunities) request
 			            .getAttribute("detectedCommunities");
-			    List<Community> communities = communitiesInCampaign.getDetectedCommunties();
+			    List<Community> communities = communitiesInCampaign.getDetectedCommunties(true);
 			    int communityCount = communities.size();
-			    Collections.sort(communities, new Comparator<Community>(){
-			    	public int compare(Community c2, Community c1) {
-			    		if (c1.getUsersInCommunity().size() == c2.getUsersInCommunity().size())
-			    			return 0;
-			    		else if (c1.getUsersInCommunity().size() > c2.getUsersInCommunity().size())
-			    			return 1;
-			    		else
-			    			return -1;
-			    	}
-			    });
 			    for (int communityIndex = 0; communityIndex < communityCount; communityIndex++) {
 			        String str = "<td><table>";
 			        Community foundCommunity = communities.get(communityIndex);
