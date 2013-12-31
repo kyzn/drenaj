@@ -122,12 +122,14 @@ public class DetectedCommunities {
                     // put users in to Json with their community name
                     userJson.put("name", community.getCommunityName() + "." + user.getUserScreenName());
                     userJson.put("size", user.getUserDegree());
+                    JSONArray userImports = new JSONArray();
+                    userJson.put("imports", userImports);
                     // get successor users
                     Collection<User> successorsOfUser = community.getSuccessorsOfUser(user);
                     for (User successorUser : successorsOfUser) {
                         // show relation between sucessor users
                         String successorUserCommunity = userCommunityMapping.get(successorUser);
-                        userJson.accumulate("imports", successorUserCommunity + "." + successorUser.getUserScreenName());
+                        userImports.put(successorUserCommunity + "." + successorUser.getUserScreenName());
                     }
                     jsonArray.put(userJson);
                 }
