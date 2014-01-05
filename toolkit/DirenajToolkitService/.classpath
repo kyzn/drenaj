@@ -49,5 +49,6 @@
 	<classpathentry kind="lib" path="externalLibs/commons-math3-3.2/commons-math3-3.2-test-sources.jar"/>
 	<classpathentry kind="lib" path="externalLibs/commons-math3-3.2/commons-math3-3.2-tests.jar" sourcepath="externalLibs/commons-math3-3.2/commons-math3-3.2-sources.jar"/>
 	<classpathentry kind="lib" path="externalLibs/commons-math3-3.2/commons-math3-3.2.jar"/>
+	<classpathentry kind="lib" path="externalLibs/jwnl.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
