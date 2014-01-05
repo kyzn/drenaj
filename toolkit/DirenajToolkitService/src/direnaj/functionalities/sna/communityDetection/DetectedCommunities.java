@@ -51,6 +51,7 @@ public class DetectedCommunities {
     public String getJsonOfCommunities(D3GraphicType d3GraphicType) throws JSONException {
         String jsonString = null;
         sortCommunities();
+        TreeMap<User, String> userCommunityMapping = getUserCommunityMapping();
         // get json according to graph
         switch (d3GraphicType) {
         case CirclePack:
@@ -113,7 +114,6 @@ public class DetectedCommunities {
             break;
         case HierarchicalEdgeBundle:
             JSONArray jsonArray = new JSONArray();
-            TreeMap<User, String> userCommunityMapping = getUserCommunityMapping();
             for (Community community : detectedCommunties) {
                 // get users in community
                 Vector<User> usersInCommunity = community.getUsersInCommunity();
@@ -153,5 +153,23 @@ public class DetectedCommunities {
             communityIndex++;
         }
         return userCommunityMapping;
+    }
+
+    public void removeCommunity(Community community) {
+        int size = detectedCommunties.size();
+        for (int i = 0; i < size; i++) {
+            Community targetCommunity = detectedCommunties.get(i);
+            if (targetCommunity.getCommunityName().equalsIgnoreCase(community.getCommunityName())) {
+                detectedCommunties.remove(i);
+                break;
+            }
+        }
+
+    }
+
+    public void removeCommunities(Vector<Community> communities2Remove) {
+        for (Community community : communities2Remove) {
+            detectedCommunties.remove(community);
+        }
     }
 }

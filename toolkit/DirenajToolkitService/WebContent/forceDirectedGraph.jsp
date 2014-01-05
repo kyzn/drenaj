@@ -12,7 +12,20 @@
 }
 </style>
 <body>
-	<script src="http://d3js.org/d3.v3.min.js"></script>
+<!-- <form action="communitySentimentAnalysis" method="post"> -->
+<!-- 	<div id = "second"> -->
+<!-- 		Apply Community Sentiment Analysis For <input type="text" name="searchedCommunity" value="community1"><br> -->
+<!-- 		 	 Classification Method For Sentiment Analysis : -->
+<!-- 			 &nbsp;&nbsp;&nbsp;&nbsp; -->
+<!-- 	 		 <input type="radio" name="classificationMethod" value="NaiveBayesUnigram" checked>NaiveBayesUnigram &nbsp; -->
+<!-- 			 <input type="radio" name="classificationMethod" value="NaiveBayesBigram">NaiveBayesBigram &nbsp;  -->
+<!-- 			 <input type="radio" name="classificationMethod" value="SVM">SVM<br> -->
+<!-- 			 <input type="submit" value="Submit" name="submit"> -->
+<!-- 	</div> -->
+<!-- </form> -->
+
+<div id = "first">
+	<script src="js/d3.v3.min.js"></script>
 	<script>
 		var width = 960, height = 500;
 
@@ -21,7 +34,7 @@
 		var force = d3.layout.force().charge(-120).linkDistance(30).size(
 				[ width, height ]);
 
-		var svg = d3.select("body").append("svg").attr("width", width).attr(
+		var svg = d3.select(document.getElementById("first")).append("svg").attr("width", width).attr(
 				"height", height);
 
 		d3.json("http://localhost:8080/DirenajToolkitService/d3LibJsonUtilizer", function(error, graph) {
@@ -62,5 +75,6 @@
 			});
 		});
 	</script>
+</div>
 </body>
 </html>

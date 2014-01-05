@@ -67,6 +67,22 @@ public class Community {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Community) {
+            Community community = (Community) obj;
+            if (community.getCommunityName() != null) {
+                return community.getCommunityName().equalsIgnoreCase(this.getCommunityName());
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return 5;
+    }
+
+    @Override
     public String toString() {
         String users = "";
         for (User user : usersInCommunity) {
@@ -83,6 +99,10 @@ public class Community {
     }
 
     public int getSuccessorEdgeCount(User user, User successorUser) {
-        return userGraph.getSuccessorEdgeCount(user,successorUser);
+        return userGraph.getSuccessorEdgeCount(user, successorUser);
+    }
+
+    public DirenajGraph<User> getUserGraph() {
+        return userGraph;
     }
 }

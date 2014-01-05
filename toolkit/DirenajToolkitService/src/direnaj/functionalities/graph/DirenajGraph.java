@@ -2,10 +2,14 @@ package direnaj.functionalities.graph;
 
 import java.awt.Dimension;
 import java.util.Collection;
+import java.util.List;
+import java.util.TreeMap;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 
 import direnaj.domain.User;
+import direnaj.functionalities.sentiment.Sentiment;
 import direnaj.util.DateTimeUtils;
 import edu.uci.ics.jung.algorithms.layout.KKLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
@@ -18,17 +22,19 @@ public class DirenajGraph<T> {
 
     private Graph<T, String> graph;
     private Integer edgeCount = null;
+    private TreeMap<T, Vector<String>> vertexObjectMapping;
 
     /**
      * FIXME istenilen Graph yapýsýna göre, burada parametrik olarak farklý graphlar yaratýlabilir
      */
     public DirenajGraph() {
         graph = new SparseMultigraph<T, String>();
+        vertexObjectMapping = new TreeMap<T, Vector<String>>();
     }
 
-    public void addEdge2Graph(T node, T node2, Relations relation) {
+    public void addEdge2Graph(T node, T node2, Relations relation, Sentiment sentiment) {
         if (node != null && node2 != null) {
-            graph.addEdge(relation + "-" + node.toString() + "-" + node2.toString() + "-"
+            graph.addEdge(sentiment.name() + "-" + relation + "-" + node.toString() + "-" + node2.toString() + "-"
                     + DateTimeUtils.getLocalDate().getTime() + Math.random(), node, node2, EdgeType.DIRECTED);
         }
     }
@@ -70,11 +76,11 @@ public class DirenajGraph<T> {
         return edgeCount;
     }
 
-    public Collection<T> getSuccessorsOfVertex(T node){
+    public Collection<T> getSuccessorsOfVertex(T node) {
         Collection<T> successors = graph.getSuccessors(node);
         return successors;
     }
-    
+
     public String printAdjecencyMatrix() {
         String userAdjecencies = "";
         Collection<User> vertices = (Collection<User>) graph.getVertices();
@@ -106,10 +112,32 @@ public class DirenajGraph<T> {
     }
 
     public int getSuccessorEdgeCount(T source, T target) {
-        if(graph.isSuccessor(source, target)){
+        if (graph.isSuccessor(source, target)) {
             return graph.findEdgeSet(source, target).size();
         }
         return 0;
+    }
+
+    public void removeOtherVerticesfromGraph(Vector<T> communityVertices) {
+        Collection<T> vertices = graph.getVertices();
+        List<T> vertices2Remove = new Vector<T>();
+        for (T vertice : vertices) {
+            if (!communityVertices.contains(vertice)) {
+                vertices2Remove.add(vertice);
+            }
+        }
+        for (T vertice : vertices2Remove) {
+            graph.removeVertex(vertice);
+
+        }
+    }
+
+    public TreeMap<T, Vector<String>> getVertexObjectMapping() {
+        return vertexObjectMapping;
+    }
+
+    public void setVertexObjectMapping(TreeMap<T, Vector<String>> vertexObjectMapping) {
+        this.vertexObjectMapping = vertexObjectMapping;
     }
 
 }

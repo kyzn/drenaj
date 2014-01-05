@@ -12,9 +12,15 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 
+import direnaj.domain.User;
+import direnaj.functionalities.classification.ClassificationMethods;
+import direnaj.functionalities.graph.DirenajGraph;
+import direnaj.functionalities.graph.GraphUtil;
 import direnaj.functionalities.graph.Relations;
+import direnaj.functionalities.sentiment.SentimentDetector;
 import direnaj.functionalities.sna.communityDetection.CommunityDetector;
 import direnaj.functionalities.sna.communityDetection.DetectedCommunities;
+import direnaj.util.TextUtils;
 import direnaj.util.d3Lib.D3GraphicType;
 
 public class DirenajD3LibService extends HttpServlet {
@@ -30,10 +36,29 @@ public class DirenajD3LibService extends HttpServlet {
 
         List<Relations> relations = (List<Relations>) session.getAttribute("graphRelation");
         D3GraphicType d3GraphicType = (D3GraphicType) session.getAttribute("d3LibFormat");
-        double modularityValue = Double.valueOf((String)session.getAttribute("modularityValue"));
+        double modularityValue = Double.valueOf((String) session.getAttribute("modularityValue"));
 
-        DetectedCommunities communitiesInCampaign = CommunityDetector.getCommunitiesInCampaign(userId, password,
-                campaignId, skip, limit, Double.valueOf(modularityValue).doubleValue(), relations);
+        SentimentDetector sentimentDetector = null;
+        String classificationMethod = (String) session.getAttribute("classificationMethod");
+        session.removeAttribute("classificationMethod");
+        if (!TextUtils.isEmpty(classificationMethod)) {
+            ClassificationMethods classificationApproach = ClassificationMethods.valueOf(classificationMethod);
+            sentimentDetector = new SentimentDetector(classificationApproach);
+        }
+
+        // get user graphs
+        DirenajGraph<User> userRelationsGraph = GraphUtil.formUserRelationsGraph(userId, password, campaignId, skip,
+                limit, relations, sentimentDetector);
+       // apply sentimental analysis
+        if(sentimentDetector != null){
+            GraphUtil.analyzeSentimentalGraph(userRelationsGraph);
+        }
+        
+        
+        DetectedCommunities communitiesInCampaign = CommunityDetector.getCommunitiesInCampaign(
+                Double.valueOf(modularityValue).doubleValue(), userRelationsGraph, false);
+
+        session.setAttribute("detectedCommunities", communitiesInCampaign);
 
         String communityJSon;
         try {

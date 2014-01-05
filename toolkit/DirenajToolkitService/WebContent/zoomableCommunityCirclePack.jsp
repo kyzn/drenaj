@@ -30,7 +30,7 @@
 }
 </style>
 <body>
-	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="js/d3.v3.min.js"></script>
 	<script>
 		var margin = 10, outerDiameter = 960, innerDiameter = outerDiameter
 				- margin - margin;

@@ -4,7 +4,6 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
@@ -17,23 +16,17 @@ import org.apache.commons.math3.linear.RealVector;
 import direnaj.domain.Community;
 import direnaj.domain.User;
 import direnaj.functionalities.graph.DirenajGraph;
-import direnaj.functionalities.graph.GraphUtil;
-import direnaj.functionalities.graph.Relations;
 import direnaj.util.matrix.MatrixElement;
 
 public class CommunityDetector {
 
-    public static DetectedCommunities getCommunitiesInCampaign(String direnajId, String pass, String campaignID,
-            int skip, int limit, double expectedModularityValue, List<Relations> relationsDemanded4Graph) {
-        TreeMap<User, Vector<String>> vertexObjectMapping = new TreeMap<User, Vector<String>>();
+    public static DetectedCommunities getCommunitiesInCampaign(double expectedModularityValue,
+            DirenajGraph<User> userRelationsGraph, boolean joinAsMuchAsPossible) {
         double modularity = 0d;
         // check expected modularity value
         if (expectedModularityValue <= 0d) {
             expectedModularityValue = 0.3d;
         }
-        // get user graphs
-        DirenajGraph<User> userRelationsGraph = GraphUtil.formUserRelationsGraph(direnajId, pass, campaignID, skip,
-                limit, relationsDemanded4Graph, vertexObjectMapping);
         // form matrix
         HashMap<Integer, Community> communityMapping = makeInitialCommunityMappings4MatrixIndices(userRelationsGraph);
         RealMatrix communityMatrix = calculateMatrix4InitialCommunities(communityMapping, userRelationsGraph);
@@ -47,7 +40,7 @@ public class CommunityDetector {
             System.out.println("Detected Max Modularity Value : " + matrixElement4Join.toString());
             //printMatrix(communityMatrix, communityMapping, i);
             // if max delta Q_ij is smaller then 0.3, we finish the detection
-            if (modularity > 0.3d || matrixElement4Join.getValue() == 0d) {
+            if ((!joinAsMuchAsPossible && modularity > 0.3d) || matrixElement4Join.getValue() == 0d) {
                 System.out.println("Community Detection is finished in join " + i);
                 System.out.println("Modularity Value : " + modularity + " - Found Max Element" + matrixElement4Join);
                 break;
@@ -60,7 +53,7 @@ public class CommunityDetector {
             System.out.println("Community Dimension : " + communityMatrix.getColumnDimension());
             System.out.println("Community Size : " + communityMapping.keySet().size());
         }
-        return getDetectedCommunities(communityMapping, modularity, vertexObjectMapping);
+        return getDetectedCommunities(communityMapping, modularity, userRelationsGraph.getVertexObjectMapping());
     }
 
     private static DetectedCommunities getDetectedCommunities(HashMap<Integer, Community> communityMapping,

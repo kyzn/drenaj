@@ -23,6 +23,10 @@
 		<servlet-name>D3LibJsonUtilizer</servlet-name>
 		<servlet-class>direnaj.adapter.DirenajD3LibService</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>CommunitySentimentAnalysis</servlet-name>
+		<servlet-class>direnaj.adapter.CommunitySentimentAnalysis</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>DirenajService</servlet-name>
 		<url-pattern>/services</url-pattern>
@@ -42,5 +46,9 @@
 	<servlet-mapping>
 		<servlet-name>D3LibJsonUtilizer</servlet-name>
 		<url-pattern>/d3LibJsonUtilizer</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CommunitySentimentAnalysis</servlet-name>
+		<url-pattern>/communitySentimentAnalysis</url-pattern>
 	</servlet-mapping>
 </web-app>

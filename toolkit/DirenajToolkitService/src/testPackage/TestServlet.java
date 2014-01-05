@@ -21,11 +21,14 @@ import testPackage.generalTests.GeneralTester;
 import direnaj.domain.DirenajObjects;
 import direnaj.domain.User;
 import direnaj.driver.DirenajDriver;
+import direnaj.functionalities.graph.DirenajGraph;
+import direnaj.functionalities.graph.GraphUtil;
 import direnaj.functionalities.graph.Relations;
 import direnaj.functionalities.sna.CentralityAnalysis;
 import direnaj.functionalities.sna.CentralityTypes;
 import direnaj.functionalities.sna.communityDetection.CommunityDetector;
 import direnaj.functionalities.sna.communityDetection.DetectedCommunities;
+import direnaj.util.TextUtils;
 import direnaj.util.d3Lib.D3GraphicType;
 
 /**
@@ -152,8 +155,11 @@ public class TestServlet extends HttpServlet {
                     relations.add(Relations.valueOf(checkBoxValues[i]));
                 }
                 String modularityValue = request.getParameter("modularityValue");
-                DetectedCommunities communitiesInCampaign = CommunityDetector.getCommunitiesInCampaign(userId,
-                        password, campaignId, skip, limit, Double.valueOf(modularityValue).doubleValue(), relations);
+                // get user graphs
+                DirenajGraph<User> userRelationsGraph = GraphUtil.formUserRelationsGraph(userId, password, campaignId,
+                        skip, limit, relations, null);
+                DetectedCommunities communitiesInCampaign = CommunityDetector.getCommunitiesInCampaign(
+                        Double.valueOf(modularityValue).doubleValue(), userRelationsGraph, false);
                 request.setAttribute("detectedCommunities", communitiesInCampaign);
                 request.setAttribute("campaignId", campaignId);
                 request.setAttribute("limit", limit);
@@ -175,7 +181,14 @@ public class TestServlet extends HttpServlet {
                 String d3LibFormatValue = request.getParameter("d3LibFormat");
                 D3GraphicType d3GraphicType = D3GraphicType.valueOf(d3LibFormatValue);
                 session.setAttribute("d3LibFormat", d3GraphicType);
-                
+
+                String classificationMethod = request.getParameter("classificationMethod");
+                if (!TextUtils.isEmpty(classificationMethod)) {
+                    session.setAttribute("classificationMethod", classificationMethod);
+                } else {
+                    session.removeAttribute("classificationMethod");
+                }
+
                 // forward to jsp
                 ServletContext context = getServletContext();
                 RequestDispatcher dispatcher = null;

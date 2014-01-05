@@ -12,7 +12,7 @@
 }
 </style>
 <body>
-	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="js/d3.v3.min.js"></script>
 	<script>
 		var diameter = 960, radius = diameter / 2, innerRadius = radius - 120;
 
