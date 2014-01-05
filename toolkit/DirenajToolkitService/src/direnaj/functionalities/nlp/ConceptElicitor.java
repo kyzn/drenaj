@@ -32,13 +32,11 @@ public class ConceptElicitor {
 		
 		ArrayList<String> words = getCleanWords(tweet);
 		
-		/*
+		
 		for (String word : words) {
 			System.out.println(word);
 		}
-		*/
 		
-		Synset s = new Synset
 		
 		
 		

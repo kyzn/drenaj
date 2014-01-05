@@ -4,6 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/NaiveModels"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/models"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <property name="context-root" value="DirenajToolkitService"/>
         <property name="java-output-path" value="/DirenajToolkitService/build/classes"/>
     </wb-module>
