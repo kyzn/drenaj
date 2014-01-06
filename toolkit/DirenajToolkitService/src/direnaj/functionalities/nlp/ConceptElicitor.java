@@ -137,7 +137,15 @@ public class ConceptElicitor {
             }
         }
         
-        return (ArrayList<Entry<String, Integer>>) CollectionUtil.sortCounts(conceptCounts).subList(0, k);
+        List<Entry<String, Integer>> lst = CollectionUtil.sortCounts(conceptCounts).subList(0, k);
+        
+        ArrayList<Entry<String, Integer>> arr = new ArrayList<Entry<String, Integer>>();
+        
+        for (Entry<String, Integer> e : lst) {
+        	arr.add(e);
+        }
+        
+        return arr;
     }
     
     /* tweetRelatedConcepts
@@ -217,7 +225,15 @@ public class ConceptElicitor {
             k = conceptCounts.size();
         }
         
-        return (ArrayList<Entry<String, Integer>>) CollectionUtil.sortCounts(conceptCounts).subList(0, k);
+        List<Entry<String, Integer>> lst = CollectionUtil.sortCounts(conceptCounts).subList(0, k);
+        
+        ArrayList<Entry<String, Integer>> arr = new ArrayList<Entry<String, Integer>>();
+        
+        for (Entry<String, Integer> e : lst) {
+        	arr.add(e);
+        }
+        
+        return arr;
     }
     
     /* getCleanWords
