@@ -137,6 +137,10 @@ public class ConceptElicitor {
             }
         }
         
+        if (k > conceptCounts.size()) {
+        	k = conceptCounts.size();
+        }
+        
         List<Entry<String, Integer>> lst = CollectionUtil.sortCounts(conceptCounts).subList(0, k);
         
         ArrayList<Entry<String, Integer>> arr = new ArrayList<Entry<String, Integer>>();
@@ -223,6 +227,8 @@ public class ConceptElicitor {
         
         if (k == Integer.MAX_VALUE) {
             k = conceptCounts.size();
+        } else if  (k > conceptCounts.size()) {
+        	k = conceptCounts.size();
         }
         
         List<Entry<String, Integer>> lst = CollectionUtil.sortCounts(conceptCounts).subList(0, k);

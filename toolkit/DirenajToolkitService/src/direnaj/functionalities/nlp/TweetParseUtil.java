@@ -54,7 +54,7 @@ public class TweetParseUtil {
 		Matcher match = patt.matcher(tweetText);
 		while (match.find()) {
 			String rslt = match.group();
-			rslt = result.replace(" ", "");
+			rslt = rslt.replace(" ", "");
 			int mentionIndex = tweetText.indexOf(rslt);
 			tweetText = tweetText.substring(0, mentionIndex) +
 					tweetText.substring(mentionIndex+rslt.length(), tweetText.length());
@@ -105,6 +105,10 @@ public class TweetParseUtil {
 			hashTagList.add(result);
 		}
 		return hashTagList;
+	}
+	
+	public static void main(String[]args) {
+		System.out.println(TweetParseUtil.onlyText("hede @caner"));
 	}
 
 }
