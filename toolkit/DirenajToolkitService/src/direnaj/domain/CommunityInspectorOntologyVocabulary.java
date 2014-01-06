@@ -30,12 +30,18 @@ public class CommunityInspectorOntologyVocabulary {
 
     public static final String INTERESTED_IN = COMMUNITY_INSPECTOR_BASE_URI + "interestedIn";
 
+    public static final String TOPIC = COMMUNITY_INSPECTOR_BASE_URI + "Topic";
+    
+    
+
     // Resources
     public static final Resource COMMUNITY_RSC = resource(COMMUNITY);
 
     public static final Resource USER_ACCOUNT_RSC = resource(USER_ACCOUNT);
 
     public static final Resource POST_RSC = resource(POST);
+
+    public static final Resource TOPIC_RSC = resource(TOPIC);
 
     // Properties
     public static final Property BELONGS_TO_PROP = property(BELONGS_TO);

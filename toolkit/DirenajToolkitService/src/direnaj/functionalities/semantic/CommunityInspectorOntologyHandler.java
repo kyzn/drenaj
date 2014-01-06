@@ -1,7 +1,11 @@
 package direnaj.functionalities.semantic;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Vector;
+
+import net.didion.jwnl.JWNLException;
 
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -11,6 +15,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory;
 import direnaj.domain.Community;
 import direnaj.domain.CommunityInspectorOntologyVocabulary;
 import direnaj.domain.User;
+import direnaj.functionalities.nlp.ConceptElicitor;
 
 public class CommunityInspectorOntologyHandler {
     private static String ontologySchemaFileUrl = "mergedCommunityInspectorSchema.owl";
@@ -27,6 +32,8 @@ public class CommunityInspectorOntologyHandler {
                 CommunityInspectorOntologyVocabulary.getIndividualURI(community.getCommunityName(), false),
                 CommunityInspectorOntologyVocabulary.COMMUNITY_RSC);
         communityIndv.addProperty(CommunityInspectorOntologyVocabulary.SIOC_ID_PROP, community.getCommunityName());
+        // get Topics and add to Ontology
+        addCommunityConcepts(ontModel, community, communityIndv);
         // get all users in community
         Vector<User> usersInCommunity = community.getUsersInCommunity();
         for (User user : usersInCommunity) {
@@ -36,6 +43,8 @@ public class CommunityInspectorOntologyHandler {
                     CommunityInspectorOntologyVocabulary.USER_ACCOUNT_RSC);
             userIndv.addProperty(CommunityInspectorOntologyVocabulary.SIOC_NAME_PROP, user.getUserScreenName());
             userIndv.addProperty(CommunityInspectorOntologyVocabulary.SIOC_ID_PROP, user.getUserId());
+            // add user interested topics
+            addUserConcepts(ontModel, user, userIndv);
             communityIndv.addProperty(CommunityInspectorOntologyVocabulary.BELONGS_TO_PROP, userIndv);
             List<String> posts = user.getPosts();
             for (String tweet : posts) {
@@ -43,11 +52,66 @@ public class CommunityInspectorOntologyHandler {
                 Individual postIndv = ontModel.createIndividual(
                         CommunityInspectorOntologyVocabulary.getIndividualURI("POST", true),
                         CommunityInspectorOntologyVocabulary.POST_RSC);
+                // add tweet concepts
+                addTweetConcepts(ontModel, tweet, postIndv);
                 postIndv.addProperty(CommunityInspectorOntologyVocabulary.CONTENT_PROP, tweet);
                 communityIndv.addProperty(CommunityInspectorOntologyVocabulary.BELONGS_TO_PROP, postIndv);
             }
         }
 
+    }
+
+    private static void addTweetConcepts(OntModel ontModel, String tweet, Individual postIndv) {
+        try {
+            ArrayList<Entry<String, Integer>> tweetRelatedConcepts = ConceptElicitor.tweetRelatedConcepts(tweet, 10);
+            for (Entry<String, Integer> entry : tweetRelatedConcepts) {
+                String tweetConcept = entry.getKey();
+                Individual tweetTopicIndividual = createTopicIndividual(ontModel, tweetConcept);
+                postIndv.addProperty(CommunityInspectorOntologyVocabulary.INTERESTED_IN_PROP, tweetTopicIndividual);
+            }
+        } catch (JWNLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void addUserConcepts(OntModel ontModel, User user, Individual userIndv) {
+        try {
+            ArrayList<Entry<String, Integer>> userConcepts = ConceptElicitor.getUserConcept(user, 10);
+            for (Entry<String, Integer> entry : userConcepts) {
+                String userInterestConcept = entry.getKey();
+                Individual userInterestedTopic = createTopicIndividual(ontModel, userInterestConcept);
+                userIndv.addProperty(CommunityInspectorOntologyVocabulary.INTERESTED_IN_PROP, userInterestedTopic);
+            }
+        } catch (JWNLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void addCommunityConcepts(OntModel ontModel, Community community, Individual communityIndv) {
+        try {
+            ArrayList<Entry<String, Integer>> communityConcept = ConceptElicitor.getCommunityConcept(
+                    community.getUsersInCommunity(), 10);
+            for (Entry<String, Integer> entry : communityConcept) {
+                String interestedTopic = entry.getKey();
+                Individual topicIndv = createTopicIndividual(ontModel, interestedTopic);
+                communityIndv.addProperty(CommunityInspectorOntologyVocabulary.INTERESTED_IN_PROP, topicIndv);
+            }
+        } catch (JWNLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    private static Individual createTopicIndividual(OntModel ontModel, String interestedTopic) {
+        Individual topicIndv = ontModel.createIndividual(
+                CommunityInspectorOntologyVocabulary.getIndividualURI(interestedTopic, true),
+                CommunityInspectorOntologyVocabulary.TOPIC_RSC);
+        topicIndv.addProperty(CommunityInspectorOntologyVocabulary.SIOC_NAME_PROP, interestedTopic);
+        return topicIndv;
     }
 
 }

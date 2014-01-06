@@ -25,7 +25,7 @@ public class ConceptElicitor {
 	 * Extracts concepts from the tweets of the users in the given community,
 	 * sorted by the concept usage counts
 	 */
-	static ArrayList<Entry<String, Integer>> getCommunityConcept(Vector<User> users, int k) throws JWNLException {
+	public static ArrayList<Entry<String, Integer>> getCommunityConcept(Vector<User> users, int k) throws JWNLException {
 		List<String> tweets = new ArrayList<String>();
 		for (User usr : users) {
 			tweets.addAll(usr.getPosts());
@@ -38,7 +38,7 @@ public class ConceptElicitor {
 	 * Extracts concepts from the tweets of the user,
 	 * sorted by the concept usage counts
 	 */
-	static ArrayList<Entry<String, Integer>> getUserConcept(User user, int k) throws JWNLException {
+	public static ArrayList<Entry<String, Integer>> getUserConcept(User user, int k) throws JWNLException {
 		String[] userTweets = (String[]) user.getPosts().toArray();
 		
 		return ConceptElicitor.tweetCollectionConcepts(userTweets, k);
@@ -49,7 +49,7 @@ public class ConceptElicitor {
 	 * Extracts concepts from the given tweet collection,
 	 * sorted by the concept usage counts
 	 */
-	static ArrayList<Entry<String, Integer>> tweetCollectionConcepts(String[] tweets, int k) throws JWNLException {
+	public static ArrayList<Entry<String, Integer>> tweetCollectionConcepts(String[] tweets, int k) throws JWNLException {
 		
 		Hashtable<String, Integer> conceptCounts = new Hashtable<String, Integer>();
 		
@@ -76,7 +76,7 @@ public class ConceptElicitor {
 	 * Extracts concepts from the given tweet,
 	 * sorted by the concept usage counts
 	 */
-	static ArrayList<Entry<String, Integer>> tweetRelatedConcepts(String tweet, int k) throws JWNLException {
+	public static ArrayList<Entry<String, Integer>> tweetRelatedConcepts(String tweet, int k) throws JWNLException {
 		
 		List<String> tags = TweetParseUtil.getHashtagsInText(tweet);
 		
@@ -162,7 +162,7 @@ public class ConceptElicitor {
 	 * removes urls
 	 * removes punctuations
 	 */
-	static ArrayList<String> getCleanWords(String rawTweet) {
+	public static ArrayList<String> getCleanWords(String rawTweet) {
 		String cleanTweet = WordStringUtils.normalizeTweetWords(rawTweet);
 		cleanTweet = WordStringUtils.removeStopwords(cleanTweet);
 		
