@@ -2,6 +2,7 @@ package direnaj.functionalities.nlp;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Vector;
@@ -12,6 +13,9 @@ import net.didion.jwnl.data.POS;
 import net.didion.jwnl.data.PointerType;
 import net.didion.jwnl.data.Synset;
 import net.didion.jwnl.data.Word;
+import net.didion.jwnl.data.relationship.Relationship;
+import net.didion.jwnl.data.relationship.RelationshipFinder;
+import net.didion.jwnl.data.relationship.RelationshipList;
 import wordnet.WordNetHelper;
 import direnaj.domain.User;
 import direnaj.functionalities.nlp.WordStringUtils;
@@ -20,6 +24,57 @@ import direnaj.util.CollectionUtil;
 
 public class ConceptElicitor {
 
+	
+	static <E> int conceptSetSimilarity(ArrayList<Entry<String, Integer>> concepts1,
+										ArrayList<Entry<String, Integer>> concepts2) throws JWNLException {
+		
+		int simScore = 0;
+		
+		for (Entry<String, Integer> c1 : concepts1) {
+			for (Entry<String, Integer> c2 : concepts2) {
+				String cName1 = c1.getKey();
+				String cName2 = c2.getKey();
+				
+				POS[] pos1 = WordNetHelper.getPOS(cName1);
+				POS[] pos2 = WordNetHelper.getPOS(cName2);
+				
+				for (POS p1 : pos1) {
+					for (POS p2 : pos2) {
+						IndexWord w1 = WordNetHelper.getWord(p1, cName1);
+						IndexWord w2 = WordNetHelper.getWord(p2, cName2);
+						
+						Synset[] synset1 = w1.getSenses();
+						Synset[] synset2 = w2.getSenses();
+						
+						for (Synset syn1 : synset1) {
+							for (Synset syn2 : synset2) {
+								RelationshipList reList = RelationshipFinder.getInstance().findRelationships(syn1, syn2, PointerType.SIMILAR_TO);
+								Iterator<E> i = reList.iterator();
+								while(i.hasNext()) {
+									Relationship rel = (Relationship) i.next();
+									simScore += rel.getDepth();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		
+		/*
+		RelationshipList list = 
+				RelationshipFinder.getInstance().
+				findRelationships(synset1, synset2, PointerType.SYNONYM);
+		if (!list.isEmpty())  {
+		  Relationship rel = (Relationship) list.get(0);
+		  System.out.println(rel);
+		}
+		*/
+
+		return simScore;
+	}
+	
 	/* getCommunityConcept
 	 * 
 	 * Extracts concepts from the tweets of the users in the given community,
@@ -30,7 +85,14 @@ public class ConceptElicitor {
 		for (User usr : users) {
 			tweets.addAll(usr.getPosts());
 		}
-		return ConceptElicitor.tweetCollectionConcepts((String[])tweets.toArray(), k);
+		
+		String[] arr = new String[tweets.size()];
+		
+		for (int i = 0;i<tweets.size();i++) {
+			arr[i] = tweets.get(i);
+		}
+		
+		return ConceptElicitor.tweetCollectionConcepts(arr, k);
 	}
 	
 	/* getUserConcept
