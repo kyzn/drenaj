@@ -1377,6 +1377,13 @@
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
             </Restriction>
         </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <Restriction>
+                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/communityInspector#hasSimilarityValue"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+                <onDataRange rdf:resource="&xsd;double"/>
+            </Restriction>
+        </rdfs:subClassOf>
     </Class>
     
 
@@ -1417,16 +1424,16 @@
         <rdfs:subClassOf rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/communityInspector#ConceptTie"/>
         <rdfs:subClassOf>
             <Restriction>
-                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#is_based_on"/>
-                <onClass rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/communityInspector#Topic"/>
-                <minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</minQualifiedCardinality>
+                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#is_defined_for"/>
+                <onClass rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/communityInspector#TieableElement"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
             </Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <Restriction>
-                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#is_defined_for"/>
-                <onClass rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/communityInspector#TieableElement"/>
-                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#is_based_on"/>
+                <onClass rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/communityInspector#Topic"/>
+                <minQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</minQualifiedCardinality>
             </Restriction>
         </rdfs:subClassOf>
     </Class>
@@ -1515,14 +1522,14 @@
         <rdfs:subClassOf rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#Tie"/>
         <rdfs:subClassOf>
             <Restriction>
-                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#is_defined_for_target"/>
+                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#is_defined_for_source"/>
                 <onClass rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#CommunityElement"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <Restriction>
-                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#is_defined_for_source"/>
+                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#is_defined_for_target"/>
                 <onClass rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#CommunityElement"/>
                 <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
@@ -1593,16 +1600,16 @@
         <rdfs:subClassOf rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/communityInspector#GenericTie"/>
         <rdfs:subClassOf>
             <Restriction>
-                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#is_defined_for"/>
-                <onClass rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#CommunityElement"/>
-                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
+                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#is_based_on"/>
+                <onClass rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#UserActivity"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
             </Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <Restriction>
-                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#is_based_on"/>
-                <onClass rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#UserActivity"/>
-                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</qualifiedCardinality>
+                <onProperty rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#is_defined_for"/>
+                <onClass rdf:resource="http://www.cmpe.boun.edu.tr/soslab/ontologies/poc#CommunityElement"/>
+                <qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</qualifiedCardinality>
             </Restriction>
         </rdfs:subClassOf>
     </Class>

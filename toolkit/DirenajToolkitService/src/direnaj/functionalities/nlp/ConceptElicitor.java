@@ -25,7 +25,7 @@ import direnaj.util.CollectionUtil;
 public class ConceptElicitor {
 
 	
-	static <E> int conceptSetSimilarity(ArrayList<Entry<String, Integer>> concepts1,
+	public static <E> int conceptSetSimilarity(ArrayList<Entry<String, Integer>> concepts1,
 										ArrayList<Entry<String, Integer>> concepts2) throws JWNLException {
 		
 		int simScore = 0;
