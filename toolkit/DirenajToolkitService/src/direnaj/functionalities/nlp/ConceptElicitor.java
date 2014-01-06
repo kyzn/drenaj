@@ -101,7 +101,14 @@ public class ConceptElicitor {
 	 * sorted by the concept usage counts
 	 */
 	static ArrayList<Entry<String, Integer>> getUserConcept(User user, int k) throws JWNLException {
-		String[] userTweets = (String[]) user.getPosts().toArray();
+		
+		List<String> tweets = user.getPosts();
+		
+		String[] userTweets = new String[tweets.size()];
+		
+		for (int i = 0;i<tweets.size();i++) {
+			userTweets[i] = tweets.get(i);
+		}
 		
 		return ConceptElicitor.tweetCollectionConcepts(userTweets, k);
 	}
