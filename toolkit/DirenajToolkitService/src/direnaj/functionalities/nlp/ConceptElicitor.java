@@ -25,12 +25,12 @@ public class ConceptElicitor {
 	 * Extracts concepts from the tweets of the users in the given community,
 	 * sorted by the concept usage counts
 	 */
-	static ArrayList<Entry<String, Integer>> getCommunityConcept(Vector<User> users) throws JWNLException {
+	static ArrayList<Entry<String, Integer>> getCommunityConcept(Vector<User> users, int k) throws JWNLException {
 		List<String> tweets = new ArrayList<String>();
 		for (User usr : users) {
 			tweets.addAll(usr.getPosts());
 		}
-		return ConceptElicitor.tweetCollectionConcepts((String[])tweets.toArray());
+		return ConceptElicitor.tweetCollectionConcepts((String[])tweets.toArray(), k);
 	}
 	
 	/* getUserConcept
@@ -38,10 +38,10 @@ public class ConceptElicitor {
 	 * Extracts concepts from the tweets of the user,
 	 * sorted by the concept usage counts
 	 */
-	static ArrayList<Entry<String, Integer>> getUserConcept(User user) throws JWNLException {
+	static ArrayList<Entry<String, Integer>> getUserConcept(User user, int k) throws JWNLException {
 		String[] userTweets = (String[]) user.getPosts().toArray();
 		
-		return ConceptElicitor.tweetCollectionConcepts(userTweets);
+		return ConceptElicitor.tweetCollectionConcepts(userTweets, k);
 	}
 
 	/* tweetCollectionConcepts
@@ -49,12 +49,12 @@ public class ConceptElicitor {
 	 * Extracts concepts from the given tweet collection,
 	 * sorted by the concept usage counts
 	 */
-	static ArrayList<Entry<String, Integer>> tweetCollectionConcepts(String[] tweets) throws JWNLException {
+	static ArrayList<Entry<String, Integer>> tweetCollectionConcepts(String[] tweets, int k) throws JWNLException {
 		
 		Hashtable<String, Integer> conceptCounts = new Hashtable<String, Integer>();
 		
 		for (String tweet : tweets) {
-			ArrayList<Entry<String, Integer>> twConcepts = ConceptElicitor.tweetRelatedConcepts(tweet);
+			ArrayList<Entry<String, Integer>> twConcepts = ConceptElicitor.tweetRelatedConcepts(tweet, Integer.MAX_VALUE);
 			
 			for (Entry<String, Integer> twSingleConcept : twConcepts) {
 				String cStr = twSingleConcept.getKey();
@@ -68,7 +68,7 @@ public class ConceptElicitor {
 			}
 		}
 		
-		return CollectionUtil.sortCounts(conceptCounts);
+		return (ArrayList<Entry<String, Integer>>) CollectionUtil.sortCounts(conceptCounts).subList(0, k);
 	}
 	
 	/* tweetRelatedConcepts
@@ -76,7 +76,7 @@ public class ConceptElicitor {
 	 * Extracts concepts from the given tweet,
 	 * sorted by the concept usage counts
 	 */
-	static ArrayList<Entry<String, Integer>> tweetRelatedConcepts(String tweet) throws JWNLException {
+	static ArrayList<Entry<String, Integer>> tweetRelatedConcepts(String tweet, int k) throws JWNLException {
 		
 		List<String> tags = TweetParseUtil.getHashtagsInText(tweet);
 		
@@ -144,8 +144,11 @@ public class ConceptElicitor {
 			}
 		}
 		
+		if (k == Integer.MAX_VALUE) {
+			k = conceptCounts.size();
+		}
 		
-		return CollectionUtil.sortCounts(conceptCounts);
+		return (ArrayList<Entry<String, Integer>>) CollectionUtil.sortCounts(conceptCounts).subList(0, k);
 	}
 	
 	/* getCleanWords
