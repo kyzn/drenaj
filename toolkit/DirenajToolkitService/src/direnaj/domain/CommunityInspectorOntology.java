@@ -12,7 +12,7 @@ public class CommunityInspectorOntology {
     private OntModel ontModel;
 
     public CommunityInspectorOntology() {
-        CommunityInspectorOntologyHandler.loadModel(ontModel);
+       ontModel = CommunityInspectorOntologyHandler.loadModel(ontModel);
     }
 
     public OntModel getOntModel() {
@@ -24,6 +24,7 @@ public class CommunityInspectorOntology {
         for (Community community : detectedCommunties) {
             CommunityInspectorOntologyHandler.addCommunityBelongings(ontModel, community);
         }
+        ontModel.write(System.out);
     }
 
 }

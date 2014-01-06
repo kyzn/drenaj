@@ -13,31 +13,37 @@ import direnaj.domain.CommunityInspectorOntologyVocabulary;
 import direnaj.domain.User;
 
 public class CommunityInspectorOntologyHandler {
-    private static String ontologySchemaFileUrl = "file:ontologyFiles/mergedCommunityInspectorSchema.owl";
+    private static String ontologySchemaFileUrl = "mergedCommunityInspectorSchema.owl";
 
-    public static void loadModel(OntModel ontModel) {
+    public static OntModel loadModel(OntModel ontModel) {
         ontModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, null);
         ontModel.read(ontologySchemaFileUrl, "RDF/XML");
+        return ontModel;
     }
 
     public static void addCommunityBelongings(OntModel ontModel, Community community) {
-        // FIXME burada individual'larý daha da detaylandýrmamýz gerekir
-        // FIXME user node'una User detayýný ekle
-        // FIXME post node'una post detayýný ekle
+        // create Community Individual
         Individual communityIndv = ontModel.createIndividual(
                 CommunityInspectorOntologyVocabulary.getIndividualURI(community.getCommunityName(), false),
                 CommunityInspectorOntologyVocabulary.COMMUNITY_RSC);
+        communityIndv.addProperty(CommunityInspectorOntologyVocabulary.SIOC_ID_PROP, community.getCommunityName());
+        // get all users in community
         Vector<User> usersInCommunity = community.getUsersInCommunity();
         for (User user : usersInCommunity) {
+            // create user Individual
             Individual userIndv = ontModel.createIndividual(
                     CommunityInspectorOntologyVocabulary.getIndividualURI(user.getUserScreenName(), false),
                     CommunityInspectorOntologyVocabulary.USER_ACCOUNT_RSC);
+            userIndv.addProperty(CommunityInspectorOntologyVocabulary.SIOC_NAME_PROP, user.getUserScreenName());
+            userIndv.addProperty(CommunityInspectorOntologyVocabulary.SIOC_ID_PROP, user.getUserId());
             communityIndv.addProperty(CommunityInspectorOntologyVocabulary.BELONGS_TO_PROP, userIndv);
             List<String> posts = user.getPosts();
             for (String tweet : posts) {
+                // create post individuals
                 Individual postIndv = ontModel.createIndividual(
                         CommunityInspectorOntologyVocabulary.getIndividualURI("POST", true),
                         CommunityInspectorOntologyVocabulary.POST_RSC);
+                postIndv.addProperty(CommunityInspectorOntologyVocabulary.CONTENT_PROP, tweet);
                 communityIndv.addProperty(CommunityInspectorOntologyVocabulary.BELONGS_TO_PROP, postIndv);
             }
         }

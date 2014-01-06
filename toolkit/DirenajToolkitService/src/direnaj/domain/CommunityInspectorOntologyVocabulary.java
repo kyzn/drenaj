@@ -18,17 +18,37 @@ public class CommunityInspectorOntologyVocabulary {
 
     public static final String USER_ACCOUNT = SIOC_BASE_URI + "UserAccount";
 
+    public static final String CONTENT = SIOC_BASE_URI + "content";
+
     public static final String POST = SIOC_BASE_URI + "Post";
+
+    public static final String SIOC_ID = SIOC_BASE_URI + "id";
+
+    public static final String SIOC_NAME = SIOC_BASE_URI + "name";
 
     public static final String BELONGS_TO = POC_BASE_URI + "belongs_to";
 
+    public static final String INTERESTED_IN = COMMUNITY_INSPECTOR_BASE_URI + "interestedIn";
+
+    // Resources
     public static final Resource COMMUNITY_RSC = resource(COMMUNITY);
 
     public static final Resource USER_ACCOUNT_RSC = resource(USER_ACCOUNT);
 
     public static final Resource POST_RSC = resource(POST);
 
+    // Properties
     public static final Property BELONGS_TO_PROP = property(BELONGS_TO);
+
+    public static final Property CONTENT_PROP = property(CONTENT);
+
+    public static final Property SIOC_ID_PROP = property(SIOC_ID);
+
+    public static final Property SIOC_NAME_PROP = property(SIOC_NAME);
+
+    public static final Property INTERESTED_IN_PROP = property(INTERESTED_IN);
+    
+    
 
     public static String getIndividualURI(String individualName, boolean addRandomNumber) {
         String uri = COMMUNITY_INSPECTOR_INDV_BASE_URI + individualName;
@@ -58,8 +78,8 @@ public class CommunityInspectorOntologyVocabulary {
      * @return {@link Resource} instance
      */
     private static Resource resource(String uri) {
-
-        return ResourceFactory.createResource(uri);
+        Resource resource = ResourceFactory.createResource(uri);
+        return resource;
     }
 
 }

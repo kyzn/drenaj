@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 
+import direnaj.domain.CommunityInspectorOntology;
 import direnaj.domain.User;
 import direnaj.functionalities.classification.ClassificationMethods;
 import direnaj.functionalities.graph.DirenajGraph;
@@ -58,6 +59,10 @@ public class DirenajD3LibService extends HttpServlet {
         DetectedCommunities communitiesInCampaign = CommunityDetector.getCommunitiesInCampaign(
                 Double.valueOf(modularityValue).doubleValue(), userRelationsGraph, false);
 
+        
+        CommunityInspectorOntology inspectorOntology= new CommunityInspectorOntology();
+        inspectorOntology.addDetectedCommunities(communitiesInCampaign);
+        
         session.setAttribute("detectedCommunities", communitiesInCampaign);
 
         String communityJSon;

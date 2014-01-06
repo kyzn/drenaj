@@ -67,6 +67,7 @@ public class CommunityDetector {
             community.retrivePostOfUsersInCommunity(vertexObjectMapping);
             communities.getDetectedCommunties(false).add(community);
         }
+        communities.setUserCommunityMapping();
         return communities;
     }
 

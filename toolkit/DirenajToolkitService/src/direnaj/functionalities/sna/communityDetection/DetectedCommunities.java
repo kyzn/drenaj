@@ -18,6 +18,7 @@ public class DetectedCommunities {
 
     private Vector<Community> detectedCommunties;
     private double modularity;
+    private TreeMap<User, String> userCommunityMapping; 
 
     public DetectedCommunities(double modularity) {
         detectedCommunties = new Vector<Community>();
@@ -51,7 +52,6 @@ public class DetectedCommunities {
     public String getJsonOfCommunities(D3GraphicType d3GraphicType) throws JSONException {
         String jsonString = null;
         sortCommunities();
-        TreeMap<User, String> userCommunityMapping = getUserCommunityMapping();
         // get json according to graph
         switch (d3GraphicType) {
         case CirclePack:
@@ -140,8 +140,8 @@ public class DetectedCommunities {
         return jsonString;
     }
 
-    private TreeMap<User, String> getUserCommunityMapping() {
-        TreeMap<User, String> userCommunityMapping = new TreeMap<User, String>();
+    public TreeMap<User, String> setUserCommunityMapping() {
+        userCommunityMapping = new TreeMap<User, String>();
         int communityIndex = 1;
         for (Community community : detectedCommunties) {
             String communityName = "community" + communityIndex;
