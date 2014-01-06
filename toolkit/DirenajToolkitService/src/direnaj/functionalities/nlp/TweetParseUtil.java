@@ -53,7 +53,7 @@ public class TweetParseUtil {
 		Pattern patt = Pattern.compile(pattStr);
 		Matcher match = patt.matcher(tweetText);
 		while (match.find()) {
-			String rslt = matcher.group();
+			String rslt = match.group();
 			rslt = result.replace(" ", "");
 			int mentionIndex = tweetText.indexOf(rslt);
 			tweetText = tweetText.substring(0, mentionIndex) +
