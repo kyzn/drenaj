@@ -24,10 +24,13 @@ import direnaj.functionalities.nlp.TweetParseUtil;
 public class ConceptElicitor {
 
     
-    public static <E> int conceptSetSimilarity(ArrayList<Entry<String, Integer>> concepts1,
-                                        ArrayList<Entry<String, Integer>> concepts2) throws JWNLException {
+    public static <E> double conceptSetSimilarity(ArrayList<Entry<String, Integer>> concepts1,
+                                        ArrayList<Entry<String, Integer>> concepts2,boolean mock) throws JWNLException {
         
-        int simScore = 0;
+        if(mock){
+            return Math.random();
+        }
+        double simScore = 0;
         
         for (Entry<String, Integer> c1 : concepts1) {
             for (Entry<String, Integer> c2 : concepts2) {
@@ -43,6 +46,7 @@ public class ConceptElicitor {
                         IndexWord w2 = WordNetHelper.getWord(p2, cName2);
                         
                         Synset[] synset1 = w1.getSenses();
+                        // caner, similarity int geliyor hacý. Double filan olmasý gerekmez mi ?
                         Synset[] synset2 = w2.getSenses();
                         
                         for (Synset syn1 : synset1) {

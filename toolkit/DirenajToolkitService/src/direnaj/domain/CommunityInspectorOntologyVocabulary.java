@@ -31,6 +31,12 @@ public class CommunityInspectorOntologyVocabulary {
     public static final String INTERESTED_IN = COMMUNITY_INSPECTOR_BASE_URI + "interestedIn";
 
     public static final String TOPIC = COMMUNITY_INSPECTOR_BASE_URI + "Topic";
+
+    public static final String IS_CALCULATED_FOR = COMMUNITY_INSPECTOR_BASE_URI + "isCalculatedFor";
+
+    public static final String HAS_SIMILARITY_VALUE = COMMUNITY_INSPECTOR_BASE_URI + "hasSimilarityValue";
+
+    public static final String CONCEPT_SIMILARITY = COMMUNITY_INSPECTOR_BASE_URI + "ConceptSimilarity";
     
     
 
@@ -42,6 +48,8 @@ public class CommunityInspectorOntologyVocabulary {
     public static final Resource POST_RSC = resource(POST);
 
     public static final Resource TOPIC_RSC = resource(TOPIC);
+    
+    public static final Resource CONCEPT_SIMILARITY_RSC = resource(CONCEPT_SIMILARITY);
 
     // Properties
     public static final Property BELONGS_TO_PROP = property(BELONGS_TO);
@@ -53,6 +61,12 @@ public class CommunityInspectorOntologyVocabulary {
     public static final Property SIOC_NAME_PROP = property(SIOC_NAME);
 
     public static final Property INTERESTED_IN_PROP = property(INTERESTED_IN);
+
+    public static final Property IS_CALCULATED_FOR_PROP = property(IS_CALCULATED_FOR);
+    
+    public static final Property HAS_SIMILARITY_VALUE_PROP = property(HAS_SIMILARITY_VALUE);
+    
+    
     
     
 
