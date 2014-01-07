@@ -46,7 +46,7 @@ public class ConceptElicitor {
                         IndexWord w2 = WordNetHelper.getWord(p2, cName2);
                         
                         Synset[] synset1 = w1.getSenses();
-                        // caner, similarity int geliyor hacý. Double filan olmasý gerekmez mi ?
+                        // caner, similarity int geliyor hacï¿½. Double filan olmasï¿½ gerekmez mi ?
                         Synset[] synset2 = w2.getSenses();
                         
                         for (Synset syn1 : synset1) {
@@ -180,6 +180,11 @@ public class ConceptElicitor {
             POS.NOUN;
             POS.VERB;
             */
+            if (conceptCounts.containsKey(word)) {
+            	conceptCounts.put(word, conceptCounts.get(word) + 1);
+            } else {
+            	conceptCounts.put(word, 1);
+            }
             
             for (POS ps : pos) {
                 
@@ -275,13 +280,13 @@ public class ConceptElicitor {
     }
     
     
-    /*
+    
     public static void main(String[] args) throws JWNLException {
-        ArrayList<Entry<String, Integer>> concepts = ConceptElicitor.tweetRelatedConcepts("Who was Albert 2day Kobalt Wohlstetter? What was \"Team B\"? Who wants to lead the U.S. into China Syria? You should know: 'In the... http://t.co/QkF6Ojozjx");
+        ArrayList<Entry<String, Integer>> concepts = ConceptElicitor.tweetRelatedConcepts("Who was Albert 2day Kobalt Wohlstetter? What was \"Team B\"? Who wants to lead the U.S. into China Syria? You should know: 'In the... http://t.co/QkF6Ojozjx", 10);
         
         for (Entry<String, Integer> concept : concepts) {
             System.out.println(concept.getKey() + " - " + concept.getValue());
         }
     }
-    */
+    
 }
