@@ -18,9 +18,8 @@ import net.didion.jwnl.data.relationship.RelationshipFinder;
 import net.didion.jwnl.data.relationship.RelationshipList;
 import wordnet.WordNetHelper;
 import direnaj.domain.User;
-import direnaj.functionalities.nlp.WordStringUtils;
-import direnaj.functionalities.nlp.TweetParseUtil;
 import direnaj.util.CollectionUtil;
+import direnaj.functionalities.nlp.TweetParseUtil;
 
 public class ConceptElicitor {
 
@@ -137,6 +136,10 @@ public class ConceptElicitor {
             }
         }
         
+        if (k > conceptCounts.size()) {
+        	k = conceptCounts.size();
+        }
+        
         List<Entry<String, Integer>> lst = CollectionUtil.sortCounts(conceptCounts).subList(0, k);
         
         ArrayList<Entry<String, Integer>> arr = new ArrayList<Entry<String, Integer>>();
@@ -223,6 +226,8 @@ public class ConceptElicitor {
         
         if (k == Integer.MAX_VALUE) {
             k = conceptCounts.size();
+        } else if  (k > conceptCounts.size()) {
+        	k = conceptCounts.size();
         }
         
         List<Entry<String, Integer>> lst = CollectionUtil.sortCounts(conceptCounts).subList(0, k);
