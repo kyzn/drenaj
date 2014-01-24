@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -15,13 +17,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import testPackage.generalTests.GeneralTester;
 import direnaj.domain.DirenajObjects;
 import direnaj.domain.User;
 import direnaj.driver.DirenajDriver;
+import direnaj.functionalities.graph.DirenajGraph;
+import direnaj.functionalities.graph.GraphUtil;
+import direnaj.functionalities.graph.Relations;
 import direnaj.functionalities.sna.CentralityAnalysis;
 import direnaj.functionalities.sna.CentralityTypes;
-
-import testPackage.generalTests.*;
+import direnaj.functionalities.sna.communityDetection.CommunityDetector;
+import direnaj.functionalities.sna.communityDetection.DetectedCommunities;
+import direnaj.util.TextUtils;
+import direnaj.util.d3Lib.D3GraphicType;
 
 /**
  * Simple servlet for testing.
@@ -35,6 +43,11 @@ public class TestServlet extends HttpServlet {
 	 *
 	 */
     private static final long serialVersionUID = 1L;
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -67,7 +80,7 @@ public class TestServlet extends HttpServlet {
         // constructing the driver object that will handle our data retrieval
         // and processing requests, using DirenajDataHandler as a backbone
         DirenajDriver driver = new DirenajDriver(userId, password);
-        
+
         GeneralTester tester = new GeneralTester();
 
         ArrayList<String> tweetTexts = new ArrayList<String>();
@@ -83,9 +96,9 @@ public class TestServlet extends HttpServlet {
         try {
             if (operation.equals("getTags")) {
 
-            	allTags = driver.collectHashtags(campaignId, skip, limit);
-            	
-            	retHtmlStr += tester.testGetTags(allTags);
+                allTags = driver.collectHashtags(campaignId, skip, limit);
+
+                retHtmlStr += tester.testGetTags(allTags);
 
             } else if (operation.equals("getTagCounts")) {
 
@@ -106,27 +119,26 @@ public class TestServlet extends HttpServlet {
             } else if (operation.equals("getFrequentUsers")) {
                 ArrayList<Entry<User, Integer>> distinctUserPostCounts = driver.getBulkDistinctDomainObjectCount(
                         campaignId, skip, limit, DirenajObjects.User);
-                
+
                 retHtmlStr += tester.testFreqUser(distinctUserPostCounts);
-                
+
             } else if (operation.equals("getFrequentMentionedUsers")) {
                 ArrayList<Entry<User, Integer>> distinctMentionedUserCounts = driver.getBulkDistinctDomainObjectCount(
                         campaignId, skip, limit, DirenajObjects.MentionedUser);
-                
+
                 retHtmlStr += tester.testFreqMentionedUser(distinctMentionedUserCounts);
-                
+
             } else if (operation.equals("getFrequentUrls")) {
                 ArrayList<Entry<String, Integer>> distinctUrlCounts = driver.getBulkDistinctDomainObjectCount(
                         campaignId, skip, limit, DirenajObjects.Url);
-                
+
                 retHtmlStr += tester.testFreqURL(distinctUrlCounts);
-                
+
             } else if (operation.equals("getUserCentralities")) {
-            	Map<CentralityTypes, ArrayList<Entry<User, BigDecimal>>> centralitiesOfUsers = CentralityAnalysis
+                Map<CentralityTypes, ArrayList<Entry<User, BigDecimal>>> centralitiesOfUsers = CentralityAnalysis
                         .calculateCentralityOfUsers(userId, password, campaignId, skip, limit);
-            	
-            	retHtmlStr += tester.testCentrality(centralitiesOfUsers);
-            	
+
+                retHtmlStr += tester.testCentrality(centralitiesOfUsers);
             } else if (operation.equals("getHashtagTimeline")) {
                 request.setAttribute("campaignId", campaignId);
                 request.setAttribute("operation", operation);
@@ -136,6 +148,63 @@ public class TestServlet extends HttpServlet {
                 ServletContext context = getServletContext();
                 RequestDispatcher dispatcher = context.getRequestDispatcher("/hashtagTimeLineRequest.jsp");
                 dispatcher.forward(request, response);
+            } else if (operation.equals("findCommunities")) {
+                List<Relations> relations = new Vector<Relations>();
+                String[] checkBoxValues = request.getParameterValues("graphRelation");
+                for (int i = 0; i < checkBoxValues.length; i++) {
+                    relations.add(Relations.valueOf(checkBoxValues[i]));
+                }
+                String modularityValue = request.getParameter("modularityValue");
+                // get user graphs
+                DirenajGraph<User> userRelationsGraph = GraphUtil.formUserRelationsGraph(userId, password, campaignId,
+                        skip, limit, relations, null);
+                DetectedCommunities communitiesInCampaign = CommunityDetector.getCommunitiesInCampaign(
+                        Double.valueOf(modularityValue).doubleValue(), userRelationsGraph, false);
+                request.setAttribute("detectedCommunities", communitiesInCampaign);
+                request.setAttribute("campaignId", campaignId);
+                request.setAttribute("limit", limit);
+                ServletContext context = getServletContext();
+                RequestDispatcher dispatcher = context.getRequestDispatcher("/communityDisplay.jsp");
+                dispatcher.forward(request, response);
+            } else if (operation.equals("showCommunities")) {
+                // get relations
+                List<Relations> relations = new Vector<Relations>();
+                String[] checkBoxValues = request.getParameterValues("graphRelation");
+                for (int i = 0; i < checkBoxValues.length; i++) {
+                    relations.add(Relations.valueOf(checkBoxValues[i]));
+                }
+                session.setAttribute("graphRelation", relations);
+                // get modularity
+                String modularityValue = request.getParameter("modularityValue");
+                session.setAttribute("modularityValue", modularityValue);
+                // get d3 Lib Format
+                String d3LibFormatValue = request.getParameter("d3LibFormat");
+                D3GraphicType d3GraphicType = D3GraphicType.valueOf(d3LibFormatValue);
+                session.setAttribute("d3LibFormat", d3GraphicType);
+
+                String classificationMethod = request.getParameter("classificationMethod");
+                if (!TextUtils.isEmpty(classificationMethod)) {
+                    session.setAttribute("classificationMethod", classificationMethod);
+                } else {
+                    session.removeAttribute("classificationMethod");
+                }
+
+                // forward to jsp
+                ServletContext context = getServletContext();
+                RequestDispatcher dispatcher = null;
+                switch (d3GraphicType) {
+                case HierarchicalEdgeBundle:
+                    dispatcher = context.getRequestDispatcher("/hierarchicalEdgeBundle.jsp");
+                    break;
+                case CirclePack:
+                    dispatcher = context.getRequestDispatcher("/zoomableCommunityCirclePack.jsp");
+                    break;
+                case ForceDirectedGraph:
+                    dispatcher = context.getRequestDispatcher("/forceDirectedGraph.jsp");
+                    break;
+                }
+                dispatcher.forward(request, response);
+
             } else {
                 retHtmlStr += "OPERATION NOT SUPPORTED!";
             }

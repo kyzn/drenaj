@@ -28,17 +28,17 @@ public class DirenajDriver {
     }
 
     /*
-     * METHODS SUMMARY
+     * PUBLIC METHODS SUMMARY
      * 
-     * public collectTweetTexts public countHashtags public collectHashTags
-     * public getSingleTweeInfo
+     * ArrayList<String> collectTweetTexts 
+     * ArrayList<JSONObject> collectTweets
+     * ArrayList<Entry<String,Integer>> countHashtags
+     * ArrayList<ArrayList<String>> collectHashtags
+     * <T> : ArrayList<Entry<T, Integer>> getBulkDistinctDomainObjectCount
+     * String getSingleTweetInfo
      * 
-     * private collectHashtagsBIG private collecTweetTextsBIG
      */
-
-    /*
-     * collectTweetTexts
-     */
+    
     public ArrayList<String> collectTweetTexts(String campaignID, int skip, int limit) throws Exception,
             DirenajInvalidJSONException {
         if (limit > 1000) {
@@ -357,15 +357,16 @@ public class DirenajDriver {
         JSONArray tags = null;
 
         try {
+        	
 
             arr = obj.getJSONArray("results");
-
+      
             tw = (JSONObject) arr.get(0);
-
+            
             tweet = (JSONObject) tw.get("tweet");
-
+            
             retVal += "Tweet ID : " + tweet.get("id").toString();
-
+            
             retVal += "<br><br><hr>";
 
             retVal += "results<br><br>";
@@ -401,7 +402,8 @@ public class DirenajDriver {
             for (int i = 0; i < tags.length(); i++) {
                 retVal += "--- " + tags.getJSONObject(i).get("text").toString() + "<br>";
             }
-        } catch (JSONException e) {
+            
+        } catch (Exception e) {
             throw new DirenajInvalidJSONException(mName + e.getMessage());
         }
         retVal += "<br><br><hr>";
@@ -409,7 +411,7 @@ public class DirenajDriver {
         retVal += "FULL DUMP<br><br>";
 
         retVal += tweet.toString();
-
+        
         return retVal;
     }
 
