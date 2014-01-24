@@ -203,9 +203,13 @@ class StatusesHandler(tornado.web.RequestHandler):
                 tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
                 query_string = {'campaign_id' : '%s' % campaign_id}
                 if since_datetime != -1:
-                    query_string['since_datetime'] = since_datetime
+                    if not query_string['tweet.created_at']:
+                        query_string['tweet.created_at'] = {}
+                    query_string['tweet.created_at']['$gte'] = since_datetime
                 if until_datetime != -1:
-                    query_string['until_datetime'] = until_datetime
+                    if not query_string['tweet.created_at']:
+                        query_string['tweet.created_at'] = {}
+                    query_string['tweet.created_at']['$lt'] = until_datetime
                 sort_string = []
                 if sort_by_datetime == 1:
                     sort_string = [('tweet.created_at', pymongo.ASCENDING)] # ascending
