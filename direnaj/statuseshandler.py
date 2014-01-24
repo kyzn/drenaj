@@ -208,11 +208,11 @@ class StatusesHandler(tornado.web.RequestHandler):
                     query_string['until_datetime'] = until_datetime
                 sort_string = []
                 if sort_by_datetime == 1:
-                    sort_string = [('sort_by_datetime', pymongo.ASCENDING)] # ascending
-                cursor = tweets_coll.find(query_string)\
-                           .sort(sort_string)\
-                           .skip(int(skip))\
-                           .limit(int(limit))
+                    sort_string = [('tweet.created_at', pymongo.ASCENDING)] # ascending
+                cursor = tweets_coll.find(query_string)
+                if sort_string:
+                    cursor = cursor.sort(sort_string)
+                cursor = cursor.skip(int(skip)).limit(int(limit))
                            # TODO: removing because of complaint:
                            # TypeError: if no direction is specified, key_or_list must be an instance of list
                            # .sort({"$natural" : 1})\
