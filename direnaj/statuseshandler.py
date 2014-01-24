@@ -196,9 +196,21 @@ class StatusesHandler(tornado.web.RequestHandler):
                 skip = self.get_argument('skip', 0)
                 limit = self.get_argument('limit', 100)
                 res_format = self.get_argument('format', 'json')
+                since_datetime = self.get_argument('since_datetime', -1)
+                until_datetime = self.get_argument('until_datetime', -1)
+                sort_by_datetime = self.get_argument('sort_by_datetime', 0)
 
                 tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
-                cursor = tweets_coll.find({'campaign_id' : '%s' % campaign_id})\
+                query_string = {'campaign_id' : '%s' % campaign_id}
+                if since_datetime != -1:
+                    query_string['since_datetime'] = since_datetime
+                if until_datetime != -1:
+                    query_string['until_datetime'] = until_datetime
+                sort_string = {}
+                if sort_by_datetime == 1:
+                    sort_string['sort_by_datetime'] = 1 # ascending
+                cursor = tweets_coll.find(query_string)\
+                           .sort(sort_string)\
                            .skip(int(skip))\
                            .limit(int(limit))
                            # TODO: removing because of complaint:
