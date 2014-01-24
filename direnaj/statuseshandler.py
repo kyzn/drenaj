@@ -213,6 +213,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                 sort_string = []
                 if sort_by_datetime == 1:
                     sort_string = [('tweet.created_at', pymongo.ASCENDING)] # ascending
+                print query_string
                 cursor = tweets_coll.find(query_string)
                 if sort_string:
                     cursor = cursor.sort(sort_string)
