@@ -206,9 +206,9 @@ class StatusesHandler(tornado.web.RequestHandler):
                     query_string['since_datetime'] = since_datetime
                 if until_datetime != -1:
                     query_string['until_datetime'] = until_datetime
-                sort_string = {}
+                sort_string = []
                 if sort_by_datetime == 1:
-                    sort_string['sort_by_datetime'] = 1 # ascending
+                    sort_string = [('sort_by_datetime', pymongo.ASCENDING)] # ascending
                 cursor = tweets_coll.find(query_string)\
                            .sort(sort_string)\
                            .skip(int(skip))\
