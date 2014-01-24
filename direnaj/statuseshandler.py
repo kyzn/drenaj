@@ -205,11 +205,11 @@ class StatusesHandler(tornado.web.RequestHandler):
                 if since_datetime != -1:
                     if 'tweet.created_at' not in query_string:
                         query_string['tweet.created_at'] = {}
-                    query_string['tweet.created_at']['$gte'] = since_datetime
+                    query_string['tweet.created_at']['$gte'] = float(since_datetime)
                 if until_datetime != -1:
                     if 'tweet.created_at' not in query_string:
                         query_string['tweet.created_at'] = {}
-                    query_string['tweet.created_at']['$lt'] = until_datetime
+                    query_string['tweet.created_at']['$lt'] = float(until_datetime)
                 sort_string = []
                 if sort_by_datetime == 1:
                     sort_string = [('tweet.created_at', pymongo.ASCENDING)] # ascending
