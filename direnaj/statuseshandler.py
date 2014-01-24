@@ -203,11 +203,11 @@ class StatusesHandler(tornado.web.RequestHandler):
                 tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
                 query_string = {'campaign_id' : '%s' % campaign_id}
                 if since_datetime != -1:
-                    if not query_string['tweet.created_at']:
+                    if 'tweet.created_at' not in query_string:
                         query_string['tweet.created_at'] = {}
                     query_string['tweet.created_at']['$gte'] = since_datetime
                 if until_datetime != -1:
-                    if not query_string['tweet.created_at']:
+                    if 'tweet.created_at' not in query_string:
                         query_string['tweet.created_at'] = {}
                     query_string['tweet.created_at']['$lt'] = until_datetime
                 sort_string = []
