@@ -50,7 +50,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.selectCampaign = function(campaign) {
         console.log("You've selected the tab:  " + campaign._id);
-        $http.get('/campaigns/view', {
+        $http.get('/campaigns/view_freqs', {
             params: {
                 campaign_id: campaign._id,
                 auth_user_id: 'direnaj',

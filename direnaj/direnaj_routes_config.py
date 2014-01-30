@@ -22,5 +22,5 @@ routes_config = [
     (r"/statuses/(store|view|filter|retweets)", StatusesHandler),
 #    (r"/user/(store|view)", UserSingleProfileHandler),
     (r"/profiles/(store|view)", UserProfilesHandler),
-    (r"/campaigns/(new|view|filter|histograms)", CampaignsHandler),
+    (r"/campaigns/(new|list|view|view_freqs|filter|histograms)", CampaignsHandler),
 ]

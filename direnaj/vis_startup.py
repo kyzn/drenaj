@@ -16,6 +16,7 @@ vis_routes_config = [
     (r"/statuses/(crawl|view)", visHandler.visStatusesHandler),
     (r"/user/(crawl|view)", visHandler.visSingleProfileHandler),
     (r"/profiles/(crawl|view)", visHandler.visUserProfilesHandler),
+    (r"/campaigns/(list|new|create_thread|kill_thread)", visHandler.visCampaignsHandler),
 
     (r'/sign_in', SigninHandler),
     (r'/sign_up', SignupHandler),

@@ -9,6 +9,8 @@ from tornado.web import MissingArgumentError
 
 import bson.json_util
 
+from pymongo.errors import OperationFailure
+
 class CampaignsHandler(tornado.web.RequestHandler):
 
     ## def datetime_hook(self, dct):
@@ -37,8 +39,45 @@ class CampaignsHandler(tornado.web.RequestHandler):
         verbose_response = self.get_argument('verbose', '')
 
         if (action == 'new'):
-            self.write('not implemented yet')
+            try:
+                campaign_id = self.get_argument('campaign_id')
+                description = self.get_argument('description', '')
+                query_terms = self.get_argument('query_terms', '')
+                try:
+                    direnajmongomanager.create_campaign(\
+                        {'campaign_id': campaign_id,\
+                            'description': description,\
+                            'query_terms': query_terms
+                        })
+                    result = 'success'
+                except OperationFailure:
+                    result = 'failure'
+
+                self.write({'status': result})
+                self.add_header('Content-Type', 'application/json')
+            except MissingArgumentError as e:
+                # TODO: implement logging.
+                raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
         elif (action == 'view'):
+            try:
+                campaign_id = self.get_argument('campaign_id', 'default')
+                campaign = direnajmongomanager.get_campaign(campaign_id)
+
+                self.write(bson.json_util.dumps(campaign))
+                self.add_header('Content-Type', 'application/json')
+            except MissingArgumentError as e:
+                # TODO: implement logging.
+                raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
+        elif (action == 'list'):
+            try:
+                campaigns = direnajmongomanager.get_campaigns_list()
+
+                self.write(bson.json_util.dumps(campaigns))
+                self.add_header('Content-Type', 'application/json')
+            except MissingArgumentError as e:
+                # TODO: implement logging.
+                raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
+        elif (action == 'view_freqs'):
             try:
                 campaign_id = self.get_argument('campaign_id', 'default')
                 campaign = direnajmongomanager.get_campaign_with_freqs(campaign_id)

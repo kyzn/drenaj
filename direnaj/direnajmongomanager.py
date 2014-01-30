@@ -15,6 +15,7 @@ graph_coll = db['graph']
 tweets_coll = db['tweets']
 queue_coll = db['queue']
 histograms_coll = db['histograms']
+campaigns_coll = db['campaigns']
 
 colls = {
     'campaigns': db["freq_campaigns"],
@@ -32,9 +33,23 @@ colls = {
 tweets_coll.create_index([('campaign_id', pymongo.ASCENDING), ('tweet.created_at', pymongo.ASCENDING)])
 histograms_coll.create_index([('campaign_id', pymongo.ASCENDING), ('created_at', pymongo.ASCENDING)])
 
+campaigns_coll.ensure_index([("campaign_id", 1)], unique=True)
+
 for key in colls.keys():
     colls[key].create_index([('campaign_id', pymongo.ASCENDING), ('date', pymongo.ASCENDING), ('key', pymongo.ASCENDING)])
 
+def create_campaign(params):
+    created_at = now_in_drnj_time()
+    params.update({'created_at': created_at})
+    campaigns_coll.insert(params)
+
+def get_campaign(campaign_id):
+    cursor = campaigns_coll.find({'campaign_id': campaign_id})
+    return cursor
+
+def get_campaigns_list():
+    cursor = campaigns_coll.find({})
+    return cursor
 
 def get_campaign_list_with_freqs(skip, limit):
 #    cursor = db.freq_campaigns.aggregate({"$group": { "campaign_id": "$key", "totalTweets": {"$sum": "$day_total"}}})

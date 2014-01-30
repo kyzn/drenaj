@@ -39,12 +39,26 @@ from jinja2 import Environment, FileSystemLoader
 import hashlib
 import tweepy
 
+from streamcatcher import StreamCatcher
+
+threads = []
+
+## import signal, sys
+## def stop_all_threads(signal, frame):
+##     print 'Stopping all threads'
+##     for t in threads:
+##         t.terminate()
+##     sys.exit(0)
+##
+## signal.signal(signal.SIGINT, stop_all_threads)
+
 app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[DIRENAJ_APP_ENVIRONMENT])
 vis_root_url = 'http://' + DIRENAJ_VIS_HOST + ':' + str(DIRENAJ_VIS_PORT[DIRENAJ_VIS_ENVIRONMENT])
 
 db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
 accounts = db['accounts']
 keystore = KeyStore()
+
 
 def get_api(user):
     auth = tweepy.OAuthHandler(keystore.app_consumer_key, keystore.app_consumer_secret)
@@ -201,3 +215,72 @@ class visUserProfilesHandler(tornado.web.RequestHandler):
                                      access_token_key = access_token_key)
 
             self.write(result)
+
+#    (r"/campaigns/(list|new|create_thread|kill_thread)", visCampaignsHandler),
+class visCampaignsHandler(tornado.web.RequestHandler):
+    def get(self, *args):
+        self.post(*args)
+        #self.write("not implemented yet")
+
+    def post(self, *args):
+        """
+
+        """
+
+        env = Environment(loader=FileSystemLoader('templates'))
+
+        (command) = args[0]
+
+        print "visCampaignsHandler: {} ".format(command)
+        direnaj_auth_secrets = keystore.direnaj_auth_secrets.copy()
+
+        if command == "new":
+            campaign_id = self.get_argument('campaign_id')
+            description = self.get_argument('description')
+            query_terms = self.get_argument('query_terms')
+            post_data = {"campaign_id": campaign_id, "description": description, "query_terms": query_terms}
+            post_data.update(direnaj_auth_secrets)
+            post_response = requests.post(url=app_root_url + '/campaigns/new', data=post_data)
+            dat = bson.json_util.loads(post_response.content)
+
+            self.createThread(campaign_id, query_terms)
+
+            template = env.get_template('campaigns/new.html')
+            result = template.render(result=dat)
+        elif command == "list":
+            post_response = requests.post(url=app_root_url + '/campaigns/list', data=direnaj_auth_secrets)
+            dat = bson.json_util.loads(post_response.content)
+
+            template = env.get_template('campaigns/list.html')
+            result = template.render(campaigns=dat, threads=threads)
+        elif command == "create_thread":
+            campaign_id = self.get_argument('campaign_id')
+            query_terms = self.get_argument('query_terms')
+
+            self.createThread(campaign_id, query_terms)
+
+            template = env.get_template('campaigns/new.html')
+            result = template.render(result={'status': 'success'})
+        elif command == "kill_thread":
+            campaign_id = self.get_argument('campaign_id')
+
+            self.killThread(campaign_id)
+
+            template = env.get_template('campaigns/new.html')
+            result = template.render(result={'status': 'success'})
+
+        self.write(result)
+
+    def createThread(self, campaign_id, query_terms):
+        t = StreamCatcher(
+                campaign_id=campaign_id,
+                postdata={"track": query_terms})
+        t.start()
+        threads.append([t, campaign_id, query_terms])
+
+    def killThread(self, campaign_id):
+        tmp = []
+        for t in threads:
+            if t[1] != campaign_id:
+                tmp.append(t)
+        threads = tmp
