@@ -279,8 +279,15 @@ class visCampaignsHandler(tornado.web.RequestHandler):
         threads.append([t, campaign_id, query_terms])
 
     def killThread(self, campaign_id):
-        tmp = []
-        for t in threads:
-            if t[1] != campaign_id:
-                tmp.append(t)
-        threads = tmp
+        i = 0
+        while True:
+            if i == len(threads):
+                break
+            else:
+                thread = threads[i]
+                if thread[1] == campaign_id:
+                    threads.pop(i)
+                    thread[0].terminate()
+                else:
+                    i = i + 1
+
