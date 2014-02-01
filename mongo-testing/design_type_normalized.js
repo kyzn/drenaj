@@ -33,7 +33,7 @@ lap2 = new Date();
 var res = db.tweets.find({ "user_id_str": { $in : query_profile_ids } }).count();
 toc = new Date();
 execution_secs = (toc - lap2) +  (lap1-tic);
-print( "!## IDs: Count number of tweets of " + get_tweets_for_profiles_query_profile_number + ' profiles. Result: ' + res + ' Time: '  + execution_secs );
+print( "### IDs: Count number of tweets of " + get_tweets_for_profiles_query_profile_number + ' profiles. Result: ' + res + ' Time: '  + execution_secs );
 
 
 // query number of tweets made by randomly selected get_tweets_for_profiles_query_profile_number number of user
@@ -53,6 +53,6 @@ for( var i=0; i<get_tweets_for_profiles_query_profile_number; i++){
 }
 toc = new Date();
 execution_secs = (toc - tic) ;
-print( "### INDEXES: Count number of tweets of " + get_tweets_for_profiles_query_profile_number + ' profiles. Result: ' + res + ' Time: '  + execution_secs );
+print( "!## INDEXES: Count number of tweets of " + get_tweets_for_profiles_query_profile_number + ' profiles. Result: ' + res + ' Time: '  + execution_secs );
 
 print("done");

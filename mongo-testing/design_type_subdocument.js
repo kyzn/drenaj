@@ -16,16 +16,17 @@ toc = new Date();
 
 execution_secs = (toc - tic) ;
 
-print( "!### XXXXXXXXXXXXXXXX Time: "  + execution_secs );
+print( "### XXXXXXXXXXXXXXXX Time: "  + execution_secs );
 
 print("done");
-// // query number of tweets made by randomly selected get_tweets_for_profiles_query_profile_number number of user
-// var query_profile_inds = [];
-// for( var i=0; i<get_tweets_for_profiles_query_profile_number; i++){
-//     query_profile_inds.push( String(Random.randInt(profile_num)) );
-// }
-// tic = new Date();
-// var res = db.tweets.find({ "profile.id_str":{ $in: query_profile_inds } }).count()
-//
-// toc = new Date();
+// query number of tweets made by randomly selected get_tweets_for_profiles_query_profile_number number of user
+var query_profile_inds = [];
+for( var i=0; i<get_tweets_for_profiles_query_profile_number; i++){
+    query_profile_inds.push( String(Random.randInt(profile_num)) );
+}
+tic = new Date();
+var res = db.tweets.find({ "profile.id_str":{ $in: query_profile_inds } }).count()
 
+toc = new Date();
+
+print( "!### XXXXXXXXXXXXXXXX Time: "  + execution_secs );
