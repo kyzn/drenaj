@@ -29,8 +29,14 @@
     <th>{{ user.friends_count}}</th>
     <th>{{ user.followers_count}}</th>
     <th>{{ user.statuses_count}}</th>
-    <th>{{ user.created_at}}</th>
-    <th>{{ user.retrieved_at}}</th>
+    <th>
+        {% if user.created_at is string %}
+            {{ user.created_at }}
+        {% else %}
+            {{ drnj_time.drnj_time2str(user.created_at)}}
+        {% endif %}
+    </th>
+    <th>{{ drnj_time.drnj_time2str(user.record_retrieved_at)}}</th>
   </tr>
     {% endfor %}
 </table>

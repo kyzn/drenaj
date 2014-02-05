@@ -155,6 +155,7 @@ class visSingleProfileHandler(tornado.web.RequestHandler):
         print dat
 
         env = Environment(loader=FileSystemLoader('templates'))
+        env.globals['drnj_time'] = drnj_time
         template = env.get_template('profiles/history_view.html')
         result = template.render(profiles=dat)
 

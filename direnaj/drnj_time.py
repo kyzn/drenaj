@@ -38,3 +38,13 @@ def drnj_time2py_time(dt):
     """
     t = (dt-number_of_days_from_1_Jan_0000_to_1_Jan_1970)*24.0*60*60
     return t
+
+
+def py_time2str(t):
+    utc_time_format = '%a %b %d %H:%M:%S +0000 %Y'
+    return time.strftime(utc_time_format, time.gmtime(t))
+
+
+def drnj_time2str(dt):
+    t = drnj_time2py_time(dt)
+    return py_time2str(t)
