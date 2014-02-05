@@ -16,7 +16,7 @@
     <th> created_at </th>
     <th> record_retrieved_at </th>
     {% for user in profiles %}
-    
+
     {% if user.protected %}
     <tr style="background-color:gray">
     {% else %}
@@ -29,8 +29,8 @@
     <th>{{ user.friends_count}}</th>
     <th>{{ user.followers_count}}</th>
     <th>{{ user.statuses_count}}</th>
-    <th>{{ user.created_at_ctime}}</th>
-    <th>{{ user.ctime }}</th>
+    <th>{{ user.created_at}}</th>
+    <th>{{ user.retrieved_at}}</th>
   </tr>
     {% endfor %}
 </table>

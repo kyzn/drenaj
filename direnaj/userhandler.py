@@ -78,6 +78,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 tmp = []
                 for record in cursor:
                     user = record['tweet']['user']
+                    user['record_retrieved_at'] = record['record_retrieved_at']
                     #id_str = user['id_str']
                     #user['known_followers_count'] = graph_coll.find({'friend_id_str': id_str}).count();
                     #user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
