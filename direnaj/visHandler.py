@@ -101,7 +101,7 @@ class visFollowerHandler(tornado.web.RequestHandler):
         print "visFollowerHandler: {} {}".format(friends_or_followers, crawl_or_view)
         if crawl_or_view=='crawl':
             user_id = self.get_argument('user_id', None)
-            res = drnj_graph_crawler(friends_or_followers, int(user_id), access_token_key, access_token_secret)
+            res = drnj_graph_crawler(friends_or_followers, int(user_id))
             env = Environment(loader=FileSystemLoader('templates'))
             template = env.get_template('profiles/crawl_graph_notification.html')
             result = template.render(user_id=user_id, fof=friends_or_followers, res=res, href=vis_root_url)
