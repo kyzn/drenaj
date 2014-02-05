@@ -111,6 +111,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                     # For example, treat 'entities', 'user' specially.
                     for tweet_obj in tweet_array:
                         tmp_status_id_strs.append(tweet_obj['id_str'])
+                        tweet_obj['user']['history'] = False
                         tmp_tweets.append(validate_document(new_tweet_template(), {
                             "tweet": tweet_obj,
                             # TODO: Replace this DB_TEST_VERSION with source code

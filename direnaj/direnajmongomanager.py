@@ -31,6 +31,9 @@ colls = {
 #
 
 tweets_coll.create_index([('campaign_id', pymongo.ASCENDING), ('tweet.created_at', pymongo.ASCENDING)])
+tweets_coll.create_index([('campaign_id', pymongo.ASCENDING), ('tweet.user.id_str', pymongo.ASCENDING), ('tweet.user.history', pymongo.ASCENDING)])
+tweets_coll.create_index([('tweet.user.id_str', pymongo.ASCENDING), ('tweet.user.history', pymongo.ASCENDING)])
+
 histograms_coll.create_index([('campaign_id', pymongo.ASCENDING), ('created_at', pymongo.ASCENDING)])
 
 campaigns_coll.ensure_index([("campaign_id", 1)], unique=True)
@@ -250,6 +253,11 @@ def calculate_campaign_histograms(campaign_id, n_bins=100):
 def get_campaign_histograms(campaign_id):
     hists = histograms_coll.find({'campaign_id': campaign_id}).sort([('created_at', -1)])
     return hists
+
+
+def move_to_history(user_id):
+    tweets_coll.update({'tweet.user.id_str': user_id, 'tweet.user.history': False},
+                       {'$set': {'tweet.user.history': True}})
 
 def insert_tweet(tweet_obj_array):
 

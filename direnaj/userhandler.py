@@ -221,6 +221,7 @@ def store_multiple_profiles(ids, S, drnjID, campaign_id):
             status['text'] = None
 
         status['user'] = S[i]
+        status['user']['history'] = False
 
         tweet_dat = validate_document(new_tweet_template(), {
             "tweet": status,
@@ -268,6 +269,10 @@ def store_multiple_profiles(ids, S, drnjID, campaign_id):
 ##             profiles_history_collection.insert(prof)
 ##
 ##         profiles_collection.insert(profile_dat)
+
+        # this call marks the current entries as history
+        # maybe we won't need this for certain queries
+        direnajmongomanager.move_to_history(user_id)
 
         direnajmongomanager.insert_tweet(tweet_dat)
 #        tweets_collection.insert(tweet_dat)
