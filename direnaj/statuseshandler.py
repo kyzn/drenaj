@@ -101,7 +101,6 @@ class StatusesHandler(tornado.web.RequestHandler):
                     tmp_coordinates = []
                     tmp_status_id_strs = []
                     tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
-                    campaigns_tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['campaigns_tweets']
                     hashtags_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['hashtags']
                     urls_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['urls']
                     user_mentions_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['user_mentions']
@@ -172,7 +171,6 @@ class StatusesHandler(tornado.web.RequestHandler):
                                 {"coordinates": coordinates, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
                     direnajmongomanager.insert_tweet(tmp_tweets)
 #                    tweets_coll.insert(tmp_tweets)
-                    campaigns_tweets_coll.insert([{'status_id_str': x, 'campaign_id': campaign_id} for x in tmp_status_id_strs])
                 else:
                     tmp = []
 
