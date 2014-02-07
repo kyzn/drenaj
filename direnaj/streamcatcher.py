@@ -165,7 +165,7 @@ class StreamCatcher(multiprocessing.Process):
         while not stop_trying:
             try:
                 response = requests.post(self.direnaj_store_url,
-                                        params=params)
+                                        data=params)
                 stop_trying = True
             except requests.exceptions.ConnectionError, e:
                 if exp_backoff_duration > 2**2:
