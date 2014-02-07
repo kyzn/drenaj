@@ -70,9 +70,9 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 # if no user_id is supplied.
                 if user_id is None:
                     # running the query
-                    cursor = direnajmongomanager.tweets_coll.find().sort('tweet.record_retrieved_at', -1).limit(lim_count)
+                    cursor = direnajmongomanager.tweets_coll.find().sort('record_retrieved_at', -1).limit(lim_count)
                 else:
-                    cursor = direnajmongomanager.tweets_coll.find({'tweet.user.id_str': user_id}).sort('tweet.record_retrieved_at', -1).limit(lim_count)
+                    cursor = direnajmongomanager.tweets_coll.find({'tweet.user.id_str': user_id}).sort('record_retrieved_at', -1).limit(lim_count)
 
                 #tmp = [x for x in cursor]
                 tmp = []
