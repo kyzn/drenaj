@@ -1,7 +1,7 @@
-''' 
+'''
 Stores Retrieved followers or friends of a user
 
-''' 
+'''
 
 # Change History :
 # Date                                          Prog    Note
@@ -46,7 +46,7 @@ class FollowerHandler(tornado.web.RequestHandler):
 
         auth_user_id = self.get_argument('auth_user_id')
 
-        
+
         if ((store_or_view != None and store_or_view == 'view') or (store_or_view == None)):
             try:
                 user_id = self.get_argument('user_id')
@@ -74,11 +74,12 @@ class FollowerHandler(tornado.web.RequestHandler):
                     if ids_or_list == 'ids':
                         tmp = [x for x in cursor]
                     elif ids_or_list == 'list':
-                        profiles_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles']
+                        # profiles_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles']
+                        tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
                         # We need to gather the list of 'opposite' side.
                         ids = [x[id_field_prefix_graph_query_opposite+'id_str'] for x in cursor]
                         print ids
-                        cursor = profiles_coll.find({'id_str': {'$in': ids}})
+                        cursor = tweets_coll.find({'tweet.user.id_str': {'$in': ids}, 'tweet.user.history': False})
                         tmp = [x for x in cursor]
                 self.write(bson.json_util.dumps({'results': tmp}))
                 self.add_header('Content-Type', 'application/json')
@@ -132,7 +133,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
                            }
         # creates entry if query does not exist
         # queue_collection.update(queue_query, queue_document, upsert=True)
-        
+
         queue_collection.update(queue_query, queue_document)
 
     else:
@@ -188,7 +189,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
             return
 
         edge = graph_collection.find_one({"id": source, "friend_id": sink})
-        
+
         if edge == None:
             doc = validate_document(new_graph_document(),{
              'id': source,
@@ -201,6 +202,6 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
             graph_collection.insert(doc)
             num_edges_inserted += 1;
 
-    # TODO: Handle unfollows: Find edges that no longer exist and move old record to graph_history and add unfollow record 
+    # TODO: Handle unfollows: Find edges that no longer exist and move old record to graph_history and add unfollow record
 
     return {'num_new_users': num_new_discovered_users, 'num_new_edges': num_edges_inserted}

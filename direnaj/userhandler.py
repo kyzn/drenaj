@@ -240,27 +240,21 @@ def store_multiple_profiles(ids, S, drnjID, campaign_id):
         # print profile_dat
 
         # Check Queue
-        queue_query = {"id": user_id}
-        id_exists = direnajmongomanager.queue_coll.find(queue_query).count() > 0
         now = drnj_time.now_in_drnj_time()
-
-        if id_exists:
-            queue_document = {"$set":
-                              {
-                                  "profile_retrieved_at": now,
-                                  "retrieved_by": drnjID}
-                              }
-            # creates entry if query does not exist
-            direnajmongomanager.queue_coll.update(queue_query, queue_document)
-        else:
-            queue_document = validate_document(new_queue_document(), {
-                "id": int(user_id),
-                "id_str": user_id,
-                "profile_retrieved_at": now,
+        queue_query = {"id": user_id}
+        queue_document = validate_document(new_queue_document(), {
+            "id": int(user_id),
+            "id_str": user_id,
+            "profile_retrieved_at": now,
+            "$setOnInsert": {
                 "friends_retrieved_at": 0,
                 "followers_retrieved_at": 0,
-                "retrieved_by": drnjID
-            })
+            },
+            "retrieved_by": drnjID
+        })
+
+        # creates entry if query does not exist
+        direnajmongomanager.queue_coll.update(queue_query, queue_document, upsert=True)
 
         # Insert to profiles
 ##         profiles_query = {"profile.id": user_id}

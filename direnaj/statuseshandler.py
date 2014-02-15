@@ -94,22 +94,20 @@ class StatusesHandler(tornado.web.RequestHandler):
                     #tweet_array = bson.json_util.loads(tweet_data, object_hook=self.datetime_hook)
                     tweet_array = bson.json_util.loads(tweet_data)
                     tmp_tweets = []
-                    tmp_hashtags = []
-                    tmp_urls = []
-                    tmp_user_mentions = []
-                    tmp_medias = []
-                    tmp_coordinates = []
-                    tmp_status_id_strs = []
+###                     tmp_hashtags = []
+###                     tmp_urls = []
+###                     tmp_user_mentions = []
+###                     tmp_medias = []
+###                     tmp_coordinates = []
                     tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
-                    hashtags_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['hashtags']
-                    urls_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['urls']
-                    user_mentions_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['user_mentions']
-                    medias_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['medias']
-                    coordinates_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['coordinates']
+###                     hashtags_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['hashtags']
+###                     urls_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['urls']
+###                     user_mentions_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['user_mentions']
+###                     medias_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['medias']
+###                     coordinates_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['coordinates']
                     # TODO: Sanity check the data!
                     # For example, treat 'entities', 'user' specially.
                     for tweet_obj in tweet_array:
-                        tmp_status_id_strs.append(tweet_obj['id_str'])
                         tweet_obj['user']['history'] = False
                         tmp_tweets.append(validate_document(new_tweet_template(), {
                             "tweet": tweet_obj,
@@ -122,53 +120,53 @@ class StatusesHandler(tornado.web.RequestHandler):
                         }, fail=False))
                         ### TODO: add these users later.
                         ### tmp_users.append(validate_document(new_user_template(), tweet_obj['user']))
-                        if 'entities' in tweet_obj:
-                            if 'hashtags' in tweet_obj['entities']:
-                                tmp_hashtags.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['hashtags'])
-                            if 'urls' in tweet_obj['entities']:
-                                tmp_urls.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['urls'])
-                            if 'user_mentions' in tweet_obj['entities']:
-                                tmp_user_mentions.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['user_mentions'])
-                            if 'media' in tweet_obj['entities']:
-                                tmp_medias.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['media'])
-                        if 'coordinates' in tweet_obj and tweet_obj['coordinates']:
-                            tmp_coordinates.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at'], tweet_obj['coordinates']])
+###                         if 'entities' in tweet_obj:
+###                             if 'hashtags' in tweet_obj['entities']:
+###                                 tmp_hashtags.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['hashtags'])
+###                             if 'urls' in tweet_obj['entities']:
+###                                 tmp_urls.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['urls'])
+###                             if 'user_mentions' in tweet_obj['entities']:
+###                                 tmp_user_mentions.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['user_mentions'])
+###                             if 'media' in tweet_obj['entities']:
+###                                 tmp_medias.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at']] + tweet_obj['entities']['media'])
+###                         if 'coordinates' in tweet_obj and tweet_obj['coordinates']:
+###                             tmp_coordinates.append([tweet_obj['id_str'], campaign_id, tweet_obj['created_at'], tweet_obj['coordinates']])
                     # TODO: parametrize these 4 for loops later.
-                    for el in tmp_hashtags:
-                        status_id = el[0]
-                        created_at = el[2]
-                        campaign_id = el[1]
-                        for hashtag in el[3:]:
-                            hashtags_coll.insert(validate_document(new_hashtag_template(),
-                                {"hashtag": hashtag, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
-                    for el in tmp_urls:
-                        status_id = el[0]
-                        created_at = el[2]
-                        campaign_id = el[1]
-                        for url in el[3:]:
-                            urls_coll.insert(validate_document(new_url_template(),
-                                {"url": url, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
-                    for el in tmp_user_mentions:
-                        status_id = el[0]
-                        created_at = el[2]
-                        campaign_id = el[1]
-                        for user_mention in el[3:]:
-                            user_mentions_coll.insert(validate_document(new_user_mention_template(),
-                                {"user_mention": user_mention, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
-                    for el in tmp_medias:
-                        status_id = el[0]
-                        created_at = el[2]
-                        campaign_id = el[1]
-                        for media in el[3:]:
-                            medias_coll.insert(validate_document(new_media_template(),
-                                {"media": media, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
-                    for el in tmp_coordinates:
-                        status_id = el[0]
-                        created_at = el[2]
-                        campaign_id = el[1]
-                        coordinates = el[3]
-                        coordinates_coll.insert(validate_document(new_coordinates_template(),
-                                {"coordinates": coordinates, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
+###                     for el in tmp_hashtags:
+###                         status_id = el[0]
+###                         created_at = el[2]
+###                         campaign_id = el[1]
+###                         for hashtag in el[3:]:
+###                             hashtags_coll.insert(validate_document(new_hashtag_template(),
+###                                 {"hashtag": hashtag, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
+###                     for el in tmp_urls:
+###                         status_id = el[0]
+###                         created_at = el[2]
+###                         campaign_id = el[1]
+###                         for url in el[3:]:
+###                             urls_coll.insert(validate_document(new_url_template(),
+###                                 {"url": url, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
+###                     for el in tmp_user_mentions:
+###                         status_id = el[0]
+###                         created_at = el[2]
+###                         campaign_id = el[1]
+###                         for user_mention in el[3:]:
+###                             user_mentions_coll.insert(validate_document(new_user_mention_template(),
+###                                 {"user_mention": user_mention, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
+###                     for el in tmp_medias:
+###                         status_id = el[0]
+###                         created_at = el[2]
+###                         campaign_id = el[1]
+###                         for media in el[3:]:
+###                             medias_coll.insert(validate_document(new_media_template(),
+###                                 {"media": media, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
+###                     for el in tmp_coordinates:
+###                         status_id = el[0]
+###                         created_at = el[2]
+###                         campaign_id = el[1]
+###                         coordinates = el[3]
+###                         coordinates_coll.insert(validate_document(new_coordinates_template(),
+###                                 {"coordinates": coordinates, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
                     direnajmongomanager.insert_tweet(tmp_tweets)
 #                    tweets_coll.insert(tmp_tweets)
                 else:

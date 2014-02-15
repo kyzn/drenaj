@@ -1,7 +1,7 @@
-''' 
+'''
  Profiles Crawler
 
-''' 
+'''
 
 # Change History :
 # Date                                          Prog    Note
@@ -27,12 +27,13 @@ from tornado.escape import json_decode,json_encode
 environment = DIRENAJ_APP_ENVIRONMENT
 app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[environment])
 
-# TODO: Direnaj Login 
+# TODO: Direnaj Login
 # Create DirenjUser and Password the first time
 
 # These mongodb indices must be defined
 # > db.queue.ensureIndex({id: 1}, {unique: true})
 # > db.graph.ensureIndex({id: 1})
+# THESE TWO collections no more exist. -onurgu
 # > db.profiles.ensureIndex({id: 1}, {unique: true})
 # > db.users.ensureIndex({id: 1})
 
@@ -54,10 +55,10 @@ def drnj_profiles_crawler(ids):
 
     # Number of calls to the twitter API
     remain = 0
-    
+
     # True if data is fetched correctly
     success = True
-    
+
     # Seconds to wait before trying again twitter limit
     wait = 60;
 
@@ -75,17 +76,17 @@ def drnj_profiles_crawler(ids):
     try:
         S = twitter.get('users/lookup', {'user_id': ids,'include_entities': True})
 
-        print '{} id''s queried, {} retrieved '.format(len(ids), len(S))  
+        print '{} id''s queried, {} retrieved '.format(len(ids), len(S))
 
         post_data = {"user_id": json_encode(ids), "v": json_encode(S), "auth_user_id": auth_user_id, "auth_password": auth_password}
         post_response = requests.post(url=app_root_url + '/profiles/store', data=post_data)
         print "%s" % post_response.content
-       
-        
+
+
     except TwythonError as e:
         print e
         print "Error while fetching user profile from twitter, quitting ..."
-        return 
+        return
 
 
 

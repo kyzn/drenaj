@@ -27,6 +27,7 @@ app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[environ
 # These mongodb indices must be defined
 # > db.queue.ensureIndex({id: 1}, {unique: true})
 # > db.graph.ensureIndex({id: 1})
+# THESE TWO collections no more exist. -onurgu
 # > db.profiles.ensureIndex({id: 1}, {unique: true})
 # > db.users.ensureIndex({id: 1})
 
