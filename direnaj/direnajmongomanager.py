@@ -39,6 +39,9 @@ histograms_coll.create_index([('campaign_id', pymongo.ASCENDING), ('created_at',
 
 campaigns_coll.ensure_index([("campaign_id", 1)], unique=True)
 
+graph_coll.create_index([('id_str', pymongo.ASCENDING), ('following', pymongo.ASCENDING)])
+graph_coll.create_index([('friend_id_str', pymongo.ASCENDING), ('following', pymongo.ASCENDING)])
+
 for key in colls.keys():
     colls[key].create_index([('campaign_id', pymongo.ASCENDING), ('date', pymongo.ASCENDING), ('key', pymongo.ASCENDING)])
 
