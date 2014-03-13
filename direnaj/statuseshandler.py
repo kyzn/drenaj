@@ -76,7 +76,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                     tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
                     # running the query
                     cursor = tweets_coll.find({
-                        'tweet.user_id_str': str(user_id),
+                        'tweet.user.id_str': str(user_id),
                     })
 
                     tmp = [x for x in cursor]
