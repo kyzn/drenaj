@@ -332,8 +332,8 @@ def insert_tweet(tweet_obj_array):
         today_str = time.strftime('%Y-%m-%d', gm_t)
         hour = time.strftime('%H', gm_t)
         minute = "%04d" % (int(hour)*60 + int(time.strftime('%M', gm_t)))
-        print today_str
-        print hour + ':' + minute
+        # print today_str
+        # print hour + ':' + minute
 
         for key in freq:
             for item in freq[key].keys():
