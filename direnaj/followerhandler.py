@@ -67,7 +67,6 @@ class FollowerHandler(tornado.web.RequestHandler):
                     # running the query
                     cursor = graph_coll.find({
                         id_field_prefix_graph_query+'id_str': str(user_id),
-                        'following': 1
                     })
 
                     tmp = []
