@@ -221,14 +221,24 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='streamercatcher')
     parser.add_argument('campaign_id', help='campaign name')
     parser.add_argument('keyword', default='türkiye', help='campaign name')
+    parser.add_argument('--language')
     args = parser.parse_args()
 
     campaign_id = args.campaign_id
+    if args.language:
+        lang = args.language
+    else:
+        lang = None
     user_input = args.keyword
+
+    if lang:
+        postdata = {"track": user_input, "language": lang}
+    else:
+        postdata = {"track": user_input}
 
     t = StreamCatcher(
             campaign_id=campaign_id,
-            postdata={"track": user_input})
+        postdata=postdata)
     t.start()
     threads.append(t)
 
