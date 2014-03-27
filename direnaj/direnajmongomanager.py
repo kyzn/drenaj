@@ -60,7 +60,7 @@ def get_campaigns_list():
 
 def get_campaign_list_with_freqs(skip, limit):
 #    cursor = db.freq_campaigns.aggregate({"$group": { "campaign_id": "$key", "totalTweets": {"$sum": "$day_total"}}})
-    cursor = colls["campaigns"].aggregate(
+    cursor = colls["freq_campaigns"].aggregate(
         [{"$group": { "_id": "$key", "total": {"$sum": "$day_total"}, "last_date": {"$max": "$date"}}},
          {"$sort": {"last_date": -1, "total": -1}}, {"$skip": skip},
          {"$limit": limit}])
