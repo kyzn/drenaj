@@ -235,3 +235,9 @@ def tail_direnaj(environment=env.direnaj['environment']):
          prefix("workon direnaj"):
         with cd(env.direnaj['code_dir']):
             run("supervisorctl -s unix://%s tail direnaj_%s" % (env.direnaj['supervisor_socket_path'], environment))
+
+def restart_direnaj(environment=env.direnaj['environment']):
+    with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
+         prefix("workon direnaj"):
+        with cd(env.direnaj['code_dir']):
+            run("supervisorctl -s unix://%s restart direnaj_%s" % (env.direnaj['supervisor_socket_path'], environment))
