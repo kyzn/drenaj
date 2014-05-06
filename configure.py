@@ -11,6 +11,6 @@ if __name__ == "__main__":
     # read config.yaml and generate config.py
     conf = yaml.load(file(args.config_yaml_file, "r"))
     default_conf = yaml.load(file("host-configs/default-configs.yaml", "r"))
-    config_document_template = file("direnaj/config.py.tmpl", 'r').read()
+    config_document_template = file("direnaj-api/config/config.py.tmpl", 'r').read()
     config_py_document = Template(config_document_template).substitute(default_conf, **conf)
     file(args.config_py_file, 'w').write(config_py_document)
