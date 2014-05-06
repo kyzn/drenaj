@@ -10,12 +10,12 @@
 # TODO: Having separate code for a single and multiple profiles is not necessary
 # store_*_profile functions can be merged
 
-from config import *
-import drnj_time
+from config.config import *
 
-import direnajmongomanager
-from drnj_time import *
-from direnaj_collection_templates import *
+import utils.direnajmongomanager as direnajmongomanager
+import utils.drnj_time as drnj_time
+from utils.drnj_time import *
+from utils.direnaj_collection_templates import *
 
 import tornado.ioloop
 import tornado.web

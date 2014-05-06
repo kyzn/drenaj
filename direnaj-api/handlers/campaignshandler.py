@@ -1,5 +1,5 @@
-import direnajmongomanager
-from direnaj_auth import direnaj_simple_auth
+import utils.direnajmongomanager as direnajmongomanager
+from utils.direnaj_auth import direnaj_simple_auth
 
 import tornado.ioloop
 import tornado.web

@@ -10,7 +10,7 @@
 ###############################################################################
 
 # this module contains the configuration parameters
-from config import *
+from config.config import *
 
 import argparse
 

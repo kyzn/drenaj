@@ -1,7 +1,7 @@
 import sys, time
 
-from direnaj.config import *
-from direnaj.drnj_time import py_utc_time2drnj_time, drnj_time2py_time
+from config.config import *
+from utils.drnj_time import py_utc_time2drnj_time, drnj_time2py_time
 
 from pymongo import MongoClient
 

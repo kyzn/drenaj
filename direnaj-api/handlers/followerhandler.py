@@ -11,11 +11,11 @@ Stores Retrieved followers or friends of a user
 # Department of Computer Engineering, Bogazici University
 # e-mail :  taylan.cemgil@boun.edu.tr
 
-from config import *
-import drnj_time
+from config.config import *
+import utils.drnj_time as drnj_time
 
-from direnajmongomanager import *
-from direnaj_collection_templates import *
+from utils.direnajmongomanager import *
+from utils.direnaj_collection_templates import *
 
 import tornado.ioloop
 import tornado.web

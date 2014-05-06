@@ -4,14 +4,14 @@
 
 '''
 
-from followerhandler import *
-from statuseshandler import *
-from userhandler import *
-from campaignshandler import *
+from handlers.followerhandler import *
+from handlers.statuseshandler import *
+from handlers.userhandler import *
+from handlers.campaignshandler import *
 
-from schedulerMainHandler import SchedulerMainHandler
-from schedulerMainHandler import SchedulerReportHandler
-from schedulerMainHandler import SchedulerProfilesHandler
+from handlers.schedulerMainHandler import SchedulerMainHandler
+from handlers.schedulerMainHandler import SchedulerReportHandler
+from handlers.schedulerMainHandler import SchedulerProfilesHandler
 
 
 routes_config = [

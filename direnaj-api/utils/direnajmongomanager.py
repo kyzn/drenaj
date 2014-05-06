@@ -1,4 +1,4 @@
-from config import *
+from config.config import *
 from drnj_time import py_utc_time2drnj_time, drnj_time2py_time, now_in_drnj_time
 
 import time

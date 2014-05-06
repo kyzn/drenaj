@@ -1,14 +1,13 @@
-from config import *
-from drnj_time import *
+from config.config import *
 
-from direnajmongomanager import *
+from utils.direnajmongomanager import *
 
 import tornado.ioloop
 import tornado.web
 import random
 
 from tornado.escape import json_decode,json_encode
-from direnaj_auth import direnaj_simple_auth
+from utils.direnaj_auth import direnaj_simple_auth
 
 class SchedulerProfilesHandler(tornado.web.RequestHandler):
     def get(self, *args):

@@ -1,11 +1,11 @@
-from config import *
-import drnj_time
+from config.config import *
+import utils.drnj_time as drnj_time
 
-from direnaj_collection_templates import *
+from utils.direnaj_collection_templates import *
 
-import direnajmongomanager
-from direnajmongomanager import *
-from direnaj_auth import direnaj_simple_auth
+import utils.direnajmongomanager as direnajmongomanager
+
+from utils.direnaj_auth import direnaj_simple_auth
 
 import tornado.ioloop
 import tornado.web

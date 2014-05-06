@@ -1,4 +1,4 @@
-# This module contains the 
+# This module contains the
 #
 #  function generating valid document templates according to the the database schema
 #  new_<collection_name>_document()
@@ -6,13 +6,13 @@
 #  db initialization code
 #
 
-from config import *
+from config.config import *
 
 import random
 
-from direnajmongomanager import *
+from utils.direnajmongomanager import *
 from drnj_time import py_utc_time2drnj_time
-        
+
 
 def drop_all_collections(environment):
     mongo_client[DIRENAJ_DB[environment]]['graph'].drop()

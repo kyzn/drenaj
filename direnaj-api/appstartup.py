@@ -1,5 +1,5 @@
-from config import *
-from direnaj_routes_config import routes_config
+from config.config import *
+from config.direnaj_routes_config import routes_config
 
 import tornado.ioloop
 import tornado.web
