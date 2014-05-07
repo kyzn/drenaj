@@ -20,7 +20,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.command == 'init_db':
-        import direnajinitdb
+        import utils.direnajinitdb as direnajinitdb
         # TODO: using this dumb trick, because I don't want to change the commandline arguments now.
         if True:
             print "WARNING WARNING WARNING: all collections will be RESET!"
@@ -44,7 +44,7 @@ if __name__ == "__main__":
                     direnajinitdb.init_graphs(environment=DIRENAJ_APP_ENVIRONMENT, method='randomly')
                     direnajinitdb.init_users(environment=DIRENAJ_APP_ENVIRONMENT, method='randomly')
     elif args.command == 'dump_db':
-        import direnajinitdb
+        import utils.direnajinitdb as direnajinitdb
         direnajinitdb.dump_db(DIRENAJ_APP_ENVIRONMENT, DB_TEST_VERSION)
     elif args.command == 'runserver':
         import appstartup
