@@ -142,7 +142,7 @@ def setup_environment():
          prefix("workon direnaj"):
         with cd(env.direnaj['code_dir']):
             run("pip install -r env/env_requirements.txt")
-            run("python configure.py host-configs/config-%s-%s.yaml direnaj_api/config/config.py" % (env.direnaj['hostname'], env.direnaj['environment']))
+            run("python configure.py host-configs/config-%s-%s.yaml direnaj/direnaj_api/config/config.py" % (env.direnaj['hostname'], env.direnaj['environment']))
 
     # TODO: think about db initialization. it's manual right now.
 
