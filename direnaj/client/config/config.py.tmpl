@@ -1,0 +1,41 @@
+## This file needs to be processed into config.py
+
+__author__ = 'onur'
+
+DIRENAJ_VIS_ENVIRONMENT = 'development'
+DIRENAJ_VIS_HOST = 'localhost'
+DIRENAJ_VIS_PORT = {}
+DIRENAJ_VIS_PORT['production'] = 19998
+DIRENAJ_VIS_PORT['development'] = 19999
+DIRENAJ_VIS_PORT['test'] = 20000
+
+#DIRENAJ_APP_HOST = 'localhost'
+DIRENAJ_APP_HOST = 'direnaj-staging.cmpe.boun.edu.tr'
+DIRENAJ_APP_PORT = {}
+DIRENAJ_APP_PORT['production'] = 9998
+#DIRENAJ_APP_PORT['development'] = 9999
+DIRENAJ_APP_PORT['development'] = 80
+DIRENAJ_APP_PORT['test'] = 10000
+
+DIRENAJ_APP_ENVIRONMENT = 'development'
+
+DIRENAJ_AMQP_SERVER = DIRENAJ_APP_HOST
+# TODO: setup this from the direnaj-api. LATER. (This is called SETUP process)
+DIRENAJ_CLIENT_ID = "client1"
+
+class KeyStore:
+    def __init__(self):
+        # I chose to share this 'critical' information with all of our clients.
+        # I need to write about it later.
+        self.app_consumer_key = "SyyLuKNdeJ9lFeItE0Bg"
+        self.app_consumer_secret = "eOqzcigVBydHqDTaQLP1fcQY7wFZXPZICIBuIgOnb4"
+        # Obtain these from Twitter, TODO: during SETUP.
+        self.access_token_key = "x"
+        self.access_token_secret = "y"
+
+        # direnaj passwords
+        auth_user_id = 'direnaj'
+        auth_password = 'tamtam'
+
+        self.direnaj_auth_secrets = { 'auth_user_id':auth_user_id,
+                              'auth_password':auth_password}

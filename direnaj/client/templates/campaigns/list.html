@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+<title>Direnaj!</title>
+</head>
+<body>
+<h1>Create new campaign</h1>
+<form action="/campaigns/new">
+
+    <label>campaign_id </label><input name="campaign_id" type="text"><br/>
+    <label>query_terms</label><input name="query_terms" type="text"><br/>
+    <label>description </label><textarea name="description" cols=40 rows=5></textarea><br/>
+    <input type=submit value="submit"/>
+
+</form>
+<h1>Running clients on this instance</h1>
+<table border="1">
+    <th> campaign_id </th>
+    <th> query_terms </th>
+    <th> kill all of that clients campaign</th>
+    {% for thread in threads %}
+
+        <tr>
+            <td>{{ thread[1] }}</td>
+            <td>{{ thread[2] }}</td>
+            <td><a href="/campaigns/kill_thread?campaign_id={{ thread[1] }}">kill</a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+<h1>Campaigns</h1>
+<table border="1">
+    <th> campaign_id </th>
+    <th> description </th>
+    <th> query_terms </th>
+    <th> created_at </th>
+    <th> spawn another thread </th>
+    {% for campaign in campaigns %}
+
+        <tr>
+            <td>{{ campaign.campaign_id }}</td>
+            <td>{{ campaign.description}}</td>
+            <td>{{ campaign.query_terms}}</td>
+            <td>{{ campaign.created_at}}</td>
+            <td><a href="/campaigns/create_thread?campaign_id={{ campaign.campaign_id }}&query_terms={{ campaign.query_terms|urlencode }}">spawn</a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

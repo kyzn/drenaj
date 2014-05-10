@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+  <script type="text/javascript">
+function sign_in(){
+    $.post("/sign_in", {email: $('#email').val(),
+                        pass: $('#pass').val() }
+          ).done( function(msg){
+              $('#sign_menu').html( msg );
+              bind_controls();
+          });
+    return false; // do not reload
+};
+
+function sign_up(){
+    $.post("/sign_up", {email: $('#email').val(),
+                        pass: $('#pass').val() }
+          ).done( function(msg){
+              $('#sign_menu').html( msg );
+              bind_controls();
+          });
+    return false; // do not reload
+};
+
+function sign_out(){
+    $.post("/sign_out", {}
+          ).done( function(msg){
+              $('#sign_menu').html( msg );
+              bind_controls();
+          });
+    return false; // do not reload
+};
+
+function bind_controls(){
+    unbind_controls();
+    $('.sign_in').on('click', function(){ sign_in(); return false; } );
+    $('.sign_up').on('click', function(){ sign_up(); return false; } );
+    $('.sign_out').on('click', function(){ sign_out(); return false; } );
+};
+
+function unbind_controls(){
+    $('.sign_in').unbind('click');
+    $('.sign_up').unbind('click');
+    $('.sign_out').unbind('click');
+};
+
+function start_oauth(){
+    $.post("/start_oauth", {}
+          ).done( function(msg){
+              window.location = msg;
+          });
+    return false; // do not reload
+};
+
+$(document).ready(function(){
+    bind_controls();
+});
+</script>
+
+    <title>Direnaj!</title>
+</head>
+<body>
+  <div id="sign_menu">
+    {% if username %}
+    <div>
+      <table>
+        <tr>
+          <td>
+            {% if oauth_complete %}
+            <div  style="" id="rem_req_num">Remaining requests: {{rem_req_num}}</div>
+            {% else %}
+            <a onclick="start_oauth(); return false;" href="#">
+              Faster access: authorize twitterai from your twitter account.
+            </a>
+            {% endif %}
+          </td>
+          <td>
+            <button class="btn btn-warning sign_out pull-right">{{username}} | Sign out</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    {% else %}
+
+    <form>
+      <div>
+        <input type="text" placeholder="Email" id="email" class="form-control">
+      </div>
+      <div>
+        <input type="password" placeholder="Password" id="pass" class="form-control">
+      </div>
+      <button class="sign_in">Sign in</button>
+      <button class="sign_up">Sign up</button>
+    </form>
+    {% endif %}
+  </div>
+
+    <h1>{{ len }} Most Recently Retrieved User Profiles</h1>
+    <table border="1">
+    <th> id_str</th>
+    <th> screen_name </th>
+    <th> statuses_count </th>
+    <th></th>
+    <th> name </th>
+    <th> friends_count </th>
+    <th> followers_count </th>
+    <th> known_friends_count </th>
+    <th> known_followers_count </th>
+    {% for user in profiles %}
+     {% if user.protected %}
+    <tr style="background-color:gray">
+    {% else %}
+    <tr>
+    {% endif %}
+    <th>
+    <a href="{{ href }}/user/view?user_id={{ user.id_str}}">
+    {{ user.id_str}}
+    </a>
+    </th>
+    <th>{{user.screen_name}}</th>
+    <th>{{ user.statuses_count}}</th>
+    <th><img src="{{ user.profile_image_url }}" height="64" width="64"></th>
+    <th>{{ user.name}}</th>
+    <th>
+    <a href="{{ href }}/friends/crawl?user_id={{ user.id_str}}">
+    {{ user.friends_count}}
+    </a>
+    </th>
+    <th>
+    <a href="{{ href }}/followers/crawl?user_id={{ user.id_str}}">
+    {{ user.followers_count}}
+    </a>
+    </th>
+    <th>{{ user.known_friends_count}}</th>
+    <th>{{ user.known_followers_count}}</th>
+  </tr>
+    {% endfor %}
+</table>
+<br><br>
+
+</body>
+</html>

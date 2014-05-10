@@ -1,0 +1,18 @@
+<div>
+  <table>
+    <tr>
+      <td>
+	{% if oauth_complete %}
+	<div  style="" id="rem_req_num">Remaining requests: {{rem_req_num}}</div>
+	{% else %}
+	<a onclick="start_oauth(); return false;" href="#">
+	  Faster access: authorize twitterai from your twitter account.
+	</a>
+	{% end %}
+      </td>
+      <td>
+	<button class="btn btn-warning sign_out pull-right">{{username}} | Sign out</button>
+      </td>
+    </tr>
+  </table>
+</div>
