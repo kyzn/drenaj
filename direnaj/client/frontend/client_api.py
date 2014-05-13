@@ -186,12 +186,14 @@ class visCampaignsHandler(tornado.web.RequestHandler):
             campaign_type = self.get_argument('campaign_type')
             description = self.get_argument('description')
             query_terms = self.get_argument('query_terms')
-            users_to_follow = self.get_argument('users_to_follow')
+            user_id_strs_to_follow = self.get_argument('user_id_strs_to_follow')
+            user_screen_names_to_follow = self.get_argument('user_screen_names_to_follow')
             post_data = {"campaign_id": campaign_id,
                          "campaign_type": campaign_type,
                          "description": description,
                          "query_terms": query_terms,
-                         "users_to_follow": users_to_follow}
+                         "user_id_strs_to_follow": user_id_strs_to_follow,
+                         "user_screen_names_to_follow": user_screen_names_to_follow}
             post_data.update(direnaj_auth_secrets)
             post_response = requests.post(url=app_root_url + '/campaigns/new', data=post_data)
             dat = bson.json_util.loads(post_response.content)

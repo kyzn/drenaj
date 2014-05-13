@@ -44,15 +44,17 @@ class CampaignsHandler(tornado.web.RequestHandler):
                 description = self.get_argument('description', '')
                 campaign_type = self.get_argument('campaign_type', '') # timeline, streaming or both.
                 query_terms = self.get_argument('query_terms', '')
-                users_to_follow = self.get_argument('users_to_follow', '')
+                user_id_strs_to_follow = self.get_argument('user_id_strs_to_follow', '')
+                user_screen_names_to_follow = self.get_argument('user_screen_names_to_follow', '')
                 try:
-                    direnajmongomanager.create_campaign(\
+                    direnajmongomanager.create_campaign(
                         {
-                            'campaign_id': campaign_id,\
-                            'description': description,\
-                            'campaign_type': campaign_type,\
-                            'query_terms': query_terms,\
-                            'users_to_follow': users_to_follow,\
+                            'campaign_id': campaign_id,
+                            'description': description,
+                            'campaign_type': campaign_type,
+                            'query_terms': query_terms,
+                            'user_id_strs_to_follow': user_id_strs_to_follow,
+                            'user_screen_names_to_follow': user_screen_names_to_follow,
                         })
                     result = 'success'
                 except OperationFailure:
