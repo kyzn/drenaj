@@ -35,14 +35,18 @@ UNKNOWN_EXCEPTION_CODE = -5
 
 class TimelineHarvester(threading.Thread):
 
-    def __init__(self, twitter_api, logger, use_screenname, user_identifier, since_tweet_id):
+    def __init__(self, twitter_api, logger, user, since_tweet_id):
 
         # required for threads
         super(TimelineHarvester, self).__init__()
 
-        self.use_screenname = use_screenname
-
-        self.user_identifier = user_identifier
+        self.user = user
+        if self.user['id_str']:
+            self.use_screenname = False
+            self.user_identifier = self.user['id_str']
+        else:
+            self.use_screenname = True
+            self.user_identifier = self.user['screen_name']
 
         #self.screenname = screenname
 
@@ -219,14 +223,32 @@ class TimelineHarvester(threading.Thread):
         #for i in range(1, len(all_tweets)+1):
         #    tweet = all_tweets[len(all_tweets)-i]
             ##print tweet.AsJsonString()
+        other_identifier = ''
+        if len(all_tweets) > 0:
+            sample_tweet = all_tweets[0]
+            if self.user['id_str']:
+                other_identifier = sample_tweet['user']['screen_name']
+            else:
+                other_identifier = sample_tweet['user']['id_str']
         if self.use_screenname:
-            params = {'campaign_id': self.campaign_id}
+            params = {'campaign_id': self.campaign_id,
+                      'watchlist_related':{
+                          'since_tweet_id': last_processed_tweet_id,
+                          'page_not_found': page_not_found,
+                          'user': {
+                              'user_id_str': other_identifier,
+                              'screen_name': self.user_identifier
+                          }
+                      }}
         else:
             params = {'campaign_id': self.campaign_id,
                       'watchlist_related':{
-                      'since_tweet_id': last_processed_tweet_id,
-                      'page_not_found': page_not_found,
-                      'user_id_str': self.user_identifier,
+                          'since_tweet_id': last_processed_tweet_id,
+                          'page_not_found': page_not_found,
+                          'user': {
+                              'user_id_str': self.user_identifier,
+                              'screen_name': other_identifier
+                          }
                       }}
         self.post_tweets(params, [bson.json_util.loads(tweet.AsJsonString()) for tweet in all_tweets])
 #        return [last_tweet_id, since_tweet_id, n_tweets_retrieved, page_not_found]
@@ -450,7 +472,8 @@ class TimelineRetrievalTask(celery.Task):
                 # Assign stale API connections to the next job items.
                 # If there is a stale API connection, continue
                 if len(self.available_twitter_api_array) > 0:
-                    (user_identifier, since_tweet_id, page_not_found) = self.user_info_table.pop()
+                    (user, since_tweet_id, page_not_found) = self.user_info_table.pop()
+                    user_identifier = get_user_identifier(user)
                     # (since_tweet_id, page_not_found, update_required) = get_userinfo(self.db_cursor, user_identifier)
                     if page_not_found == 1:
                         self.logger.info("Skipping " + user_identifier + " (we got page not found error before)")
@@ -459,12 +482,12 @@ class TimelineRetrievalTask(celery.Task):
                     #    self.logger.info("Skipping " + user_identifier + " (not expired yet)")
                     else:
                         [token_owner_name, api] = self.available_twitter_api_array.pop()
-                        t = TimelineHarvester(api, self.logger, self.use_screenname, user_identifier, since_tweet_id)
+                        t = TimelineHarvester(api, self.logger, self.use_screenname, user, since_tweet_id)
                         task_start_time = time.time()
                         t.start()
                         self.logger.info("Thread "+token_owner_name+" => "+user_identifier+" starting..")
                         self.logger.info("PROGRESS: " + str(len(self.user_info_table)) + "/"+str(self.n_user_identifiers))
-                        self.jobs.append([t, user_identifier, task_start_time, api, token_owner_name])
+                        self.jobs.append([t, user, task_start_time, api, token_owner_name])
                 else:
                     # No stale API connections found, break out of this loop.
                     break
@@ -474,16 +497,13 @@ class TimelineRetrievalTask(celery.Task):
             tmp_jobs = []
             while len(self.jobs) > 0:
                 job = self.jobs.pop()
-                [t, user_identifier, task_start_time, api, token_owner_name] = job
+                [t, user, task_start_time, api, token_owner_name] = job
+                user_identifier = get_user_identifer(user)
                 t.join(0.001)
                 if not t.isAlive():
                     time_elapsed = int(time.time()-task_start_time)
                     self.logger.info("Stopping thread "+user_identifier+" - (duration: "+str(time_elapsed)+" secs) - "+token_owner_name)
-                    result = t.results_queue.get(True)
-                    since_tweet_id = result[0]
-                    page_not_found = result[2]
                     # update_userinfo(self.db_cursor, user_identifier, update_since_tweet_id, *result)
-                    t.post_ack(user_identifier, since_tweet_id, page_not_found)
                     self.available_twitter_api_array.append([token_owner_name, api])
                 else:
                     tmp_jobs.append(job)
@@ -557,7 +577,7 @@ if __name__ == "__main__":
                     logger.info("Skipping " + screenname + " (not expired yet)")
                 else:
                     [token_owner_name, api] = available_twitter_api_array.pop()
-                    t = TimelineHarvester(api, logger, True, screenname, since_tweet_id)
+                    t = TimelineHarvester(api, logger, True, {'user': {'screen_name': screenname, 'id_str': ''}}, since_tweet_id)
                     task_start_time = time.time()
                     t.start()
                     logger.info("Thread "+token_owner_name+" => "+screenname+" starting..")

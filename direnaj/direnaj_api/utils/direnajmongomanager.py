@@ -16,6 +16,7 @@ tweets_coll = db['tweets']
 histograms_coll = db['histograms']
 campaigns_coll = db['campaigns']
 watchlist_coll = db['watchlist']
+pre_watchlist_coll = db['pre_watchlist']
 
 colls = {
     'campaigns': db["freq_campaigns"],
@@ -46,26 +47,42 @@ watchlist_coll.create_index([('user.id_str', pymongo.ASCENDING)], unique=True)
 watchlist_coll.create_index([('state', pymongo.ASCENDING), ('updated_at', pymongo.DESCENDING)])
 watchlist_coll.create_index([('campaign_ids', pymongo.ASCENDING), ('state', pymongo.ASCENDING), ('updated_at', pymongo.DESCENDING)])
 
+pre_watchlist_coll.create_index([('user.id_str', pymongo.ASCENDING)])
+pre_watchlist_coll.create_index([('state', pymongo.ASCENDING)])
 
 for key in colls.keys():
     colls[key].create_index([('campaign_id', pymongo.ASCENDING), ('date', pymongo.ASCENDING), ('key', pymongo.ASCENDING)])
 
 
-def add_to_watchlist(campaign_id, users_to_follow):
-    print users_to_follow
-    lines = users_to_follow.split('\n')
-    print lines
+def prepare_users_to_be_added(user_id_strs_to_follow, type='id_str'):
+    print user_id_strs_to_follow
+    lines = user_id_strs_to_follow.split('\n')
     users_to_be_added = []
     for line in lines:
-        line_els = [l.strip() for l in line.split(',')]
-        print line_els
-        # first element must be user_id_str
-        # second element is optional. it should be the username for easier management by humans.
-        users_to_be_added.append(line_els[0])
+        user = dict()
+        if type == 'id_str':
+            user = {'user': {'id_str': line, 'screen_name': ''}}
+        else:
+            user = {'user': {'id_str': '', 'screen_name': line}}
+        users_to_be_added.append(user)
+    return users_to_be_added
+    # lines = user_id_strs_to_follow.split('\n')
+    # print lines
+    # users_to_be_added = []
+    # for line in lines:
+    #     line_els = [l.strip() for l in line.split(',')]
+    #     print line_els
+    #     # first element must be user_id_str
+    #     # second element is optional. it should be the username for easier management by humans.
+    #     users_to_be_added.append(line_els[0])
 
-    for user_id_str in users_to_be_added:
-        doc = {'user': { 'id_str': user_id_str,
-                         'screenname': ''},
+
+def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_follow):
+    users_to_be_added = prepare_users_to_be_added(user_id_strs_to_follow)
+    users_to_be_added.append(prepare_users_to_be_added(user_screen_names_to_follow, type='screen_name'))
+
+    for user in users_to_be_added:
+        doc = {'user': user['user'],
                'page_not_found': 0, # 0, no problem, 1, problem.
                'since_tweet_id': -1,
                'state': 0, # 0, inqueue, 1, processing
@@ -74,39 +91,84 @@ def add_to_watchlist(campaign_id, users_to_follow):
                'campaign_ids': [campaign_id],
         } # page_not_found: 0, no problem, 1, protected, 2, suspended, 3, other reasons.
         print doc
-        try:
-            # user.id_str field is unique, so it will fail if it exists.
-            watchlist_coll.insert(doc)
-        # TODO: explore OperationFailure here.
-        except Exception, e:
-            watchlist_coll.find_and_modify({'user.id_str': user_id_str},{'$push': {'campaign_ids': campaign_id}})
+        ret = watchlist_coll.find({'user.id_str': user['user']['id_str']})
+        if ret:
+            watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'campaign_ids': campaign_id}})
+            continue
+        else:
+            ret = watchlist_coll.find({'user.screen_name': user['user']['screen_name']})
+            if ret:
+                watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'campaign_ids': campaign_id}})
+                continue
+        pre_watchlist_coll.insert(doc)
+        # try:
+        #     # user.id_str field is unique, so it will fail if it exists.
+        #     watchlist_coll.insert(doc)
+        # # TODO: explore OperationFailure here.
+        # except Exception, e:
+        #     # TODO: addToSet.
+        #     watchlist_coll.find_and_modify({'user.id_str': user['id_str']},{'$push': {'campaign_ids': campaign_id}})
     return True
 
 
 from direnaj_api.celery_app.server_endpoint import app_object
 
 def create_batch_from_watchlist(n_users):
-    docs = watchlist_coll.find({'state': 0,
-                                'updated_at': {'$lt': xdays_before_now_in_drnj_time(1)}},
-                                ['user.id_str', 'since_tweet_id', 'page_not_found']).sort([('updated_at', 1)]).limit(n_users)
-    id_str_array = [d['user']['id_str'] for d in docs]
-    watchlist_coll.update({'user.id_str': {'$in': id_str_array}}, {'$set': {'state': 1}}, multi=True)
-    batch_array = [[d['user']['id_str'], d['since_tweet_id'], d['page_not_found']] for d in docs]
+    docs = pre_watchlist_coll.find({'state': 0}, fields=['user', 'since_tweet_id', 'page_not_found']).limit(n_users)
+    pre_watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs]}}, {'$set': {'state': 1}}, multi=True)
+    batch_array = [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs]
+    left_capacity = n_users - len(batch_array)
+    if left_capacity > 0:
+        docs = watchlist_coll.find({'state': 0,
+                                    'updated_at': {'$lt': xdays_before_now_in_drnj_time(1)}},
+                                   fields=['user', 'since_tweet_id', 'page_not_found'])\
+            .sort([('updated_at', 1)])\
+            .limit(left_capacity)
+        watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs]}}, {'$set': {'state': 1}}, multi=True)
+        batch_array += [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs]
     ### Now, use this batch_array to call TimelineRetrievalTask.
     res = app_object.send_task('timeline_retrieve_userlist',[batch_array])
+    # docs = watchlist_coll.find({'state': 0,
+    #                             'updated_at': {'$lt': xdays_before_now_in_drnj_time(1)}},
+    #                             ['user.id_str', 'since_tweet_id', 'page_not_found']).sort([('updated_at', 1)]).limit(n_users)
+    # id_str_array = [d['user']['id_str'] for d in docs]
+    # watchlist_coll.update({'user.id_str': {'$in': id_str_array}}, {'$set': {'state': 1}}, multi=True)
+    # batch_array = [[d['user']['id_str'], d['since_tweet_id'], d['page_not_found']] for d in docs]
+    # ### Now, use this batch_array to call TimelineRetrievalTask.
+    # res = app_object.send_task('timeline_retrieve_userlist',[batch_array])
 
-def update_watchlist(user_id_str, since_tweet_id, page_not_found):
-    watchlist_coll.update({'user.id_str': user_id_str}, {'$set': {'since_tweet_id': since_tweet_id,
-                                                                  'page_not_found': page_not_found,
-                                                                  'updated_at': now_in_drnj_time()}})
+def update_watchlist(user, since_tweet_id, page_not_found):
+    doc = pre_watchlist_coll.find({'user.id_str': user['id_str'], 'state': 1})
+    if not doc:
+        doc = pre_watchlist_coll.find({'user.screen_name': user['screen_name'], 'state': 1})
+    if doc:
+        pre_watchlist_coll.remove({'_id': doc['_id']})
+        del doc['_id']
+    else:
+        doc = watchlist_coll.find({'user.id_str': user['id_str'], 'state': 1})
+        # required for concurrency. at least I think so.
+        if doc:
+            pass
+        else:
+            return
+    doc['user'] = user['user']
+    doc['since_tweet_id'] = since_tweet_id
+    doc['page_not_found'] = page_not_found
+    doc['updated_at'] = now_in_drnj_time()
+    doc['state'] = 0
+    watchlist_coll.update({'user.id_str': doc['user']['id_str']}, doc, upsert=True)
+    # watchlist_coll.update({'user.id_str': user_id_str}, {'$set': {'since_tweet_id': since_tweet_id,
+    #                                                               'page_not_found': page_not_found,
+    #                                                               'updated_at': now_in_drnj_time()}})
 
 def create_campaign(params):
     created_at = now_in_drnj_time()
     params.update({'created_at': created_at})
-    users_to_follow = str(params["users_to_follow"])
+    user_id_strs_to_follow = str(params["user_id_strs_to_follow"])
+    user_screen_names_to_follow = str(params["user_screen_names_to_follow"])
     # removing it to be used elsewhere
-    params.pop("users_to_follow", None)
-    add_to_watchlist(params['campaign_id'], users_to_follow)
+    params.pop("user_screen_names_to_follow", None)
+    add_to_watchlist(params['campaign_id'], user_id_strs_to_follow, user_screen_names_to_follow)
     campaigns_coll.insert(params)
 
 def get_campaign(campaign_id):
