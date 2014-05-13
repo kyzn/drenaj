@@ -6,7 +6,7 @@ import os
 from client.config.config import *
 from client.frontend.routes_config import routes_config
 
-from client.celery_app.endpoint import app_object
+from client.celery_app.client_endpoint import app_object
 
 application = tornado.web.Application(routes_config,
                                       cookie_secret = 'vospRVBgTF6HTnghpd/za+UgiZ/NXUDUkTnYGx1d4hY=')
