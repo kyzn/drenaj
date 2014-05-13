@@ -490,7 +490,7 @@ class TimelineRetrievalTask(celery.Task):
                     #    self.logger.info("Skipping " + user_identifier + " (not expired yet)")
                     else:
                         [token_owner_name, api] = self.available_twitter_api_array.pop()
-                        t = TimelineHarvester(api, self.logger, self.use_screenname, user, since_tweet_id)
+                        t = TimelineHarvester(api, self.logger, user, since_tweet_id)
                         task_start_time = time.time()
                         t.start()
                         self.logger.info("Thread "+token_owner_name+" => "+user_identifier+" starting..")
@@ -506,7 +506,7 @@ class TimelineRetrievalTask(celery.Task):
             while len(self.jobs) > 0:
                 job = self.jobs.pop()
                 [t, user, task_start_time, api, token_owner_name] = job
-                user_identifier = self.get_user_identifer(user)
+                user_identifier = self.get_user_identifier(user)
                 t.join(0.001)
                 if not t.isAlive():
                     time_elapsed = int(time.time()-task_start_time)
