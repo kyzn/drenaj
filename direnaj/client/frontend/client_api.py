@@ -183,6 +183,7 @@ class visCampaignsHandler(tornado.web.RequestHandler):
 
         if command == "new":
             campaign_id = self.get_argument('campaign_id')
+            campaign_type = self.get_argument('campaign_type')
             description = self.get_argument('description')
             query_terms = self.get_argument('query_terms')
             users_to_follow = self.get_argument('users_to_follow')
