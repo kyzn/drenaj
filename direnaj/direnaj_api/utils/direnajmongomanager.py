@@ -79,7 +79,7 @@ def prepare_users_to_be_added(user_id_strs_to_follow, type='id_str'):
 
 def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_follow):
     users_to_be_added = prepare_users_to_be_added(user_id_strs_to_follow)
-    users_to_be_added.append(prepare_users_to_be_added(user_screen_names_to_follow, type='screen_name'))
+    users_to_be_added += prepare_users_to_be_added(user_screen_names_to_follow, type='screen_name')
 
     for user in users_to_be_added:
         doc = {'user': user['user'],
