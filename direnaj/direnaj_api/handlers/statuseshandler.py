@@ -90,6 +90,7 @@ class StatusesHandler(tornado.web.RequestHandler):
             try:
                 tweet_data = self.get_argument('tweet_data')
                 campaign_id = self.get_argument('campaign_id', 'default')
+                watchlist_related = self.get_argument('watchlist_related', '')
                 if tweet_data:
                     #tweet_array = bson.json_util.loads(tweet_data, object_hook=self.datetime_hook)
                     tweet_array = bson.json_util.loads(tweet_data)
@@ -99,7 +100,7 @@ class StatusesHandler(tornado.web.RequestHandler):
 ###                     tmp_user_mentions = []
 ###                     tmp_medias = []
 ###                     tmp_coordinates = []
-                    tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
+###                    tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
 ###                     hashtags_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['hashtags']
 ###                     urls_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['urls']
 ###                     user_mentions_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['user_mentions']
@@ -168,6 +169,8 @@ class StatusesHandler(tornado.web.RequestHandler):
 ###                         coordinates_coll.insert(validate_document(new_coordinates_template(),
 ###                                 {"coordinates": coordinates, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
                     direnajmongomanager.insert_tweet(tmp_tweets)
+                    if watchlist_related:
+                        direnajmongomanager.update_watchlist(**watchlist_related)
 #                    tweets_coll.insert(tmp_tweets)
                 else:
                     tmp = []
