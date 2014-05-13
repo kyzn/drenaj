@@ -91,12 +91,12 @@ def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_f
                'campaign_ids': [campaign_id],
         } # page_not_found: 0, no problem, 1, protected, 2, suspended, 3, other reasons.
         print doc
-        ret = watchlist_coll.find({'user.id_str': user['user']['id_str']})
+        ret = watchlist_coll.find_one({'user.id_str': user['user']['id_str']})
         if ret:
             watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'campaign_ids': campaign_id}})
             continue
         else:
-            ret = watchlist_coll.find({'user.screen_name': user['user']['screen_name']})
+            ret = watchlist_coll.find_one({'user.screen_name': user['user']['screen_name']})
             if ret:
                 watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'campaign_ids': campaign_id}})
                 continue
@@ -138,14 +138,14 @@ def create_batch_from_watchlist(n_users):
     # res = app_object.send_task('timeline_retrieve_userlist',[batch_array])
 
 def update_watchlist(user, since_tweet_id, page_not_found):
-    doc = pre_watchlist_coll.find({'user.id_str': user['id_str'], 'state': 1})
+    doc = pre_watchlist_coll.find_one({'user.id_str': user['id_str'], 'state': 1})
     if not doc:
-        doc = pre_watchlist_coll.find({'user.screen_name': user['screen_name'], 'state': 1})
+        doc = pre_watchlist_coll.find_one({'user.screen_name': user['screen_name'], 'state': 1})
     if doc:
         pre_watchlist_coll.remove({'_id': doc['_id']})
         del doc['_id']
     else:
-        doc = watchlist_coll.find({'user.id_str': user['id_str'], 'state': 1})
+        doc = watchlist_coll.find_one({'user.id_str': user['id_str'], 'state': 1})
         # required for concurrency. at least I think so.
         if doc:
             pass
