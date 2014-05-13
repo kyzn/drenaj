@@ -1,8 +1,9 @@
 __author__ = 'onur'
 
-from client.config.config import DIRENAJ_CLIENT_ID
-
 from kombu import Queue
+
+CELERY_ACKS_LATE = True
+CELERYD_PREFETCH_MULTIPLIER = 1
 
 BROKER_URL = 'amqp://%s' % "direnaj-staging.cmpe.boun.edu.tr"
 

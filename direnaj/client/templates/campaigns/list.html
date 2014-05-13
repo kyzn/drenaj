@@ -7,8 +7,15 @@
 <h1>Create new campaign</h1>
 <form action="/campaigns/new">
 
+    <label>campaign_type (informational for now)</label>
+    <select name="campaign_type">
+        <option value="streaming">Streaming</option>
+        <option value="timeline">Timeline</option>
+        <option value="both">Both</option>
+    </select><br/>
     <label>campaign_id </label><input name="campaign_id" type="text"><br/>
     <label>query_terms</label><input name="query_terms" type="text"><br/>
+    <label>users_to_follow (example format included)</label><textarea name="users_to_follow" cols=40 rows=5>14671745,onurgu</textarea><br/>
     <label>description </label><textarea name="description" cols=40 rows=5></textarea><br/>
     <input type=submit value="submit"/>
 

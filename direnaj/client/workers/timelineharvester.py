@@ -35,12 +35,17 @@ UNKNOWN_EXCEPTION_CODE = -5
 
 class TimelineHarvester(threading.Thread):
 
-    def __init__(self, twitter_api, logger, screenname, since_tweet_id):
+    def __init__(self, twitter_api, logger, use_screenname, user_identifier, since_tweet_id):
 
         # required for threads
         super(TimelineHarvester, self).__init__()
 
-        self.screenname = screenname
+        self.use_screenname = use_screenname
+
+        self.user_identifier = user_identifier
+
+        #self.screenname = screenname
+
         ## TODO: just for now.
         self.campaign_id = "timelines"
 
@@ -101,7 +106,7 @@ class TimelineHarvester(threading.Thread):
         self.logger.info(text)
 
     def getJobDescription(self):
-        return self.screenname
+        return self.user_identifier
 
     def makeApiCall(self, func, *args):
         finished = False
@@ -161,7 +166,10 @@ class TimelineHarvester(threading.Thread):
                 since_tweet_id = None
             # else:
             #     last_tweet_id = None
-        return self.api.GetUserTimeline(screen_name=self.screenname, include_rts=1, count=200, max_id=last_tweet_id, since_id=since_tweet_id)
+        if self.use_screenname:
+            return self.api.GetUserTimeline(screen_name=self.user_identifier, include_rts=1, count=200, max_id=last_tweet_id, since_id=since_tweet_id)
+        else:
+            return self.api.GetUserTimeline(user_id=self.user_identifier, include_rts=1, count=200, max_id=last_tweet_id, since_id=since_tweet_id)
 
     def fetchTimeline(self):
         all_tweets = []
@@ -208,11 +216,19 @@ class TimelineHarvester(threading.Thread):
         if ret_code == PAGE_NOT_FOUND_ERROR_CODE:
             page_not_found = 1
         self.log(self.getJobDescription() + ": Retrieved "+str(n_tweets_retrieved)+" tweets.")
-        for i in range(1, len(all_tweets)+1):
-            tweet = all_tweets[len(all_tweets)-i]
+        #for i in range(1, len(all_tweets)+1):
+        #    tweet = all_tweets[len(all_tweets)-i]
             ##print tweet.AsJsonString()
-        params = {'campaign_id': self.campaign_id }
-        self.post_to_gateway(params, [bson.json_util.loads(tweet.AsJsonString()) for tweet in all_tweets])
+        if self.use_screenname:
+            params = {'campaign_id': self.campaign_id}
+        else:
+            params = {'campaign_id': self.campaign_id,
+                      'watchlist_related':{
+                      'since_tweet_id': last_processed_tweet_id,
+                      'page_not_found': page_not_found,
+                      'user_id_str': self.user_identifier,
+                      }}
+        self.post_tweets(params, [bson.json_util.loads(tweet.AsJsonString()) for tweet in all_tweets])
 #        return [last_tweet_id, since_tweet_id, n_tweets_retrieved, page_not_found]
         return [since_tweet_id, n_tweets_retrieved, page_not_found]
 
@@ -278,13 +294,17 @@ class TimelineHarvester(threading.Thread):
     def progress(self, download_t, download_d, upload_t, upload_d):
         sys.stdout.write(".")
 
-    # TODO: Is it possible to make this call concurrent?
-    def post_to_gateway(self, params, tmp):
-
+    def post_tweets(self, params, tmp):
         if not tmp:
             return
 
         params.update({'tweet_data': bson.json_util.dumps(tmp)})
+
+        self.post_to_gateway(params, self.direnaj_store_url)
+
+    # TODO: Is it possible to make this call concurrent?
+    def post_to_gateway(self, params, url):
+
         ##xxx We have converted to JSON in this case.
         ## params.update({'tweet_data': tmp})
         params.update(self.direnaj_auth_secrets)
@@ -296,7 +316,7 @@ class TimelineHarvester(threading.Thread):
         response = None
         while not stop_trying:
             try:
-                response = requests.post(self.direnaj_store_url,
+                response = requests.post(url,
                                         data=params)
                 stop_trying = True
             except requests.exceptions.ConnectionError, e:
@@ -344,7 +364,6 @@ def update_userinfo(db_cursor, screenname, update_since_tweet_id, since_tweet_id
             db_cursor.execute("UPDATE users SET since_tweet_id = ?, n_tweets_retrieved = ?, page_not_found = ?, updated_at = ? WHERE screenname = ?", [since_tweet_id, cur_n_tweets_retrieved, page_not_found, updated_at, screenname])
         else:
             db_cursor.execute("UPDATE users SET n_tweets_retrieved = ?, page_not_found = ?, updated_at = ? WHERE screenname = ?", [cur_n_tweets_retrieved, page_not_found, updated_at, screenname])
-
 
 def get_userinfo(db_cursor, screenname):
     db_cursor.execute("SELECT * FROM users WHERE screenname = ?", [screenname])
@@ -417,31 +436,35 @@ class TimelineRetrievalTask(celery.Task):
 
         ## INITIALIZATION END
 
-    def run(self, screennames):
+    # By default, we use user_id_str's.
+    def run(self, user_info_table, use_screenname=False):
 
-        self.screennames = screennames
-        self.n_screennames = len(self.screennames)
+        self.use_screenname = use_screenname
+
+        self.user_info_table = user_info_table
+        self.n_user_identifiers = len(self.user_info_table)
 
         finished = False
         while not finished:
-            while len(self.screennames) > 0:
+            while len(self.user_info_table) > 0:
                 # Assign stale API connections to the next job items.
                 # If there is a stale API connection, continue
                 if len(self.available_twitter_api_array) > 0:
-                    screenname = self.screennames.pop()
-                    (since_tweet_id, page_not_found, update_required) = get_userinfo(self.db_cursor, screenname)
+                    (user_identifier, since_tweet_id, page_not_found) = self.user_info_table.pop()
+                    # (since_tweet_id, page_not_found, update_required) = get_userinfo(self.db_cursor, user_identifier)
                     if page_not_found == 1:
-                        self.logger.info("Skipping " + screenname + " (we got page not found error before)")
-                    elif not update_required:
-                        self.logger.info("Skipping " + screenname + " (not expired yet)")
+                        self.logger.info("Skipping " + user_identifier + " (we got page not found error before)")
+                    # removed this because this decision is taken at direnaj_api
+                    # elif not update_required:
+                    #    self.logger.info("Skipping " + user_identifier + " (not expired yet)")
                     else:
                         [token_owner_name, api] = self.available_twitter_api_array.pop()
-                        t = TimelineHarvester(api, self.logger, screenname, since_tweet_id)
+                        t = TimelineHarvester(api, self.logger, self.use_screenname, user_identifier, since_tweet_id)
                         task_start_time = time.time()
                         t.start()
-                        self.logger.info("Thread "+token_owner_name+" => "+screenname+" starting..")
-                        self.logger.info("PROGRESS: " + str(len(self.screennames)) + "/"+str(self.n_screennames))
-                        self.jobs.append([t, screenname, task_start_time, api, token_owner_name])
+                        self.logger.info("Thread "+token_owner_name+" => "+user_identifier+" starting..")
+                        self.logger.info("PROGRESS: " + str(len(self.user_info_table)) + "/"+str(self.n_user_identifiers))
+                        self.jobs.append([t, user_identifier, task_start_time, api, token_owner_name])
                 else:
                     # No stale API connections found, break out of this loop.
                     break
@@ -451,25 +474,20 @@ class TimelineRetrievalTask(celery.Task):
             tmp_jobs = []
             while len(self.jobs) > 0:
                 job = self.jobs.pop()
-                [t, screenname, task_start_time, api, token_owner_name] = job
+                [t, user_identifier, task_start_time, api, token_owner_name] = job
                 t.join(0.001)
                 if not t.isAlive():
                     time_elapsed = int(time.time()-task_start_time)
-                    self.logger.info("Stopping thread "+screenname+" - (duration: "+str(time_elapsed)+" secs) - "+token_owner_name)
+                    self.logger.info("Stopping thread "+user_identifier+" - (duration: "+str(time_elapsed)+" secs) - "+token_owner_name)
                     result = t.results_queue.get(True)
-                    tmp_n_tweets_retrieved = result[1]
-                    tmp_since_tweet_id = result[0]
-                    if t.since_tweet_id != -1 and tmp_since_tweet_id == -1:
-                        update_since_tweet_id = False
-                    else:
-                        update_since_tweet_id = True
-                    update_userinfo(self.db_cursor, screenname, update_since_tweet_id, *result)
-                    self.conn.commit()
+                    since_tweet_id = result[0]
+                    page_not_found = result[2]
+                    # update_userinfo(self.db_cursor, user_identifier, update_since_tweet_id, *result)
+                    t.post_ack(user_identifier, since_tweet_id, page_not_found)
                     self.available_twitter_api_array.append([token_owner_name, api])
                 else:
                     tmp_jobs.append(job)
             self.jobs = tmp_jobs
-        self.conn.close()
 
 if __name__ == "__main__":
 
@@ -539,7 +557,7 @@ if __name__ == "__main__":
                     logger.info("Skipping " + screenname + " (not expired yet)")
                 else:
                     [token_owner_name, api] = available_twitter_api_array.pop()
-                    t = TimelineHarvester(api, logger, screenname, since_tweet_id)
+                    t = TimelineHarvester(api, logger, True, screenname, since_tweet_id)
                     task_start_time = time.time()
                     t.start()
                     logger.info("Thread "+token_owner_name+" => "+screenname+" starting..")
