@@ -30,6 +30,9 @@ def py_utc_time2drnj_time(time_str):
     t = calendar.timegm(t)
     return py_time2drnj_time(t)
 
+def xdays_before_now_in_drnj_time(days):
+    return now_in_drnj_time()-days
+
 
 def drnj_time2py_time(dt):
     """
