@@ -52,10 +52,13 @@ for key in colls.keys():
 
 
 def add_to_watchlist(campaign_id, users_to_follow):
+    print users_to_follow
     lines = users_to_follow.split('\n')
+    print lines
     users_to_be_added = []
     for line in lines:
         line_els = [l.strip() for l in line.split(',')]
+        print line_els
         # first element must be user_id_str
         # second element is optional. it should be the username for easier management by humans.
         users_to_be_added.append(line_els[0])
@@ -70,6 +73,7 @@ def add_to_watchlist(campaign_id, users_to_follow):
                'updated_at': 0, # 00000101T00:00:00
                'campaign_ids': [campaign_id],
         } # page_not_found: 0, no problem, 1, protected, 2, suspended, 3, other reasons.
+        print doc
         try:
             # user.id_str field is unique, so it will fail if it exists.
             watchlist_coll.insert(doc)
