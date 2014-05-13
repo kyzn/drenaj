@@ -127,7 +127,7 @@ def create_batch_from_watchlist(n_users):
         watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs]}}, {'$set': {'state': 1}}, multi=True)
         batch_array += [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs]
     ### Now, use this batch_array to call TimelineRetrievalTask.
-    res = app_object.send_task('timeline_retrieve_userlist',[batch_array])
+    res = app_object.send_task('timeline_retrieve_userlist',[batch_array], queue='timelines')
     # docs = watchlist_coll.find({'state': 0,
     #                             'updated_at': {'$lt': xdays_before_now_in_drnj_time(1)}},
     #                             ['user.id_str', 'since_tweet_id', 'page_not_found']).sort([('updated_at', 1)]).limit(n_users)

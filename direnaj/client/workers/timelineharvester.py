@@ -458,6 +458,14 @@ class TimelineRetrievalTask(celery.Task):
 
         ## INITIALIZATION END
 
+    def get_user_identifier(self, user):
+        user_identifier = ''
+        if user['id_str']:
+            user_identifier = user['id_str']
+        else:
+            user_identifier = user['screen_name']
+        return user_identifier
+
     # By default, we use user_id_str's.
     def run(self, user_info_table, use_screenname=False):
 
@@ -473,7 +481,7 @@ class TimelineRetrievalTask(celery.Task):
                 # If there is a stale API connection, continue
                 if len(self.available_twitter_api_array) > 0:
                     (user, since_tweet_id, page_not_found) = self.user_info_table.pop()
-                    user_identifier = get_user_identifier(user)
+                    user_identifier = self.get_user_identifier(user)
                     # (since_tweet_id, page_not_found, update_required) = get_userinfo(self.db_cursor, user_identifier)
                     if page_not_found == 1:
                         self.logger.info("Skipping " + user_identifier + " (we got page not found error before)")
@@ -498,7 +506,7 @@ class TimelineRetrievalTask(celery.Task):
             while len(self.jobs) > 0:
                 job = self.jobs.pop()
                 [t, user, task_start_time, api, token_owner_name] = job
-                user_identifier = get_user_identifer(user)
+                user_identifier = self.get_user_identifer(user)
                 t.join(0.001)
                 if not t.isAlive():
                     time_elapsed = int(time.time()-task_start_time)
