@@ -236,24 +236,24 @@ class TimelineHarvester(threading.Thread):
                     other_identifier = str(sample_tweet['user']['id'])
         if self.use_screenname:
             params = {'campaign_id': self.campaign_id,
-                      'watchlist_related':{
-                          'since_tweet_id': last_processed_tweet_id,
+                      'watchlist_related': bson.json_util.dumps({
+                          'since_tweet_id': str(last_processed_tweet_id),
                           'page_not_found': page_not_found,
                           'user': {
                               'user_id_str': other_identifier,
                               'screen_name': self.user_identifier
                           }
-                      }}
+                      })}
         else:
             params = {'campaign_id': self.campaign_id,
-                      'watchlist_related':{
-                          'since_tweet_id': last_processed_tweet_id,
+                      'watchlist_related': bson.json_util.dumps({
+                          'since_tweet_id': str(last_processed_tweet_id),
                           'page_not_found': page_not_found,
                           'user': {
                               'user_id_str': self.user_identifier,
                               'screen_name': other_identifier
                           }
-                      }}
+                      })}
         print params
         self.post_tweets(params, [bson.json_util.loads(tweet.AsJsonString()) for tweet in all_tweets])
 #        return [last_tweet_id, since_tweet_id, n_tweets_retrieved, page_not_found]
