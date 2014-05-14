@@ -162,7 +162,7 @@ def update_watchlist(user, since_tweet_id, page_not_found):
             pass
         else:
             return
-    doc['user'] = user['user']
+    doc['user'] = user
     doc['since_tweet_id'] = since_tweet_id
     doc['page_not_found'] = page_not_found
     doc['updated_at'] = now_in_drnj_time()
