@@ -254,6 +254,7 @@ class TimelineHarvester(threading.Thread):
                               'screen_name': other_identifier
                           }
                       }}
+        print params
         self.post_tweets(params, [bson.json_util.loads(tweet.AsJsonString()) for tweet in all_tweets])
 #        return [last_tweet_id, since_tweet_id, n_tweets_retrieved, page_not_found]
         return [since_tweet_id, n_tweets_retrieved, page_not_found]
