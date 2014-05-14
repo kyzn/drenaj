@@ -78,8 +78,11 @@ def prepare_users_to_be_added(user_id_strs_to_follow, type='id_str'):
 
 
 def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_follow):
-    users_to_be_added = prepare_users_to_be_added(user_id_strs_to_follow)
-    users_to_be_added += prepare_users_to_be_added(user_screen_names_to_follow, type='screen_name')
+    users_to_be_added = []
+    if user_id_strs_to_follow:
+        users_to_be_added = prepare_users_to_be_added(user_id_strs_to_follow)
+    if user_screen_names_to_follow:
+        users_to_be_added += prepare_users_to_be_added(user_screen_names_to_follow, type='screen_name')
 
     for user in users_to_be_added:
         doc = {'user': user['user'],
@@ -170,6 +173,7 @@ def create_campaign(params):
     user_id_strs_to_follow = str(params["user_id_strs_to_follow"])
     user_screen_names_to_follow = str(params["user_screen_names_to_follow"])
     # removing it to be used elsewhere
+    params.pop("user_id_strs_to_follow", None)
     params.pop("user_screen_names_to_follow", None)
     add_to_watchlist(params['campaign_id'], user_id_strs_to_follow, user_screen_names_to_follow)
     campaigns_coll.insert(params)
