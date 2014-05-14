@@ -148,6 +148,7 @@ def create_batch_from_watchlist(n_users):
     # res = app_object.send_task('timeline_retrieve_userlist',[batch_array])
 
 def update_watchlist(user, since_tweet_id, page_not_found):
+    print user
     doc = pre_watchlist_coll.find_one({'user.id_str': user['id_str'], 'state': 1})
     if not doc:
         doc = pre_watchlist_coll.find_one({'user.screen_name': user['screen_name'], 'state': 1})
