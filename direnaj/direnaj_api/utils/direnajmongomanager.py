@@ -116,7 +116,7 @@ from direnaj_api.celery_app.server_endpoint import app_object
 def create_batch_from_watchlist(n_users):
     docs = pre_watchlist_coll.find({'state': 0}, fields=['user', 'since_tweet_id', 'page_not_found']).limit(n_users)
     pre_watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs]}}, {'$set': {'state': 1}}, multi=True)
-    batch_array = [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs]
+    batch_array = [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs.rewind()]
     print batch_array
     left_capacity = n_users - len(batch_array)
     if left_capacity > 0:
@@ -126,7 +126,7 @@ def create_batch_from_watchlist(n_users):
             .sort([('updated_at', 1)])\
             .limit(left_capacity)
         watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs]}}, {'$set': {'state': 1}}, multi=True)
-        batch_array += [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs]
+        batch_array += [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs.rewind()]
         print batch_array
     ### Now, use this batch_array to call TimelineRetrievalTask.
     res = app_object.send_task('timeline_retrieve_userlist',[batch_array], queue='timelines')
