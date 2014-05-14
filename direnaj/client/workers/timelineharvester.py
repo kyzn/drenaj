@@ -240,7 +240,7 @@ class TimelineHarvester(threading.Thread):
                           'since_tweet_id': str(last_processed_tweet_id),
                           'page_not_found': page_not_found,
                           'user': {
-                              'user_id_str': other_identifier,
+                              'id_str': other_identifier,
                               'screen_name': self.user_identifier
                           }
                       })}
@@ -250,7 +250,7 @@ class TimelineHarvester(threading.Thread):
                           'since_tweet_id': str(last_processed_tweet_id),
                           'page_not_found': page_not_found,
                           'user': {
-                              'user_id_str': self.user_identifier,
+                              'id_str': self.user_identifier,
                               'screen_name': other_identifier
                           }
                       })}
