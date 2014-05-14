@@ -225,11 +225,15 @@ class TimelineHarvester(threading.Thread):
             ##print tweet.AsJsonString()
         other_identifier = ''
         if len(all_tweets) > 0:
-            sample_tweet = all_tweets[0]
+            sample_tweet = bson.json_util.loads(all_tweets[0].AsJsonString())
+            print sample_tweet
             if self.user['id_str']:
                 other_identifier = sample_tweet['user']['screen_name']
             else:
-                other_identifier = sample_tweet['user']['id_str']
+                if 'id_str' in sample_tweet['user']:
+                    other_identifier = sample_tweet['user']['id_str']
+                else:
+                    other_identifier = str(sample_tweet['user']['id'])
         if self.use_screenname:
             params = {'campaign_id': self.campaign_id,
                       'watchlist_related':{

@@ -196,6 +196,7 @@ class visCampaignsHandler(tornado.web.RequestHandler):
                          "user_screen_names_to_follow": user_screen_names_to_follow}
             post_data.update(direnaj_auth_secrets)
             post_response = requests.post(url=app_root_url + '/campaigns/new', data=post_data)
+            print post_response.content
             dat = bson.json_util.loads(post_response.content)
 
             self.createThread(campaign_id, query_terms)
