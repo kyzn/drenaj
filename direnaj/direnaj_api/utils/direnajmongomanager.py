@@ -114,9 +114,9 @@ def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_f
     return True
 
 
-from direnaj_api.celery_app.server_endpoint import app_object
 
 def create_batch_from_watchlist(n_users):
+    from direnaj_api.celery_app.server_endpoint import app_object
     docs = pre_watchlist_coll.find({'state': 0}, fields=['user', 'since_tweet_id', 'page_not_found']).limit(n_users)
     docs_array = [d for d in docs]
     print docs_array
