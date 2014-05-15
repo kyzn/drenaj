@@ -5,6 +5,7 @@ from tornado.httpserver import HTTPServer
 from direnaj_api.config.config import *
 from direnaj_api.config.direnaj_routes_config import routes_config
 
+import direnaj_api.celery_app.server_endpoint
 
 application = tornado.web.Application(routes_config)
 
