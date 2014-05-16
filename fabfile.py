@@ -220,6 +220,8 @@ def push_new_changes_deploy_and_restart():
     deploy()
     setup_environment()
     run_server()
+    import time
+    print "Ended in %s" % time.asctime()
 
 def build_docs():
     with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
