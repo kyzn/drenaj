@@ -19,10 +19,10 @@ from celery.schedules import crontab
 from celery.task import periodic_task
 from direnaj_api.utils.direnajmongomanager import create_batch_from_watchlist
 
-@periodic_task(run_every=crontab(minute='*/5'))
+@periodic_task(run_every=crontab(minute='*/1'))
 def check_watchlist_and_dispatch_tasks():
     batch_size = 10
-    res_array = create_batch_from_watchlist(batch_size)
+    res_array = create_batch_from_watchlist(app_object, batch_size)
 
 
 if __name__ == "__main__":
