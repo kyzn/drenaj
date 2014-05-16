@@ -14,8 +14,8 @@ CELERY_DEFAULT_EXCHANGE = 'campaigns'
 CELERY_DEFAULT_EXCHANGE_TYPE = 'topic'
 
 CELERY_QUEUES = (
-    Queue('timelines', routing_key='*.timeline.*'),
-    Queue('streamings', routing_key='*.streaming.*'),
+    #Queue('timelines', routing_key='*.timeline.*'),
+    #Queue('streamings', routing_key='*.streaming.*'),
     Queue('control', routing_key='control'),
 )
 
