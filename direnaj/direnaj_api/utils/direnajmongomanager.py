@@ -45,7 +45,7 @@ graph_coll.create_index([('friend_id_str', pymongo.ASCENDING), ('following', pym
 
 watchlist_coll.create_index([('user.id_str', pymongo.ASCENDING)], unique=True)
 watchlist_coll.create_index([('state', pymongo.ASCENDING), ('updated_at', pymongo.DESCENDING)])
-watchlist_coll.create_index([('campaign_ids', pymongo.ASCENDING), ('state', pymongo.ASCENDING), ('updated_at', pymongo.DESCENDING)])
+watchlist_coll.create_index([('user.campaign_ids', pymongo.ASCENDING), ('state', pymongo.ASCENDING), ('updated_at', pymongo.DESCENDING)])
 
 pre_watchlist_coll.create_index([('user.id_str', pymongo.ASCENDING)])
 pre_watchlist_coll.create_index([('state', pymongo.ASCENDING)])
@@ -59,6 +59,7 @@ def prepare_users_to_be_added(user_id_strs_to_follow, type='id_str'):
     lines = user_id_strs_to_follow.split('\n')
     users_to_be_added = []
     for line in lines:
+        line = line.strip()
         user = dict()
         if type == 'id_str':
             user = {'user': {'id_str': line, 'screen_name': ''}}
@@ -85,23 +86,25 @@ def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_f
         users_to_be_added += prepare_users_to_be_added(user_screen_names_to_follow, type='screen_name')
 
     for user in users_to_be_added:
-        doc = {'user': user['user'],
+        processed_user = user['user']
+        processed_user['campaign_ids'] = [campaign_id]
+        doc = {'user': processed_user,
                'page_not_found': 0, # 0, no problem, 1, problem.
                'since_tweet_id': -1,
                'state': 0, # 0, inqueue, 1, processing
                'added_at': now_in_drnj_time(),
                'updated_at': 0, # 00000101T00:00:00
-               'campaign_ids': [campaign_id],
+               #'campaign_ids': [campaign_id],
         } # page_not_found: 0, no problem, 1, protected, 2, suspended, 3, other reasons.
         print doc
         ret = watchlist_coll.find_one({'user.id_str': user['user']['id_str']})
         if ret:
-            watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'campaign_ids': campaign_id}})
+            watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'user.campaign_ids': campaign_id}})
             continue
         else:
             ret = watchlist_coll.find_one({'user.screen_name': user['user']['screen_name']})
             if ret:
-                watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'campaign_ids': campaign_id}})
+                watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'user.campaign_ids': campaign_id}})
                 continue
         pre_watchlist_coll.insert(doc)
         # try:

@@ -51,7 +51,10 @@ class TimelineHarvester(threading.Thread):
         #self.screenname = screenname
 
         ## TODO: just for now.
-        self.campaign_id = "timelines"
+        if 'campaign_ids' in self.user:
+            self.campaign_id = self.user['campaign_ids']
+        else:
+            self.campaign_id = 'default'
 
         self.direnaj_auth_secrets = KeyStore().direnaj_auth_secrets.copy()
         self.direnaj_store_url = 'http://'+DIRENAJ_APP_HOST+':'+str(DIRENAJ_APP_PORT[DIRENAJ_APP_ENVIRONMENT])+'/statuses/store'
@@ -243,7 +246,7 @@ class TimelineHarvester(threading.Thread):
                           'page_not_found': page_not_found,
                           'user': {
                               'id_str': other_identifier,
-                              'screen_name': self.user_identifier
+                              'screen_name': self.user_identifier,
                           }
                       })}
         else:

@@ -98,6 +98,14 @@ def is_string(field_name, string):
     else:
         raise TypeError('Field: ''%s'' is not of type string' % field_name)
 
+def is_string_or_array_of_strings(field_name, value):
+    if value == type(list):
+        for v in value:
+            is_string(field_name, v)
+        return value
+    else:
+        return is_string(field_name, value)
+
 def is_integer(field_name, number):
     if type(number) == int or type(number) == long:
         return number
@@ -148,7 +156,7 @@ def new_tweet_template():
             "source_id": is_integer, #: reference to `sources' collection.
             "created_at": is_drnj_time,
         },
-        "campaign_id": is_string,
+        "campaign_id": is_string_or_array_of_strings,
         "direnaj_service_version": True,
         "retrieved_by": True,
         "record_retrieved_at": is_drnj_time
@@ -271,7 +279,7 @@ def new_queue_document():
     "protected": False,
     "retrieved_by": "",
     "user_data": 0,             # Extra data relevant for the scheduling task
-    "campaign_id": is_string,
+    "campaign_id": is_string_or_array_of_strings,
     }
     return rec
 
