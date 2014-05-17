@@ -129,7 +129,9 @@ class TimelineHarvester(threading.Thread):
                 finished = True
             except twitter.TwitterError as e:
                 self.log(self.getJobDescription() + ": makeApiCall: " + ": " + str(e.message))
-                if e.message == "Not authorized":
+                if e.message == "Sorry, you are not authorized to see this status":
+                    return [NOT_AUTHORIZED_ERROR_CODE, None]
+                if e.message.find("Not authorized") == 0:
                     return [NOT_AUTHORIZED_ERROR_CODE, None]
                 elif type(e.message) == type([]):
                     tmp_h = e.message[0]
@@ -217,7 +219,7 @@ class TimelineHarvester(threading.Thread):
             else:
                 self.log(self.getJobDescription() + ": No tweets received.. Stopping timeline fetch.")
                 finished = True
-        if ret_code == PAGE_NOT_FOUND_ERROR_CODE:
+        if ret_code == PAGE_NOT_FOUND_ERROR_CODE or ret_code == NOT_AUTHORIZED_ERROR_CODE:
             page_not_found = 1
         self.log(self.getJobDescription() + ": Retrieved "+str(n_tweets_retrieved)+" tweets.")
         #for i in range(1, len(all_tweets)+1):
