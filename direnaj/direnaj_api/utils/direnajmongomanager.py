@@ -167,6 +167,8 @@ def update_watchlist(user, since_tweet_id, page_not_found):
             pass
         else:
             return
+    if 'campaign_ids' in doc['user']:
+        user.update({'campaign_ids': doc['user']['campaign_ids']})
     doc['user'] = user
     doc['since_tweet_id'] = since_tweet_id
     doc['page_not_found'] = page_not_found
