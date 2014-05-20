@@ -168,12 +168,15 @@ class StatusesHandler(tornado.web.RequestHandler):
 ###                         coordinates = el[3]
 ###                         coordinates_coll.insert(validate_document(new_coordinates_template(),
 ###                                 {"coordinates": coordinates, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
-                    direnajmongomanager.insert_tweet(tmp_tweets)
-                    if watchlist_related:
-                        print watchlist_related
-                        watchlist_related = bson.json_util.loads(watchlist_related)
-                        print watchlist_related
-                        direnajmongomanager.update_watchlist(**watchlist_related)
+                    if tmp_tweets:
+                        direnajmongomanager.insert_tweet(tmp_tweets)
+                        if watchlist_related:
+                            print watchlist_related
+                            watchlist_related = bson.json_util.loads(watchlist_related)
+                            print watchlist_related
+                            direnajmongomanager.update_watchlist(**watchlist_related)
+                    else:
+                        raise HTTPError(500, 'You tried to insert no tweets?!')
 #                    tweets_coll.insert(tmp_tweets)
                 else:
                     tmp = []
