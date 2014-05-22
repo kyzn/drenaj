@@ -1,4 +1,4 @@
-import client_api
+import direnaj.client.frontend.client_api as client_api
 
 __author__ = 'onur'
 

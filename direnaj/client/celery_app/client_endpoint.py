@@ -2,13 +2,13 @@ __author__ = 'onur'
 
 from celery import Celery
 
-import client.config.client_celeryconfig as celeryconfig
+import direnaj.client.config.client_celeryconfig as celeryconfig
 
 app_object = Celery()
 
 app_object.config_from_object(celeryconfig)
 
-from client.workers.timelineharvester import TimelineRetrievalTask
+from direnaj.client.workers.timelineharvester import TimelineRetrievalTask
 
 @app_object.task
 def deneme(x, seconds):

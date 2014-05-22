@@ -27,7 +27,7 @@ import requests
 import httplib
 
 # local
-from client.config.config import *
+from direnaj.client.config.config import *
 
 
 class StreamCatcher(multiprocessing.Process):
@@ -78,8 +78,8 @@ class StreamCatcher(multiprocessing.Process):
         return req.prepare()
 
     def sign_request(self, postdata, keystore=KeyStore()):
-        token = oauth.Token(key=keystore.access_token_key,
-                            secret=keystore.access_token_secret)
+        token = oauth.Token(key=keystore.access_tokens[0][0],
+                            secret=keystore.access_tokens[0][1])
         consumer = oauth.Consumer(key=keystore.app_consumer_key,
                                   secret=keystore.app_consumer_secret)
 

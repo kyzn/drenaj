@@ -21,7 +21,7 @@ import httplib, urllib2
 import re
 
 # local
-from client.config.config import *
+from direnaj.client.config.config import *
 
 import datetime
 import rfc822
@@ -425,48 +425,50 @@ def get_userinfo(db_cursor, screenname):
 
 
 import celery
+from celery.utils.log import get_task_logger
+
+from celery.signals import worker_shutdown
 
 class TimelineRetrievalTask(celery.Task):
     name = 'timeline_retrieve_userlist'
+    max_retries = None
 
     def __init__(self):
 
         # LOGGING SETUP START
-        self.logger = logging.getLogger('main_logger')
-        self.logger.setLevel(logging.DEBUG)
-        handler = logging.handlers.RotatingFileHandler(filename="./messages.log", maxBytes=10**7, backupCount=10)
-        handler.setFormatter(logging.Formatter('%(asctime)s:: %(message)s', '%Y-%m-%d %I:%M:%S %p'))
+        #self.logger = logging.getLogger('main_logger')
+        self.logger = get_task_logger(__name__)
+        #self.logger.setLevel(logging.DEBUG)
+        #handler = logging.handlers.RotatingFileHandler(filename="./messages.log", maxBytes=10**7, backupCount=10)
+        #handler.setFormatter(logging.Formatter('%(asctime)s:: %(message)s', '%Y-%m-%d %I:%M:%S %p'))
 
-        self.logger.addHandler(handler)
+        #self.logger.addHandler(handler)
 
         self.logger.info("Logging set up.")
         # LOGGING SETUP END
-
-        # LOCAL DB SETUP TODO: Remove this later. Don't use the information.
-        self.logger.info("Creating the database")
-        db_filename = "./users.db"
-        self.conn = sqlite3.connect(db_filename)
-        self.conn.row_factory = sqlite3.Row
-
-        self.db_cursor = self.conn.cursor()
-        self.db_cursor.execute("CREATE TABLE IF NOT EXISTS users (screenname text PRIMARY KEY, since_tweet_id text, n_tweets_retrieved int, page_not_found int, created_at timestamp, updated_at timestamp)")
-        # LOCAL DB SETUP END
 
         self.rate_limit = 350
         self.estimated_max_calls_per_screenname = 17
         self.tolerance_duration = 5
 
-        keystore = KeyStore()
-
-        api = twitter.Api(keystore.app_consumer_key, keystore.app_consumer_secret, keystore.access_token_key, keystore.access_token_secret, cache=None)
-        self.available_twitter_api_array = []
-        self.available_twitter_api_array.append(["(default)", api])
-
-        self.jobs = []
+        print "END INIT TIMELINEHARVESTERTASK"
 
         # n_running_jobs = 0
 
         ## INITIALIZATION END
+
+    def on_failure(self, exc, task_id, args, kwargs, einfo):
+        print "ON_FAILURE"
+        self.on_shutdown()
+
+    def on_success(self, retval, task_id, args, kwargs):
+        print "ON_SUCCESS"
+        self.on_shutdown()
+
+    def on_shutdown(self):
+        print "ON_SHUTDOWN"
+        keystore = KeyStore()
+        keystore.release_access_tokens(self.access_tokens)
 
     def get_user_identifier(self, user):
         user_identifier = ''
@@ -478,6 +480,27 @@ class TimelineRetrievalTask(celery.Task):
 
     # By default, we use user_id_str's.
     def run(self, user_info_table, use_screenname=False):
+        worker_shutdown.connect(self.on_shutdown)
+
+        keystore = KeyStore()
+        #self.keystore.load_access_tokens_from_file()
+        self.access_tokens = keystore.acquire_access_tokens()
+        print "DENEME"
+        # If there is no available access_tokens
+        if not self.access_tokens:
+           self.logger.error("No access tokens. Sorry. Sending a message to retry 3 mins later."
+                             "Hopefully someone else will pick it up, if it's not me.")
+           raise self.retry(countdown=3*60)
+
+        self.available_twitter_api_array = []
+
+        i = 1
+        for key_and_secret in self.access_tokens:
+            api = twitter.Api(keystore.app_consumer_key, keystore.app_consumer_secret, key_and_secret[0], key_and_secret[1], cache=None)
+            self.available_twitter_api_array.append(["(key %s)" % i, api])
+            i += 1
+
+        self.jobs = []
 
         self.use_screenname = use_screenname
 
@@ -570,10 +593,13 @@ if __name__ == "__main__":
     tolerance_duration = 5
 
     keystore = KeyStore()
-
-    api = twitter.Api(keystore.app_consumer_key, keystore.app_consumer_secret, keystore.access_token_key, keystore.access_token_secret, cache=None)
     available_twitter_api_array = []
-    available_twitter_api_array.append(["(default)", api])
+
+    i = 1
+    for key_and_secret in keystore.access_tokens:
+        api = twitter.Api(keystore.app_consumer_key, keystore.app_consumer_secret, key_and_secret[0], key_and_secret[1], cache=None)
+        available_twitter_api_array.append(["(key %s)" % i, api])
+        i = i + 1
 
     jobs = []
 

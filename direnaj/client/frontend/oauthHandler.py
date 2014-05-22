@@ -9,9 +9,9 @@ import tornado.template
 import tweepy
 import requests
 
-from client.config.config import *
-from direnajmongomanager import *
-from direnaj_collection_templates import *
+from direnaj.client.config.config import *
+from direnaj.utils.direnajmongomanager import *
+from direnaj.direnaj_api.utils.direnaj_collection_templates import *
 
 app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[DIRENAJ_APP_ENVIRONMENT])
 vis_root_url = 'http://' + DIRENAJ_VIS_HOST + ':' + str(DIRENAJ_VIS_PORT[DIRENAJ_VIS_ENVIRONMENT])

@@ -12,8 +12,9 @@ from twython import Twython, TwythonError
 import requests
 from tornado.escape import json_encode
 
-from client.config.config import *
-from utils.drnj_time import *
+# local
+from direnaj.client.config.config import *
+from direnaj.utils.drnj_time import *
 
 
 environment = DIRENAJ_APP_ENVIRONMENT
@@ -42,8 +43,8 @@ try:
     key_store = KeyStore()
     consumer_key = key_store.app_consumer_key
     consumer_secret = key_store.app_consumer_secret
-    access_token_key = key_store.access_token_key
-    access_token_secret = key_store.access_token_secret
+    access_token_key = key_store.access_tokens[0][0]
+    access_token_secret = key_store.access_tokens[0][1]
 except Exception, e:
     print "WARN: You are using the old config schema"
 

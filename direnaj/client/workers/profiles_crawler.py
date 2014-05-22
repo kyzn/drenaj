@@ -18,7 +18,7 @@ from twython import Twython, TwythonError
 import requests
 from tornado.escape import json_decode,json_encode
 
-from config import *
+from direnaj.client.config.config import *
 from direnaj.utils.drnj_time import *
 
 
@@ -45,7 +45,8 @@ auth_user_id = 'direnaj'
 auth_password = 'tamtam'
 
 def drnj_profiles_crawler(ids):
-    twitter = Twython(consumer_key, consumer_secret, access_token_key, access_token_secret)
+    keystore = KeyStore()
+    twitter = Twython(keystore.app_consumer_key, keystore.app_consumer_secret, keystore.access_tokens[0][0], keystore.access_tokens[0][1])
 
     if len(ids)>100:
         print "Can't retrieve more than 100 profiles"

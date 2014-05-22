@@ -1,0 +1,2 @@
+include env/env_client_requirements.txt
+exclude direnaj/direnaj_api_startup.py

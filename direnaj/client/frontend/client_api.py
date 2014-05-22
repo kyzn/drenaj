@@ -19,10 +19,11 @@ import requests
 import bson.json_util
 from jinja2 import Environment, FileSystemLoader
 
-from client.config.config import *
+from direnaj.client.config.config import *
 
-from client.workers.streamcatcher import StreamCatcher
-import utils.drnj_time as drnj_time
+from direnaj.client.workers.streamcatcher import StreamCatcher
+from direnaj.client.workers.twitter_api_getfollowers import drnj_graph_crawler
+import direnaj.utils.drnj_time as drnj_time
 
 
 threads = []
@@ -40,9 +41,6 @@ app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[DIRENAJ
 vis_root_url = 'http://' + DIRENAJ_VIS_HOST + ':' + str(DIRENAJ_VIS_PORT[DIRENAJ_VIS_ENVIRONMENT])
 
 keystore = KeyStore()
-
-
-from client.workers.twitter_api_getfollowers import drnj_graph_crawler
 
 #  (r"/(friends|followers)/(crawl|view)", visFollowerHandler),
 

@@ -1,6 +1,83 @@
 h1. Direnaj
 
-h2. INSTALLATION
+h2. CLIENT INSTALLATION
+
+1. Download the compressed archive.
+
+2. Install Pip. Pip is a tool for installing and managing Python packages.
+There are other options for this, but we will explicitly use this because we
+have good reason.
+
+<pre>
+$ sudo apt-get install python-pip
+</pre>
+
+3. Install virtualenvwrapper Python package using Pip.
+
+<pre>
+$ sudo pip install virtualenvwrapper
+</pre>
+
+4. Copy this to your ~/.bashrc
+
+<pre>
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+</pre>
+
+4a. Run this to enable the virtualenvwrapper commands (this will be done
+automatically with every new shell session):
+
+<pre>
+$ source ~/.bashrc
+</pre>
+
+5. Create a virtualenv called direnaj.
+
+<pre>
+$ mkvirtualenv direnaj
+</pre>
+
+and activate it:
+
+<pre>
+$ workon direnaj
+</pre>
+
+This will allow us to separate our specific versions of packages from the other
+global (in your system) packages. Also by using env/env_requirements.txt, we
+will be securing the list of packages so that it will be easily deployable.
+
+For example, take a look at
+
+<pre>
+$ pip freeze
+</pre>
+
+when direnaj virtaulenv is active (There is a (direnaj) string at the leftmost
+location of the command prompt). This list shows the packages currently
+installed along with their versions. Probably you will not see much, if this is
+your first time.
+
+Now, execute
+
+<pre>
+$ tar zxvf direnaj_client-0.1.tar.gz
+</pre>
+
+$ sudo apt-get install build-essential
+$ sudo apt-get install python-dev
+(optional) $ sudo apt-get install libzmq
+
+You may need to install
+
+sudo apt-get install ntp ntpdate
+
+$ cd direnaj_client-0.1
+$ python client_setup.py install
+
+
+h2. FULL INSTALLATION (based on source code checked out from the repository)
 
 h3. Linux - Ubuntu
 
