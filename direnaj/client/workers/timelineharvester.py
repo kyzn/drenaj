@@ -180,6 +180,16 @@ class TimelineHarvester(threading.Thread):
         else:
             return self.api.GetUserTimeline(user_id=self.user_identifier, include_rts=1, count=200, max_id=last_tweet_id, since_id=since_tweet_id)
 
+    def process_all_tweets(self, all_tweets):
+        tmp = []
+        for tweet in all_tweets:
+            tweet_json = bson.json_util.loads(tweet.AsJsonString())
+            if 'user' in tweet_json:
+                if not 'id_str' in tweet_json['user']:
+                    tweet_json['user']['id_str'] = str(tweet_json['user']['id'])
+            tmp.append(tweet_json)
+        return tmp
+
     def fetchTimeline(self):
         all_tweets = []
         page_not_found = 0
@@ -260,7 +270,7 @@ class TimelineHarvester(threading.Thread):
                           }
                       })}
         print params
-        self.post_tweets(params, [bson.json_util.loads(tweet.AsJsonString()) for tweet in all_tweets])
+        self.post_tweets(params, self.process_all_tweets(all_tweets))
 #        return [last_tweet_id, since_tweet_id, n_tweets_retrieved, page_not_found]
         return [since_tweet_id, n_tweets_retrieved, page_not_found]
 
