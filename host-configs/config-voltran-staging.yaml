@@ -2,7 +2,10 @@ project_root_dir: '/home/direnaj/direnaj/envs/staging'
 
 mongo_bin_dir: '/usr/bin'
 mongo_host: 'localhost'
-mongo_port: 27017
+mongo_port: 29017
+
+#mongo_port: 27017
+
 
 # TODO: must change this to staging and host to direnaj-staging.cmpe.boun.edu.tr
 direnaj_app_environment: 'staging'
