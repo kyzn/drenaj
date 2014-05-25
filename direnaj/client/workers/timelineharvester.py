@@ -134,12 +134,12 @@ class TimelineHarvester(threading.Thread):
                 self.log(self.getJobDescription() + ": makeApiCall: " + ": " + str(e.message))
                 if e.message == "Sorry, you are not authorized to see this status":
                     return [NOT_AUTHORIZED_ERROR_CODE, None]
-                if e.message.find("Not authorized") == 0:
-                    return [NOT_AUTHORIZED_ERROR_CODE, None]
-                elif type(e.message) == type([]):
+                if type(e.message) == type([]):
                     tmp_h = e.message[0]
                     self.log(self.getJobDescription() + ": makeApiCall: ERROR: code: " + str(tmp_h['code']) + " " + str(tmp_h['message']))
                     return [PAGE_NOT_FOUND_ERROR_CODE, None]
+                elif e.message.find("Not authorized") == 0:
+                    return [NOT_AUTHORIZED_ERROR_CODE, None]
                 if backoff_duration == 0:
                     backoff_duration = 2
                 else:
