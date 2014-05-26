@@ -200,12 +200,14 @@ def get_campaigns_list():
 
 def get_campaign_list_with_freqs(skip, limit):
 #    cursor = db.freq_campaigns.aggregate({"$group": { "campaign_id": "$key", "totalTweets": {"$sum": "$day_total"}}})
+    import sys
     print("GET_CAMPAIGN_LIST_WITH_FREQS: ", "skip: ", skip, ", limit", limit)
     cursor = colls["campaigns"].aggregate(
         [{"$group": { "_id": "$key", "total": {"$sum": "$day_total"}, "last_date": {"$max": "$date"}}},
          {"$sort": {"last_date": -1, "total": -1}}, {"$skip": skip},
          {"$limit": limit}])
     print("GET_CAMPAIGN_LIST_WITH_FREQS: ", "skip: ", skip, ", limit", limit)
+    sys.stdout.flush()
     return cursor['result']
 
 def get_campaign_with_freqs(campaign_id):
