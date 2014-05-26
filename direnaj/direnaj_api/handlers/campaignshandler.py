@@ -98,7 +98,9 @@ class CampaignsHandler(tornado.web.RequestHandler):
             try:
                 skip = int(self.get_argument('skip', 0))
                 limit = int(self.get_argument('limit', 10))
+                print("FILTER: ", "skip: ", skip, ", limit", limit)
                 campaigns = direnajmongomanager.get_campaign_list_with_freqs(skip, limit)
+                print("END FILTER: ", "skip: ", skip, ", limit", limit)
 
                 self.write(bson.json_util.dumps(campaigns))
                 self.add_header('Content-Type', 'application/json')
