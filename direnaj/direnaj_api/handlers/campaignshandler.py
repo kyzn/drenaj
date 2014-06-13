@@ -94,6 +94,7 @@ class CampaignsHandler(tornado.web.RequestHandler):
                     self.add_header('Content-Type', 'application/json')
                 self.write('TRYOUT\n')
 
+                self.finish()
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
@@ -107,6 +108,7 @@ class CampaignsHandler(tornado.web.RequestHandler):
                     self.write(bson.json_util.dumps(campaign))
                     self.add_header('Content-Type', 'application/json')
 
+                self.finish()
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
@@ -120,6 +122,7 @@ class CampaignsHandler(tornado.web.RequestHandler):
                     print("END FILTER: ", "skip: ", skip, ", limit", limit)
                 except Return, r:
                     campaigns = r.value
+                    print("GCLWF: EXCEPTION: ", "campaigns: ", campaigns)
                     self.write(bson.json_util.dumps(campaigns))
                     self.add_header('Content-Type', 'application/json')
 
