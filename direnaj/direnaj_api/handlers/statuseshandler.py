@@ -40,6 +40,7 @@ class StatusesHandler(tornado.web.RequestHandler):
         #self.write("not implemented yet")
 
     @direnaj_simple_auth
+    @tornado.web.asynchronous
     def post(self, *args, **keywords):
         """
         `view`
@@ -81,7 +82,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                         'tweet.user.id_str': str(user_id),
                     })
 
-                    tmp = [x for x in cursor]
+                    tmp = [x for x in (yield cursor.to_list(length=100))]
 
                 self.write(bson.json_util.dumps({'results': tmp}))
                 self.add_header('Content-Type', 'application/json')
@@ -229,7 +230,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                            # TODO: removing because of complaint:
                            # TypeError: if no direction is specified, key_or_list must be an instance of list
                            # .sort({"$natural" : 1})\
-                tmp = [x for x in cursor]
+                tmp = [x for x in (yield cursor.to_list(length=100))]
                 if res_format == 'json':
                     self.write(bson.json_util.dumps(
                             {'results': tmp,

@@ -23,7 +23,7 @@ from direnaj_api.utils.direnajmongomanager import create_batch_from_watchlist
 @app_object.task(name='check_watchlist_and_dispatch_tasks')
 def check_watchlist_and_dispatch_tasks():
     batch_size = 10
-    res_array = create_batch_from_watchlist(app_object, batch_size)
+    create_batch_from_watchlist(app_object, batch_size)
 
 
 if __name__ == "__main__":

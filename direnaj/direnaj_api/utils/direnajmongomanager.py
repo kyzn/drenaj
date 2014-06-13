@@ -1,13 +1,19 @@
 import time
 
+from tornado import gen
+from tornado.gen import Return
+
 import pymongo
-from pymongo import MongoClient
+#from pymongo import MongoClient
 
 from direnaj_api.config.config import *
 from utils.drnj_time import py_utc_time2drnj_time, drnj_time2py_time, now_in_drnj_time, xdays_before_now_in_drnj_time
 
+import motor
 
-mongo_client = MongoClient(MONGO_HOST, MONGO_PORT)
+
+#mongo_client = MongoClient(MONGO_HOST, MONGO_PORT)
+mongo_client = motor.MotorClient(MONGO_HOST, MONGO_PORT)
 
 db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
 queue_coll = db['queue']
@@ -31,27 +37,30 @@ colls = {
 # INDEXES
 #
 
-tweets_coll.create_index([('campaign_id', pymongo.ASCENDING), ('tweet.created_at', pymongo.ASCENDING)])
-tweets_coll.create_index([('record_retrieved_at', pymongo.ASCENDING)])
-tweets_coll.create_index([('campaign_id', pymongo.ASCENDING), ('tweet.user.id_str', pymongo.ASCENDING), ('tweet.user.history', pymongo.ASCENDING)])
-tweets_coll.create_index([('tweet.user.id_str', pymongo.ASCENDING), ('tweet.user.history', pymongo.ASCENDING)])
+@gen.coroutine
+def create_indices():
 
-histograms_coll.create_index([('campaign_id', pymongo.ASCENDING), ('created_at', pymongo.ASCENDING)])
+    yield tweets_coll.create_index([('campaign_id', pymongo.ASCENDING), ('tweet.created_at', pymongo.ASCENDING)])
+    yield tweets_coll.create_index([('record_retrieved_at', pymongo.ASCENDING)])
+    yield tweets_coll.create_index([('campaign_id', pymongo.ASCENDING), ('tweet.user.id_str', pymongo.ASCENDING), ('tweet.user.history', pymongo.ASCENDING)])
+    yield tweets_coll.create_index([('tweet.user.id_str', pymongo.ASCENDING), ('tweet.user.history', pymongo.ASCENDING)])
 
-campaigns_coll.ensure_index([("campaign_id", 1)], unique=True)
+    yield histograms_coll.create_index([('campaign_id', pymongo.ASCENDING), ('created_at', pymongo.ASCENDING)])
 
-graph_coll.create_index([('id_str', pymongo.ASCENDING), ('following', pymongo.ASCENDING)])
-graph_coll.create_index([('friend_id_str', pymongo.ASCENDING), ('following', pymongo.ASCENDING)])
+    yield campaigns_coll.ensure_index([("campaign_id", 1)], unique=True)
 
-watchlist_coll.create_index([('user.id_str', pymongo.ASCENDING)], unique=True)
-watchlist_coll.create_index([('state', pymongo.ASCENDING), ('updated_at', pymongo.DESCENDING)])
-watchlist_coll.create_index([('user.campaign_ids', pymongo.ASCENDING), ('state', pymongo.ASCENDING), ('updated_at', pymongo.DESCENDING)])
+    yield graph_coll.create_index([('id_str', pymongo.ASCENDING), ('following', pymongo.ASCENDING)])
+    yield graph_coll.create_index([('friend_id_str', pymongo.ASCENDING), ('following', pymongo.ASCENDING)])
 
-pre_watchlist_coll.create_index([('user.id_str', pymongo.ASCENDING)])
-pre_watchlist_coll.create_index([('state', pymongo.ASCENDING)])
+    yield watchlist_coll.create_index([('user.id_str', pymongo.ASCENDING)], unique=True)
+    yield watchlist_coll.create_index([('state', pymongo.ASCENDING), ('updated_at', pymongo.DESCENDING)])
+    yield watchlist_coll.create_index([('user.campaign_ids', pymongo.ASCENDING), ('state', pymongo.ASCENDING), ('updated_at', pymongo.DESCENDING)])
 
-for key in colls.keys():
-    colls[key].create_index([('campaign_id', pymongo.ASCENDING), ('date', pymongo.ASCENDING), ('key', pymongo.ASCENDING)])
+    yield pre_watchlist_coll.create_index([('user.id_str', pymongo.ASCENDING)])
+    yield pre_watchlist_coll.create_index([('state', pymongo.ASCENDING)])
+
+    for key in colls.keys():
+        yield colls[key].create_index([('campaign_id', pymongo.ASCENDING), ('date', pymongo.ASCENDING), ('key', pymongo.ASCENDING)])
 
 
 def prepare_users_to_be_added(user_id_strs_to_follow, type='id_str'):
@@ -78,6 +87,7 @@ def prepare_users_to_be_added(user_id_strs_to_follow, type='id_str'):
     #     users_to_be_added.append(line_els[0])
 
 
+@gen.coroutine
 def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_follow):
     users_to_be_added = []
     if user_id_strs_to_follow:
@@ -97,16 +107,16 @@ def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_f
                #'campaign_ids': [campaign_id],
         } # page_not_found: 0, no problem, 1, protected, 2, suspended, 3, other reasons.
         print doc
-        ret = watchlist_coll.find_one({'user.id_str': user['user']['id_str']})
+        ret = yield watchlist_coll.find_one({'user.id_str': user['user']['id_str']})
         if ret:
-            watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'user.campaign_ids': campaign_id}})
+            yield watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'user.campaign_ids': campaign_id}})
             continue
         else:
-            ret = watchlist_coll.find_one({'user.screen_name': user['user']['screen_name']})
+            ret = yield watchlist_coll.find_one({'user.screen_name': user['user']['screen_name']})
             if ret:
-                watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'user.campaign_ids': campaign_id}})
+                yield watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'user.campaign_ids': campaign_id}})
                 continue
-        pre_watchlist_coll.insert(doc)
+        yield pre_watchlist_coll.insert(doc)
         # try:
         #     # user.id_str field is unique, so it will fail if it exists.
         #     watchlist_coll.insert(doc)
@@ -114,13 +124,11 @@ def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_f
         # except Exception, e:
         #     # TODO: addToSet.
         #     watchlist_coll.find_and_modify({'user.id_str': user['id_str']},{'$push': {'campaign_ids': campaign_id}})
-    return True
 
-
-
+@gen.coroutine
 def create_batch_from_watchlist(app_object, n_users):
-    docs = pre_watchlist_coll.find({'state': 0}, fields=['user', 'since_tweet_id', 'page_not_found']).limit(n_users)
-    docs_array = [d for d in docs]
+    cursor = pre_watchlist_coll.find({'state': 0}, fields=['user', 'since_tweet_id', 'page_not_found']).limit(n_users)
+    docs_array = [d for d in (yield cursor.to_list(length=100))]
     print docs_array
     pre_watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs_array]}}, {'$set': {'state': 1}}, multi=True)
     batch_array = [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs_array]
@@ -128,13 +136,13 @@ def create_batch_from_watchlist(app_object, n_users):
     left_capacity = n_users - len(batch_array)
     print left_capacity
     if left_capacity > 0:
-        docs = watchlist_coll.find({'state': 0,
+        cursor = watchlist_coll.find({'state': 0,
                                     'updated_at': {'$lt': xdays_before_now_in_drnj_time(1)}},
                                    fields=['user', 'since_tweet_id', 'page_not_found'])\
             .sort([('updated_at', 1)])\
             .limit(left_capacity)
-        docs_array = [d for d in docs]
-        watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs_array]}}, {'$set': {'state': 1}}, multi=True)
+        docs_array = [d for d in (yield cursor.to_list(length=100))]
+        yield watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs_array]}}, {'$set': {'state': 1}}, multi=True)
         batch_array += [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs_array]
         print batch_array
     ### Now, use this batch_array to call TimelineRetrievalTask.
@@ -142,7 +150,6 @@ def create_batch_from_watchlist(app_object, n_users):
     for job_definition in batch_array:
         res = app_object.send_task('timeline_retrieve_userlist',[[job_definition]], queue='timelines')
         res_array.append(res)
-    return res_array
     # docs = watchlist_coll.find({'state': 0,
     #                             'updated_at': {'$lt': xdays_before_now_in_drnj_time(1)}},
     #                             ['user.id_str', 'since_tweet_id', 'page_not_found']).sort([('updated_at', 1)]).limit(n_users)
@@ -152,16 +159,17 @@ def create_batch_from_watchlist(app_object, n_users):
     # ### Now, use this batch_array to call TimelineRetrievalTask.
     # res = app_object.send_task('timeline_retrieve_userlist',[batch_array])
 
+@gen.coroutine
 def update_watchlist(user, since_tweet_id, page_not_found):
     print user
-    doc = pre_watchlist_coll.find_one({'user.id_str': user['id_str'], 'state': 1})
+    doc = yield pre_watchlist_coll.find_one({'user.id_str': user['id_str'], 'state': 1})
     if not doc:
-        doc = pre_watchlist_coll.find_one({'user.screen_name': user['screen_name'], 'state': 1})
+        doc = yield pre_watchlist_coll.find_one({'user.screen_name': user['screen_name'], 'state': 1})
     if doc:
-        pre_watchlist_coll.remove({'_id': doc['_id']})
+        yield pre_watchlist_coll.remove({'_id': doc['_id']})
         del doc['_id']
     else:
-        doc = watchlist_coll.find_one({'user.id_str': user['id_str'], 'state': 1})
+        doc = yield watchlist_coll.find_one({'user.id_str': user['id_str'], 'state': 1})
         # required for concurrency. at least I think so.
         if doc:
             pass
@@ -174,11 +182,12 @@ def update_watchlist(user, since_tweet_id, page_not_found):
     doc['page_not_found'] = page_not_found
     doc['updated_at'] = now_in_drnj_time()
     doc['state'] = 0
-    watchlist_coll.update({'user.id_str': doc['user']['id_str']}, doc, upsert=True)
+    yield watchlist_coll.update({'user.id_str': doc['user']['id_str']}, doc, upsert=True)
     # watchlist_coll.update({'user.id_str': user_id_str}, {'$set': {'since_tweet_id': since_tweet_id,
     #                                                               'page_not_found': page_not_found,
     #                                                               'updated_at': now_in_drnj_time()}})
 
+@gen.coroutine
 def create_campaign(params):
     created_at = now_in_drnj_time()
     params.update({'created_at': created_at})
@@ -188,36 +197,40 @@ def create_campaign(params):
     params.pop("user_id_strs_to_follow", None)
     params.pop("user_screen_names_to_follow", None)
     add_to_watchlist(params['campaign_id'], user_id_strs_to_follow, user_screen_names_to_follow)
-    campaigns_coll.insert(params)
+    yield campaigns_coll.insert(params)
 
+@gen.coroutine
 def get_campaign(campaign_id):
-    cursor = campaigns_coll.find({'campaign_id': campaign_id})
-    return cursor
+    cursor = yield campaigns_coll.find({'campaign_id': campaign_id})
+    raise Return(cursor)
 
+@gen.coroutine
 def get_campaigns_list():
-    cursor = campaigns_coll.find({})
-    return cursor
+    cursor = yield campaigns_coll.find({}).to_list()
+    raise Return(cursor)
 
+@gen.coroutine
 def get_campaign_list_with_freqs(skip, limit):
 #    cursor = db.freq_campaigns.aggregate({"$group": { "campaign_id": "$key", "totalTweets": {"$sum": "$day_total"}}})
     import sys
     print("GET_CAMPAIGN_LIST_WITH_FREQS: ", "skip: ", skip, ", limit", limit)
-    cursor = colls["campaigns"].aggregate(
+    cursor = yield colls["campaigns"].aggregate(
         [{"$group": { "_id": "$key", "total": {"$sum": "$day_total"}, "last_date": {"$max": "$date"}}},
          {"$sort": {"last_date": -1, "total": -1}}, {"$skip": skip},
          {"$limit": limit}])
     print("GET_CAMPAIGN_LIST_WITH_FREQS: ", "skip: ", skip, ", limit", limit)
     sys.stdout.flush()
-    return cursor['result']
+    raise Return(cursor['result'])
 
+@gen.coroutine
 def get_campaign_with_freqs(campaign_id):
 #        [{"$match": {"campaign_id": campaign_id, "date": today}},
     today = time.strftime('%Y-%m-%d', time.gmtime())
-    cursor = colls['campaigns'].aggregate(
+    cursor = yield colls['campaigns'].aggregate(
         [{"$match": {"campaign_id": campaign_id}},
          {"$sort": {"date": -1}}, {"$limit": 1},
          {"$project": {"campaign_id": 1, "date": 1, "series": {"hour": "$hour", "minute": "$minute"}}}])
-    return cursor['result']
+    raise Return(cursor['result'])
 
 def calculate_campaign_histograms(campaign_id, n_bins=100):
 
@@ -251,7 +264,7 @@ def calculate_campaign_histograms(campaign_id, n_bins=100):
                 {'$project': projection_query},
                 {'$group': group_query}]
 
-    tmp = tweets_coll.aggregate(pipeline)
+    tmp = yield tweets_coll.aggregate(pipeline)
     users = tmp['result']
 
     hist = {
@@ -274,13 +287,13 @@ def calculate_campaign_histograms(campaign_id, n_bins=100):
     }
 
     # How many tweets?
-    n_tweets = tweets_coll.find(campaign_query).count()
+    n_tweets = yield tweets_coll.find(campaign_query).count()
     print "How many tweets? %d" % n_tweets
     hist['n_tweets'] = n_tweets
 
     # TODO: abort if there are more than 200000 tweets.
     if n_tweets > 200000:
-        return hist
+        raise Return(hist)
     #
     # How many unique users?
     #
@@ -383,9 +396,9 @@ def calculate_campaign_histograms(campaign_id, n_bins=100):
     hist = {'campaign_id': campaign_id,
             'histogram': hist,
             'created_at': now_in_drnj_time()}
-    histograms_coll.insert(hist)
+    yield histograms_coll.insert(hist)
 
-    return [hist]
+    raise Return([hist])
     #####
     #
     # Fetch the profile images of each unique user. Calculate the average color.
@@ -397,19 +410,21 @@ def calculate_campaign_histograms(campaign_id, n_bins=100):
     # 2. Take a basic algorithm and calculate the clusterings in it.
     #
 
+@gen.coroutine
 def get_campaign_histograms(campaign_id):
-    hists = histograms_coll.find({'campaign_id': campaign_id}).sort([('created_at', -1)])
-    return hists
+    hists = yield histograms_coll.find({'campaign_id': campaign_id}).sort([('created_at', -1)])
+    raise Return(hists)
 
-
+@gen.coroutine
 def move_to_history(user_id):
-    tweets_coll.update({'tweet.user.id_str': user_id, 'tweet.user.history': False},
+    yield tweets_coll.update({'tweet.user.id_str': user_id, 'tweet.user.history': False},
                        {'$set': {'tweet.user.history': True}})
 
+@gen.coroutine
 def insert_tweet(tweet_obj_array):
 
     # actual tweet insertion
-    tweets_coll.insert(tweet_obj_array)
+    yield tweets_coll.insert(tweet_obj_array)
 
     for tweet_obj in tweet_obj_array:
 
@@ -481,6 +496,6 @@ def insert_tweet(tweet_obj_array):
         for key in freq:
             for item in freq[key].keys():
                 count = freq[key][item]
-                colls[key].update({'campaign_id': campaign_id, 'date': today_str, 'key': item},
+                yield colls[key].update({'campaign_id': campaign_id, 'date': today_str, 'key': item},
                                   {'$inc': {('hour.%s' % hour): count, ('minute.%s' % minute): count, ('day_total'): count},
                                    '$set': {'last_updated_minute': minute}}, upsert=True)
