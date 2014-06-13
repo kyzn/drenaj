@@ -23,6 +23,9 @@ import tornado.web
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
 
+from tornado import gen
+from tornado.gen import Return
+
 from tornado.escape import json_decode,json_encode
 
 import json
@@ -35,6 +38,7 @@ class FollowerHandler(tornado.web.RequestHandler):
         self.post(*args)
         #self.write("not implemented yet")
 
+    @tornado.web.asynchronous
     def post(self, *args):
         """ I chose to handle all options at once, using only POST requests
         for API requests. GET requests will be used for browser examination.
@@ -79,7 +83,7 @@ class FollowerHandler(tornado.web.RequestHandler):
                         ids = [x[id_field_prefix_graph_query_opposite+'id_str'] for x in cursor]
                         print ids
                         cursor = tweets_coll.find({'tweet.user.id_str': {'$in': ids}, 'tweet.user.history': False})
-                        tmp = [x for x in cursor]
+                        tmp = [x for x in (yield cursor.to_list(length=100))]
                 self.write(bson.json_util.dumps({'results': tmp}))
                 self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
@@ -93,18 +97,22 @@ class FollowerHandler(tornado.web.RequestHandler):
                 json_IDS = self.get_argument('ids', None)
                 IDS = json.loads(json_IDS)
 
-                ret = store_friends_or_followers(user_id, IDS, drnjID=auth_user_id, fof=friends_or_followers)
-                # Returns number of written edges (new relations discovered)
-                print "User ID: %d, among %s" % (user_id, friends_or_followers)
-                print ret
+                try:
+                    store_friends_or_followers(user_id, IDS, drnjID=auth_user_id, fof=friends_or_followers)
+                except Return, r:
+                    ret = r.value
+                    # Returns number of written edges (new relations discovered)
+                    print "User ID: %d, among %s" % (user_id, friends_or_followers)
+                    print ret
 
-                self.write(json_encode(ret))
+                    self.write(json_encode(ret))
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
             pass
 
+@gen.coroutine
 def store_friends_or_followers(user_id, IDS, drnjID, fof):
     """Stores/updates list of direnaj user data using raw twitter data
 
@@ -122,7 +130,8 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     # ATC: This mechanism requires finding the id twice
     # With indexing, this may not be a big problem
     # Alternative is trying to update and catching the pymongo.errors.OperationFailure exception
-    id_exists = queue_collection.find(queue_query).count() > 0
+    n_ids = yield queue_collection.find(queue_query).count()
+    id_exists =  n_ids > 0
 
     if id_exists:
         queue_document = {"$set":
@@ -133,7 +142,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
         # creates entry if query does not exist
         # queue_collection.update(queue_query, queue_document, upsert=True)
 
-        queue_collection.update(queue_query, queue_document)
+        yield queue_collection.update(queue_query, queue_document)
 
     else:
         if fof == 'friends':
@@ -155,7 +164,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
                             "followers_retrieved_at": dt,
                             "retrieved_by": drnjID
                             })
-        queue_collection.insert(queue_document)
+        yield queue_collection.insert(queue_document)
         num_new_discovered_users += 1
 
 
@@ -172,7 +181,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
                             "retrieved_by": drnjID})
 
         try:
-            queue_collection.insert(queue_document)
+            yield queue_collection.insert(queue_document)
             num_new_discovered_users += 1
         except pymongo.errors.OperationFailure as e:
             pass
@@ -187,7 +196,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
         else:
             return
 
-        edge = graph_collection.find_one({"id": source, "friend_id": sink})
+        edge = yield graph_collection.find_one({"id": source, "friend_id": sink})
 
         if edge == None:
             doc = validate_document(new_graph_document(),{
@@ -198,9 +207,9 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
              'record_retrieved_at': dt,
              "retrieved_by": drnjID
             })
-            graph_collection.insert(doc)
+            yield graph_collection.insert(doc)
             num_edges_inserted += 1;
 
     # TODO: Handle unfollows: Find edges that no longer exist and move old record to graph_history and add unfollow record
 
-    return {'num_new_users': num_new_discovered_users, 'num_new_edges': num_edges_inserted}
+    raise Return({'num_new_users': num_new_discovered_users, 'num_new_edges': num_edges_inserted})

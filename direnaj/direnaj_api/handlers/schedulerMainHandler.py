@@ -4,12 +4,17 @@ from direnaj_api.utils.direnajmongomanager import *
 
 import tornado.ioloop
 import tornado.web
+
+from tornado import gen
+
 import random
 
 from tornado.escape import json_decode,json_encode
 from direnaj_api.utils.direnaj_auth import direnaj_simple_auth
 
 class SchedulerProfilesHandler(tornado.web.RequestHandler):
+
+    @tornado.web.asynchronous
     def get(self, *args):
 
         (num) = args
@@ -25,7 +30,7 @@ class SchedulerProfilesHandler(tornado.web.RequestHandler):
         cur = queue_collection.find({"protected": False}).sort('profile_retrieved_at',1).limit(N)
 
         a = []
-        for c in cur:
+        for c in (yield cur.to_list(length=100)):
             a.append(c["id_str"])
             #print c
 
@@ -41,6 +46,8 @@ class SchedulerProfilesHandler(tornado.web.RequestHandler):
 
 
 class SchedulerMainHandler(tornado.web.RequestHandler):
+
+    @tornado.web.asynchronous
     def get(self, *args):
 
         (friends_or_followers) = args
@@ -57,7 +64,7 @@ class SchedulerMainHandler(tornado.web.RequestHandler):
             cur = queue_collection.find({"protected": {"$ne": True}}).sort('friends_retrieved_at',-1).limit(N)
 
         a = []
-        for c in cur:
+        for c in (yield cur.to_list(length=100)):
             a.append(c["id"])
             #print c
 
@@ -77,6 +84,7 @@ class SchedulerReportHandler(tornado.web.RequestHandler):
     def get(self, *args):
         self.write("Not Implemented")
 
+    @tornado.web.asynchronous
     @direnaj_simple_auth
     def post(self, *args, **kwargs):
         user_id = int(self.get_argument('user_id'))
@@ -85,6 +93,7 @@ class SchedulerReportHandler(tornado.web.RequestHandler):
         print "Protected or Disabled Twitter user account: %d" % int(user_id)
         markProtected(user_id, isProtected, kwargs["drnjID"])
 
+@gen.coroutine
 def markProtected(user_id, isProtected, drnjID):
     db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
     queue_collection = db['queue']
@@ -96,4 +105,4 @@ def markProtected(user_id, isProtected, drnjID):
                               "retrieved_by": drnjID}
                          }
     # print queue_query, queue_document
-    queue_collection.update(queue_query, queue_document, upsert=True)
+    yield queue_collection.update(queue_query, queue_document, upsert=True)

@@ -7,6 +7,8 @@ import tornado.web
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
 
+from tornado.gen import Return
+
 import bson.json_util
 
 from pymongo.errors import OperationFailure
@@ -26,6 +28,7 @@ class CampaignsHandler(tornado.web.RequestHandler):
         self.post(*args)
         #self.write("not implemented yet")
 
+    @tornado.web.asynchronous
     @direnaj_simple_auth
     def post(self, *args, **keywords):
 
@@ -68,29 +71,38 @@ class CampaignsHandler(tornado.web.RequestHandler):
         elif (action == 'view'):
             try:
                 campaign_id = self.get_argument('campaign_id', 'default')
-                campaign = direnajmongomanager.get_campaign(campaign_id)
+                try:
+                    direnajmongomanager.get_campaign(campaign_id)
+                except Return, r:
+                    campaign = r.value
+                    self.write(bson.json_util.dumps(campaign))
+                    self.add_header('Content-Type', 'application/json')
 
-                self.write(bson.json_util.dumps(campaign))
-                self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
         elif (action == 'list'):
             try:
-                campaigns = direnajmongomanager.get_campaigns_list()
+                try:
+                    direnajmongomanager.get_campaigns_list()
+                except Return, r:
+                    campaigns = r.value
+                    self.write(bson.json_util.dumps(campaigns))
+                    self.add_header('Content-Type', 'application/json')
 
-                self.write(bson.json_util.dumps(campaigns))
-                self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
         elif (action == 'view_freqs'):
             try:
                 campaign_id = self.get_argument('campaign_id', 'default')
-                campaign = direnajmongomanager.get_campaign_with_freqs(campaign_id)
+                try:
+                    direnajmongomanager.get_campaign_with_freqs(campaign_id)
+                except Return, r:
+                    campaign = r.value
+                    self.write(bson.json_util.dumps(campaign))
+                    self.add_header('Content-Type', 'application/json')
 
-                self.write(bson.json_util.dumps(campaign))
-                self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
@@ -99,11 +111,13 @@ class CampaignsHandler(tornado.web.RequestHandler):
                 skip = int(self.get_argument('skip', 0))
                 limit = int(self.get_argument('limit', 10))
                 print("FILTER: ", "skip: ", skip, ", limit", limit)
-                campaigns = direnajmongomanager.get_campaign_list_with_freqs(skip, limit)
-                print("END FILTER: ", "skip: ", skip, ", limit", limit)
-
-                self.write(bson.json_util.dumps(campaigns))
-                self.add_header('Content-Type', 'application/json')
+                try:
+                    direnajmongomanager.get_campaign_list_with_freqs(skip, limit)
+                    print("END FILTER: ", "skip: ", skip, ", limit", limit)
+                except Return, r:
+                    campaigns = r.value
+                    self.write(bson.json_util.dumps(campaigns))
+                    self.add_header('Content-Type', 'application/json')
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
@@ -115,12 +129,18 @@ class CampaignsHandler(tornado.web.RequestHandler):
                 n_bins = self.get_argument('n_bins', "100")
 
                 if re_calculate == 'no':
-                    hists = direnajmongomanager.get_campaign_histograms(campaign_id)
-                    if hists.count() == 0:
-                        re_calculate = 'yes'
+                    try:
+                        direnajmongomanager.get_campaign_histograms(campaign_id)
+                    except Return, r:
+                        hists = r.value
+                        if hists.count() == 0:
+                            re_calculate = 'yes'
 
                 if re_calculate == 'yes':
-                    hists = direnajmongomanager.calculate_campaign_histograms(campaign_id, n_bins)
+                    try:
+                        direnajmongomanager.calculate_campaign_histograms(campaign_id, n_bins)
+                    except Return, r:
+                        hists = r.value
 
                 self.write(bson.json_util.dumps(hists[0]))
                 self.add_header('Content-Type', 'application/json')

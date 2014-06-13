@@ -16,6 +16,10 @@ import tornado.ioloop
 import tornado.web
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
+
+from tornado import gen
+from tornado.gen import Return
+
 import bson.json_util
 
 from direnaj_api.config.config import *
@@ -35,6 +39,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
         self.post(*args)
         #self.write("not implemented yet")
 
+    @tornado.web.asynchronous
     def post(self, *args):
         """
 
@@ -71,7 +76,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
 
                 #tmp = [x for x in cursor]
                 tmp = []
-                for record in cursor:
+                for record in (yield cursor.to_list(length=100)):
                     user = record['tweet']['user']
                     user['record_retrieved_at'] = record['record_retrieved_at']
                     #id_str = user['id_str']
@@ -79,9 +84,9 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                     #user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
                     id = user['id']
                     user['known_followers_count'] = \
-                        direnajmongomanager.graph_coll.find({'friend_id': id}).count()
+                        yield direnajmongomanager.graph_coll.find({'friend_id': id}).count()
                     user['known_friends_count'] = \
-                        direnajmongomanager.graph_coll.find({'id': id}).count()
+                        yield direnajmongomanager.graph_coll.find({'id': id}).count()
                     tmp.append(user)
 
                 result = bson.json_util.dumps(tmp)
@@ -103,18 +108,21 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 json_data = self.get_argument('v', None)
                 S = bson.json_util.loads(json_data)
 
-                nids = store_multiple_profiles(ids, S, drnjID=auth_user_id, campaign_id=campaign_id)
+                try:
+                    store_multiple_profiles(ids, S, drnjID=auth_user_id, campaign_id=campaign_id)
+                except Return, r:
+                    nids = r.value
 
-                if len(nids) > 0:
+                    if len(nids) > 0:
 
-                    for i in range(len(nids)):
-                        markProtected(nids[i], True, auth_user_id)
-                        print "User not Found, Removing from queue: ",
-                        print nids[i]
+                        for i in range(len(nids)):
+                            markProtected(nids[i], True, auth_user_id)
+                            print "User not Found, Removing from queue: ",
+                            print nids[i]
 
-                # Returns profile ids that could not be retrieved
-                print nids
-                self.write(bson.json_util.dumps(nids))
+                    # Returns profile ids that could not be retrieved
+                    print nids
+                    self.write(bson.json_util.dumps(nids))
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
@@ -197,7 +205,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
 ##                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
 ##             pass
 
-
+@gen.coroutine
 def store_multiple_profiles(ids, S, drnjID, campaign_id):
     """
 
@@ -249,7 +257,7 @@ def store_multiple_profiles(ids, S, drnjID, campaign_id):
         })
 
         # creates entry if query does not exist
-        direnajmongomanager.queue_coll.update(queue_query, queue_document, upsert=True)
+        yield direnajmongomanager.queue_coll.update(queue_query, queue_document, upsert=True)
 
         # Insert to profiles
 ##         profiles_query = {"profile.id": user_id}
@@ -268,7 +276,7 @@ def store_multiple_profiles(ids, S, drnjID, campaign_id):
 
         ids.remove(int(user_id))
 
-    return ids
+    raise Return(ids)
 
 
 ## def store_single_profile(user_id, v, drnjID):
