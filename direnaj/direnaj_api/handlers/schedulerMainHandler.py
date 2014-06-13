@@ -84,7 +84,7 @@ class SchedulerReportHandler(tornado.web.RequestHandler):
     def get(self, *args):
         self.write("Not Implemented")
 
-    @direnaj_simple_auth
+    #@direnaj_simple_auth
     @tornado.web.asynchronous
     def post(self, *args, **kwargs):
         user_id = int(self.get_argument('user_id'))

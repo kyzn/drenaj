@@ -39,7 +39,7 @@ class StatusesHandler(tornado.web.RequestHandler):
         self.post(*args)
         #self.write("not implemented yet")
 
-    @direnaj_simple_auth
+    #@direnaj_simple_auth
     @tornado.web.asynchronous
     def post(self, *args, **keywords):
         """
