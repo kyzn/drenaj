@@ -28,8 +28,8 @@ class CampaignsHandler(tornado.web.RequestHandler):
         self.post(*args)
         #self.write("not implemented yet")
 
-    @tornado.web.asynchronous
     @direnaj_simple_auth
+    @tornado.web.asynchronous
     def post(self, *args, **keywords):
 
         if len(args) > 1:

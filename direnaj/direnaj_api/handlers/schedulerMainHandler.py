@@ -84,8 +84,8 @@ class SchedulerReportHandler(tornado.web.RequestHandler):
     def get(self, *args):
         self.write("Not Implemented")
 
-    @tornado.web.asynchronous
     @direnaj_simple_auth
+    @tornado.web.asynchronous
     def post(self, *args, **kwargs):
         user_id = int(self.get_argument('user_id'))
         isProtected = int(self.get_argument('isProtected'))
