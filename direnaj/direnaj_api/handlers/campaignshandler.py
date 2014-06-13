@@ -84,11 +84,15 @@ class CampaignsHandler(tornado.web.RequestHandler):
         elif (action == 'list'):
             try:
                 try:
+                    self.write('IN\n')
                     direnajmongomanager.get_campaigns_list()
+                    self.write('OUT\n')
                 except Return, r:
+                    self.write('CATCHED\n')
                     campaigns = r.value
                     self.write(bson.json_util.dumps(campaigns))
                     self.add_header('Content-Type', 'application/json')
+                self.write('TRYOUT\n')
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
