@@ -3,7 +3,9 @@ import base64
 
 #http://wiki.python.org/moin/PythonDecoratorLibrary#Class_method_decorator_using_instance
 from functools import wraps
-from direnajmongomanager import *
+import direnajmongomanager
+
+from tornado.gen import Return
 
 def direnaj_simple_auth(f):
     '''
@@ -12,7 +14,8 @@ def direnaj_simple_auth(f):
     It uses a descriptor to delay the definition of the
     method wrapper.
     
-    @direnaj_simple_auth decorator. Looks up username and password from GET/POST arguments. Returns 401 Unauthorized if user does not exist in database
+    @direnaj_simple_auth decorator. Looks up username and password from
+    GET/POST arguments. Returns 401 Unauthorized if user does not exist in database
 
     '''
     class descript(object):
@@ -48,17 +51,16 @@ def direnaj_simple_auth(f):
                  username = instance.get_argument('auth_user_id')
 
                  # check authentication
-                 db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
-                 accounts_collection = db['accounts']
-                 db_user = accounts_collection.find( { "direnajID": username, 
-                                                       "password": base64.urlsafe_b64encode( passwd_sha1.digest() )
-                                                   } )
-                 if (db_user.count() == 1):
-                     kwargs["drnjID"] = db_user[0]["direnajID"]
-                     return self.f(instance, *args, **kwargs)
-                 else:
-                     from tornado.web import HTTPError
-                     raise HTTPError(401)
+                 try:
+                     direnajmongomanager.check_auth(username, base64.urlsafe_b64encode( passwd_sha1.digest()))
+                 except Return, r:
+                     db_user = r.value
+                     if (len(db_user) == 1):
+                         kwargs["drnjID"] = db_user[0]["direnajID"]
+                         return self.f(instance, *args, **kwargs)
+                     else:
+                         from tornado.web import HTTPError
+                         raise HTTPError(401)
 
              # This instance does not need the descriptor anymore,
              # let it find the wrapper directly next time:

@@ -232,6 +232,15 @@ def get_campaign_with_freqs(campaign_id):
          {"$project": {"campaign_id": 1, "date": 1, "series": {"hour": "$hour", "minute": "$minute"}}}])
     raise Return(cursor['result'])
 
+
+@gen.coroutine
+def check_auth(username, password):
+    db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
+    accounts_collection = db['accounts']
+    db_user = yield accounts_collection.find( { "direnajID": username,
+                                                "password": password}).to_list(length=100)
+    raise Return(db_user)
+
 def calculate_campaign_histograms(campaign_id, n_bins=100):
 
     n_bins = int(n_bins)
