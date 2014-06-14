@@ -250,6 +250,8 @@ class StatusesHandler(tornado.web.RequestHandler):
                     result = template.render(statuses=[x['tweet'] for x in tmp])
                     self.write(result)
 
+                self.finish()
+
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
