@@ -189,6 +189,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                 else:
                     self.write(bson.json_util.dumps({'results': 'ok'}))
                 self.add_header('Content-Type', 'application/json')
+                self.finish()
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
