@@ -83,17 +83,14 @@ class CampaignsHandler(tornado.web.RequestHandler):
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
         elif (action == 'list'):
             try:
-                try:
-                    self.write('IN\n')
-                    direnajmongomanager.get_campaigns_list()
-                    self.write('OUT\n')
-                except Return, r:
-                    self.write('CATCHED\n')
-                    campaigns = r.value
-                    self.write(bson.json_util.dumps(campaigns))
-                    self.add_header('Content-Type', 'application/json')
+                self.write('IN\n')
+                cursor = direnajmongomanager.get_campaigns_list()
+                self.write('OUT\n')
+                campaigns = yield cursor.to_list(length=100)
+                self.write('CATCHED\n')
+                self.write(bson.json_util.dumps(campaigns))
+                self.add_header('Content-Type', 'application/json')
                 self.write('TRYOUT\n')
-
                 self.finish()
             except MissingArgumentError as e:
                 # TODO: implement logging.
