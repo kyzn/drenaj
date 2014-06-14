@@ -130,7 +130,7 @@ def create_batch_from_watchlist(app_object, n_users):
     cursor = pre_watchlist_coll.find({'state': 0}, fields=['user', 'since_tweet_id', 'page_not_found']).limit(n_users)
     docs_array = [d for d in (yield cursor.to_list(length=100))]
     print docs_array
-    pre_watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs_array]}}, {'$set': {'state': 1}}, multi=True)
+    yield pre_watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs_array]}}, {'$set': {'state': 1}}, multi=True)
     batch_array = [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs_array]
     print batch_array
     left_capacity = n_users - len(batch_array)
