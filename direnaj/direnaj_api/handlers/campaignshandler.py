@@ -7,6 +7,7 @@ import tornado.web
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
 
+from tornado import gen
 from tornado.gen import Return
 
 import bson.json_util
