@@ -30,6 +30,7 @@ class CampaignsHandler(tornado.web.RequestHandler):
 
     #@direnaj_simple_auth
     @tornado.web.asynchronous
+    @gen.coroutine
     def post(self, *args, **keywords):
 
         if len(args) > 1:
