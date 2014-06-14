@@ -204,10 +204,10 @@ def get_campaign(campaign_id):
     cursor = yield campaigns_coll.find({'campaign_id': campaign_id})
     raise Return(cursor)
 
-@gen.coroutine
 def get_campaigns_list():
-    cursor = yield campaigns_coll.find({}).to_list()
-    raise Return(cursor)
+    #cursor = yield campaigns_coll.find({}).to_list()
+    #raise Return(cursor)
+    return campaigns_coll.find({})
 
 @gen.coroutine
 def get_campaign_list_with_freqs(skip, limit):

@@ -222,6 +222,7 @@ def push_new_changes_deploy_and_restart():
     run_server()
     import time
     print "Ended in %s" % time.asctime()
+    local("play -n -c1 synth 0.1 sin 1000 vol 0.1")
 
 def build_docs():
     with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
