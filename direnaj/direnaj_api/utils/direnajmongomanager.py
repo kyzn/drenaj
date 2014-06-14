@@ -11,7 +11,6 @@ from utils.drnj_time import py_utc_time2drnj_time, drnj_time2py_time, now_in_drn
 
 import motor
 
-
 #mongo_client = MongoClient(MONGO_HOST, MONGO_PORT)
 mongo_client = motor.MotorClient(MONGO_HOST, MONGO_PORT)
 
@@ -125,12 +124,16 @@ def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_f
         #     # TODO: addToSet.
         #     watchlist_coll.find_and_modify({'user.id_str': user['id_str']},{'$push': {'campaign_ids': campaign_id}})
 
-@gen.coroutine
 def create_batch_from_watchlist(app_object, n_users):
+    mongo_client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
+    db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
+    pre_watchlist_coll = db['pre_watchlist']
+    watchlist_coll = db['watchlist']
+
     cursor = pre_watchlist_coll.find({'state': 0}, fields=['user', 'since_tweet_id', 'page_not_found']).limit(n_users)
-    docs_array = [d for d in (yield cursor.to_list(length=100))]
+    docs_array = [d for d in cursor]
     print docs_array
-    yield pre_watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs_array]}}, {'$set': {'state': 1}}, multi=True)
+    pre_watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs_array]}}, {'$set': {'state': 1}}, multi=True)
     batch_array = [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs_array]
     print batch_array
     left_capacity = n_users - len(batch_array)
@@ -141,8 +144,8 @@ def create_batch_from_watchlist(app_object, n_users):
                                    fields=['user', 'since_tweet_id', 'page_not_found'])\
             .sort([('updated_at', 1)])\
             .limit(left_capacity)
-        docs_array = [d for d in (yield cursor.to_list(length=100))]
-        yield watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs_array]}}, {'$set': {'state': 1}}, multi=True)
+        docs_array = [d for d in cursor]
+        watchlist_coll.update({'_id': {'$in': [d['_id'] for d in docs_array]}}, {'$set': {'state': 1}}, multi=True)
         batch_array += [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs_array]
         print batch_array
     ### Now, use this batch_array to call TimelineRetrievalTask.
