@@ -159,7 +159,6 @@ def create_batch_from_watchlist(app_object, n_users):
     # ### Now, use this batch_array to call TimelineRetrievalTask.
     # res = app_object.send_task('timeline_retrieve_userlist',[batch_array])
 
-@gen.coroutine
 def update_watchlist(user, since_tweet_id, page_not_found):
     print user
     doc = yield pre_watchlist_coll.find_one({'user.id_str': user['id_str'], 'state': 1})
@@ -429,7 +428,6 @@ def move_to_history(user_id):
     yield tweets_coll.update({'tweet.user.id_str': user_id, 'tweet.user.history': False},
                        {'$set': {'tweet.user.history': True}})
 
-@gen.coroutine
 def insert_tweet(tweet_obj_array):
 
     # actual tweet insertion

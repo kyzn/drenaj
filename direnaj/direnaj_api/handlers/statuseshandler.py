@@ -10,6 +10,8 @@ from direnaj_api.utils.direnaj_auth import direnaj_simple_auth
 import tornado.ioloop
 import tornado.web
 
+from tornado import gen
+
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
 
@@ -41,6 +43,7 @@ class StatusesHandler(tornado.web.RequestHandler):
 
     #@direnaj_simple_auth
     @tornado.web.asynchronous
+    @gen.coroutine
     def post(self, *args, **keywords):
         """
         `view`
@@ -172,12 +175,12 @@ class StatusesHandler(tornado.web.RequestHandler):
 ###                         coordinates_coll.insert(validate_document(new_coordinates_template(),
 ###                                 {"coordinates": coordinates, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
                     if tmp_tweets:
-                        yield direnajmongomanager.insert_tweet(tmp_tweets)
+                        direnajmongomanager.insert_tweet(tmp_tweets)
                         if watchlist_related:
                             print watchlist_related
                             watchlist_related = bson.json_util.loads(watchlist_related)
                             print watchlist_related
-                            yield direnajmongomanager.update_watchlist(**watchlist_related)
+                            direnajmongomanager.update_watchlist(**watchlist_related)
                     else:
                         raise HTTPError(500, 'You tried to insert no tweets?!')
 #                    tweets_coll.insert(tmp_tweets)
