@@ -121,7 +121,8 @@ class StatusesHandler(tornado.web.RequestHandler):
                             # TODO: Replace this DB_TEST_VERSION with source code
                             # version later
                             "direnaj_service_version": DB_TEST_VERSION,
-                            "retrieved_by": keywords['drnjID'],
+                            # TODO: "retrieved_by": keywords['drnjID'],
+                            "retrieved_by": "direnaj",
                             "campaign_id": campaign_id,
                             "record_retrieved_at": drnj_time.now_in_drnj_time(),
                         }, fail=False))
