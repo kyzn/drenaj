@@ -209,28 +209,27 @@ def get_campaigns_list():
     #raise Return(cursor)
     return campaigns_coll.find({})
 
-@gen.coroutine
 def get_campaign_list_with_freqs(skip, limit):
 #    cursor = db.freq_campaigns.aggregate({"$group": { "campaign_id": "$key", "totalTweets": {"$sum": "$day_total"}}})
     import sys
     print("GET_CAMPAIGN_LIST_WITH_FREQS: ", "skip: ", skip, ", limit", limit)
-    cursor = yield colls["campaigns"].aggregate(
+    cursor = colls["campaigns"].aggregate(
         [{"$group": { "_id": "$key", "total": {"$sum": "$day_total"}, "last_date": {"$max": "$date"}}},
          {"$sort": {"last_date": -1, "total": -1}}, {"$skip": skip},
          {"$limit": limit}])
     print("GET_CAMPAIGN_LIST_WITH_FREQS: ", "skip: ", skip, ", limit", limit)
     sys.stdout.flush()
-    raise Return(cursor['result'])
+    return cursor
 
-@gen.coroutine
 def get_campaign_with_freqs(campaign_id):
 #        [{"$match": {"campaign_id": campaign_id, "date": today}},
     today = time.strftime('%Y-%m-%d', time.gmtime())
-    cursor = yield colls['campaigns'].aggregate(
+    cursor = colls['campaigns'].aggregate(
         [{"$match": {"campaign_id": campaign_id}},
          {"$sort": {"date": -1}}, {"$limit": 1},
          {"$project": {"campaign_id": 1, "date": 1, "series": {"hour": "$hour", "minute": "$minute"}}}])
-    raise Return(cursor['result'])
+    return cursor
+    #raise Return(cursor['result'])
 
 
 @gen.coroutine
@@ -241,18 +240,9 @@ def check_auth(username, password):
                                                 "password": password}).to_list(length=100)
     raise Return(db_user)
 
-def calculate_campaign_histograms(campaign_id, n_bins=100):
 
-    n_bins = int(n_bins)
-
-    import matplotlib.pyplot as plot
-
-    plotGraphs = False
-
-    #######
-    import numpy
+def get_users_related_with_campaign(campaign_id):
     campaign_query = {'campaign_id': campaign_id}
-
     projection_query = {'tweet.user.id_str': 1,
                         'tweet.user.default_profile_image': 1,
                         'tweet.user.profile_image_url': 1,
@@ -263,18 +253,20 @@ def calculate_campaign_histograms(campaign_id, n_bins=100):
                         'tweet.user.utc_offset': 1,
                         'tweet.user.lang': 1,
                         'tweet.user.timezone': 1,
-                        }
-
+    }
     group_query = {'_id': '$tweet.user.id_str',
-                'n_user_tweets': {'$sum': 1},
-                'user': {'$first': '$tweet.user'}}
-
+                   'n_user_tweets': {'$sum': 1},
+                   'user': {'$first': '$tweet.user'}}
     pipeline = [{'$match': campaign_query},
                 {'$project': projection_query},
                 {'$group': group_query}]
+    return [tweets_coll.aggregate(pipeline), tweets_coll.find(campaign_query)]
 
-    tmp = yield tweets_coll.aggregate(pipeline)
-    users = tmp['result']
+def prepare_hist_and_plot(n_tweets, users, n_bins, campaign_id):
+    import numpy
+    import matplotlib.pyplot as plot
+
+    plotGraphs = False
 
     hist = {
         'user_creation': {
@@ -295,14 +287,12 @@ def calculate_campaign_histograms(campaign_id, n_bins=100):
         'n_lower_than_threshold': None,
     }
 
-    # How many tweets?
-    n_tweets = yield tweets_coll.find(campaign_query).count()
     print "How many tweets? %d" % n_tweets
     hist['n_tweets'] = n_tweets
 
     # TODO: abort if there are more than 200000 tweets.
     if n_tweets > 200000:
-        raise Return(hist)
+        return
     #
     # How many unique users?
     #
@@ -405,9 +395,22 @@ def calculate_campaign_histograms(campaign_id, n_bins=100):
     hist = {'campaign_id': campaign_id,
             'histogram': hist,
             'created_at': now_in_drnj_time()}
-    yield histograms_coll.insert(hist)
+    return hist
 
-    raise Return([hist])
+# def calculate_campaign_histograms(campaign_id, n_bins=100):
+#
+#     n_bins = int(n_bins)
+#
+#
+#
+#     #######
+#
+#
+#
+#
+#
+#
+
     #####
     #
     # Fetch the profile images of each unique user. Calculate the average color.
@@ -419,12 +422,10 @@ def calculate_campaign_histograms(campaign_id, n_bins=100):
     # 2. Take a basic algorithm and calculate the clusterings in it.
     #
 
-@gen.coroutine
 def get_campaign_histograms(campaign_id):
-    hists = yield histograms_coll.find({'campaign_id': campaign_id}).sort([('created_at', -1)])
-    raise Return(hists)
+    hists = histograms_coll.find({'campaign_id': campaign_id}).sort([('created_at', -1)])
+    return hists
 
-@gen.coroutine
 def move_to_history(user_id):
     yield tweets_coll.update({'tweet.user.id_str': user_id, 'tweet.user.history': False},
                        {'$set': {'tweet.user.history': True}})

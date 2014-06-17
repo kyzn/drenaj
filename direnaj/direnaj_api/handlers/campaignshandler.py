@@ -75,7 +75,10 @@ class CampaignsHandler(tornado.web.RequestHandler):
                 campaign_id = self.get_argument('campaign_id', 'default')
                 cursor = direnajmongomanager.get_campaign(campaign_id)
                 campaign = yield cursor
-                self.write(bson.json_util.dumps(campaign))
+                if campaign:
+                    self.write(bson.json_util.dumps(campaign))
+                else:
+                    self.write(bson.json_util.dumps({}))
                 self.add_header('Content-Type', 'application/json')
 
             except MissingArgumentError as e:
@@ -93,14 +96,15 @@ class CampaignsHandler(tornado.web.RequestHandler):
         elif (action == 'view_freqs'):
             try:
                 campaign_id = self.get_argument('campaign_id', 'default')
-                try:
-                    direnajmongomanager.get_campaign_with_freqs(campaign_id)
-                except Return, r:
-                    campaign = r.value
+                cursor = direnajmongomanager.get_campaign_with_freqs(campaign_id)
+                cursor = yield cursor
+                campaign = cursor['result']
+                if campaign:
                     self.write(bson.json_util.dumps(campaign))
-                    self.add_header('Content-Type', 'application/json')
+                else:
+                    self.write(bson.json_util.dumps({}))
+                self.add_header('Content-Type', 'application/json')
 
-                self.finish()
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
@@ -109,14 +113,13 @@ class CampaignsHandler(tornado.web.RequestHandler):
                 skip = int(self.get_argument('skip', 0))
                 limit = int(self.get_argument('limit', 10))
                 print("FILTER: ", "skip: ", skip, ", limit", limit)
-                try:
-                    direnajmongomanager.get_campaign_list_with_freqs(skip, limit)
-                    print("END FILTER: ", "skip: ", skip, ", limit", limit)
-                except Return, r:
-                    campaigns = r.value
-                    print("GCLWF: EXCEPTION: ", "campaigns: ", campaigns)
-                    self.write(bson.json_util.dumps(campaigns))
-                    self.add_header('Content-Type', 'application/json')
+                cursor = direnajmongomanager.get_campaign_list_with_freqs(skip, limit)
+                print("END FILTER: ", "skip: ", skip, ", limit", limit)
+                cursor = yield cursor
+                campaigns = cursor['result']
+                print("GCLWF: EXCEPTION: ", "campaigns: ", campaigns)
+                self.write(bson.json_util.dumps(campaigns))
+                self.add_header('Content-Type', 'application/json')
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
@@ -128,18 +131,25 @@ class CampaignsHandler(tornado.web.RequestHandler):
                 n_bins = self.get_argument('n_bins', "100")
 
                 if re_calculate == 'no':
-                    try:
-                        direnajmongomanager.get_campaign_histograms(campaign_id)
-                    except Return, r:
-                        hists = r.value
-                        if hists.count() == 0:
-                            re_calculate = 'yes'
+
+                    cursor = direnajmongomanager.get_campaign_histograms(campaign_id)
+                    hists = yield cursor
+                    if hists.count() == 0:
+                        re_calculate = 'yes'
 
                 if re_calculate == 'yes':
-                    try:
-                        direnajmongomanager.calculate_campaign_histograms(campaign_id, n_bins)
-                    except Return, r:
-                        hists = r.value
+                    results = direnajmongomanager.get_users_related_with_campaign(campaign_id)
+                    tmp = yield results[0]
+                    users = tmp['result']
+
+                    # How many tweets?
+                    tmp = yield results[1]
+                    n_tweets = tmp.count()
+
+                    hist = direnajmongomanager.prepare_hist_and_plot(n_tweets, users, n_bins, campaign_id)
+                    hists = [hist]
+
+                    yield direnajmongomanager.histograms_coll.insert(hist)
 
                 self.write(bson.json_util.dumps(hists[0]))
                 self.add_header('Content-Type', 'application/json')
