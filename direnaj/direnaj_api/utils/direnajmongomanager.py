@@ -202,8 +202,7 @@ def create_campaign(params):
     yield campaigns_coll.insert(params)
 
 def get_campaign(campaign_id):
-    cursor = yield campaigns_coll.find({'campaign_id': campaign_id})
-    raise Return(cursor)
+    return campaigns_coll.find_one({'campaign_id': campaign_id})
 
 def get_campaigns_list():
     #cursor = yield campaigns_coll.find({}).to_list()

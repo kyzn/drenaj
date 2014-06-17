@@ -73,12 +73,10 @@ class CampaignsHandler(tornado.web.RequestHandler):
         elif (action == 'view'):
             try:
                 campaign_id = self.get_argument('campaign_id', 'default')
-                try:
-                    direnajmongomanager.get_campaign(campaign_id)
-                except Return, r:
-                    campaign = r.value
-                    self.write(bson.json_util.dumps(campaign))
-                    self.add_header('Content-Type', 'application/json')
+                cursor = direnajmongomanager.get_campaign(campaign_id)
+                campaign = yield cursor
+                self.write(bson.json_util.dumps(campaign))
+                self.add_header('Content-Type', 'application/json')
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
