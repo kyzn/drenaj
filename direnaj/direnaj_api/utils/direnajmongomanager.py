@@ -61,6 +61,7 @@ def create_indices():
     for key in colls.keys():
         yield colls[key].create_index([('campaign_id', pymongo.ASCENDING), ('date', pymongo.ASCENDING), ('key', pymongo.ASCENDING)])
 
+create_indices()
 
 def prepare_users_to_be_added(user_id_strs_to_follow, type='id_str'):
     print user_id_strs_to_follow
@@ -85,8 +86,6 @@ def prepare_users_to_be_added(user_id_strs_to_follow, type='id_str'):
     #     # second element is optional. it should be the username for easier management by humans.
     #     users_to_be_added.append(line_els[0])
 
-
-@gen.coroutine
 def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_follow):
     users_to_be_added = []
     if user_id_strs_to_follow:
@@ -125,6 +124,8 @@ def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_f
         #     watchlist_coll.find_and_modify({'user.id_str': user['id_str']},{'$push': {'campaign_ids': campaign_id}})
 
 def create_batch_from_watchlist(app_object, n_users):
+    # using pymongo (thus synchronous) because motor caused problems at the first try.
+    # it doesn't matter for now as this code is run from a celery client on the server.
     mongo_client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
     db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
     pre_watchlist_coll = db['pre_watchlist']
@@ -189,7 +190,6 @@ def update_watchlist(user, since_tweet_id, page_not_found):
     #                                                               'page_not_found': page_not_found,
     #                                                               'updated_at': now_in_drnj_time()}})
 
-@gen.coroutine
 def create_campaign(params):
     created_at = now_in_drnj_time()
     params.update({'created_at': created_at})
@@ -201,7 +201,6 @@ def create_campaign(params):
     add_to_watchlist(params['campaign_id'], user_id_strs_to_follow, user_screen_names_to_follow)
     yield campaigns_coll.insert(params)
 
-@gen.coroutine
 def get_campaign(campaign_id):
     cursor = yield campaigns_coll.find({'campaign_id': campaign_id})
     raise Return(cursor)
