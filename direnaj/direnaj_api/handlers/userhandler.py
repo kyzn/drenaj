@@ -40,6 +40,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
         #self.write("not implemented yet")
 
     @tornado.web.asynchronous
+    @gen.coroutine
     def post(self, *args):
         """
 
@@ -205,7 +206,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
 ##                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
 ##             pass
 
-@gen.coroutine
+#@gen.coroutine
 def store_multiple_profiles(ids, S, drnjID, campaign_id):
     """
 
