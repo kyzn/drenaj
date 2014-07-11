@@ -39,6 +39,7 @@ class FollowerHandler(tornado.web.RequestHandler):
         #self.write("not implemented yet")
 
     @tornado.web.asynchronous
+    @gen.coroutine
     def post(self, *args):
         """ I chose to handle all options at once, using only POST requests
         for API requests. GET requests will be used for browser examination.
@@ -112,7 +113,6 @@ class FollowerHandler(tornado.web.RequestHandler):
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
             pass
 
-@gen.coroutine
 def store_friends_or_followers(user_id, IDS, drnjID, fof):
     """Stores/updates list of direnaj user data using raw twitter data
 
