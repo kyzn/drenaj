@@ -9,15 +9,3 @@ mongo_port: 27017
 
 direnaj_app_environment: 'development'
 direnaj_app_host: 'localhost'
-
-direnaj_vis_environment: 'development'
-direnaj_vis_host: '192.168.1.24'
-
-# Obtain these from Twitter, see project wiki
-app_consumer_key: "BpY42HwA72rMyfi6u0Eg"
-app_consumer_secret: "ZvQvemO5pV6lWdFHVyATju61qnuJsHAQIVKGjz8nTg"
-access_token_key: "1856904408-nPvHreLTUquJfxQsF6C23bdbtdfEIOVLgHE1neB"
-access_token_secret: "fqAkm3BwRVQ8VXeeXAUrlLN7GMOWpmisetLOWZwuq0"
-
-auth_user_id: 'direnaj'
-auth_password: 'tamtam'
