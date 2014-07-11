@@ -60,7 +60,7 @@ class visFollowerHandler(tornado.web.RequestHandler):
         if crawl_or_view=='crawl':
             user_id = self.get_argument('user_id', None)
             res = drnj_graph_crawler(friends_or_followers, int(user_id))
-            env = Environment(loader=FileSystemLoader('client/templates'))
+            env = Environment(loader=FileSystemLoader('direnaj/client/templates'))
             template = env.get_template('profiles/crawl_graph_notification.html')
             result = template.render(user_id=user_id, fof=friends_or_followers, res=res, href=vis_root_url)
 
@@ -112,7 +112,7 @@ class visSingleProfileHandler(tornado.web.RequestHandler):
         dat = bson.json_util.loads(post_response.content)
         print dat
 
-        env = Environment(loader=FileSystemLoader('client/templates'))
+        env = Environment(loader=FileSystemLoader('direnaj/client/templates'))
         env.globals['drnj_time'] = drnj_time
         template = env.get_template('profiles/history_view.html')
         result = template.render(profiles=dat)
@@ -152,7 +152,7 @@ class visUserProfilesHandler(tornado.web.RequestHandler):
 
             dat = json_decode(tmp.content)
 
-            env = Environment(loader=FileSystemLoader('client/templates'))
+            env = Environment(loader=FileSystemLoader('direnaj/client/templates'))
             template = env.get_template('profiles/view.html')
             result = template.render(profiles=dat, len=len(dat), href=vis_root_url,
                                      username = self.get_secure_cookie('tai_user'),
@@ -172,7 +172,7 @@ class visCampaignsHandler(tornado.web.RequestHandler):
 
         """
 
-        env = Environment(loader=FileSystemLoader('client/templates'))
+        env = Environment(loader=FileSystemLoader('direnaj/client/templates'))
 
         (command) = args[0]
 
