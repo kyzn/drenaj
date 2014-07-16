@@ -229,7 +229,7 @@ def build_docs():
          prefix("workon direnaj"):
         with cd(env.direnaj['code_dir']+"/docs"):
             run("mkdir -p modules")
-            run("python generate_modules.py -s rst -d modules/ ../direnaj_api/")
+            run("python generate_modules.py -s rst -d modules/ ../direnaj/direnaj_api/")
             run("rm modules/modules.rst")
             run("make html")
 
