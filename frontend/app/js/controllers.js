@@ -43,14 +43,14 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.campaign_in_tab = {
         "campaign_id": "cok guzel bir kampanya",
-        "series": {"hour": { "00": 11, "01": 22 }, "minute": { "0000": 7 }},
+        "series": {"hour": { "00": 11, "01": 22 }, "minute": { "0000": 7 }}
     };
 
     $scope.campaign_series_to_plot = $scope.campaign_in_tab.series.hour;
 
     $scope.selectCampaign = function(campaign) {
         console.log("You've selected the tab:  " + campaign._id);
-        $http.get('/campaigns/view_freqs', {
+        $http.get('/campaigns/view/freqs', {
             params: {
                 campaign_id: campaign._id,
                 auth_user_id: 'direnaj',
@@ -61,7 +61,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
             $scope.campaign_in_tab = {
                 "campaign_id": data[0].campaign_id,
                 "date": data[0].date,
-                "series": data[0].series,
+                "series": data[0].series
             };
             $scope.campaign_series_to_plot = $scope.campaign_in_tab.series.hour;
             console.log($scope.campaign_in_tab);
@@ -87,7 +87,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
         var params = {
             campaign_id: campaign_id,
             auth_user_id: 'direnaj',
-            auth_password: 'tamtam',
+            auth_password: 'tamtam'
         };
 
         if (recalculate) {
@@ -186,7 +186,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
                     text: item.tweet.text,
                     screen_name: item.tweet.user.screen_name,
                     user_id_str: item.tweet.user.id_str,
-                    user_profile_image_url: item.tweet.user.profile_image_url,
+                    user_profile_image_url: item.tweet.user.profile_image_url
                 };
             } else {
                 return {
@@ -194,7 +194,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
                     text:  'NA',
                     screen_name:  'NA',
                     user_id_str:  'NA',
-                    user_profile_image_url:  'NA',
+                    user_profile_image_url:  'NA'
                 };
             }
         });
@@ -258,8 +258,8 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
         pagingOptions: $scope.pagingOptions,
         filterOptions: $scope.filterOptions,
         columnDefs: [{ field: 'id_str', displayName: 'Tweet ID', width: "10%"},
-                    { field: 'text', displayName: 'Tweet Text', width: "70%" },
-        { field: 'screen_name', displayName: 'Screen Name', width: "10%" },
-{ field: 'user_id_str', displayName: 'User ID', width: "10%" }],
+                     { field: 'text', displayName: 'Tweet Text', width: "70%" },
+            { field: 'screen_name', displayName: 'Screen Name', width: "10%" },
+            { field: 'user_id_str', displayName: 'User ID', width: "10%" }]
     };
 }]);

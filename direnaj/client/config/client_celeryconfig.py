@@ -2,6 +2,8 @@ __author__ = 'onur'
 
 from kombu import Queue
 
+from direnaj.client.config.config import DIRENAJ_LOCAL_QUEUE
+
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
 
@@ -16,4 +18,5 @@ CELERY_DEFAULT_EXCHANGE_TYPE = 'topic'
 CELERY_QUEUES = (
     Queue('timelines', routing_key='*.timeline.*'),
     Queue('streamings', routing_key='*.streaming.*'),
+    Queue(DIRENAJ_LOCAL_QUEUE, type='direct')
 )

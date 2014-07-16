@@ -51,6 +51,7 @@ class StreamCatcher(multiprocessing.Process):
         self.prev_buf = ''
 
         self.direnaj_auth_secrets = keystore.direnaj_auth_secrets.copy()
+        self.access_tokens = keystore.acquire_access_tokens()
 
         self.requests_session = requests.Session()
         self.requests_session.stream = True
@@ -68,6 +69,7 @@ class StreamCatcher(multiprocessing.Process):
 
     def on_terminate(self, signal, frame):
         print "Cleaning up for streamer_id=%s..." % self.streamer_id
+        self.keystore.release_access_tokens(self.access_tokens)
         sys.exit(0)
 
     def prepare_request(self, postdata, keystore=KeyStore()):
@@ -78,8 +80,8 @@ class StreamCatcher(multiprocessing.Process):
         return req.prepare()
 
     def sign_request(self, postdata, keystore=KeyStore()):
-        token = oauth.Token(key=keystore.access_tokens[0][0],
-                            secret=keystore.access_tokens[0][1])
+        token = oauth.Token(key=self.access_tokens[0][0],
+                            secret=self.access_tokens[0][1])
         consumer = oauth.Consumer(key=keystore.app_consumer_key,
                                   secret=keystore.app_consumer_secret)
 

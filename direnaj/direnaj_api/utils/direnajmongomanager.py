@@ -39,24 +39,49 @@ colls = {
 @gen.coroutine
 def create_indices():
 
-    yield tweets_coll.create_index([('campaign_id', pymongo.ASCENDING), ('tweet.created_at', pymongo.ASCENDING)])
-    yield tweets_coll.create_index([('record_retrieved_at', pymongo.ASCENDING)])
-    yield tweets_coll.create_index([('campaign_id', pymongo.ASCENDING), ('tweet.user.id_str', pymongo.ASCENDING), ('tweet.user.history', pymongo.ASCENDING)])
-    yield tweets_coll.create_index([('tweet.user.id_str', pymongo.ASCENDING), ('tweet.user.history', pymongo.ASCENDING)])
+    yield tweets_coll.create_index([('campaign_id', pymongo.ASCENDING),
+                                    ('tweet.created_at', pymongo.ASCENDING)])
 
-    yield histograms_coll.create_index([('campaign_id', pymongo.ASCENDING), ('created_at', pymongo.ASCENDING)])
+    yield tweets_coll.create_index([('record_retrieved_at', pymongo.ASCENDING)])
+
+    # I moved tweet.user.history to the second place.
+    # This may degrade performance on a number of queries. We will handle them as we notice.
+    # I believe this new order is better for retrieving profiles in bulk.
+    yield tweets_coll.create_index([('campaign_id', pymongo.ASCENDING),
+                                    ('tweet.user.history', pymongo.ASCENDING),
+                                    ('tweet.user.id_str', pymongo.ASCENDING)])
+
+    yield tweets_coll.create_index([('tweet.user.id_str', pymongo.ASCENDING),
+                                    ('tweet.user.history', pymongo.ASCENDING)])
+
+
+    yield histograms_coll.create_index([('campaign_id', pymongo.ASCENDING),
+                                        ('created_at', pymongo.ASCENDING)])
+
 
     yield campaigns_coll.ensure_index([("campaign_id", 1)], unique=True)
 
-    yield graph_coll.create_index([('id_str', pymongo.ASCENDING), ('following', pymongo.ASCENDING)])
-    yield graph_coll.create_index([('friend_id_str', pymongo.ASCENDING), ('following', pymongo.ASCENDING)])
+
+    yield graph_coll.create_index([('id_str', pymongo.ASCENDING),
+                                   ('following', pymongo.ASCENDING)])
+
+    yield graph_coll.create_index([('friend_id_str', pymongo.ASCENDING),
+                                   ('following', pymongo.ASCENDING)])
+
 
     yield watchlist_coll.create_index([('user.id_str', pymongo.ASCENDING)], unique=True)
+
     yield watchlist_coll.create_index([('state', pymongo.ASCENDING), ('updated_at', pymongo.DESCENDING)])
-    yield watchlist_coll.create_index([('user.campaign_ids', pymongo.ASCENDING), ('state', pymongo.ASCENDING), ('updated_at', pymongo.DESCENDING)])
+
+    yield watchlist_coll.create_index([('user.campaign_ids', pymongo.ASCENDING),
+                                       ('state', pymongo.ASCENDING),
+                                       ('updated_at', pymongo.DESCENDING)])
+
 
     yield pre_watchlist_coll.create_index([('user.id_str', pymongo.ASCENDING)])
+
     yield pre_watchlist_coll.create_index([('state', pymongo.ASCENDING)])
+
 
     for key in colls.keys():
         yield colls[key].create_index([('campaign_id', pymongo.ASCENDING), ('date', pymongo.ASCENDING), ('key', pymongo.ASCENDING)])
@@ -86,6 +111,7 @@ def prepare_users_to_be_added(user_id_strs_to_follow, type='id_str'):
     #     # second element is optional. it should be the username for easier management by humans.
     #     users_to_be_added.append(line_els[0])
 
+@gen.coroutine
 def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_follow):
     users_to_be_added = []
     if user_id_strs_to_follow:
@@ -105,16 +131,21 @@ def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_f
                #'campaign_ids': [campaign_id],
         } # page_not_found: 0, no problem, 1, protected, 2, suspended, 3, other reasons.
         print doc
-        ret = yield watchlist_coll.find_one({'user.id_str': user['user']['id_str']})
-        if ret:
-            yield watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'user.campaign_ids': campaign_id}})
-            continue
-        else:
-            ret = yield watchlist_coll.find_one({'user.screen_name': user['user']['screen_name']})
+        if user['user']['id_str']:
+            ret = yield watchlist_coll.find_one({'user.id_str': user['user']['id_str']})
             if ret:
                 yield watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'user.campaign_ids': campaign_id}})
-                continue
-        yield pre_watchlist_coll.insert(doc)
+            else:
+                yield watchlist_coll.insert(doc)
+        else:
+            yield pre_watchlist_coll.insert(doc)
+        #     continue
+        # else:
+        #     ret = yield watchlist_coll.find_one({'user.screen_name': user['user']['screen_name']})
+        #     if ret:
+        #         yield watchlist_coll.update({'_id': ret['_id']}, {'$addToSet': {'user.campaign_ids': campaign_id}})
+        #         continue
+
         # try:
         #     # user.id_str field is unique, so it will fail if it exists.
         #     watchlist_coll.insert(doc)
@@ -122,6 +153,37 @@ def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_f
         # except Exception, e:
         #     # TODO: addToSet.
         #     watchlist_coll.find_and_modify({'user.id_str': user['id_str']},{'$push': {'campaign_ids': campaign_id}})
+
+def get_user_from_watchlist(user):
+    mongo_client = pymongo.MongoClient(MONGO_HOST, MONGO_PORT)
+    db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
+    pre_watchlist_coll = db['pre_watchlist']
+    watchlist_coll = db['watchlist']
+
+    if user['id_str']:
+        cursor = pre_watchlist_coll.find_one({'state': 0, 'user.id_str': user['id_str']},
+                                     fields=['user', 'since_tweet_id', 'page_not_found'])
+        if cursor:
+            pre_watchlist_coll.update({'_id': cursor['_id']}, {'$set': {'state': 1}})
+            return cursor
+        else:
+            cursor = watchlist_coll.find_one({'state': 0, 'user.id_str': user['id_str']},
+                                     fields=['user', 'since_tweet_id', 'page_not_found'])
+            if cursor:
+                watchlist_coll.update({'_id': cursor['_id']}, {'$set': {'state': 1}})
+                return cursor
+    else:
+        cursor = pre_watchlist_coll.find_one({'state': 0, 'user.screen_name': user['screen_name']},
+                                     fields=['user', 'since_tweet_id', 'page_not_found'])
+        if cursor:
+            pre_watchlist_coll.update({'_id': cursor['_id']}, {'$set': {'state': 1}})
+        else:
+            cursor = watchlist_coll.find_one({'state': 0, 'user.screen_name': user['screen_name']},
+                                                 fields=['user', 'since_tweet_id', 'page_not_found'])
+            watchlist_coll.update({'_id': cursor['_id']}, {'$set': {'state': 1}})
+            return cursor
+        return cursor
+
 
 def create_batch_from_watchlist(app_object, n_users):
     # using pymongo (thus synchronous) because motor caused problems at the first try.
@@ -163,6 +225,7 @@ def create_batch_from_watchlist(app_object, n_users):
     # ### Now, use this batch_array to call TimelineRetrievalTask.
     # res = app_object.send_task('timeline_retrieve_userlist',[batch_array])
 
+@gen.coroutine
 def update_watchlist(user, since_tweet_id, page_not_found):
     print user
     doc = yield pre_watchlist_coll.find_one({'user.id_str': user['id_str'], 'state': 1})
@@ -173,10 +236,7 @@ def update_watchlist(user, since_tweet_id, page_not_found):
         del doc['_id']
     else:
         doc = yield watchlist_coll.find_one({'user.id_str': user['id_str'], 'state': 1})
-        # required for concurrency. at least I think so.
-        if doc:
-            pass
-        else:
+        if not doc:
             return
     if 'campaign_ids' in doc['user']:
         user.update({'campaign_ids': doc['user']['campaign_ids']})
@@ -190,6 +250,7 @@ def update_watchlist(user, since_tweet_id, page_not_found):
     #                                                               'page_not_found': page_not_found,
     #                                                               'updated_at': now_in_drnj_time()}})
 
+@gen.coroutine
 def create_campaign(params):
     created_at = now_in_drnj_time()
     params.update({'created_at': created_at})
@@ -240,6 +301,11 @@ def check_auth(username, password):
                                                 "password": password}).to_list(length=100)
     raise Return(db_user)
 
+def get_users_attached_to_campaign(campaign_id):
+    campaign_query = {'user.campaign_ids': campaign_id}
+    pre_watchlist_cursor = pre_watchlist_coll.find(campaign_query)
+    watchlist_cursor = watchlist_coll.find(campaign_query)
+    return [pre_watchlist_cursor, watchlist_cursor]
 
 def get_users_related_with_campaign(campaign_id):
     campaign_query = {'campaign_id': campaign_id}
@@ -430,6 +496,7 @@ def move_to_history(user_id):
     yield tweets_coll.update({'tweet.user.id_str': user_id, 'tweet.user.history': False},
                        {'$set': {'tweet.user.history': True}})
 
+@gen.coroutine
 def insert_tweet(tweet_obj_array):
 
     # actual tweet insertion

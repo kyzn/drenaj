@@ -98,21 +98,111 @@ class FollowerHandler(tornado.web.RequestHandler):
                 json_IDS = self.get_argument('ids', None)
                 IDS = json.loads(json_IDS)
 
-                try:
-                    store_friends_or_followers(user_id, IDS, drnjID=auth_user_id, fof=friends_or_followers)
-                except Return, r:
-                    ret = r.value
-                    # Returns number of written edges (new relations discovered)
-                    print "User ID: %d, among %s" % (user_id, friends_or_followers)
-                    print ret
+                print IDS
 
-                    self.write(json_encode(ret))
+                print "INININININ"
+                from direnaj_api.utils.direnajmongomanager import queue_coll, graph_coll
+                queue_query = {"id": user_id}
+                n_ids = yield queue_coll.find(queue_query).count()
+                dt = drnj_time.now_in_drnj_time()
+                if n_ids > 0:
+                    print 'ID EXISTS'
+                    queue_document = {"$set":
+                                        {
+                                        friends_or_followers +"_retrieved_at": dt,
+                                        "retrieved_by": auth_user_id}
+                                       }
+                    # creates entry if query does not exist
+                    # queue_collection.update(queue_query, queue_document, upsert=True)
+
+                    yield queue_coll.update(queue_query, queue_document)
+
+                else:
+                    print 'ID NOT EXISTS'
+                    if friends_or_followers == 'friends':
+                        queue_document = validate_document(new_queue_document(), {
+                                        "id": user_id,
+                                        "id_str": str(user_id),
+                                        "profile_retrieved_at": 0,
+                                        "friends_retrieved_at": dt,
+                                        "followers_retrieved_at": 0,
+                                        "retrieved_by": auth_user_id
+                                        })
+
+                    elif friends_or_followers == 'followers':
+                        queue_document = validate_document(new_queue_document(),{
+                                        "id": user_id,
+                                        "id_str": str(user_id),
+                                        "profile_retrieved_at": 0,
+                                        "friends_retrieved_at": 0,
+                                        "followers_retrieved_at": dt,
+                                        "retrieved_by": auth_user_id
+                                        })
+                    print "QUEUE DOCUMENT: "
+                    print queue_document
+                    yield queue_coll.insert(queue_document)
+
+                n_edges_committed = 0
+                # process each user id in IDS
+                for id in reversed(IDS):
+                    # Insert the newly discovered id into the queue
+                    # insert will be rejected if _id exists
+                    tmp_n_ids = yield queue_coll.find({'id': id}).count()
+                    if tmp_n_ids == 0:
+                        queue_document = validate_document(new_queue_document(),{
+                                            "id": id,
+                                            "id_str": str(id),
+                                            "profile_retrieved_at": 0,
+                                            "friends_retrieved_at": 0,
+                                            "followers_retrieved_at": 0,
+                                            "retrieved_by": auth_user_id})
+
+                        yield queue_coll.insert(queue_document)
+
+                    dt = drnj_time.now_in_drnj_time()
+                    if friends_or_followers == 'friends':
+                        source = user_id
+                        sink = id
+                    elif friends_or_followers == 'followers':
+                        source = id
+                        sink = user_id
+                    else:
+                        return
+
+                    edge = yield graph_coll.find_one({"id": source, "friend_id": sink})
+
+                    if edge == None:
+                        n_edges_committed += 1
+                        doc = validate_document(new_graph_document(),{
+                         'id': source,
+                         'friend_id': sink,
+                         'id_str': str(source),
+                         'friend_id_str': str(sink),
+                         'record_retrieved_at': dt,
+                         "retrieved_by": auth_user_id
+                        })
+                        yield graph_coll.insert(doc)
+
+                #store_friends_or_followers(user_id, IDS, drnjID=auth_user_id, fof=friends_or_followers)
+                print "CIKTI"
+
+                print "User ID: %d, among %s" % (user_id, friends_or_followers)
+
+                self.write(bson.json_util.dumps({'n_edges_committed': n_edges_committed}))
+                # except Return, r:
+                #     ret = r.value
+                #     # Returns number of written edges (new relations discovered)
+                #     print "User ID: %d, among %s" % (user_id, friends_or_followers)
+                #     print ret
+                #
+                #     self.write(json_encode(ret))
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
             pass
 
+@gen.coroutine
 def store_friends_or_followers(user_id, IDS, drnjID, fof):
     """Stores/updates list of direnaj user data using raw twitter data
 
@@ -122,11 +212,14 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     queue_collection = db['queue']
     graph_collection = db['graph']
 
-    num_new_discovered_users = 0;
+    num_new_discovered_users = 0
     num_edges_inserted = 0
 
     dt = drnj_time.now_in_drnj_time()
     queue_query = {"id": user_id}
+
+    print queue_query
+
     # ATC: This mechanism requires finding the id twice
     # With indexing, this may not be a big problem
     # Alternative is trying to update and catching the pymongo.errors.OperationFailure exception
@@ -134,6 +227,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
     id_exists =  n_ids > 0
 
     if id_exists:
+        print 'ID EXISTS'
         queue_document = {"$set":
                             {
                             fof +"_retrieved_at": dt,
@@ -145,6 +239,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
         yield queue_collection.update(queue_query, queue_document)
 
     else:
+        print 'ID NOT EXISTS'
         if fof == 'friends':
             queue_document = validate_document(new_queue_document(), {
                             "id": user_id,
@@ -164,6 +259,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
                             "followers_retrieved_at": dt,
                             "retrieved_by": drnjID
                             })
+        print "QUEUE DOCUMENT: " + queue_document
         yield queue_collection.insert(queue_document)
         num_new_discovered_users += 1
 
@@ -208,7 +304,7 @@ def store_friends_or_followers(user_id, IDS, drnjID, fof):
              "retrieved_by": drnjID
             })
             yield graph_collection.insert(doc)
-            num_edges_inserted += 1;
+            num_edges_inserted += 1
 
     # TODO: Handle unfollows: Find edges that no longer exist and move old record to graph_history and add unfollow record
 

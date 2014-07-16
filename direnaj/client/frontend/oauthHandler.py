@@ -129,7 +129,7 @@ class OAuthHandler(tornado.web.RequestHandler):
                 dat = json_decode(tmp.content)
 
                 env = Environment(loader=FileSystemLoader('templates'))
-                template = env.get_template('profiles/view.html')
+                template = env.get_template('profiles/watched_users.html')
 
                 user = accounts.find_one( {'username': user['username']} )
                 if user and 'creds_AccessToken' in user and user['creds_AccessToken']:

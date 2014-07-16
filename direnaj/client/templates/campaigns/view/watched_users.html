@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>Direnaj!</title>
+</head>
+<body>
+
+<h1>Watched users of a campaign</h1>
+<table border="1">
+    <th> id_str</th>
+    <th> screen_name </th>
+    <th> statuses_count </th>
+    <th></th>
+    <th> name </th>
+    <th> friends_count </th>
+    <th> followers_count </th>
+    <th> known_friends_count </th>
+    <th> known_followers_count </th>
+    <th> last tweet id (we have) </th>
+    {% for (user, since_tweet_id) in profiles %}
+    {% if user.protected %}
+    <tr style="background-color:gray">
+        {% else %}
+    <tr>
+        {% endif %}
+        <td>
+            <a href="{{ href }}/user/view?user_id={{ user.id_str}}">
+                {{ user.id_str}}
+            </a>
+        </td>
+        <td>{{user.screen_name}}</td>
+        <td>{{ user.statuses_count}}</td>
+        <td><img src="{{ user.profile_image_url }}" height="64" width="64"></td>
+        <td>{{ user.name}}</td>
+        <td>
+            {{ user.friends_count}}
+        </td>
+        <td>
+            {{ user.followers_count}}
+        </td>
+        <td>{{ user.known_friends_count}}
+            <a href="{{ href }}/tasks/crawl?user_id={{ user.id_str}}&edge_type=friends&local_or_remote=local">
+                update
+            </a>
+        </td>
+        <td>{{ user.known_followers_count}}
+            <a href="{{ href }}/tasks/crawl?user_id={{ user.id_str}}&edge_type=followers&local_or_remote=local">
+                update
+            </a>
+        </td>
+        <td>
+            {{ since_tweet_id }}
+            <a href="{{ href }}/tasks/harvest?user_id={{user.id_str}}&local_or_remote=local">
+                update
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<br><br>
+
+</body>
+</html>

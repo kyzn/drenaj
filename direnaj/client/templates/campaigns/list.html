@@ -42,6 +42,7 @@
     <th> description </th>
     <th> query_terms </th>
     <th> created_at </th>
+    <th> view watched users </th>
     <th> spawn another thread </th>
     {% for campaign in campaigns %}
 
@@ -50,6 +51,7 @@
             <td>{{ campaign.description}}</td>
             <td>{{ campaign.query_terms}}</td>
             <td>{{ campaign.created_at}}</td>
+            <td><a href="/campaigns/view/watched_users?campaign_id={{ campaign.campaign_id }}">view</a></td>
             <td><a href="/campaigns/create_thread?campaign_id={{ campaign.campaign_id }}&query_terms={{ campaign.query_terms|urlencode }}">spawn</a></td>
         </tr>
     {% endfor %}

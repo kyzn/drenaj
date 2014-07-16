@@ -8,11 +8,14 @@ __author__ = 'onur'
 # from client.frontend.oauthHandler import SignoutHandler
 
 routes_config = [
-    (r"/(friends|followers)/(crawl|view)", client_api.visFollowerHandler),
-    (r"/statuses/(crawl|view)", client_api.visStatusesHandler),
+    (r"/(friends|followers)/(crawl|view)", client_api.ClientFriendFollowerHandler),
+
+    (r"/tasks/(crawl|harvest)", client_api.TaskHandler),
+
     (r"/user/(crawl|view)", client_api.visSingleProfileHandler),
-    (r"/profiles/(crawl|view)", client_api.visUserProfilesHandler),
+
     (r"/campaigns/(list|new|create_thread|kill_thread)", client_api.visCampaignsHandler),
+    (r"/campaigns/view/watched_users", client_api.CampaignsWatchedUsersHandler),
 
     # (r'/sign_in', SigninHandler),
     # (r'/sign_up', SignupHandler),

@@ -39,17 +39,17 @@ app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[environ
 auth_user_id = 'direnaj'
 auth_password = 'tamtam'
 
-try:
-    key_store = KeyStore()
-    consumer_key = key_store.app_consumer_key
-    consumer_secret = key_store.app_consumer_secret
-    access_token_key = key_store.access_tokens[0][0]
-    access_token_secret = key_store.access_tokens[0][1]
-except Exception, e:
-    print "WARN: You are using the old config schema"
+key_store = KeyStore()
+consumer_key = key_store.app_consumer_key
+consumer_secret = key_store.app_consumer_secret
 
 
 def drnj_graph_crawler(fof, root):
+
+    access_tokens = key_store.acquire_access_tokens()
+    access_token_key = access_tokens[0][0]
+    access_token_secret = access_tokens[0][1]
+
     twitter = Twython(consumer_key, consumer_secret, access_token_key, access_token_secret)
 
     cur = -1L
@@ -65,7 +65,7 @@ def drnj_graph_crawler(fof, root):
     success = True
 
     # Seconds to wait before trying again twitter limit
-    wait = 120;
+    wait = 120
 
     print "Retrieving the recent profile of user %d\n" % root
 
@@ -82,13 +82,14 @@ def drnj_graph_crawler(fof, root):
     except TwythonError as e:
         print e
         print "Error while fetching user profile from twitter, quitting ..."
+        key_store.release_access_tokens(access_tokens)
         return e
 
     if v['protected']:
         post_data = {"user_id": root, "isProtected": 1, "auth_user_id": auth_user_id, "auth_password": auth_password}
         post_response = requests.post(url=app_root_url+'/scheduler/reportProtectedUserid', data=post_data)
         print "Reported User %d as having a Protected Account" % root
-
+        key_store.release_access_tokens(access_tokens)
     else:
         print "Retrieving %s of user %d\n" % (fof, root)
 
@@ -106,7 +107,7 @@ def drnj_graph_crawler(fof, root):
                 S = twitter.get(fof + '/ids', {'user_id': root, 'cursor': cur})
 
                 # We count the number of remaining requests to the Twitter API
-                remain = remain - 1;
+                remain = remain - 1
 
                 IDS = IDS + S["ids"]
 #               SS = SS.append(S)
@@ -121,6 +122,11 @@ def drnj_graph_crawler(fof, root):
                 success = False
                 print "Error while fetching data from Twitter API"
                 break
+
+        key_store.release_access_tokens(access_tokens)
+
+        print "IDS retrieved: "
+        print IDS
 
         if success:
             post_data = {"user_id": root, "ids": json_encode(IDS),"auth_user_id":auth_user_id, "auth_password": auth_password}

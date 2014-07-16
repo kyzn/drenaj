@@ -16,6 +16,12 @@ class SchedulerProfilesHandler(tornado.web.RequestHandler):
 
     @tornado.web.asynchronous
     def get(self, *args):
+        '''
+        deneme
+
+        :param args:
+        :return:
+        '''
 
         (num) = args
 
@@ -42,6 +48,12 @@ class SchedulerProfilesHandler(tornado.web.RequestHandler):
             print a
 
     def post(self, *args):
+        '''
+        post deneme
+
+        :param args:
+        :return:
+        '''
         self.write("Not Implemented")
 
 
@@ -49,6 +61,11 @@ class SchedulerMainHandler(tornado.web.RequestHandler):
 
     @tornado.web.asynchronous
     def get(self, *args):
+        '''
+        deneme 2
+        :param args:
+        :return:
+        '''
 
         (friends_or_followers) = args
 

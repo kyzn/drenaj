@@ -14,7 +14,10 @@ Client side API which will be used at our clients' machines
 import tornado.ioloop
 import tornado.web
 from tornado.web import MissingArgumentError
-from tornado.escape import json_decode
+
+from tornado.web import HTTPError
+
+#from tornado.escape import json_decode
 import requests
 import bson.json_util
 from jinja2 import Environment, FileSystemLoader
@@ -42,9 +45,81 @@ vis_root_url = 'http://' + DIRENAJ_VIS_HOST + ':' + str(DIRENAJ_VIS_PORT[DIRENAJ
 
 keystore = KeyStore()
 
-#  (r"/(friends|followers)/(crawl|view)", visFollowerHandler),
+env = Environment(loader=FileSystemLoader('direnaj/client/templates'))
+env.globals['drnj_time'] = drnj_time
 
-class visFollowerHandler(tornado.web.RequestHandler):
+class TaskHandler(tornado.web.RequestHandler):
+    def get(self, *args):
+        self.post(*args)
+        #self.write("not implemented yet")
+
+    def post(self, *args):
+        """
+
+        """
+
+        task_type = args[0]
+
+        print "TaskHandler: {}".format(task_type)
+
+        try:
+            if task_type == 'crawl':
+
+                user_id = self.get_argument('user_id')
+                friends_or_followers = self.get_argument('edge_type', 'followers')
+                local_or_remote = self.get_argument('local_or_remote', 'local')
+
+                if local_or_remote == 'local':
+                    res = drnj_graph_crawler(friends_or_followers, int(user_id))
+                else:
+                    # TODO: implement remote work submission
+                    pass
+
+                template = env.get_template('profiles/crawl_graph_notification.html')
+                task_submit_result = template.render(user_id=user_id, fof=friends_or_followers, res=res, href=vis_root_url)
+
+                self.write(task_submit_result)
+            elif task_type == 'harvest':
+                from direnaj.client.celery_app.client_endpoint import app_object
+                user_id = self.get_argument('user_id', '')
+                screen_name = self.get_argument('screen_name', '')
+                #since_tweet_id = self.get_argument('since_tweet_id', '-1')
+                local_or_remote = self.get_argument('local_or_remote', 'local')
+
+                task_definition = bson.json_util.dumps({'task_type': 'harvest',
+                                   'metadata': {
+                                      'user': {
+                                          'id_str': user_id,
+                                          'screen_name': screen_name
+                                          }
+                                      }
+                                  })
+                print task_definition
+
+                if local_or_remote == 'local':
+                    post_data = {'task_definition': task_definition,
+                                 'queue': DIRENAJ_LOCAL_QUEUE}
+                else:
+                    post_data = {'task_definition': task_definition,
+                                 'queue': 'timelines'}
+
+                res = requests.post(app_root_url + '/tasks/harvest', data=post_data)
+                task_submit_result = bson.json_util.loads(res.content)
+                print task_submit_result
+
+                template = env.get_template('tasks/notification.html')
+                result = template.render(task_submit_result=task_submit_result, href=vis_root_url)
+
+                self.write(result)
+            else:
+                pass
+        except MissingArgumentError as e:
+            # TODO: implement logging.
+            raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
+
+
+#  (r"/(friends|followers)/(crawl|view)", ClientFriendFollowerHandler),
+class ClientFriendFollowerHandler(tornado.web.RequestHandler):
     def get(self, *args):
         self.post(*args)
         #self.write("not implemented yet")
@@ -56,38 +131,19 @@ class visFollowerHandler(tornado.web.RequestHandler):
 
         (friends_or_followers, crawl_or_view) = args
 
-        print "visFollowerHandler: {} {}".format(friends_or_followers, crawl_or_view)
+        print "ClientFriendFollowerHandler: {} {}".format(friends_or_followers, crawl_or_view)
+
         if crawl_or_view=='crawl':
             user_id = self.get_argument('user_id', None)
+
             res = drnj_graph_crawler(friends_or_followers, int(user_id))
-            env = Environment(loader=FileSystemLoader('direnaj/client/templates'))
+
             template = env.get_template('profiles/crawl_graph_notification.html')
             result = template.render(user_id=user_id, fof=friends_or_followers, res=res, href=vis_root_url)
 
             self.write(result)
-
         else:
             pass
-
-#        auth_user_id = self.get_argument('auth_user_id')
-
-#    (r"/statuses/(crawl|view)", visStatusesHandler),
-class visStatusesHandler(tornado.web.RequestHandler):
-    def get(self, *args):
-        self.post(*args)
-        #self.write("not implemented yet")
-
-    def post(self, *args):
-        """
-
-        """
-
-        (crawl_or_view) = args
-
-        print "visStatusesHandler: {} ".format(crawl_or_view)
-
-
-
 
 #    (r"/user/(crawl|view)", visSingleProfileHandler),
 class visSingleProfileHandler(tornado.web.RequestHandler):
@@ -112,15 +168,13 @@ class visSingleProfileHandler(tornado.web.RequestHandler):
         dat = bson.json_util.loads(post_response.content)
         print dat
 
-        env = Environment(loader=FileSystemLoader('direnaj/client/templates'))
-        env.globals['drnj_time'] = drnj_time
         template = env.get_template('profiles/history_view.html')
         result = template.render(profiles=dat)
 
         self.write(result)
 
-#    (r"/profiles/(crawl|view)", visUserProfilesHandler),
-class visUserProfilesHandler(tornado.web.RequestHandler):
+#    (r"/campaigns/view/watched_users", CampaignsWatchedUsersHandler),
+class CampaignsWatchedUsersHandler(tornado.web.RequestHandler):
     def get(self, *args):
         self.post(*args)
         #self.write("not implemented yet")
@@ -132,34 +186,42 @@ class visUserProfilesHandler(tornado.web.RequestHandler):
 
         (crawl_or_view) = args
 
-        print "visUserProfilesHandler: {} ".format(crawl_or_view)
+        print "CampaignsWatchedUsersHandler: {} ".format(crawl_or_view)
 
-        if crawl_or_view=='crawl':
-            pass
-        else:
-            user_id = self.get_argument('user_id', None)
-            # auth_user_id = self.get_argument('auth_user_id','direnaj')
-            lim_count = self.get_argument('limit', None)
-            if lim_count is None:
-                lim_count = 20
-            # post_data = {"user_id": root}
-            # post_response = requests.post(url=app_root_url + '/profiles/view', data=post_data)
-            dat = {"limit": lim_count}
+        campaign_id = self.get_argument('campaign_id', 'default')
 
-            tmp = requests.post(url=app_root_url + '/profiles/view',data=dat)
+        post_data = {"campaign_id": campaign_id}
 
-            #print tmp
+        response = requests.post(url=app_root_url + '/campaigns/view/watched_users',
+                                 data=post_data)
 
-            dat = json_decode(tmp.content)
+        response_json = bson.json_util.loads(response.content)
+        print response_json
 
-            env = Environment(loader=FileSystemLoader('direnaj/client/templates'))
-            template = env.get_template('profiles/view.html')
-            result = template.render(profiles=dat, len=len(dat), href=vis_root_url,
-                                     username = self.get_secure_cookie('tai_user'),
-                                     oauth_complete = True,
-                                     rem_req_num = -1)
+        watched_users = response_json['watched_users']
+        watched_users_id_strs = [item[0] for item in watched_users]
+        watched_users_since_tweet_ids = [item[1] for item in watched_users]
 
-            self.write(result)
+        response = requests.post(url=app_root_url + '/profiles/view/user',
+                                 data={'user_id_list': ",".join(watched_users_id_strs)})
+
+        response_json = bson.json_util.loads(response.content)
+        print response_json
+
+        input_array = []
+        i = 0
+        for user in response_json:
+            since_tweet_id = watched_users_since_tweet_ids[i]
+            input_array.append([user, since_tweet_id])
+            i += 1
+
+        template = env.get_template('campaigns/view/watched_users.html')
+        result = template.render(profiles=input_array, href=vis_root_url,
+                                 username = self.get_secure_cookie('tai_user'),
+                                 oauth_complete = True,
+                                 rem_req_num = -1)
+
+        self.write(result)
 
 #    (r"/campaigns/(list|new|create_thread|kill_thread)", visCampaignsHandler),
 class visCampaignsHandler(tornado.web.RequestHandler):
@@ -171,8 +233,6 @@ class visCampaignsHandler(tornado.web.RequestHandler):
         """
 
         """
-
-        env = Environment(loader=FileSystemLoader('direnaj/client/templates'))
 
         (command) = args[0]
 
