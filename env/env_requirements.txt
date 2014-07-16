@@ -4,6 +4,7 @@ MarkupSafe==0.18
 PyYAML==3.10
 Pygments==1.6
 Sphinx==1.2b1
+sphinxcontrib-httpdomain==1.2.1
 amqp==1.4.5
 billiard==3.3.0.17
 anyjson==0.3.3
