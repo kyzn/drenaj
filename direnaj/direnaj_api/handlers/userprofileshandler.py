@@ -55,40 +55,68 @@ class UserProfilesHandler(tornado.web.RequestHandler):
 
         if ((store_or_view is not None and store_or_view == 'view') or (store_or_view is None)):
             try:
-                user_id = self.get_argument('user_id', None)
-                auth_user_id = self.get_argument('auth_user_id', 'direnaj')
-                lim_count = self.get_argument('limit', None)
-                print user_id
-
-                if lim_count is None:
-                    lim_count = 20
-                else:
-                    lim_count = int(lim_count)
-
-                if lim_count > MAX_LIM_TO_VIEW_PROFILES:
-                    lim_count = MAX_LIM_TO_VIEW_PROFILES
-
-                # if no user_id is supplied.
-                if user_id is None:
-                    # running the query
-                    cursor = direnajmongomanager.tweets_coll.find().sort('record_retrieved_at', -1).limit(lim_count)
-                else:
-                    cursor = direnajmongomanager.tweets_coll.find({'tweet.user.id_str': user_id}).sort('record_retrieved_at', -1).limit(lim_count)
-
-                #tmp = [x for x in cursor]
+                limit = self.get_argument('limit', 20)
+                if limit > MAX_LIM_TO_VIEW_PROFILES:
+                    limit = MAX_LIM_TO_VIEW_PROFILES
+                campaign_or_user = args[1]
                 tmp = []
-                for record in (yield cursor.to_list(length=100)):
-                    user = record['tweet']['user']
-                    user['record_retrieved_at'] = record['record_retrieved_at']
-                    #id_str = user['id_str']
-                    #user['known_followers_count'] = graph_coll.find({'friend_id_str': id_str}).count();
-                    #user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
-                    id = user['id']
-                    user['known_followers_count'] = \
-                        yield direnajmongomanager.graph_coll.find({'friend_id': id}).count()
-                    user['known_friends_count'] = \
-                        yield direnajmongomanager.graph_coll.find({'id': id}).count()
-                    tmp.append(user)
+                if (campaign_or_user == 'campaign'):
+                    campaign_id = self.get_argument('campaign_id', None)
+
+                    cursor = direnajmongomanager.tweets_coll.\
+                        find({'campaign_id': campaign_id,
+                              'tweet.user.history': False}).\
+                        sort('record_retrieved_at', -1).\
+                        limit(limit)
+
+                    for record in (yield cursor.to_list(length=100)):
+                        user = record['tweet']['user']
+                        user['present'] = True
+                        user['record_retrieved_at'] = record['record_retrieved_at']
+                        #id_str = user['id_str']
+                        #user['known_followers_count'] = graph_coll.find({'friend_id_str': id_str}).count();
+                        #user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
+                        id = user['id']
+                        user['known_followers_count'] = \
+                            yield direnajmongomanager.graph_coll.find({'friend_id': id}).count()
+                        user['known_friends_count'] = \
+                            yield direnajmongomanager.graph_coll.find({'id': id}).count()
+                        tmp.append(user)
+
+                elif (campaign_or_user == 'user'):
+                    user_id_list = self.get_argument('user_id_list', '')
+                    user_id_array = user_id_list.split(',')
+                    for user_id_str in user_id_array:
+                        record = None
+                        print "USER " + user_id_str
+                        if user_id_str:
+                            record = yield direnajmongomanager.tweets_coll.\
+                                find_one({'tweet.user.id_str': user_id_str,
+                                'tweet.user.history': False})
+                        else:
+                            continue
+                        user = dict()
+                        if record:
+                            user = record['tweet']['user']
+                            user['present'] = True
+                            user['record_retrieved_at'] = record['record_retrieved_at']
+                            #id_str = user['id_str']
+                            #user['known_followers_count'] = graph_coll.find({'friend_id_str': id_str}).count();
+                            #user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
+                            id = user['id']
+
+                        else:
+                            user['present'] = False
+                            user['id_str'] = user_id_str
+                        user['known_followers_count'] = \
+                            yield direnajmongomanager.graph_coll.find({'friend_id_str': user_id_str}).count()
+                        user['known_friends_count'] = \
+                            yield direnajmongomanager.graph_coll.find({'id_str': user_id_str}).count()
+                        tmp.append(user)
+                else:
+                    raise MissingArgumentError('campaign_id or user_id_list')
+
+
 
                 result = bson.json_util.dumps(tmp)
                 self.write(result)
