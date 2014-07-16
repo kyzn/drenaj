@@ -21,7 +21,7 @@ you'll see that it's fairly easy to write them as you begin a new function.
 As of 13 September 2013, I included all the modules in the documentation. But
 if you need to add new modules, just run the following in `./docs`.
 
->>> python generate_modules.py -s rst -d modules/ ../direnaj/
+>>> python generate_modules.py -s rst -d modules/ ../direnaj/direnaj_api
 >>> make html
 
 We'll develop as we go on.
@@ -41,6 +41,13 @@ Modules
    modules/direnaj_collection_templates
    modules/*
 
+
+API docs
+===============
+
+.. toctree::
+
+   api/tasks/index
 
 Indices and tables
 ==================
