@@ -1,4 +1,3 @@
-import direnaj_api.utils.direnajmongomanager as direnajmongomanager
 from direnaj_api.utils.direnaj_auth import direnaj_simple_auth
 
 import tornado.ioloop
@@ -33,6 +32,10 @@ class CampaignsHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
     @gen.coroutine
     def post(self, *args, **keywords):
+        # Refactoring note: the new direnaj database manager is now a class and it's initialized
+        # in Tornado application. The old code just imported the manager module as 'direnajmongomanager'/
+        # Instead of search&replace procedure, assign the new db instance to direnajmongomanager.
+        direnajmongomanager = self.application.db
 
         print args
 
