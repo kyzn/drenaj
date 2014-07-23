@@ -17,6 +17,8 @@ from tornado.gen import Return
 import pymongo
 import motor
 
+import logging
+
 import time
 from utils.drnj_time import py_utc_time2drnj_time, drnj_time2py_time, now_in_drnj_time, xdays_before_now_in_drnj_time
 
@@ -65,6 +67,8 @@ class DirenajMongoManager(object):
         :type mongo_db: str
         """
 
+        self.logger = logging.getLogger()
+
         # We get some errors in motor client. In some parts, pymongo client needs to be used. Thus,
         # create two connection with different libraries and interact with them.
         motor_client = motor.MotorClient(mongo_host, mongo_port)
@@ -74,8 +78,9 @@ class DirenajMongoManager(object):
         self.motor_column = Column(motor_client[mongo_db])
 
     @staticmethod
-    def prepare_users_to_be_added(user_id_strs_to_follow, dtype='id_str'):
-        print user_id_strs_to_follow
+    def prepare_users_to_be_added(self, user_id_strs_to_follow, dtype='id_str'):
+        self.logger.debug('prepare_users_to_be_added: %s' % user_id_strs_to_follow)
+
         users_to_be_added = []
 
         lines = user_id_strs_to_follow.split('\n')
@@ -123,7 +128,7 @@ class DirenajMongoManager(object):
                 #'campaign_ids': [campaign_id],
             }
 
-            print doc
+            self.logger.debug(doc)
 
             if user['user']['id_str']:
                 ret = yield self.motor_column.watchlist.find_one({'user.id_str': user['user']['id_str']})
@@ -173,16 +178,16 @@ class DirenajMongoManager(object):
                                            fields=['user', 'since_tweet_id', 'page_not_found']).limit(n_users)
 
         docs_array = [d for d in cursor]
-        print docs_array
+        self.logger.debug(docs_array)
 
         pre_watchlist_column.update({'_id': {'$in': [d['_id'] for d in docs_array]}},
                                     {'$set': {'state': 1}}, multi=True)
 
         batch_array = [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs_array]
-        print batch_array
+        self.logger.debug(batch_array)
 
         left_capacity = n_users - len(batch_array)
-        print left_capacity
+        self.logger.debug(left_capacity)
 
         if left_capacity > 0:
             cursor = watchlist_column.find({'state': 0,
@@ -195,7 +200,7 @@ class DirenajMongoManager(object):
             watchlist_column.update({'_id': {'$in': [d['_id'] for d in docs_array]}},
                                     {'$set': {'state': 1}}, multi=True)
             batch_array += [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs_array]
-            print batch_array
+            self.logger.debug(batch_array)
 
         ### Now, use this batch_array to call TimelineRetrievalTask.
         res_array = []
@@ -208,7 +213,7 @@ class DirenajMongoManager(object):
         pre_watchlist_column = self.motor_column.pre_watchlist
         watchlist_column = self.motor_column.watchlist
 
-        print user
+        self.logger.debug(user)
         doc = yield pre_watchlist_column.find_one({'user.id_str': user['id_str'], 'state': 1})
         if not doc:
             doc = yield pre_watchlist_column.find_one({'user.screen_name': user['screen_name'], 'state': 1})
@@ -250,13 +255,13 @@ class DirenajMongoManager(object):
 
     def get_campaign_list_with_freqs(self, skip, limit):
         import sys
-        print("GET_CAMPAIGN_LIST_WITH_FREQS: ", "skip: ", skip, ", limit", limit)
+        self.logger.debug("GET_CAMPAIGN_LIST_WITH_FREQS: ", "skip: ", skip, ", limit", limit)
 
         cursor = self.motor_column.freq_campaigns.aggregate(
             [{"$group": {"_id": "$key", "total": {"$sum": "$day_total"}, "last_date": {"$max": "$date"}}},
              {"$sort": {"last_date": -1, "total": -1}}, {"$skip": skip},
              {"$limit": limit}])
-        print("GET_CAMPAIGN_LIST_WITH_FREQS: ", "skip: ", skip, ", limit", limit)
+        self.logger.debug("GET_CAMPAIGN_LIST_WITH_FREQS: ", "skip: ", skip, ", limit", limit)
         sys.stdout.flush()
         return cursor
 
@@ -320,139 +325,139 @@ class DirenajMongoManager(object):
         #raise Return(cursor)
         return self.motor_column.campaigns.find({})
 
+    @staticmethod
+    def prepare_hist_and_plot(self, n_tweets, users, n_bins, campaign_id):
+        import numpy
+        import matplotlib.pyplot as plot
 
-def prepare_hist_and_plot(n_tweets, users, n_bins, campaign_id):
-    import numpy
-    import matplotlib.pyplot as plot
+        plot_graphs = False
 
-    plot_graphs = False
+        hist = {
+            'user_creation': {
+                'data': None,
+                'bins': None,
+            },
+            'user_n_tweets': {
+                'data': None,
+                'bins': None,
+            },
+            'user_n_tweets_overall': {
+                'data': None,
+                'bins': None,
+            },
+            'n_tweets': None,
+            'n_unique_users': None,
+            'n_default_profile_image': None,
+            'n_lower_than_threshold': None,
+        }
 
-    hist = {
-        'user_creation': {
-            'data': None,
-            'bins': None,
-        },
-        'user_n_tweets': {
-            'data': None,
-            'bins': None,
-        },
-        'user_n_tweets_overall': {
-            'data': None,
-            'bins': None,
-        },
-        'n_tweets': None,
-        'n_unique_users': None,
-        'n_default_profile_image': None,
-        'n_lower_than_threshold': None,
-    }
+        self.logger.debug("How many tweets? %d" % n_tweets)
+        hist['n_tweets'] = n_tweets
 
-    print "How many tweets? %d" % n_tweets
-    hist['n_tweets'] = n_tweets
+        # TODO: abort if there are more than 200000 tweets.
+        if n_tweets > 200000:
+            return
+        #
+        # How many unique users?
+        #
+        n_unique_users = len(users)
+        self.logger.debug("How many unique users? %d" % n_unique_users)
+        hist['n_unique_users'] = n_unique_users
 
-    # TODO: abort if there are more than 200000 tweets.
-    if n_tweets > 200000:
-        return
-    #
-    # How many unique users?
-    #
-    n_unique_users = len(users)
-    print "How many unique users? %d" % n_unique_users
-    hist['n_unique_users'] = n_unique_users
+        ######
+        sec_title = "Histogram of user creation dates?"
+        #
 
-    ######
-    sec_title = "Histogram of user creation dates?"
-    #
+        tmp_dates = []
+        for x in users:
+            tmp_date = x['user']['created_at']
+            if type(tmp_date) != float:
+                tmp_date = py_utc_time2drnj_time(tmp_date)
+            tmp_dates.append(tmp_date)
+    #    tmp_dates = [py_utc_time2drnj_time(x['user']['created_at']) for x in users]
 
-    tmp_dates = []
-    for x in users:
-        tmp_date = x['user']['created_at']
-        if type(tmp_date) != float:
-            tmp_date = py_utc_time2drnj_time(tmp_date)
-        tmp_dates.append(tmp_date)
-#    tmp_dates = [py_utc_time2drnj_time(x['user']['created_at']) for x in users]
+        (hist['user_creation']['data'], hist['user_creation']['bins']) = numpy.histogram(tmp_dates, bins=n_bins)
 
-    (hist['user_creation']['data'], hist['user_creation']['bins']) = numpy.histogram(tmp_dates, bins=n_bins)
+        if plot_graphs:
+            bins = hist['user_creation']['bins'][:-1]
+            width = (hist['user_creation']['bins'][1] - hist['user_creation']['bins'][0])/2
+            plot.bar(bins, hist['user_creation']['data'], width=width, align='center')
 
-    if plot_graphs:
-        bins = hist['user_creation']['bins'][:-1]
-        width = (hist['user_creation']['bins'][1] - hist['user_creation']['bins'][0])/2
-        plot.bar(bins, hist['user_creation']['data'], width=width, align='center')
+            xticklabels = [time.strftime('%d %b %Y', time.gmtime(drnj_time2py_time(x))) for x in bins]
 
-        xticklabels = [time.strftime('%d %b %Y', time.gmtime(drnj_time2py_time(x))) for x in bins]
+            plot.xticks(bins, xticklabels)
+            plot.title(sec_title)
+            #plot.show()
+            plot.savefig('1.pdf', dpi=600)
 
-        plot.xticks(bins, xticklabels)
-        plot.title(sec_title)
-        #plot.show()
-        plot.savefig('1.pdf', dpi=600)
+        #####
+        sec_title = "Histogram of number of tweets of each user in this campaign"
+        tmp_counts = [int(x['n_user_tweets']) for x in users]
+        #
+        (hist['user_n_tweets']['data'], hist['user_n_tweets']['bins']) = numpy.histogram(tmp_counts, bins=n_bins)
 
-    #####
-    sec_title = "Histogram of number of tweets of each user in this campaign"
-    tmp_counts = [int(x['n_user_tweets']) for x in users]
-    #
-    (hist['user_n_tweets']['data'], hist['user_n_tweets']['bins']) = numpy.histogram(tmp_counts, bins=n_bins)
+        if plot_graphs:
+            bins = hist['user_n_tweets']['bins'][:-1]
+            data = hist['user_n_tweets']['data']
+            width = (hist['user_n_tweets']['bins'][1] - hist['user_n_tweets']['bins'][0])/2
+            plot.bar(bins, data, width=width, align='center')
 
-    if plot_graphs:
-        bins = hist['user_n_tweets']['bins'][:-1]
-        data = hist['user_n_tweets']['data']
-        width = (hist['user_n_tweets']['bins'][1] - hist['user_n_tweets']['bins'][0])/2
-        plot.bar(bins, data, width=width, align='center')
+            xticklabels = bins
 
-        xticklabels = bins
+            plot.xticks(bins, xticklabels)
+            plot.title(sec_title)
+            #plot.show()
+            plot.savefig('2.pdf', dpi=600)
 
-        plot.xticks(bins, xticklabels)
-        plot.title(sec_title)
-        #plot.show()
-        plot.savefig('2.pdf', dpi=600)
+        #####
+        sec_title = "What percentage of them used the default profile image?"
+        #
+        n_default_profile_image = 0
+        for u in users:
+            if u['user']['default_profile_image']:
+                n_default_profile_image += 1
 
-    #####
-    sec_title = "What percentage of them used the default profile image?"
-    #
-    n_default_profile_image = 0
-    for u in users:
-        if u['user']['default_profile_image']:
-            n_default_profile_image += 1
+        hist['n_default_profile_image'] = n_default_profile_image
+        self.logger.debug("%s: %0.2f%%" % (sec_title, 100*(float(n_default_profile_image)/n_unique_users)))
+        #####
+        sec_title = "Histogram of tweet counts of unique users"
+        tmp_counts = [int(x['user']['statuses_count']) for x in users]
 
-    hist['n_default_profile_image'] = n_default_profile_image
-    print "%s: %0.2f%%" % (sec_title, 100*(float(n_default_profile_image)/n_unique_users))
-    #####
-    sec_title = "Histogram of tweet counts of unique users"
-    tmp_counts = [int(x['user']['statuses_count']) for x in users]
+        (hist['user_n_tweets_overall']['data'],
+         hist['user_n_tweets_overall']['bins']) = numpy.histogram(tmp_counts, bins=n_bins)
 
-    (hist['user_n_tweets_overall']['data'],
-     hist['user_n_tweets_overall']['bins']) = numpy.histogram(tmp_counts, bins=n_bins)
+        if plot_graphs:
+            bins = hist['user_n_tweets_overall']['bins'][:-1]
+            data = hist['user_n_tweets_overall']['data']
+            width = (hist['user_n_tweets_overall']['bins'][1] - hist['user_n_tweets_overall']['bins'][0])/2
+            plot.bar(bins, data, width=width, align='center')
 
-    if plot_graphs:
-        bins = hist['user_n_tweets_overall']['bins'][:-1]
-        data = hist['user_n_tweets_overall']['data']
-        width = (hist['user_n_tweets_overall']['bins'][1] - hist['user_n_tweets_overall']['bins'][0])/2
-        plot.bar(bins, data, width=width, align='center')
+            xticklabels = bins
 
-        xticklabels = bins
+            plot.xticks(bins, xticklabels)
+            plot.title(sec_title)
+            #plot.show()
+            plot.savefig('3.pdf', dpi=600)
+        #
+        sec_title = "What percentage of them have lower than 5 tweets?"
+        n_lower_than_threshold = 0
+        for u in users:
+            if u['user']['statuses_count'] < 5:
+                n_lower_than_threshold += 1
 
-        plot.xticks(bins, xticklabels)
-        plot.title(sec_title)
-        #plot.show()
-        plot.savefig('3.pdf', dpi=600)
-    #
-    sec_title = "What percentage of them have lower than 5 tweets?"
-    n_lower_than_threshold = 0
-    for u in users:
-        if u['user']['statuses_count'] < 5:
-            n_lower_than_threshold += 1
+        hist['n_lower_than_threshold'] = n_lower_than_threshold
+        self.logger.debug("%s: %0.2f%%" % (sec_title, 100*(float(n_lower_than_threshold)/n_unique_users)))
 
-    hist['n_lower_than_threshold'] = n_lower_than_threshold
-    print "%s: %0.2f%%" % (sec_title, 100*(float(n_lower_than_threshold)/n_unique_users))
+        self.logger.debug(hist)
 
-    print hist
+        # converting numpy.array's to normal python lists.
+        for k in hist.keys():
+            if type(hist[k]) == dict:
+                for k2 in hist[k].keys():
+                    if type(hist[k][k2]) == type(numpy.array([])):
+                        hist[k][k2] = list(hist[k][k2])
 
-    # converting numpy.array's to normal python lists.
-    for k in hist.keys():
-        if type(hist[k]) == dict:
-            for k2 in hist[k].keys():
-                if type(hist[k][k2]) == type(numpy.array([])):
-                    hist[k][k2] = list(hist[k][k2])
-
-    hist = {'campaign_id': campaign_id,
-            'histogram': hist,
-            'created_at': now_in_drnj_time()}
-    return hist
+        hist = {'campaign_id': campaign_id,
+                'histogram': hist,
+                'created_at': now_in_drnj_time()}
+        return hist
