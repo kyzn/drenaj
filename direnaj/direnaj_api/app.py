@@ -43,6 +43,8 @@ from direnaj_api.handlers.schedulerMainHandler import SchedulerMainHandler
 from direnaj_api.handlers.schedulerMainHandler import SchedulerReportHandler
 from direnaj_api.handlers.schedulerMainHandler import SchedulerProfilesHandler
 
+from direnaj_api.utils.direnajmongomanager_new import DirenajMongoManager
+
 
 class Application(tornado.web.Application):
     def __init__(self, **overrides):
@@ -84,7 +86,7 @@ class Application(tornado.web.Application):
         # default settings for the application
         settings = {
             'debug': True,
-            'database': 'test',
+            'database': 'direnaj_test',
             'mongo_host': 'localhost',
             'mongo_port': 27017,
             'log_file_prefix': "tornado.log",
@@ -93,8 +95,12 @@ class Application(tornado.web.Application):
         # override any available settings, or add a setting to the application.
         settings.update(overrides)
 
-        # TODO: Add mongodbmanager instance here. We need to think whether initialize it once, or in initialize() section
-        # in the handlers.
+        # initialize direnaj database
+        self.db = DirenajMongoManager(
+            settings.get('mongo_host'),
+            settings.get('mongo_port'),
+            settings.get('database')
+        )
 
         tornado.web.Application.__init__(self, handlers, **settings)
 
