@@ -78,7 +78,7 @@ class Application(tornado.web.Application):
             (r"/(friends|followers)/(ids|list)/?(store|view)?", FollowerHandler),
 
             (r"/statuses/(store|view|filter|retweets)", StatusesHandler),
-            #(r"/user/(store|view)", UserSingleProfileHandler),
+            # (r"/user/(store|view)", UserSingleProfileHandler),
 
             (r"/profiles/(store)", UserProfilesHandler),
             (r"/profiles/(view)/(campaign|user)", UserProfilesHandler),
@@ -124,13 +124,14 @@ class CommandHandler(object):
         :return: None
         :rtype: None
         """
-        logger.info('Starting Direnaj API on port {0} using database {1} (mongo host: {2}, port: {3}). DEBUG: {4}'.format(
-            opts.port,
-            opts.database,
-            opts.mongo_host,
-            opts.mongo_port,
-            opts.debug
-        ))
+        logger.info(
+            'Starting Direnaj API on port {0} using database {1} (mongo host: {2}, port: {3}). DEBUG: {4}'.format(
+                opts.port,
+                opts.database,
+                opts.mongo_host,
+                opts.mongo_port,
+                opts.debug
+            ))
 
         app = Application(debug=opts.debug,
                           database=opts.database,
@@ -192,12 +193,14 @@ def create_argument_parser():
 
     return main_parser
 
+
 def enable_logging(level):
     channel = logging.StreamHandler()
     channel.setFormatter(LogFormatter(color=True))
 
     logger.addHandler(channel)
     logger.setLevel(getattr(logging, level.upper()))
+
 
 if __name__ == '__main__':
     parser = create_argument_parser()
