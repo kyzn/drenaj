@@ -95,13 +95,13 @@ class Application(tornado.web.Application):
             'database': 'direnaj_test',
             'mongo_host': 'localhost',
             'mongo_port': 27017,
-            'log_file_prefix': "tornado.log",
         }
 
         # override any available settings, or add a setting to the application.
         settings.update(overrides)
 
         # initialize direnaj database
+        logger.debug('Initializing DirenajMongoManager')
         self.db = DirenajMongoManager(
             settings.get('mongo_host'),
             settings.get('mongo_port'),
