@@ -33,6 +33,10 @@ import tornado.web
 from tornado.ioloop import IOLoop
 from tornado.httpserver import HTTPServer
 
+import logging
+import logging.handlers
+from tornado.log import LogFormatter
+
 from direnaj_api.handlers.followerhandler import *
 from direnaj_api.handlers.statuseshandler import *
 from direnaj_api.handlers.userprofileshandler import *
@@ -44,6 +48,8 @@ from direnaj_api.handlers.schedulerMainHandler import SchedulerReportHandler
 from direnaj_api.handlers.schedulerMainHandler import SchedulerProfilesHandler
 
 from direnaj_api.utils.direnajmongomanager_new import DirenajMongoManager
+
+logger = logging.getLogger()
 
 
 class Application(tornado.web.Application):
@@ -118,15 +124,13 @@ class CommandHandler(object):
         :return: None
         :rtype: None
         """
-        print 'Starting Direnaj API on port {0} using database {1} (mongo host: {2}, port: {3})'.format(
+        logger.info('Starting Direnaj API on port {0} using database {1} (mongo host: {2}, port: {3}). DEBUG: {4}'.format(
             opts.port,
             opts.database,
             opts.mongo_host,
-            opts.mongo_port
-        )
-
-        if opts.debug:
-            print 'Enabling debug'
+            opts.mongo_port,
+            opts.debug
+        ))
 
         app = Application(debug=opts.debug,
                           database=opts.database,
@@ -156,7 +160,11 @@ def create_argument_parser():
     # Base parser which is a parent of the subparsers. This parser defines debug option
     # which is common for all subparsers.
     base_parser = argparse.ArgumentParser(add_help=False)
-    base_parser.add_argument('--debug', action='store_true', help='enable debug')
+    base_parser.add_argument('--debug', action='store_true', help='set logging verbosity to debug')
+    base_parser.add_argument('-v', '--verbosity', action='store',
+                             help='set verbosity in logging module',
+                             choices=['info', 'warning', 'debug'],
+                             default='info')
 
     subparsers = main_parser.add_subparsers(dest='command')
 
@@ -166,7 +174,7 @@ def create_argument_parser():
                                              parents=[base_parser])
     parser_runserver.add_argument('-p', '--port', action='store', type=int, default=9999,
                                   help='set direnaj api http port to listen')
-    parser_runserver.add_argument('-d', '--database', action='store', type=str, default='test',
+    parser_runserver.add_argument('-d', '--database', action='store', type=str, default='direnaj_prod',
                                   help='set which mongodb database to use')
     parser_runserver.add_argument('-m', '--mongo-host', action='store', type=str, default='localhost',
                                   help='set which mongodb host to connect')
@@ -184,6 +192,12 @@ def create_argument_parser():
 
     return main_parser
 
+def enable_logging(level):
+    channel = logging.StreamHandler()
+    channel.setFormatter(LogFormatter(color=True))
+
+    logger.addHandler(channel)
+    logger.setLevel(getattr(logging, level.upper()))
 
 if __name__ == '__main__':
     parser = create_argument_parser()
@@ -202,4 +216,9 @@ if __name__ == '__main__':
     # Parse the arguments and dispatch them to their corresponding handler. The class passed to the
     # functions is Namespace() from argparse.
     args = parser.parse_args()
+
+    if args.verbosity == 'debug':
+        args.debug = True
+
+    enable_logging(args.verbosity)
     args.function(args)
