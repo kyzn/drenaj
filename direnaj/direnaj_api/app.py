@@ -139,8 +139,17 @@ class CommandHandler(object):
                           mongo_port=opts.mongo_port)
 
         http_server = HTTPServer(app)
-        http_server.listen(opts.port)
-        IOLoop.instance().start()
+
+        try:
+            http_server.listen(opts.port)
+            IOLoop.instance().start()
+        except KeyboardInterrupt:
+            logger.warning('Keyboard Interrupt! Exiting...')
+
+            http_server.stop()
+            IOLoop.instance().stop()
+
+            sys.exit(0)
 
     @staticmethod
     def dumpdb(opts):
