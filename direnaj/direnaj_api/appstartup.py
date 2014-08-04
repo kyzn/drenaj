@@ -7,6 +7,11 @@ from direnaj_api.config.direnaj_routes_config import routes_config
 
 application = tornado.web.Application(routes_config)
 
+# NOTE: We need this as it imports server_celeryconfig which in turn triggers
+# a cronjob like mechanism which executes check_watchlist_and_dispatch_tasks.
+# It may be simplified later however for keeping functionality intact, I undid
+# the removal.
+import direnaj_api.celery_app.server_endpoint
 
 def bind_server(environment):
     http_server = HTTPServer(application, xheaders=True)
