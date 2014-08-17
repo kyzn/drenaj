@@ -3,8 +3,6 @@ import utils.drnj_time as drnj_time
 
 from direnaj_api.utils.direnaj_collection_templates import *
 
-import direnaj_api.utils.direnajmongomanager as direnajmongomanager
-
 from direnaj_api.utils.direnaj_auth import direnaj_simple_auth
 
 import tornado.ioloop
@@ -79,7 +77,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                     tmp = []
                 else:
 
-                    tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
+                    tweets_coll = self.application.db.motor_column.tweets
                     # running the query
                     cursor = tweets_coll.find({
                         'tweet.user.id_str': str(user_id),
@@ -176,12 +174,12 @@ class StatusesHandler(tornado.web.RequestHandler):
 ###                         coordinates_coll.insert(validate_document(new_coordinates_template(),
 ###                                 {"coordinates": coordinates, "campaign_id": campaign_id, "status_id_str": status_id, "created_at": created_at}, fail=False))
                     if tmp_tweets:
-                        direnajmongomanager.insert_tweet(tmp_tweets)
+                        self.application.db.insert_tweet(tmp_tweets)
                         if watchlist_related:
                             print watchlist_related
                             watchlist_related = bson.json_util.loads(watchlist_related)
                             print watchlist_related
-                            direnajmongomanager.update_watchlist(**watchlist_related)
+                            self.application.db.update_watchlist(**watchlist_related)
                     else:
                         raise HTTPError(500, 'You tried to insert no tweets?!')
 #                    tweets_coll.insert(tmp_tweets)
@@ -214,7 +212,8 @@ class StatusesHandler(tornado.web.RequestHandler):
                 until_datetime = self.get_argument('until_datetime', -1)
                 sort_by_datetime = self.get_argument('sort_by_datetime', 0)
 
-                tweets_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
+                tweets_coll = self.application.db.motor_column.tweets
+
                 query_string = {'campaign_id' : '%s' % campaign_id}
                 if since_datetime != -1:
                     if 'tweet.created_at' not in query_string:

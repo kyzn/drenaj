@@ -1,7 +1,5 @@
 from direnaj_api.config.config import *
 
-from direnaj_api.utils.direnajmongomanager import *
-
 import tornado.ioloop
 import tornado.web
 
@@ -25,8 +23,7 @@ class SchedulerProfilesHandler(tornado.web.RequestHandler):
 
         (num) = args
 
-        db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
-        queue_collection = db['queue']
+        queue_collection = self.application.db.motor_column.queue
 
         print num
         #if N>100:
@@ -69,8 +66,7 @@ class SchedulerMainHandler(tornado.web.RequestHandler):
 
         (friends_or_followers) = args
 
-        db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
-        queue_collection = db['queue']
+        queue_collection = self.application.db.motor_column.queue
 
         # Get the N'th most frequent visited one
         N = 100
@@ -108,12 +104,10 @@ class SchedulerReportHandler(tornado.web.RequestHandler):
         isProtected = int(self.get_argument('isProtected'))
 
         print "Protected or Disabled Twitter user account: %d" % int(user_id)
-        markProtected(user_id, isProtected, kwargs["drnjID"])
+        markProtected(self.application.db.motor_column.queue, user_id, isProtected, kwargs["drnjID"])
 
 @gen.coroutine
-def markProtected(user_id, isProtected, drnjID):
-    db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
-    queue_collection = db['queue']
+def markProtected(queue_collection, user_id, isProtected, drnjID):
 
     queue_query = {"id": int(user_id)}
     queue_document = {"$set":

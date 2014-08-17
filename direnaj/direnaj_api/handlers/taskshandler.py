@@ -10,8 +10,6 @@ import bson.json_util
 
 from direnaj_api.celery_app.server_endpoint import app_object
 
-from direnaj_api.utils.direnajmongomanager import get_user_from_watchlist
-
 class TasksHandler(tornado.web.RequestHandler):
 
     def get(self, *args):
@@ -29,7 +27,7 @@ class TasksHandler(tornado.web.RequestHandler):
             task_definition = bson.json_util.loads(self.get_argument('task_definition'))
             queue = self.get_argument('queue')
             metadata = task_definition['metadata']
-            user = get_user_from_watchlist(metadata['user'])
+            user = self.application.db.get_user_from_watchlist(metadata['user'])
             print user
             if task_type == 'harvest':
                 res = app_object.send_task('timeline_retrieve_userlist',
