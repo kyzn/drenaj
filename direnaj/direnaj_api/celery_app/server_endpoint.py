@@ -15,15 +15,25 @@ def deneme(x, seconds):
     time.sleep(seconds)
     print x
 
-#from celery.schedules import crontab
-#from celery.task import periodic_task
-from direnaj_api.utils.direnajmongomanager import create_batch_from_watchlist
+from celery.utils.log import get_task_logger
+
+logger = get_task_logger(__name__)
+
+import os
+from direnaj_api.utils.direnajmongomanager import DirenajMongoManager
+from direnaj_api.app import Application
 
 #@periodic_task(run_every=crontab(minute='*/1'))
 @app_object.task(name='check_watchlist_and_dispatch_tasks')
 def check_watchlist_and_dispatch_tasks():
     batch_size = 10
-    create_batch_from_watchlist(app_object, batch_size)
+
+    # we can give an optional parameter for specific settings for this use.
+    app = Application()
+
+    # TODO: This might break!!! (and pycharm doesn't seem to recognize WARNs)
+    app.db.create_batch_from_watchlist(app_object, batch_size)
+    #create_batch_from_watchlist(app_object, batch_size)
 
 
 if __name__ == "__main__":

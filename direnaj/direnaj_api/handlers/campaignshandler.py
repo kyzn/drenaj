@@ -131,7 +131,7 @@ class CampaignsHandler(tornado.web.RequestHandler):
                         hist = direnajmongomanager.prepare_hist_and_plot(n_tweets, users, n_bins, campaign_id)
                         hists = [hist]
 
-                        yield direnajmongomanager.histograms_coll.insert(hist)
+                        yield self.application.db.motor_column.histograms.insert(hist)
 
                     self.write(bson.json_util.dumps(hists[0]))
                     self.add_header('Content-Type', 'application/json')

@@ -5,7 +5,7 @@ from kombu import Queue
 CELERY_ACKS_LATE = True
 CELERYD_PREFETCH_MULTIPLIER = 1
 
-BROKER_URL = 'amqp://%s' % "direnaj-staging.cmpe.boun.edu.tr"
+BROKER_URL = 'amqp://guest:guest@%s' % "direnaj-staging.cmpe.boun.edu.tr"
 
 CELERY_DEFAULT_QUEUE = 'control'
 

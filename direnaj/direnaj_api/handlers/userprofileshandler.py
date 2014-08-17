@@ -23,13 +23,11 @@ from tornado.gen import Return
 import bson.json_util
 
 from direnaj_api.config.config import *
-import direnaj_api.utils.direnajmongomanager as direnajmongomanager
+
 import utils.drnj_time as drnj_time
 from utils.drnj_time import *
 from direnaj_api.utils.direnaj_collection_templates import *
 from schedulerMainHandler import markProtected
-
-app_root_url = 'http://' + DIRENAJ_APP_HOST + ':' + str(DIRENAJ_APP_PORT[DIRENAJ_APP_ENVIRONMENT])
 
 MAX_LIM_TO_VIEW_PROFILES = 10000
 
@@ -49,6 +47,8 @@ class UserProfilesHandler(tornado.web.RequestHandler):
 
         """
 
+        motor_column = self.application.db.motor_column
+
         store_or_view = args[0]
 
         print 'UserProfilesHandler. Command:', store_or_view
@@ -63,7 +63,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 if (campaign_or_user == 'campaign'):
                     campaign_id = self.get_argument('campaign_id', None)
 
-                    cursor = direnajmongomanager.tweets_coll.\
+                    cursor = motor_column.tweets.\
                         find({'campaign_id': campaign_id,
                               'tweet.user.history': False}).\
                         sort('record_retrieved_at', -1).\
@@ -78,9 +78,9 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                         #user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
                         id = user['id']
                         user['known_followers_count'] = \
-                            yield direnajmongomanager.graph_coll.find({'friend_id': id}).count()
+                            yield motor_column.graph.find({'friend_id': id}).count()
                         user['known_friends_count'] = \
-                            yield direnajmongomanager.graph_coll.find({'id': id}).count()
+                            yield motor_column.graph.find({'id': id}).count()
                         tmp.append(user)
 
                 elif (campaign_or_user == 'user'):
@@ -90,7 +90,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                         record = None
                         print "USER " + user_id_str
                         if user_id_str:
-                            record = yield direnajmongomanager.tweets_coll.\
+                            record = yield motor_column.tweets.\
                                 find_one({'tweet.user.id_str': user_id_str,
                                 'tweet.user.history': False})
                         else:
@@ -109,9 +109,9 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                             user['present'] = False
                             user['id_str'] = user_id_str
                         user['known_followers_count'] = \
-                            yield direnajmongomanager.graph_coll.find({'friend_id_str': user_id_str}).count()
+                            yield motor_column.graph.find({'friend_id_str': user_id_str}).count()
                         user['known_friends_count'] = \
-                            yield direnajmongomanager.graph_coll.find({'id_str': user_id_str}).count()
+                            yield motor_column.graph.find({'id_str': user_id_str}).count()
                         tmp.append(user)
                 else:
                     raise MissingArgumentError('campaign_id or user_id_list')
@@ -120,10 +120,10 @@ class UserProfilesHandler(tornado.web.RequestHandler):
 
                 result = bson.json_util.dumps(tmp)
                 self.write(result)
-###                 else:
-###                     # TODO: View the specified user ID profiles
-###                     result = json_encode({'message': 'Not implemented yet, View the specified user ID profiles'})
-###                     self.write(result)
+    ###                 else:
+    ###                     # TODO: View the specified user ID profiles
+    ###                     result = json_encode({'message': 'Not implemented yet, View the specified user ID profiles'})
+    ###                     self.write(result)
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
@@ -138,14 +138,16 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 S = bson.json_util.loads(json_data)
 
                 try:
-                    store_multiple_profiles(ids, S, drnjID=auth_user_id, campaign_id=campaign_id)
+                    self.store_multiple_profiles(ids, S, drnjID=auth_user_id, campaign_id=campaign_id)
                 except Return, r:
                     nids = r.value
+
+                    from direnaj_api.handlers.schedulerMainHandler import markProtected
 
                     if len(nids) > 0:
 
                         for i in range(len(nids)):
-                            markProtected(nids[i], True, auth_user_id)
+                            markProtected(motor_column.queue, nids[i], True, auth_user_id)
                             print "User not Found, Removing from queue: ",
                             print nids[i]
 
@@ -157,221 +159,77 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
 
+    @gen.coroutine
+    def store_multiple_profiles(self, ids, S, drnjID, campaign_id):
+        """
 
-## #     (r"/user/(store|view)", UserSingleProfileHandler),
-## class UserSingleProfileHandler(tornado.web.RequestHandler):
-##     def get(self, *args):
-##         self.post(*args)
-##         #self.write("not implemented yet")
-##
-##     def post(self, *args):
-##         """ I chose to handle all options at once, using only POST requests
-##         for API requests. GET requests will be used for browser examination.
-##         """
-##
-##         store_or_view = args[0]
-##
-##         print 'UserSingleProfileHandler. Command:', store_or_view
-##
-##         if ((store_or_view != None and store_or_view == 'view') or (store_or_view == None)):
-##             try:
-##                 user_id = self.get_argument('user_id', None)
-##                 auth_user_id = self.get_argument('auth_user_id','direnaj')
-##                 lim_count = self.get_argument('limit', None)
-##                 print user_id
-##                 graph_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['graph']
-##                 profiles_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles']
-##                 profiles_history_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles_history']
-##
-##                 # if no user_id is supplied.
-##                 if user_id is None:
-##                     result = json_encode({'error': 'user_id not specified'})
-##                     self.write(result)
-##                 else:
-##                     # running the query
-##                     cursor = profiles_coll.find({
-##                         'id_str': str(user_id),
-##                     })
-##
-##                     tmp = []
-##                     for x in cursor:
-##                         x['ctime'] = time.ctime(drnj_time2py_time(x['record_retrieved_at']))
-##                         x['created_at_ctime'] = time.ctime(drnj_time2py_time(x['created_at']))
-##                         tmp.append(x)
-##
-##                     cursor = profiles_history_coll.find({
-##                         'id_str': user_id,
-##                     }).sort('record_retrieved_at', -1)
-##
-##                     for x in cursor:
-##                         x['ctime'] = time.ctime(drnj_time2py_time(x['record_retrieved_at']))
-##                         x['created_at_ctime'] = time.ctime(drnj_time2py_time(x['created_at']))
-##                         tmp.append(x)
-##
-## #                    self.write(json_encode([tmp]))
-## #                    self.write(bson.json_util.dumps({'result': tmp}))
-##                     self.write(bson.json_util.dumps(tmp))
-##                     self.add_header('Content-Type', 'application/json')
-##             except MissingArgumentError as e:
-##                 # TODO: implement logging.
-##                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
-##         elif (store_or_view == 'store'):
-##             try:
-##                 user_id = int(self.get_argument('user_id'))
-##                 auth_user_id = self.get_argument('auth_user_id')
-##                 #v = self.get_argument('v', None)
-##                 json_data = self.get_argument('v', None)
-##                 v = json.loads(json_data)
-##
-##                 ret = store_multiple_profiles([user_id], [v], drnjID=auth_user_id)
-##
-##                 # Returns true when a new profile is discovered
-##                 print (len(ret) == 0)
-##                 self.write(bson.json_util.dumps(len(ret) == 0))
-##
-##             except MissingArgumentError as e:
-##                 # TODO: implement logging.
-##                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
-##             pass
+        """
+        # print "Received recent profile of ", v['name'], ' a.k.a. ', v['screen_name']
 
-#@gen.coroutine
-def store_multiple_profiles(ids, S, drnjID, campaign_id):
-    """
+        db = self.application.db
+        queue_coll = db.motor_column.queue
 
-    """
-    # print "Received recent profile of ", v['name'], ' a.k.a. ', v['screen_name']
+        print S
+        for i in range(len(S)):
+            status = None
+            if 'status' in S[i]:
+                status = S[i]['status']
+                del S[i]['status']
+            else:
+                status = {}
+                status['text'] = None
 
+            status['user'] = S[i]
+            status['user']['history'] = False
 
-    print S
-    for i in range(len(S)):
-        status = None
-        if 'status' in S[i]:
-            status = S[i]['status']
-            del S[i]['status']
-        else:
-            status = {}
-            status['text'] = None
+            tweet_dat = validate_document(new_tweet_template(), {
+                "tweet": status,
+                # TODO: Replace this DB_TEST_VERSION with source code
+                # version later
+                "direnaj_service_version": DB_TEST_VERSION,
+                "campaign_id": campaign_id,
+                "record_retrieved_at": drnj_time.now_in_drnj_time(),
+                "retrieved_by": drnjID,
+            }, fail=False)
 
-        status['user'] = S[i]
-        status['user']['history'] = False
+            print tweet_dat
 
-        tweet_dat = validate_document(new_tweet_template(), {
-            "tweet": status,
-            # TODO: Replace this DB_TEST_VERSION with source code
-            # version later
-            "direnaj_service_version": DB_TEST_VERSION,
-            "campaign_id": campaign_id,
-            "record_retrieved_at": drnj_time.now_in_drnj_time(),
-            "retrieved_by": drnjID,
-        }, fail=False)
+            user_id = S[i]['id_str']
 
-        print tweet_dat
+            # print profile_dat
 
-        user_id = S[i]['id_str']
+            # Check Queue
+            now = drnj_time.now_in_drnj_time()
+            queue_query = {"id": user_id}
+            queue_document = validate_document(new_queue_document(), {
+                "id": int(user_id),
+                "id_str": user_id,
+                "profile_retrieved_at": now,
+                "$setOnInsert": {
+                    "friends_retrieved_at": 0,
+                    "followers_retrieved_at": 0,
+                },
+                "retrieved_by": drnjID
+            })
 
-        # print profile_dat
+            # creates entry if query does not exist
+            yield queue_coll.update(queue_query, queue_document, upsert=True)
 
-        # Check Queue
-        now = drnj_time.now_in_drnj_time()
-        queue_query = {"id": user_id}
-        queue_document = validate_document(new_queue_document(), {
-            "id": int(user_id),
-            "id_str": user_id,
-            "profile_retrieved_at": now,
-            "$setOnInsert": {
-                "friends_retrieved_at": 0,
-                "followers_retrieved_at": 0,
-            },
-            "retrieved_by": drnjID
-        })
+            # Insert to profiles
+    ##         profiles_query = {"profile.id": user_id}
+    ##         prof = profiles_collection.find_and_modify(profiles_query, remove=True)
+    ##         if prof is not None:
+    ##             profiles_history_collection.insert(prof)
+    ##
+    ##         profiles_collection.insert(profile_dat)
 
-        # creates entry if query does not exist
-        yield direnajmongomanager.queue_coll.update(queue_query, queue_document, upsert=True)
+            # this call marks the current entries as history
+            # maybe we won't need this for certain queries
+            db.move_to_history(user_id)
 
-        # Insert to profiles
-##         profiles_query = {"profile.id": user_id}
-##         prof = profiles_collection.find_and_modify(profiles_query, remove=True)
-##         if prof is not None:
-##             profiles_history_collection.insert(prof)
-##
-##         profiles_collection.insert(profile_dat)
+            db.insert_tweet(tweet_dat)
+    #        tweets_collection.insert(tweet_dat)
 
-        # this call marks the current entries as history
-        # maybe we won't need this for certain queries
-        direnajmongomanager.move_to_history(user_id)
+            ids.remove(int(user_id))
 
-        direnajmongomanager.insert_tweet(tweet_dat)
-#        tweets_collection.insert(tweet_dat)
-
-        ids.remove(int(user_id))
-
-    raise Return(ids)
-
-
-## def store_single_profile(user_id, v, drnjID):
-##     """
-##
-##     """
-##     print "Received recent profile of ", v['name'], ' a.k.a. ', v['screen_name']
-##
-##     db = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]
-##     queue_collection = db['queue']
-##     profiles_collection = db['profiles']
-##     profiles_history_collection = db['profiles_history']
-##
-##     profile_dat = validate_document(new_profile_document(), {
-##         "profile": v,
-##        # {
-##        #     "id": v['id'],
-##        #     "id_str": v['id_str'],
-##        #     "created_at": py_utc_time2drnj_time(v['created_at']),
-##        #     "protected": v['protected'],
-##        #     "location": v['location'],
-##        #     "screen_name": v['screen_name'],
-##        #     "name": v['name'],
-##        #     "followers_count": v['followers_count'],
-##        #     "friends_count": v['friends_count'],
-##        #     "statuses_count": v['statuses_count'],
-##        #     "geo_enabled": v['geo_enabled'],
-##        #     "profile_image_url": v['profile_image_url']
-##        # },
-##         "record_retrieved_at": now_in_drnj_time(),
-##         "retrieved_by": drnjID
-##     })
-##
-##     # print profile_dat
-##
-##     # Check Queue
-##     queue_query = {"id": user_id}
-##     id_exists = queue_collection.find(queue_query).count() > 0
-##     now = drnj_time.now_in_drnj_time()
-##
-##     if id_exists:
-##         queue_document = {"$set":
-##                             {
-##                             "profile_retrieved_at": now,
-##                             "retrieved_by": drnjID}
-##                            }
-##         # creates entry if query does not exist
-##         queue_collection.update(queue_query, queue_document)
-##     else:
-##         queue_document = validate_document(new_queue_document(),{
-##                             "id": user_id,
-##                             "id_str": str(user_id),
-##                             "profile_retrieved_at": now,
-##                             "friends_retrieved_at": 0,
-##                             "followers_retrieved_at": 0,
-##                             "retrieved_by": drnjID
-##                         })
-##
-##     # Insert to profiles
-##
-##     profiles_query = {"profile.id": user_id}
-##     prof = profiles_collection.find_and_modify(profiles_query, remove=True)
-##     if prof is not None:
-##         profiles_history_collection.insert(prof)
-##
-##     profiles_collection.insert(profile_dat)
-##
-##     return id_exists
-##
+        raise Return(ids)

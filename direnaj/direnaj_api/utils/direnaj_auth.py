@@ -3,7 +3,7 @@ import base64
 
 #http://wiki.python.org/moin/PythonDecoratorLibrary#Class_method_decorator_using_instance
 from functools import wraps
-import direnajmongomanager
+#import direnajmongomanager
 
 from tornado.gen import Return
 
@@ -52,7 +52,8 @@ def direnaj_simple_auth(f):
 
                  # check authentication
                  try:
-                     direnajmongomanager.check_auth(username, base64.urlsafe_b64encode( passwd_sha1.digest()))
+                     # direnajmongomanager.check_auth(username, base64.urlsafe_b64encode( passwd_sha1.digest()))
+                     pass
                  except Return, r:
                      db_user = r.value
                      if (len(db_user) == 1):
