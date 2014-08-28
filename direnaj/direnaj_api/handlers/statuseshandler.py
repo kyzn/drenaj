@@ -1,4 +1,4 @@
-from direnaj_api.config.config import *
+#from direnaj_api.config.config import *
 import utils.drnj_time as drnj_time
 
 from direnaj_api.utils.direnaj_collection_templates import *
@@ -112,6 +112,7 @@ class StatusesHandler(tornado.web.RequestHandler):
 ###                     coordinates_coll = direnajmongomanager.mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['coordinates']
                     # TODO: Sanity check the data!
                     # For example, treat 'entities', 'user' specially.
+                    DB_TEST_VERSION = 0.2
                     for tweet_obj in tweet_array:
                         tweet_obj['user']['history'] = False
                         tmp_tweets.append(validate_document(new_tweet_template(), {

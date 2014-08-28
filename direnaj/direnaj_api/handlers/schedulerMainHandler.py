@@ -1,4 +1,4 @@
-from direnaj_api.config.config import *
+#from direnaj_api.config.config import *
 
 import tornado.ioloop
 import tornado.web

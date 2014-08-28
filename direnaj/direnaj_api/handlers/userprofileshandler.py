@@ -22,7 +22,7 @@ from tornado.gen import Return
 
 import bson.json_util
 
-from direnaj_api.config.config import *
+#from direnaj_api.config.config import *
 
 import utils.drnj_time as drnj_time
 from utils.drnj_time import *
@@ -182,6 +182,7 @@ class UserProfilesHandler(tornado.web.RequestHandler):
             status['user'] = S[i]
             status['user']['history'] = False
 
+            DB_TEST_VERSION = 0.2
             tweet_dat = validate_document(new_tweet_template(), {
                 "tweet": status,
                 # TODO: Replace this DB_TEST_VERSION with source code

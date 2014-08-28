@@ -11,7 +11,7 @@ Stores Retrieved followers or friends of a user
 # Department of Computer Engineering, Bogazici University
 # e-mail :  taylan.cemgil@boun.edu.tr
 
-from direnaj_api.config.config import *
+#from direnaj_api.config.config import *
 import utils.drnj_time as drnj_time
 
 from direnaj_api.utils.direnaj_collection_templates import *
