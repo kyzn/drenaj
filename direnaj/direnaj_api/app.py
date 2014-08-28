@@ -37,37 +37,39 @@ import logging
 import logging.handlers
 from tornado.log import LogFormatter
 
-from direnaj_api.config.config import DIRENAJ_APP_ENVIRONMENT, DIRENAJ_DB, MONGO_HOST, MONGO_PORT
-
 from direnaj_api.utils.direnajmongomanager import DirenajMongoManager
 
 logger = logging.getLogger()
 
+
+# Used when settings file is not present
+DEFAULT_SETTINGS = {
+    'debug': True,
+    'database': 'direnaj_prod',
+    'mongo_host': 'localhost',
+    'mongo_port': 27017,
+    'port': 9999
+}
+
+
 def read_settings_from_file(settings_file):
     import yaml
     settings = {}
+
     try:
-        f = open(settings_file, 'r')
-        if f:
+        with open(settings_file, 'r') as f:
             settings = yaml.load(f)
-        f.close()
-    except IOError, e:
+    except IOError:
         logger.warn('Settings file not present, using default settings and overrides from the commandline if present.')
 
-    default_settings = {
-        'debug': True,
-        'database': 'direnaj_prod',
-        'mongo_host': 'localhost',
-        'mongo_port': 27017,
-        'port': 9999
-    }
-
-    # Failsafe.
-    for key in default_settings.keys():
-        if key not in settings:
-            settings[key] = default_settings[key]
+        # If the key read from the file is not present, use the default value for
+        # this key.
+        for key in DEFAULT_SETTINGS.keys():
+            if key not in settings:
+                settings[key] = DEFAULT_SETTINGS[key]
 
     return settings
+
 
 class Application(tornado.web.Application):
     def __init__(self, **overrides):
@@ -192,14 +194,19 @@ def create_argument_parser():
                                              help='run direnaj server',
                                              parents=[base_parser])
     parser_runserver.add_argument('-p', '--port', action='store', type=int,
+                                  default=DEFAULT_SETTINGS['port'],
                                   help='set direnaj api http port to listen')
     parser_runserver.add_argument('-d', '--database', action='store', type=str,
+                                  default=DEFAULT_SETTINGS['database'],
                                   help='set which mongodb database to use')
     parser_runserver.add_argument('-m', '--mongo-host', action='store', type=str,
+                                  default=DEFAULT_SETTINGS['mongo_host'],
                                   help='set which mongodb host to connect')
     parser_runserver.add_argument('-t', '--mongo-port', action='store', type=int,
+                                  default=DEFAULT_SETTINGS['mongo_port'],
                                   help='set which mongodb port to connect')
-    parser_runserver.add_argument('-s', '--settings-file', action='store', type=str, default='direnaj_api/config/settings.yaml',
+    parser_runserver.add_argument('-s', '--settings-file', action='store', type=str,
+                                  default='direnaj_api/config/settings.yaml',
                                   help='settings file path (relative or absolute)')
     parser_runserver.set_defaults(function=CommandHandler.runserver)
 
@@ -212,6 +219,7 @@ def create_argument_parser():
     parser_dumpdb.set_defaults(function=CommandHandler.dumpdb)
 
     return main_parser
+
 
 def enable_logging(level):
     channel = logging.StreamHandler()
