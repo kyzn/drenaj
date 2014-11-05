@@ -347,6 +347,7 @@ class DirenajMongoManager(object):
 
         for tweet_obj in tweet_obj_array:
 
+            print("TWEET_OBJ", tweet_obj)
             # build the analytics
             freq = {}
 
