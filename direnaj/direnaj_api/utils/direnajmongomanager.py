@@ -82,6 +82,16 @@ class DirenajMongoManager(object):
         self.pymongo_column = Column(pymongo_client[mongo_db])
         self.motor_column = Column(motor_client[mongo_db])
 
+        self.colls = {
+                'campaigns': self.motor_column.freq_campaigns,
+                'tokens': self.motor_column.freq_tokens,
+                'hashtags': self.motor_column.freq_hashtags,
+                'mentions': self.motor_column.freq_mentions,
+                'urls': self.motor_column.freq_urls,
+                'medias': self.motor_column.freq_medias,
+                'histograms': self.motor_column.freq_histograms,
+        }
+
     @staticmethod
     def prepare_users_to_be_added(self, user_id_strs_to_follow, dtype='id_str'):
         self.logger.debug('prepare_users_to_be_added: %s' % user_id_strs_to_follow)
@@ -419,17 +429,7 @@ class DirenajMongoManager(object):
             minute = "%04d" % (int(hour)*60 + int(time.strftime('%M', gm_t)))
             print('TODAY_STR', today_str)
 
-            colls = {
-                'campaigns': self.motor_column.freq_campaigns,
-                'tokens': self.motor_column.freq_tokens,
-                'hashtags': self.motor_column.freq_hashtags,
-                'mentions': self.motor_column.freq_mentions,
-                'urls': self.motor_column.freq_urls,
-                'medias': self.motor_column.freq_medias,
-                'histograms': self.motor_column.freq_histograms,
-            }
-
-            print("COLLS: ", colls)
+            print("COLLS: ", self.colls)
 
             print("FREQ before last for: ", freq)
 
