@@ -427,7 +427,7 @@ class DirenajMongoManager(object):
                 'urls': self.motor_column.freq_urls,
                 'medias': self.motor_column.freq_medias,
                 'histograms': self.motor_column.freq_histograms,
-                }
+            }
 
             print("COLLS: ", colls)
 
