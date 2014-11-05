@@ -417,8 +417,7 @@ class DirenajMongoManager(object):
             today_str = time.strftime('%Y-%m-%d', gm_t)
             hour = time.strftime('%H', gm_t)
             minute = "%04d" % (int(hour)*60 + int(time.strftime('%M', gm_t)))
-            # print today_str
-            # print hour + ':' + minute
+            print('TODAY_STR', today_str)
 
             colls = {
                 'campaigns': self.motor_column.freq_campaigns,
@@ -429,6 +428,8 @@ class DirenajMongoManager(object):
                 'medias': self.motor_column.freq_medias,
                 'histograms': self.motor_column.freq_histograms,
                 }
+
+            print("COLLS: ", colls)
 
             print("FREQ before last for: ", freq)
 
