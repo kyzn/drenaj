@@ -423,10 +423,12 @@ class DirenajMongoManager(object):
                 'histograms': self.motor_column.freq_histograms,
                 }
 
+            print("FREQ: ", freq)
+
             for key in freq:
                 for item in freq[key].keys():
                     count = freq[key][item]
-                    print("FREQ: ", item)
+
                     yield colls[key].update({'campaign_id': campaign_id, 'date': today_str, 'key': item},
                                       {'$inc': {('hour.%s' % hour): count, ('minute.%s' % minute): count, ('day_total'): count},
                                        '$set': {'last_updated_minute': minute}}, upsert=True)
