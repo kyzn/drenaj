@@ -402,6 +402,8 @@ class DirenajMongoManager(object):
                         # log this missing attribute.
                         pass
 
+            print("FREQ campaigns hashtags and others: ", freq)
+
             if 'created_at' in tweet_obj:
                 # turns out that we've already transformed into drnj_time
                 t = drnj_time2py_time(tweet_obj['created_at'])
