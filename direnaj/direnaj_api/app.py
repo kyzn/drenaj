@@ -194,16 +194,12 @@ def create_argument_parser():
                                              help='run direnaj server',
                                              parents=[base_parser])
     parser_runserver.add_argument('-p', '--port', action='store', type=int,
-                                  default=DEFAULT_SETTINGS['port'],
                                   help='set direnaj api http port to listen')
     parser_runserver.add_argument('-d', '--database', action='store', type=str,
-                                  default=DEFAULT_SETTINGS['database'],
                                   help='set which mongodb database to use')
     parser_runserver.add_argument('-m', '--mongo-host', action='store', type=str,
-                                  default=DEFAULT_SETTINGS['mongo_host'],
                                   help='set which mongodb host to connect')
     parser_runserver.add_argument('-t', '--mongo-port', action='store', type=int,
-                                  default=DEFAULT_SETTINGS['mongo_port'],
                                   help='set which mongodb port to connect')
     parser_runserver.add_argument('-s', '--settings-file', action='store', type=str,
                                   default='direnaj_api/config/settings.yaml',
