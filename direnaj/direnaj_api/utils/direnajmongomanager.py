@@ -357,6 +357,7 @@ class DirenajMongoManager(object):
             tweet_obj = tweet_obj['tweet']
 
             freq['campaigns'] = {campaign_id: 1}
+            print("FREQ campaigns: ", freq)
 
         # freq['tokens'] = {'ali': 1, 'veli': 1}
 
