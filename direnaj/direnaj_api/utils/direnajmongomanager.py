@@ -374,6 +374,8 @@ class DirenajMongoManager(object):
                         # log this missing attribute.
                         pass
 
+            print("FREQ campaigns hashtags: ", freq)
+
             freq['mentions'] = {}
             if 'entities' in tweet_obj and 'user_mentions' in tweet_obj['entities']:
                 for mention in tweet_obj['entities']['user_mentions']:
@@ -424,7 +426,7 @@ class DirenajMongoManager(object):
                 'histograms': self.motor_column.freq_histograms,
                 }
 
-            print("FREQ: ", freq)
+            print("FREQ before last for: ", freq)
 
             for key in freq:
                 for item in freq[key].keys():
