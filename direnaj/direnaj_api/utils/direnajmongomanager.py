@@ -410,6 +410,8 @@ class DirenajMongoManager(object):
             else:
                 t = time.time()
 
+            print("FREQ after created_at: ", freq)
+
             gm_t = time.gmtime(t)
 
             today_str = time.strftime('%Y-%m-%d', gm_t)
