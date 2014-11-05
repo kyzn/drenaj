@@ -85,7 +85,7 @@ class DirenajMongoManager(object):
         self.colls = {
                 'campaigns': self.motor_column.freq_campaigns,
                 'tokens': self.motor_column.freq_tokens,
-                'hashtags': self.motor_column.freq_hashtags,
+                #'hashtags': self.motor_column.freq_hashtags,
                 'mentions': self.motor_column.freq_mentions,
                 'urls': self.motor_column.freq_urls,
                 'medias': self.motor_column.freq_medias,
