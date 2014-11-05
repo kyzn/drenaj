@@ -1,0 +1,5 @@
+debug: True
+database: 'direnaj_dev'
+mongo_host: 'localhost'
+mongo_port: 27017
+port: 9999
