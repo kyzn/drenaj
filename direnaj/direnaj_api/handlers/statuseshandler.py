@@ -236,6 +236,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                            # TypeError: if no direction is specified, key_or_list must be an instance of list
                            # .sort({"$natural" : 1})\
                 tmp = [x for x in (yield cursor.to_list(length=100))]
+                DB_TEST_VERSION = 0.2
                 if res_format == 'json':
                     self.write(bson.json_util.dumps(
                             {'results': tmp,
