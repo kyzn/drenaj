@@ -36,9 +36,10 @@ def main():
 
     response = requests.get(request_url)
 
-    print(response.content)
+    #print(response.content)
     f = open(args.outfilename, 'a+')
     f.write(response.content)
+    f.write('\n')
     f.close()
 
 if __name__ == "__main__":
