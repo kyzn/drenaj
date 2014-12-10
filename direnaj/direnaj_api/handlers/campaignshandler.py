@@ -154,7 +154,7 @@ class CampaignsHandler(tornado.web.RequestHandler):
         elif (action == 'list'):
             try:
                 cursor = direnajmongomanager.get_campaigns_list()
-                campaigns = yield cursor.to_list(length=100)
+                campaigns = yield cursor.to_list()
                 self.write(bson.json_util.dumps(campaigns))
                 self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
