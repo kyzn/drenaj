@@ -153,7 +153,8 @@ def new_tweet_template():
                 "user_mentions": True
             },
             "user": True,
-            "source_id": is_integer, #: reference to `sources' collection.
+            "source_id": is_integer, #: reference to `sources' collection. ????
+            "source": is_string,
             "created_at": is_drnj_time,
         },
         "campaign_id": is_string_or_array_of_strings,
