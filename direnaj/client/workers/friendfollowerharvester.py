@@ -235,7 +235,7 @@ class FriendHarvester(threading.Thread):
         if not tmp:
             return
 
-        params.update({'friends_data': bson.json_util.dumps(tmp)})
+        params.update({'user_objects': bson.json_util.dumps(tmp)})
 
         self.post_to_gateway(params, self.direnaj_store_url)
 
@@ -283,7 +283,7 @@ from celery.utils.log import get_task_logger
 from celery.signals import worker_shutdown
 
 class FriendFollowerHarvesterTask(celery.Task):
-    name = 'Retrieve Friend Follower Lists'
+    name = 'crawl_friends_or_followers'
     max_retries = None
 
     def __init__(self):
@@ -334,6 +334,9 @@ class FriendFollowerHarvesterTask(celery.Task):
     # By default, we use user_id_str's.
     def run(self, user_info_table, use_screenname=False):
         worker_shutdown.connect(self.on_shutdown)
+
+        print type(user_info_table)
+        print user_info_table
 
         keystore = KeyStore()
         #self.keystore.load_access_tokens_from_file()

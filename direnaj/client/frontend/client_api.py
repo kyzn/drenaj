@@ -69,16 +69,41 @@ class TaskHandler(tornado.web.RequestHandler):
                 friends_or_followers = self.get_argument('edge_type', 'followers')
                 local_or_remote = self.get_argument('local_or_remote', 'local')
 
+                task_definition = bson.json_util.dumps({'task_type': 'crawl',
+                                   'metadata': {
+                                      'user': {
+                                          'id_str': user_id,
+                                          },
+                                      }
+                                  })
+                print task_definition
+
+                #if local_or_remote == 'local':
+                #    res = drnj_graph_crawler(friends_or_followers, int(user_id))
+                #else:
+                #    # TODO: implement remote work submission
+                #    pass
+
                 if local_or_remote == 'local':
-                    res = drnj_graph_crawler(friends_or_followers, int(user_id))
+                    post_data = {'task_definition': task_definition,
+                                 'queue': DIRENAJ_LOCAL_QUEUE}
                 else:
-                    # TODO: implement remote work submission
-                    pass
+                    post_data = {'task_definition': task_definition,
+                                 'queue': 'timelines'}
 
-                template = env.get_template('profiles/crawl_graph_notification.html')
-                task_submit_result = template.render(user_id=user_id, fof=friends_or_followers, res=res, href=vis_root_url)
+                res = requests.post(app_root_url + '/tasks/crawl', data=post_data)
+                task_submit_result = bson.json_util.loads(res.content)
+                print task_submit_result
 
-                self.write(task_submit_result)
+                template = env.get_template('tasks/notification.html')
+                result = template.render(task_submit_result=task_submit_result, href=vis_root_url)
+
+                self.write(result)
+
+                #template = env.get_template('profiles/crawl_graph_notification.html')
+                #task_submit_result = template.render(user_id=user_id, fof=friends_or_followers, res=res, href=vis_root_url)
+
+                #self.write(task_submit_result)
             elif task_type == 'harvest':
                 from direnaj.client.celery_app.client_endpoint import app_object
                 user_id = self.get_argument('user_id', '')
