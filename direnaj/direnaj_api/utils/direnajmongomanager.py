@@ -22,6 +22,8 @@ import logging
 import time
 from utils.drnj_time import py_utc_time2drnj_time, drnj_time2py_time, now_in_drnj_time, xdays_before_now_in_drnj_time
 
+from direnaj_api.utils.direnajneo4jmanager import add_to_watchlist
+
 '''NOTES:
 
 create_indices
@@ -91,69 +93,6 @@ class DirenajMongoManager(object):
                 'medias': self.motor_column.freq_medias,
                 'histograms': self.motor_column.freq_histograms,
         }
-
-    @staticmethod
-    def prepare_users_to_be_added(self, user_id_strs_to_follow, dtype='id_str'):
-        self.logger.debug('prepare_users_to_be_added: %s' % user_id_strs_to_follow)
-
-        users_to_be_added = []
-
-        lines = user_id_strs_to_follow.split('\n')
-        for line in lines:
-            line = line.strip()
-
-            if dtype == 'id_str':
-                user = {'user': {'id_str': line, 'screen_name': ''}}
-            else:
-                user = {'user': {'id_str': '', 'screen_name': line}}
-
-            users_to_be_added.append(user)
-
-        return users_to_be_added
-        # lines = user_id_strs_to_follow.split('\n')
-        # print lines
-        # users_to_be_added = []
-        # for line in lines:
-        #     line_els = [l.strip() for l in line.split(',')]
-        #     print line_els
-        #     # first element must be user_id_str
-        #     # second element is optional. it should be the username for easier management by humans.
-        #     users_to_be_added.append(line_els[0])
-
-    @gen.coroutine
-    def add_to_watchlist(self, campaign_id, user_id_strs_to_follow, user_screen_names_to_follow):
-        users_to_be_added = []
-
-        if user_id_strs_to_follow:
-            users_to_be_added = self.prepare_users_to_be_added(user_id_strs_to_follow)
-        if user_screen_names_to_follow:
-            users_to_be_added += self.prepare_users_to_be_added(user_screen_names_to_follow, dtype='screen_name')
-
-        for user in users_to_be_added:
-            processed_user = user['user']
-            processed_user['campaign_ids'] = [campaign_id]
-
-            doc = {
-                'user': processed_user,
-                'page_not_found': 0,  # 0, no problem, 1, problem.
-                'since_tweet_id': -1,
-                'state': 0,  # 0, inqueue, 1, processing
-                'added_at': now_in_drnj_time(),
-                'updated_at': 0,  # 00000101T00:00:00
-                #'campaign_ids': [campaign_id],
-            }
-
-            self.logger.debug(doc)
-
-            if user['user']['id_str']:
-                ret = yield self.motor_column.watchlist.find_one({'user.id_str': user['user']['id_str']})
-                if ret:
-                    yield self.motor_column.watchlist.update({'_id': ret['_id']},
-                                                             {'$addToSet': {'user.campaign_ids': campaign_id}})
-                else:
-                    yield self.motor_column.watchlist.insert(doc)
-            else:
-                yield self.motor_column.watchlist.insert(doc)
 
     def get_user_from_watchlist(self, user):
         pre_watchlist_column = self.pymongo_column.pre_watchlist
@@ -265,7 +204,7 @@ class DirenajMongoManager(object):
         # removing it to be used elsewhere
         params.pop("user_id_strs_to_follow", None)
         params.pop("user_screen_names_to_follow", None)
-        self.add_to_watchlist(params['campaign_id'], user_id_strs_to_follow, user_screen_names_to_follow)
+        add_to_watchlist(params['campaign_id'], user_id_strs_to_follow, user_screen_names_to_follow)
 
         yield campaigns_column.insert(params)
 

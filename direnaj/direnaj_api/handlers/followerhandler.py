@@ -32,6 +32,12 @@ import time
 
 import bson.json_util
 
+from py2neo import Graph, Node, Relationship
+
+from direnaj_api.utils.direnajneo4jmanager import upsert_user
+
+graph = Graph()
+
 class FollowerHandler(tornado.web.RequestHandler):
     def get(self, *args):
         self.post(*args)
@@ -67,22 +73,20 @@ class FollowerHandler(tornado.web.RequestHandler):
                         id_field_prefix_graph_query = ''
                         id_field_prefix_graph_query_opposite = 'friend_'
 
-                    # running the query
-                    cursor = self.application.db.motor_column.graph.find({
-                        id_field_prefix_graph_query+'id_str': str(user_id),
-                    })
+                    tx = graph.cypher.begin()
+                    if friends_or_followers == 'followers':
+                        tx.append("MATCH (u { id_str:{id_str} })<--(u2) RETURN u2", {"id_str": str(user_id)})
+                    elif friends_or_followers == 'friends':
+                        tx.append("MATCH (u { id_str:{id_str} })-->(u2) RETURN u2", {"id_str": str(user_id)})
+                    results = tx.commit()
+                    # take only the first line
+                    results = results[0]
 
                     tmp = []
                     if ids_or_list == 'ids':
-                        tmp = [x for x in (yield cursor.to_list(length=100))]
+                        tmp = [x.u2.properties['id_str'] for x in results]
                     elif ids_or_list == 'list':
-                        # profiles_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['profiles']
-                        # tweets_coll = mongo_client[DIRENAJ_DB[DIRENAJ_APP_ENVIRONMENT]]['tweets']
-                        # We need to gather the list of 'opposite' side.
-                        ids = [x[id_field_prefix_graph_query_opposite+'id_str'] for x in cursor]
-                        print ids
-                        cursor = self.application.db.motor_column.tweets.find({'tweet.user.id_str': {'$in': ids}, 'tweet.user.history': False})
-                        tmp = [x for x in (yield cursor.to_list(length=100))]
+                        tmp = [x.u2.properties for x in results]
                 self.write(bson.json_util.dumps({'results': tmp}))
                 self.add_header('Content-Type', 'application/json')
             except MissingArgumentError as e:
@@ -92,111 +96,38 @@ class FollowerHandler(tornado.web.RequestHandler):
             try:
                 # TODO: Replace this implementation with a Neo4J based approach.
                 # Check long int/str versions
-                user_id = int(self.get_argument('user_id'))
-                auth_user_id = self.get_argument('auth_user_id')
-                json_IDS = self.get_argument('ids', None)
-                IDS = json.loads(json_IDS)
+                id_str = int(self.get_argument('user_id'))
+                user_objects = self.get_argument('user_objects', '[]')
+                user_objects = bson.json_util.loads(user_objects)
 
-                print IDS
+                root_user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': id_str}).one.u
 
-                print "INININININ"
-                queue_coll = self.application.db.motor_column.queue
-                graph_coll = self.application.db.motor_column.graph
-                queue_query = {"id": user_id}
-                n_ids = yield queue_coll.find(queue_query).count()
-                dt = drnj_time.now_in_drnj_time()
-                if n_ids > 0:
-                    print 'ID EXISTS'
-                    queue_document = {"$set":
-                                        {
-                                        friends_or_followers +"_retrieved_at": dt,
-                                        "retrieved_by": auth_user_id}
-                                       }
-                    # creates entry if query does not exist
-                    # queue_collection.update(queue_query, queue_document, upsert=True)
+                if root_user_node:
 
-                    yield queue_coll.update(queue_query, queue_document)
+                    if friends_or_followers == 'followers':
+                        # DELETE ALL INCOMING EDGES
+                        tx = graph.cypher.begin()
+                        tx.append("MATCH (u { id_str: {id_str} })<-[r:FOLLOWS]-(u2) DELETE r", {'id_str': id_str})
+                        tx.commit()
+
+                    elif friends_or_followers == 'friends':
+                        # DELETE ALL OUTGOING EDGES
+                        tx = graph.cypher.begin()
+                        tx.append("MATCH (u { id_str: {id_str} })-[r:FOLLOWS]->(u2) DELETE r", {'id_str': id_str})
+                        tx.commit()
+
+                    for user in user_objects:
+                        user_node = upsert_user(user)
+
+                        if friends_or_followers == 'followers':
+                            rel = Relationship(user_node, 'FOLLOWS', root_user_node)
+                            graph.create(rel)
+                        elif friends_or_followers == 'friends':
+                            rel = Relationship(root_user_node, 'FOLLOWS', user_node)
+                            graph.create(rel)
 
                 else:
-                    print 'ID NOT EXISTS'
-                    if friends_or_followers == 'friends':
-                        queue_document = validate_document(new_queue_document(), {
-                                        "id": user_id,
-                                        "id_str": str(user_id),
-                                        "profile_retrieved_at": 0,
-                                        "friends_retrieved_at": dt,
-                                        "followers_retrieved_at": 0,
-                                        "retrieved_by": auth_user_id
-                                        })
-
-                    elif friends_or_followers == 'followers':
-                        queue_document = validate_document(new_queue_document(),{
-                                        "id": user_id,
-                                        "id_str": str(user_id),
-                                        "profile_retrieved_at": 0,
-                                        "friends_retrieved_at": 0,
-                                        "followers_retrieved_at": dt,
-                                        "retrieved_by": auth_user_id
-                                        })
-                    print "QUEUE DOCUMENT: "
-                    print queue_document
-                    yield queue_coll.insert(queue_document)
-
-                n_edges_committed = 0
-                # process each user id in IDS
-                for id in reversed(IDS):
-                    # Insert the newly discovered id into the queue
-                    # insert will be rejected if _id exists
-                    tmp_n_ids = yield queue_coll.find({'id': id}).count()
-                    if tmp_n_ids == 0:
-                        queue_document = validate_document(new_queue_document(),{
-                                            "id": id,
-                                            "id_str": str(id),
-                                            "profile_retrieved_at": 0,
-                                            "friends_retrieved_at": 0,
-                                            "followers_retrieved_at": 0,
-                                            "retrieved_by": auth_user_id})
-
-                        yield queue_coll.insert(queue_document)
-
-                    dt = drnj_time.now_in_drnj_time()
-                    if friends_or_followers == 'friends':
-                        source = user_id
-                        sink = id
-                    elif friends_or_followers == 'followers':
-                        source = id
-                        sink = user_id
-                    else:
-                        return
-
-                    edge = yield graph_coll.find_one({"id": source, "friend_id": sink})
-
-                    if edge == None:
-                        n_edges_committed += 1
-                        doc = validate_document(new_graph_document(),{
-                         'id': source,
-                         'friend_id': sink,
-                         'id_str': str(source),
-                         'friend_id_str': str(sink),
-                         'record_retrieved_at': dt,
-                         "retrieved_by": auth_user_id
-                        })
-                        yield graph_coll.insert(doc)
-
-                # NOTE: It seems like I commented out this in the previous that big code session.
-                #store_friends_or_followers(user_id, IDS, drnjID=auth_user_id, fof=friends_or_followers)
-                print "CIKTI"
-
-                print "User ID: %d, among %s" % (user_id, friends_or_followers)
-
-                self.write(bson.json_util.dumps({'n_edges_committed': n_edges_committed}))
-                # except Return, r:
-                #     ret = r.value
-                #     # Returns number of written edges (new relations discovered)
-                #     print "User ID: %d, among %s" % (user_id, friends_or_followers)
-                #     print ret
-                #
-                #     self.write(json_encode(ret))
+                    self.write(bson.json_util.dumps({'status': 'error'}))
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
