@@ -1,5 +1,7 @@
 from direnaj_api.utils.direnaj_auth import direnaj_simple_auth
 
+import direnaj_api.utils.direnajneo4jmanager as direnajneo4jmanager
+
 import tornado.ioloop
 import tornado.web
 
@@ -12,6 +14,8 @@ from tornado.gen import Return
 import bson.json_util
 
 from pymongo.errors import OperationFailure
+
+
 
 class CampaignsHandler(tornado.web.RequestHandler):
 
@@ -87,16 +91,11 @@ class CampaignsHandler(tornado.web.RequestHandler):
                         self.write(bson.json_util.dumps({}))
                     self.add_header('Content-Type', 'application/json')
                 if subcommand == "watched_users":
-                    [cursor1, cursor2] = direnajmongomanager.get_users_attached_to_campaign(campaign_id)
+                    attached_users_array = direnajneo4jmanager.get_users_attached_to_campaign(campaign_id)
                     attached_users_response = {'watched_users': [], 'campaign_id': campaign_id}
-                    tmp = dict()
-                    for user in (yield cursor1.to_list(100)):
-                        print user
-                        tmp[user['user']['id_str']] = user['since_tweet_id']
-                    for user in (yield cursor2.to_list(100)):
-                        print user
-                        tmp[user['user']['id_str']] = user['since_tweet_id']
-                    attached_users_response['watched_users'] = [ [user_id_str, since_tweet_id] for (user_id_str, since_tweet_id) in tmp.iteritems()]
+
+                    attached_users_response['watched_users'] = [ [item[0], item[1]] for item in attached_users_array]
+
                     self.write(bson.json_util.dumps(attached_users_response))
                     self.add_header('Content-Type', 'application/json')
                 elif subcommand == "freqs":

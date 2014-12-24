@@ -104,6 +104,9 @@ class FollowerHandler(tornado.web.RequestHandler):
 
                 if root_user_node:
 
+                    # deleting this edge because we want the next job to be explicitly ordered by some other means.
+                    graph.cypher.execute("MATCH (u:User)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t:FRIENDFOLLOWER_HARVESTER_TASK) WHERE u.id_str = {id_str} DELETE r", {'id_str': id_str})
+
                     if friends_or_followers == 'followers':
                         # DELETE ALL INCOMING EDGES
                         tx = graph.cypher.begin()

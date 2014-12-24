@@ -24,7 +24,7 @@ import bson.json_util
 
 import pymongo
 
-from direnaj_api.utils.direnajneo4jmanager import update_task_state_in_watchlist
+from direnaj_api.utils.direnajneo4jmanager import update_task_state_in_watchlist, init_user_to_graph
 
 class StatusesHandler(tornado.web.RequestHandler):
 
