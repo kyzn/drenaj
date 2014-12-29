@@ -192,14 +192,14 @@ def create_batch_from_watchlist(app_object, n_users):
         res_array = []
         # FIXME: burada kalmistik. sanirim id_str ve screen_name bos geliyor.
         for task_state in timeline_task_states:
-            id_str = ''
-            screen_name = ''
+            id_str = 'x'
+            screen_name = 'x'
             print task_state.r.nodes[0].labels
-            if 'TIMELINE_HARVESTER_TASK' not in task_state.r.nodes[0].labels:
-                id_str = task_state.r.nodes[0].properties['id_str']
+            if 'TIMELINE_HARVESTER_TASK' not in task_state.r.nodes[1].labels:
+                id_str = task_state.r.nodes[1].properties['id_str']
                 if id_str == None:
                     id_str = ''
-                screen_name = task_state.r.nodes[0].properties['screen_name']
+                screen_name = task_state.r.nodes[1].properties['screen_name']
                 if screen_name == None:
                     screen_name = ''
             since_tweet_id = task_state.r.properties['since_tweet_id']

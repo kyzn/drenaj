@@ -27,7 +27,7 @@ from direnaj_api.app import Application
 #@periodic_task(run_every=crontab(minute='*/1'))
 @app_object.task(name='check_watchlist_and_dispatch_tasks')
 def check_watchlist_and_dispatch_tasks():
-    batch_size = 10
+    batch_size = 2
 
     # we can give an optional parameter for specific settings for this use.
     app = Application()
