@@ -122,46 +122,7 @@ class DirenajMongoManager(object):
                 return cursor
             return cursor
 
-    def create_batch_from_watchlist(self, app_object, n_users):
-        # Using pymongo (thus synchronous) because motor caused problems at the first try.
-        # it doesn't matter for now as this code is run from a celery client on the server.
 
-        pre_watchlist_column = self.pymongo_column.pre_watchlist
-        watchlist_column = self.pymongo_column.watchlist
-
-        cursor = pre_watchlist_column.find({'state': 0},
-                                           fields=['user', 'since_tweet_id', 'page_not_found']).limit(n_users)
-
-        docs_array = [d for d in cursor]
-        self.logger.debug(docs_array)
-
-        pre_watchlist_column.update({'_id': {'$in': [d['_id'] for d in docs_array]}},
-                                    {'$set': {'state': 1}}, multi=True)
-
-        batch_array = [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs_array]
-        self.logger.debug(batch_array)
-
-        left_capacity = n_users - len(batch_array)
-        self.logger.debug(left_capacity)
-
-        if left_capacity > 0:
-            cursor = watchlist_column.find({'state': 0,
-                                            'updated_at': {'$lt': xdays_before_now_in_drnj_time(1)}},
-                                           fields=['user', 'since_tweet_id', 'page_not_found']) \
-                .sort([('updated_at', 1)]) \
-                .limit(left_capacity)
-
-            docs_array = [d for d in cursor]
-            watchlist_column.update({'_id': {'$in': [d['_id'] for d in docs_array]}},
-                                    {'$set': {'state': 1}}, multi=True)
-            batch_array += [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs_array]
-            self.logger.debug(batch_array)
-
-        ### Now, use this batch_array to call TimelineRetrievalTask.
-        res_array = []
-        for job_definition in batch_array:
-            res = app_object.send_task('timeline_retrieve_userlist', [[job_definition]], queue='timelines')
-            res_array.append(res)
 
     @gen.coroutine
     def update_watchlist(self, user, since_tweet_id, page_not_found):
