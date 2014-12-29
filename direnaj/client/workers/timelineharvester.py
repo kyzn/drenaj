@@ -471,7 +471,7 @@ class TimelineRetrievalTask(celery.Task):
         print "ON_FAILURE"
         self.on_shutdown()
 
-    def on_success(self, retval, task_id, args, kwargs):
+    def on_success(self, dretval, task_id, args, kwargs):
         print "ON_SUCCESS"
         self.on_shutdown()
 

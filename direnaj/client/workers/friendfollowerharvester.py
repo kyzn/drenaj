@@ -97,9 +97,8 @@ class FriendHarvester(threading.Thread):
         if ret_code != 0:
             return [None, None]
 
-        friendListJson = rate_limit_status.get('/friends/list', None)
-        reset_time  = friendListJson.get('reset', None)
-        limit = friendListJson.get('remaining', None)
+        reset_time  = rate_limit_status.get('reset', None)
+        limit = rate_limit_status.get('remaining', None)
 
         if reset_time:
             # put the reset time into a datetime object
@@ -165,10 +164,12 @@ class FriendHarvester(threading.Thread):
 
     def GetFriendsOfUser(self, *args):
 
+        self.log('use_screenname : ' + str(self.use_screenname) + ' - user_identifier : ' + str(self.user_identifier))
+
         if self.use_screenname:
-            return self.api.GetFriends(self,user_id=None,screen_name=self.user_identifier,cursor=-1,count=None,skip_status=True,include_user_entities=False)
+            return self.api.GetFriends(user_id=None,screen_name=self.user_identifier,cursor=-1,count=None,skip_status=True,include_user_entities=False)
         else:
-            return self.api.GetFriends(self,user_id=self.user_identifier,screen_name=None,cursor=-1,count=None,skip_status=True,include_user_entities=False)
+            return self.api.GetFriends(user_id=self.user_identifier,screen_name=None,cursor=-1,count=None,skip_status=True,include_user_entities=False)
 
 
     def fetchFriendsOfUser(self):
