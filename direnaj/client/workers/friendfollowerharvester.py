@@ -111,6 +111,17 @@ class FriendHarvester(threading.Thread):
         else:
             return [5, 1]
 
+    def get_user_identifier(self, user):
+        user_identifier = ''
+        if 'id' in user:
+            user_identifier = str(user['id'])
+        elif 'id_str' in user:
+            user_identifier = user['id_str']
+        else:
+            user_identifier = user['screen_name']
+        return user_identifier
+
+
     def makeApiCall(self, func, *args):
         finished = False
         backoff_duration = 0
@@ -209,34 +220,25 @@ class FriendHarvester(threading.Thread):
             sample_friend = bson.json_util.loads(all_friends[0].AsJsonString())
             print sample_friend
 
-            other_identifier = self.get_user_identifier(self.user)
+            other_identifier = self.get_user_identifier(sample_friend)
 
-        if self.use_screenname:
-            params = {'watchlist_related': bson.json_util.dumps({
-                          'page_not_found': page_not_found,
-                          'user': {
-                              'id_str': other_identifier,
-                              'screen_name': self.user_identifier,
-                          }
-                      })}
-        else:
-            params = {'watchlist_related': bson.json_util.dumps({
-                          'page_not_found': page_not_found,
-                          'user': {
-                              'id_str': self.user_identifier,
-                              'screen_name': other_identifier
-                          }
-                      })}
-        print params
-        self.post_friends(params, self.process_all_friends(all_friends))
+
+        self.post_friends(self.process_all_friends(all_friends))
 #        return [last_tweet_id, since_tweet_id, n_tweets_retrieved, page_not_found]
         return [n_friends_retrieved, page_not_found]
 
-    def post_friends(self, params, tmp):
+    def post_friends(self, tmp):
         if not tmp:
             return
 
+        params = dict()
         params.update({'user_objects': bson.json_util.dumps(tmp)})
+
+        if self.user['id_str']:
+            params.update({'id_str': self.user['id_str']})
+        else:
+            params.update({'screen_name': self.user['screen_name']})
+
 
         self.post_to_gateway(params, self.direnaj_store_url)
 
