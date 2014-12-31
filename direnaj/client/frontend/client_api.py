@@ -282,7 +282,7 @@ class visCampaignsHandler(tornado.web.RequestHandler):
             print post_response.content
             dat = bson.json_util.loads(post_response.content)
 
-            self.createThread(campaign_id, query_terms)
+            #self.createThread(campaign_id, query_terms)
 
             template = env.get_template('campaigns/new.html')
             result = template.render(result=dat)

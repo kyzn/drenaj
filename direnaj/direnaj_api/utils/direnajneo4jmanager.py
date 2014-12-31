@@ -61,10 +61,14 @@ def init_user_to_graph_aux(campaign_node, user):
     user_node = upsert_user(user)
     campaign_rel = Relationship(campaign_node, "OBSERVES", user_node)
     graph.create(campaign_rel)
+
+
     timeline_task_state_rel = \
         graph.cypher.execute(
             "MATCH (u:User { id_str: {id_str} })<-[r:TIMELINE_TASK_STATE]-(task:TIMELINE_HARVESTER_TASK) RETURN r",
             {'id_str': user['id_str']}).one
+
+
     if timeline_task_state_rel:
         pass
     else:
@@ -74,10 +78,16 @@ def init_user_to_graph_aux(campaign_node, user):
         #tx.append("CREATE (t)-[r:TIMELINE_TASK_STATE]->(u:User) RETURN r")
         tx.append("MATCH (u:User),(t:TIMELINE_HARVESTER_TASK) WHERE u.id_str = {id_str} AND t.id = 1 CREATE (u)<-[r:TIMELINE_TASK_STATE {since_tweet_id: -1, page_not_found: -1, state: 0, unlock_time: -1}]-(t) RETURN r", {'id_str': user['id_str']})
         tx.commit()
+
+
+
     friendfollower_task_state_rel = \
         graph.cypher.execute(
             "MATCH (u:User { id_str: {id_str} })<-[r:FRIENDFOLLOWER_TASK_STATE]-(task:FRIENDFOLLOWER_HARVESTER_TASK) RETURN r",
             {'id_str': user['id_str']}).one
+
+
+
     if friendfollower_task_state_rel:
         pass
     else:
@@ -230,7 +240,7 @@ def create_batch_from_watchlist(app_object, n_users):
 
 
     res_array = []
-    ff_task_states = graph.cypher.execute("MATCH (u:User {screen_name: 'Meddre5911'})<-[r:FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 0 SET r.state = 1 RETURN r LIMIT {n_users}", {'n_users': n_users})
+    ff_task_states = graph.cypher.execute("MATCH (u:User)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 0 SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN r LIMIT {n_users}", {'n_users': n_users, 'unix_time_plus_two_hours': int(time.time())+ (2*3600)})
     print ff_task_states
 
     for ff_task_state in ff_task_states:
