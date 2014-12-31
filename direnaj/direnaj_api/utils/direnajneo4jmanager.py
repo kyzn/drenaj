@@ -145,8 +145,29 @@ def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_f
         if not campaign_node:
             campaign_node = graph.cypher.execute("CREATE (c:Campaign {campaign_id: {campaign_id}}) RETURN c",
                                              {'campaign_id': campaign_id}).one
-
+        user['user'] = get_user_object_from_twitter(user['user'])
         init_user_to_graph_aux(campaign_node, user['user'])
+
+def get_user_object_from_twitter(user):
+
+    import twitter
+
+    access_credentials = {
+    'app_consumer_key': "SyyLuKNdeJ9lFeItE0Bg",
+    'app_consumer_secret': "eOqzcigVBydHqDTaQLP1fcQY7wFZXPZICIBuIgOnb4",
+    'access_token_key': "2952826882-eEu785g7zdoRht3mopE8XWk9p7mWFXw7Hr6tYdK",
+    'access_token_secret': "f3Fcqtt7nwFqBmZcHRfS41kNx4DIiJJMS2YBLJjwvP4wB"
+    }
+
+    api = twitter.Api(access_credentials)
+
+    user_object = None
+    if 'id_str' in user and user['id_str'] != '':
+        user_object = api.GetUser(user_id=user['id_str'])
+    elif 'screen_name' in user and user['screen_name'] != '':
+        user_object = api.GetUser(screen_name=user['screen_name'])
+
+    return user_object
 
 def prepare_users_to_be_added(user_id_strs_to_follow, dtype='id_str'):
     #self.logger.debug('prepare_users_to_be_added: %s' % user_id_strs_to_follow)
