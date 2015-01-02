@@ -4,6 +4,8 @@ from py2neo import Graph, Node, neo4j, Relationship
 
 import time
 
+import twitter
+
 graph = Graph()
 
 def upsert_user(user):
@@ -12,6 +14,10 @@ def upsert_user(user):
     :param user: dictionary
     :return:
     """
+
+    print 'upsert_user Giris'
+    print user
+    print type(user)
 
     # removing these beacuse neo4j doesn't allow nested nodes.
     if 'entities' in user:
@@ -23,13 +29,18 @@ def upsert_user(user):
     # coming from create_campaign
     user_node = None
     if 'id_str' in user and 'screen_name' in user and user['id_str'] != '' and user['screen_name'] != '':
+        print '1'
         user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']}).one
         if not user_node:
             user_node = graph.cypher.execute("MATCH (u:User) WHERE u.screen_name = {screen_name} RETURN u", {'screen_name': user['screen_name']}).one
     elif type(user['id_str']) == type('STRING') and user['id_str'] != '':
-         user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']}).one
+        print '2'
+        user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']}).one
     elif type(user['screen_name']) == type('STRING') and user['screen_name'] != '':
-         user_node = graph.cypher.execute("MATCH (u:User) WHERE u.screen_name = {screen_name} RETURN u", {'screen_name': user['screen_name']}).one
+        print '3'
+        user_node = graph.cypher.execute("MATCH (u:User) WHERE u.screen_name = {screen_name} RETURN u", {'screen_name': user['screen_name']}).one
+
+    print user_node
 
     if user_node:
         for key in user.keys():
@@ -58,9 +69,12 @@ def update_task_state_in_watchlist(user, since_tweet_id, page_not_found):
 
 def init_user_to_graph_aux(campaign_node, user):
 
+    print 'init user to graph aux Giris'
+
     user_node = upsert_user(user)
     campaign_rel = Relationship(campaign_node, "OBSERVES", user_node)
     graph.create(campaign_rel)
+
 
 
     timeline_task_state_rel = \
@@ -98,6 +112,9 @@ def init_user_to_graph_aux(campaign_node, user):
         tx.append("MATCH (u:User),(t:FRIENDFOLLOWER_HARVESTER_TASK) WHERE u.id_str = {id_str} AND t.id = 1 CREATE (u)<-[r:FRIENDFOLLOWER_TASK_STATE {state: 0, unlock_time: -1}]-(t) RETURN r", {'id_str': user['id_str']})
         tx.commit()
 
+    print 'init user to graph aux Cikis'
+
+    return user_node
 
 def init_user_to_graph(tweets):
 
@@ -155,21 +172,24 @@ def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_f
         if not campaign_node:
             campaign_node = graph.cypher.execute("CREATE (c:Campaign {campaign_id: {campaign_id}}) RETURN c",
                                              {'campaign_id': campaign_id}).one
-        user['user'] = get_user_object_from_twitter(user['user'])
+        user['user'] = get_user_object_from_twitter(user['user']).AsDict()
+        user['user']['id_str'] = str(user['user']['id'])
         init_user_to_graph_aux(campaign_node, user['user'])
 
 def get_user_object_from_twitter(user):
 
-    import twitter
+    print 'get user object Giris'
 
     access_credentials = {
-    'app_consumer_key': "SyyLuKNdeJ9lFeItE0Bg",
-    'app_consumer_secret': "eOqzcigVBydHqDTaQLP1fcQY7wFZXPZICIBuIgOnb4",
+    'consumer_key': "SyyLuKNdeJ9lFeItE0Bg",
+    'consumer_secret': "eOqzcigVBydHqDTaQLP1fcQY7wFZXPZICIBuIgOnb4",
     'access_token_key': "2952826882-eEu785g7zdoRht3mopE8XWk9p7mWFXw7Hr6tYdK",
     'access_token_secret': "f3Fcqtt7nwFqBmZcHRfS41kNx4DIiJJMS2YBLJjwvP4wB"
     }
 
-    api = twitter.Api(access_credentials)
+    print 'api yaratiliyor'
+    api = twitter.Api(**access_credentials)
+    print api
 
     user_object = None
     if 'id_str' in user and user['id_str'] != '':
@@ -177,6 +197,8 @@ def get_user_object_from_twitter(user):
     elif 'screen_name' in user and user['screen_name'] != '':
         user_object = api.GetUser(screen_name=user['screen_name'])
 
+    print user_object
+    print 'get user object Cikis'
     return user_object
 
 def prepare_users_to_be_added(user_id_strs_to_follow, dtype='id_str'):

@@ -239,13 +239,13 @@ class FriendHarvester(threading.Thread):
         else:
             params.update({'screen_name': self.user['screen_name']})
 
-
         self.post_to_gateway(params, self.direnaj_store_url)
 
     def process_all_friends(self, all_friends):
         tmp = []
         for friend in all_friends:
             friend_json = bson.json_util.loads(friend.AsJsonString())
+            friend_json['id_str'] = str(friend_json['id'])
             tmp.append(friend_json)
         return tmp
 

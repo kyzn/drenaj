@@ -34,7 +34,7 @@ import bson.json_util
 
 from py2neo import Graph, Node, Relationship
 
-from direnaj_api.utils.direnajneo4jmanager import upsert_user
+from direnaj_api.utils.direnajneo4jmanager import upsert_user, init_user_to_graph_aux
 
 graph = Graph()
 
@@ -94,13 +94,13 @@ class FollowerHandler(tornado.web.RequestHandler):
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
         elif (store_or_view == 'store'):
             try:
-                # TODO: Replace this implementation with a Neo4J based approach.
                 # Check long int/str versions
-                id_str = int(self.get_argument('user_id'))
+                id_str = str(self.get_argument('id_str'))
+                campaign_id = self.get_argument('campaign_id', 'default')
                 user_objects = self.get_argument('user_objects', '[]')
                 user_objects = bson.json_util.loads(user_objects)
 
-                root_user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': id_str}).one.u
+                root_user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': id_str}).one
 
                 if root_user_node:
 
@@ -119,8 +119,19 @@ class FollowerHandler(tornado.web.RequestHandler):
                         tx.append("MATCH (u { id_str: {id_str} })-[r:FOLLOWS]->(u2) DELETE r", {'id_str': id_str})
                         tx.commit()
 
+                    # bunlari hizlica ekledim. konusmamiz lazim.
+                    campaign_node = graph.cypher.execute("MATCH (c:Campaign) WHERE c.campaign_id = {campaign_id} RETURN c",
+                                             {'campaign_id': campaign_id}).one
+                    print campaign_node
+                    if not campaign_node:
+                        campaign_node = graph.cypher.execute("CREATE (c:Campaign {campaign_id: {campaign_id}}) RETURN c",
+                                                 {'campaign_id': campaign_id}).one
+
                     for user in user_objects:
-                        user_node = upsert_user(user)
+
+                        user_node = init_user_to_graph_aux(campaign_node, user)
+
+                        #user_node = upsert_user(user)
 
                         if friends_or_followers == 'followers':
                             rel = Relationship(user_node, 'FOLLOWS', root_user_node)
