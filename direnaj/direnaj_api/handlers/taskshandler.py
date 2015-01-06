@@ -31,11 +31,10 @@ class TasksHandler(tornado.web.RequestHandler):
             print user
             if task_type == 'harvest':
                 res = app_object.send_task('timeline_retrieve_userlist',
-                                           [[[user['user'], user['since_tweet_id'], user['page_not_found']]]],
+                                           [[ [user['user'], user['since_tweet_id'], user['page_not_found']] ]],
                                            queue=queue)
             elif task_type == 'crawl':
-                res = app_object.send_task('crawl_friends_or_followers',[[task_definition]], queue=queue)
-                pass
+                res = app_object.send_task('crawl_friends_or_followers',[[ [user['user'], user['page_not_found']] ]], queue=queue)
             else:
                 raise MissingArgumentError('harvest or crawl')
 

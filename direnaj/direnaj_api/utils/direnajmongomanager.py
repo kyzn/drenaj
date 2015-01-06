@@ -22,6 +22,8 @@ import logging
 import time
 from utils.drnj_time import py_utc_time2drnj_time, drnj_time2py_time, now_in_drnj_time, xdays_before_now_in_drnj_time
 
+from direnaj_api.utils.direnajneo4jmanager import add_to_watchlist
+
 '''NOTES:
 
 create_indices
@@ -92,69 +94,6 @@ class DirenajMongoManager(object):
                 'histograms': self.motor_column.freq_histograms,
         }
 
-    @staticmethod
-    def prepare_users_to_be_added(self, user_id_strs_to_follow, dtype='id_str'):
-        self.logger.debug('prepare_users_to_be_added: %s' % user_id_strs_to_follow)
-
-        users_to_be_added = []
-
-        lines = user_id_strs_to_follow.split('\n')
-        for line in lines:
-            line = line.strip()
-
-            if dtype == 'id_str':
-                user = {'user': {'id_str': line, 'screen_name': ''}}
-            else:
-                user = {'user': {'id_str': '', 'screen_name': line}}
-
-            users_to_be_added.append(user)
-
-        return users_to_be_added
-        # lines = user_id_strs_to_follow.split('\n')
-        # print lines
-        # users_to_be_added = []
-        # for line in lines:
-        #     line_els = [l.strip() for l in line.split(',')]
-        #     print line_els
-        #     # first element must be user_id_str
-        #     # second element is optional. it should be the username for easier management by humans.
-        #     users_to_be_added.append(line_els[0])
-
-    @gen.coroutine
-    def add_to_watchlist(self, campaign_id, user_id_strs_to_follow, user_screen_names_to_follow):
-        users_to_be_added = []
-
-        if user_id_strs_to_follow:
-            users_to_be_added = self.prepare_users_to_be_added(user_id_strs_to_follow)
-        if user_screen_names_to_follow:
-            users_to_be_added += self.prepare_users_to_be_added(user_screen_names_to_follow, dtype='screen_name')
-
-        for user in users_to_be_added:
-            processed_user = user['user']
-            processed_user['campaign_ids'] = [campaign_id]
-
-            doc = {
-                'user': processed_user,
-                'page_not_found': 0,  # 0, no problem, 1, problem.
-                'since_tweet_id': -1,
-                'state': 0,  # 0, inqueue, 1, processing
-                'added_at': now_in_drnj_time(),
-                'updated_at': 0,  # 00000101T00:00:00
-                #'campaign_ids': [campaign_id],
-            }
-
-            self.logger.debug(doc)
-
-            if user['user']['id_str']:
-                ret = yield self.motor_column.watchlist.find_one({'user.id_str': user['user']['id_str']})
-                if ret:
-                    yield self.motor_column.watchlist.update({'_id': ret['_id']},
-                                                             {'$addToSet': {'user.campaign_ids': campaign_id}})
-                else:
-                    yield self.motor_column.watchlist.insert(doc)
-            else:
-                yield self.motor_column.watchlist.insert(doc)
-
     def get_user_from_watchlist(self, user):
         pre_watchlist_column = self.pymongo_column.pre_watchlist
         watchlist_column = self.pymongo_column.watchlist
@@ -183,46 +122,7 @@ class DirenajMongoManager(object):
                 return cursor
             return cursor
 
-    def create_batch_from_watchlist(self, app_object, n_users):
-        # Using pymongo (thus synchronous) because motor caused problems at the first try.
-        # it doesn't matter for now as this code is run from a celery client on the server.
 
-        pre_watchlist_column = self.pymongo_column.pre_watchlist
-        watchlist_column = self.pymongo_column.watchlist
-
-        cursor = pre_watchlist_column.find({'state': 0},
-                                           fields=['user', 'since_tweet_id', 'page_not_found']).limit(n_users)
-
-        docs_array = [d for d in cursor]
-        self.logger.debug(docs_array)
-
-        pre_watchlist_column.update({'_id': {'$in': [d['_id'] for d in docs_array]}},
-                                    {'$set': {'state': 1}}, multi=True)
-
-        batch_array = [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs_array]
-        self.logger.debug(batch_array)
-
-        left_capacity = n_users - len(batch_array)
-        self.logger.debug(left_capacity)
-
-        if left_capacity > 0:
-            cursor = watchlist_column.find({'state': 0,
-                                            'updated_at': {'$lt': xdays_before_now_in_drnj_time(1)}},
-                                           fields=['user', 'since_tweet_id', 'page_not_found']) \
-                .sort([('updated_at', 1)]) \
-                .limit(left_capacity)
-
-            docs_array = [d for d in cursor]
-            watchlist_column.update({'_id': {'$in': [d['_id'] for d in docs_array]}},
-                                    {'$set': {'state': 1}}, multi=True)
-            batch_array += [[d['user'], d['since_tweet_id'], d['page_not_found']] for d in docs_array]
-            self.logger.debug(batch_array)
-
-        ### Now, use this batch_array to call TimelineRetrievalTask.
-        res_array = []
-        for job_definition in batch_array:
-            res = app_object.send_task('timeline_retrieve_userlist', [[job_definition]], queue='timelines')
-            res_array.append(res)
 
     @gen.coroutine
     def update_watchlist(self, user, since_tweet_id, page_not_found):
@@ -265,7 +165,7 @@ class DirenajMongoManager(object):
         # removing it to be used elsewhere
         params.pop("user_id_strs_to_follow", None)
         params.pop("user_screen_names_to_follow", None)
-        self.add_to_watchlist(params['campaign_id'], user_id_strs_to_follow, user_screen_names_to_follow)
+        add_to_watchlist(params['campaign_id'], user_id_strs_to_follow, user_screen_names_to_follow)
 
         yield campaigns_column.insert(params)
 

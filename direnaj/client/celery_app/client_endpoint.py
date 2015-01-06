@@ -9,6 +9,7 @@ app_object = Celery()
 app_object.config_from_object(celeryconfig)
 
 from direnaj.client.workers.timelineharvester import TimelineRetrievalTask
+from direnaj.client.workers.friendfollowerharvester import FriendFollowerHarvesterTask
 
 @app_object.task
 def deneme(x, seconds):

@@ -97,9 +97,8 @@ class FriendHarvester(threading.Thread):
         if ret_code != 0:
             return [None, None]
 
-        friendListJson = rate_limit_status.get('/friends/list', None)
-        reset_time  = friendListJson.get('reset', None)
-        limit = friendListJson.get('remaining', None)
+        reset_time  = rate_limit_status.get('reset', None)
+        limit = rate_limit_status.get('remaining', None)
 
         if reset_time:
             # put the reset time into a datetime object
@@ -111,6 +110,17 @@ class FriendHarvester(threading.Thread):
             return [int(delta.seconds), int(limit)]
         else:
             return [5, 1]
+
+    def get_user_identifier(self, user):
+        user_identifier = ''
+        if 'id' in user:
+            user_identifier = str(user['id'])
+        elif 'id_str' in user:
+            user_identifier = user['id_str']
+        else:
+            user_identifier = user['screen_name']
+        return user_identifier
+
 
     def makeApiCall(self, func, *args):
         finished = False
@@ -165,10 +175,12 @@ class FriendHarvester(threading.Thread):
 
     def GetFriendsOfUser(self, *args):
 
+        self.log('use_screenname : ' + str(self.use_screenname) + ' - user_identifier : ' + str(self.user_identifier))
+
         if self.use_screenname:
-            return self.api.GetFriends(self,user_id=None,screen_name=self.user_identifier,cursor=-1,count=None,skip_status=True,include_user_entities=False)
+            return self.api.GetFriends(user_id=None,screen_name=self.user_identifier,cursor=-1,count=None,skip_status=True,include_user_entities=False)
         else:
-            return self.api.GetFriends(self,user_id=self.user_identifier,screen_name=None,cursor=-1,count=None,skip_status=True,include_user_entities=False)
+            return self.api.GetFriends(user_id=self.user_identifier,screen_name=None,cursor=-1,count=None,skip_status=True,include_user_entities=False)
 
 
     def fetchFriendsOfUser(self):
@@ -208,34 +220,24 @@ class FriendHarvester(threading.Thread):
             sample_friend = bson.json_util.loads(all_friends[0].AsJsonString())
             print sample_friend
 
-            other_identifier = self.get_user_identifier(self.user)
+            other_identifier = self.get_user_identifier(sample_friend)
 
-        if self.use_screenname:
-            params = {'watchlist_related': bson.json_util.dumps({
-                          'page_not_found': page_not_found,
-                          'user': {
-                              'id_str': other_identifier,
-                              'screen_name': self.user_identifier,
-                          }
-                      })}
-        else:
-            params = {'watchlist_related': bson.json_util.dumps({
-                          'page_not_found': page_not_found,
-                          'user': {
-                              'id_str': self.user_identifier,
-                              'screen_name': other_identifier
-                          }
-                      })}
-        print params
-        self.post_friends(params, self.process_all_friends(all_friends))
+
+        self.post_friends(self.process_all_friends(all_friends))
 #        return [last_tweet_id, since_tweet_id, n_tweets_retrieved, page_not_found]
         return [n_friends_retrieved, page_not_found]
 
-    def post_friends(self, params, tmp):
+    def post_friends(self, tmp):
         if not tmp:
             return
 
-        params.update({'friends_data': bson.json_util.dumps(tmp)})
+        params = dict()
+        params.update({'user_objects': bson.json_util.dumps(tmp)})
+
+        if self.user['id_str']:
+            params.update({'id_str': self.user['id_str']})
+        else:
+            params.update({'screen_name': self.user['screen_name']})
 
         self.post_to_gateway(params, self.direnaj_store_url)
 
@@ -243,6 +245,7 @@ class FriendHarvester(threading.Thread):
         tmp = []
         for friend in all_friends:
             friend_json = bson.json_util.loads(friend.AsJsonString())
+            friend_json['id_str'] = str(friend_json['id'])
             tmp.append(friend_json)
         return tmp
 
@@ -283,7 +286,7 @@ from celery.utils.log import get_task_logger
 from celery.signals import worker_shutdown
 
 class FriendFollowerHarvesterTask(celery.Task):
-    name = 'Retrieve Friend Follower Lists'
+    name = 'crawl_friends_or_followers'
     max_retries = None
 
     def __init__(self):
@@ -334,6 +337,9 @@ class FriendFollowerHarvesterTask(celery.Task):
     # By default, we use user_id_str's.
     def run(self, user_info_table, use_screenname=False):
         worker_shutdown.connect(self.on_shutdown)
+
+        print type(user_info_table)
+        print user_info_table
 
         keystore = KeyStore()
         #self.keystore.load_access_tokens_from_file()

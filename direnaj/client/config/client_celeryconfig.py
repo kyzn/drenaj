@@ -18,5 +18,6 @@ CELERY_DEFAULT_EXCHANGE_TYPE = 'topic'
 CELERY_QUEUES = (
     Queue('timelines', routing_key='*.timeline.*'),
     Queue('streamings', routing_key='*.streaming.*'),
+    Queue('friendfollowers', routing_key='*.friendfollower.*'),
     Queue(DIRENAJ_LOCAL_QUEUE, type='direct')
 )
