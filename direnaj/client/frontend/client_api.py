@@ -20,13 +20,11 @@ from tornado.web import HTTPError
 #from tornado.escape import json_decode
 import requests
 import bson.json_util
-from jinja2 import Environment, FileSystemLoader
 
 from direnaj.client.config.config import *
 
 from direnaj.client.workers.streamcatcher import StreamCatcher
 from direnaj.client.workers.twitter_api_getfollowers import drnj_graph_crawler
-import direnaj.utils.drnj_time as drnj_time
 
 
 threads = []
@@ -45,9 +43,6 @@ vis_root_url = 'http://' + DIRENAJ_VIS_HOST + ':' + str(DIRENAJ_VIS_PORT[DIRENAJ
 
 keystore = KeyStore()
 
-env = Environment(loader=FileSystemLoader('direnaj/client/templates'))
-env.globals['drnj_time'] = drnj_time
-
 class TaskHandler(tornado.web.RequestHandler):
     def get(self, *args):
         self.post(*args)
@@ -58,18 +53,20 @@ class TaskHandler(tornado.web.RequestHandler):
 
         """
 
+        env = self.application.settings['env']
+
         task_type = args[0]
 
         print "TaskHandler: {}".format(task_type)
 
         try:
-            if task_type == 'crawl':
+            if task_type == 'friendfollower':
 
                 user_id = self.get_argument('user_id')
-                friends_or_followers = self.get_argument('edge_type', 'followers')
+                campaign_id = self.get_argument('campaign_id')
                 local_or_remote = self.get_argument('local_or_remote', 'local')
 
-                task_definition = bson.json_util.dumps({'task_type': 'crawl',
+                task_definition = bson.json_util.dumps({'task_type': task_type,
                                    'metadata': {
                                       'user': {
                                           'id_str': user_id,
@@ -91,12 +88,12 @@ class TaskHandler(tornado.web.RequestHandler):
                     post_data = {'task_definition': task_definition,
                                  'queue': 'timelines'}
 
-                res = requests.post(app_root_url + '/tasks/crawl', data=post_data)
+                res = requests.post(app_root_url + '/tasks/' + task_type, data=post_data)
                 task_submit_result = bson.json_util.loads(res.content)
                 print task_submit_result
 
                 template = env.get_template('tasks/notification.html')
-                result = template.render(task_submit_result=task_submit_result, href=vis_root_url)
+                result = template.render(task_submit_result=task_submit_result, href=vis_root_url, campaign_id=campaign_id)
 
                 self.write(result)
 
@@ -104,14 +101,15 @@ class TaskHandler(tornado.web.RequestHandler):
                 #task_submit_result = template.render(user_id=user_id, fof=friends_or_followers, res=res, href=vis_root_url)
 
                 #self.write(task_submit_result)
-            elif task_type == 'harvest':
+            elif task_type == 'timeline':
                 from direnaj.client.celery_app.client_endpoint import app_object
                 user_id = self.get_argument('user_id', '')
+                campaign_id = self.get_argument('campaign_id')
                 screen_name = self.get_argument('screen_name', '')
                 #since_tweet_id = self.get_argument('since_tweet_id', '-1')
                 local_or_remote = self.get_argument('local_or_remote', 'local')
 
-                task_definition = bson.json_util.dumps({'task_type': 'harvest',
+                task_definition = bson.json_util.dumps({'task_type': task_type,
                                    'metadata': {
                                       'user': {
                                           'id_str': user_id,
@@ -128,12 +126,12 @@ class TaskHandler(tornado.web.RequestHandler):
                     post_data = {'task_definition': task_definition,
                                  'queue': 'timelines'}
 
-                res = requests.post(app_root_url + '/tasks/harvest', data=post_data)
+                res = requests.post(app_root_url + '/tasks/' + task_type, data=post_data)
                 task_submit_result = bson.json_util.loads(res.content)
                 print task_submit_result
 
                 template = env.get_template('tasks/notification.html')
-                result = template.render(task_submit_result=task_submit_result, href=vis_root_url)
+                result = template.render(task_submit_result=task_submit_result, href=vis_root_url, campaign_id=campaign_id)
 
                 self.write(result)
             else:
@@ -153,6 +151,8 @@ class ClientFriendFollowerHandler(tornado.web.RequestHandler):
         """
 
         """
+
+        env = self.application.settings['env']
 
         (friends_or_followers, crawl_or_view) = args
 
@@ -180,6 +180,8 @@ class visSingleProfileHandler(tornado.web.RequestHandler):
         """
 
         """
+
+        env = self.application.settings['env']
 
         (crawl_or_view) = args
 
@@ -209,6 +211,8 @@ class CampaignsWatchedUsersHandler(tornado.web.RequestHandler):
 
         """
 
+        env = self.application.settings['env']
+
         (crawl_or_view) = args
 
         print "CampaignsWatchedUsersHandler: {} ".format(crawl_or_view)
@@ -224,27 +228,22 @@ class CampaignsWatchedUsersHandler(tornado.web.RequestHandler):
         print response_json
 
         watched_users = response_json['watched_users']
-        watched_users_id_strs = [item[0] for item in watched_users]
-        watched_users_since_tweet_ids = [item[1] for item in watched_users]
 
-        response = requests.post(url=app_root_url + '/profiles/view/user',
-                                 data={'user_id_list': ",".join(watched_users_id_strs)})
-
-        response_json = bson.json_util.loads(response.content)
-        print response_json
-
-        input_array = []
-        i = 0
-        for user in response_json:
-            since_tweet_id = watched_users_since_tweet_ids[i]
-            input_array.append([user, since_tweet_id])
-            i += 1
+        # response = requests.post(url=app_root_url + '/profiles/view/user',
+        #                          data={'user_id_list': ",".join(watched_users_id_strs)})
+        #
+        # response_json = bson.json_util.loads(response.content)
+        # print response_json
+        #
+        # input_array = []
+        # i = 0
+        # for user in response_json:
+        #     since_tweet_id = watched_users_since_tweet_ids[i]
+        #     input_array.append([user, since_tweet_id])
+        #     i += 1
 
         template = env.get_template('campaigns/view/watched_users.html')
-        result = template.render(profiles=input_array, href=vis_root_url,
-                                 username = self.get_secure_cookie('tai_user'),
-                                 oauth_complete = True,
-                                 rem_req_num = -1)
+        result = template.render(profiles=watched_users, href=vis_root_url, campaign_id=campaign_id)
 
         self.write(result)
 
@@ -258,6 +257,8 @@ class visCampaignsHandler(tornado.web.RequestHandler):
         """
 
         """
+
+        env = self.application.settings['env']
 
         (command) = args[0]
 

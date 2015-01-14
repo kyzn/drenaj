@@ -14,10 +14,9 @@
     <th> name </th>
     <th> friends_count </th>
     <th> followers_count </th>
-    <th> known_friends_count </th>
-    <th> known_followers_count </th>
     <th> last tweet id (we have) </th>
-    {% for (user, since_tweet_id) in profiles %}
+    <th> friend follower task state </th>
+    {% for (user, timeline_task_state, friendfollower_task_state) in profiles %}
     {% if user.protected %}
     <tr style="background-color:gray">
         {% else %}
@@ -38,19 +37,15 @@
         <td>
             {{ user.followers_count}}
         </td>
-        <td>{{ user.known_friends_count}}
-            <a href="{{ href }}/tasks/crawl?user_id={{ user.id_str}}&edge_type=friends&local_or_remote=local">
-                update
-            </a>
-        </td>
-        <td>{{ user.known_followers_count}}
-            <a href="{{ href }}/tasks/crawl?user_id={{ user.id_str}}&edge_type=followers&local_or_remote=local">
+        <td>
+            {{ timeline_task_state.state }} / {{ timeline_task_state.since_tweet_id }} / {{ timeline_task_state.updated_at }}
+            <a href="{{ href }}/tasks/timeline?user_id={{user.id_str}}&local_or_remote=local&campaign_id={{ campaign_id }}">
                 update
             </a>
         </td>
         <td>
-            {{ since_tweet_id }}
-            <a href="{{ href }}/tasks/harvest?user_id={{user.id_str}}&local_or_remote=local">
+            {{ friendfollower_task_state.state }} / {{ friendfollower_task_state.updated_at }}
+            <a href="{{ href }}/tasks/friendfollower?user_id={{user.id_str}}&local_or_remote=local&campaign_id={{ campaign_id }}">
                 update
             </a>
         </td>

@@ -4,8 +4,17 @@ from tornado.httpserver import HTTPServer
 from direnaj.client.config.config import *
 from direnaj.client.frontend.routes_config import routes_config
 
+from jinja2 import Environment, FileSystemLoader
+import direnaj.utils.drnj_time as drnj_time
+
 application = tornado.web.Application(routes_config,
                                       cookie_secret = 'vospRVBgTF6HTnghpd/za+UgiZ/NXUDUkTnYGx1d4hY=')
+
+print('PATHPATHPATH')
+print(os.path.join(os.path.dirname(__file__),'client/templates'))
+
+application.settings['env'] = Environment(loader=FileSystemLoader(os.path.join(os.path.dirname(__file__),'client/templates')))
+application.settings['env'].globals['drnj_time'] = drnj_time
 
 def bind_server(environment):
     http_server = HTTPServer(application, xheaders=True)

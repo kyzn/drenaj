@@ -10,7 +10,7 @@ __author__ = 'onur'
 routes_config = [
     (r"/(friends|followers)/(crawl|view)", client_api.ClientFriendFollowerHandler),
 
-    (r"/tasks/(crawl|harvest)", client_api.TaskHandler),
+    (r"/tasks/(timeline|friendfollower)", client_api.TaskHandler),
 
     (r"/user/(crawl|view)", client_api.visSingleProfileHandler),
 
