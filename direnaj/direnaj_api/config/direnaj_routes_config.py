@@ -32,5 +32,5 @@ routes_config = [
     (r"/campaigns/(view)/?(freqs|histograms|watched_users)?", CampaignsHandler),
 
 
-    (r"/tasks/(harvest|crawl)", TasksHandler),
+    (r"/tasks/(friendfollower|timeline)", TasksHandler),
 ]

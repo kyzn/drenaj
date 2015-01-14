@@ -25,9 +25,6 @@ from tornado.web import MissingArgumentError
 from tornado import gen
 from tornado.gen import Return
 
-from tornado.escape import json_decode,json_encode
-
-import json
 import time
 
 import bson.json_util
@@ -105,7 +102,9 @@ class FollowerHandler(tornado.web.RequestHandler):
                 if root_user_node:
 
                     # deleting this edge because we want the next job to be explicitly ordered by some other means.
-                    graph.cypher.execute("MATCH (u:User)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t:FRIENDFOLLOWER_HARVESTER_TASK) WHERE u.id_str = {id_str} DELETE r", {'id_str': id_str})
+                    graph.cypher.execute("MATCH (u:User)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t:FRIENDFOLLOWER_HARVESTER_TASK) "\
+                                         "WHERE u.id_str = {id_str} SET r.state = 0, r.updated_at = {current_unix_time}"\
+                                         "RETURN r", {'id_str': id_str, 'current_unix_time': int(time.time())})
 
                     if friends_or_followers == 'followers':
                         # DELETE ALL INCOMING EDGES
@@ -135,10 +134,10 @@ class FollowerHandler(tornado.web.RequestHandler):
 
                         if friends_or_followers == 'followers':
                             rel = Relationship(user_node, 'FOLLOWS', root_user_node)
-                            graph.create(rel)
+                            graph.create_unique(rel)
                         elif friends_or_followers == 'friends':
                             rel = Relationship(root_user_node, 'FOLLOWS', user_node)
-                            graph.create(rel)
+                            graph.create_unique(rel)
 
                 else:
                     self.write(bson.json_util.dumps({'status': 'error'}))

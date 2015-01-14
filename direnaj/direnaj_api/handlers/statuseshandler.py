@@ -126,7 +126,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                             watchlist_related = bson.json_util.loads(watchlist_related)
                             print watchlist_related
                             #self.application.db.update_watchlist(**watchlist_related)
-                            update_task_state_in_watchlist(watchlist_related)
+                            update_task_state_in_watchlist(**watchlist_related)
 
 
                     else:

@@ -19,6 +19,9 @@ def upsert_user(user):
     print user
     print type(user)
 
+    # for key in user.keys():
+    #     print key + ': ' + str(user[key]) + " - " + str(type(user[key]))
+
     # removing these beacuse neo4j doesn't allow nested nodes.
     if 'entities' in user:
         del user['entities']
@@ -33,10 +36,11 @@ def upsert_user(user):
         user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']}).one
         if not user_node:
             user_node = graph.cypher.execute("MATCH (u:User) WHERE u.screen_name = {screen_name} RETURN u", {'screen_name': user['screen_name']}).one
-    elif type(user['id_str']) == type('STRING') and user['id_str'] != '':
+    # TODO: This is very nasty! Go get learn the proper way!
+    elif (type(user['id_str']) == type('STRING') or type(user['id_str']) == type(u'STRING')) and user['id_str'] != '':
         print '2'
         user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']}).one
-    elif type(user['screen_name']) == type('STRING') and user['screen_name'] != '':
+    elif (type(user['screen_name']) == type('STRING') or type(user['screen_name']) == type(u'STRING')) and user['screen_name'] != '':
         print '3'
         user_node = graph.cypher.execute("MATCH (u:User) WHERE u.screen_name = {screen_name} RETURN u", {'screen_name': user['screen_name']}).one
 
@@ -56,15 +60,17 @@ def upsert_user(user):
 
 def update_task_state_in_watchlist(user, since_tweet_id, page_not_found):
 
-    user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']}).one.u
+    user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']}).one
 
     if user_node:
         # DELETE
-        tx = graph.cypher.begin()
-        tx.append("MATCH (u { id_str: {id_str} })<-[r:TIMELINE_TASK_STATE]-(task:TIMELINE_HARVESTER_TASK) DELETE r", {'id_str': user['id_str']})
-        tx.append("CREATE (u)<-[r:TIMELINE_TASK_STATE {since_tweet_id: {since_tweet_id}, page_not_found: {page_not_found}]-(task:TIMELINE_HARVESTER_TASK)",
-                  {'since_tweet_id': since_tweet_id, 'page_not_found': page_not_found})
-        tx.commit()
+        graph.cypher.execute("MATCH (u { id_str: {id_str} })<-[r:TIMELINE_TASK_STATE]-(task:TIMELINE_HARVESTER_TASK) "\
+                             "SET r.since_tweet_id = {since_tweet_id}, r.page_not_found = {page_not_found}, r.state = 0, r.unlock_time = -1, r.updated_at = {current_unix_time} "\
+                             "RETURN r",
+                             {'id_str': user['id_str'],
+                              'current_unix_time': int(time.time()),
+                              'since_tweet_id': since_tweet_id,
+                              'page_not_found': page_not_found})
 
 
 def init_user_to_graph_aux(campaign_node, user):
@@ -73,9 +79,7 @@ def init_user_to_graph_aux(campaign_node, user):
 
     user_node = upsert_user(user)
     campaign_rel = Relationship(campaign_node, "OBSERVES", user_node)
-    graph.create(campaign_rel)
-
-
+    graph.create_unique(campaign_rel)
 
     timeline_task_state_rel = \
         graph.cypher.execute(
@@ -116,6 +120,17 @@ def init_user_to_graph_aux(campaign_node, user):
 
     return user_node
 
+
+def upsert_campaign(campaign_id):
+    campaign_node = graph.cypher.execute("MATCH (c:Campaign) WHERE c.campaign_id = {campaign_id} RETURN c",
+                                         {'campaign_id': campaign_id}).one
+    print campaign_node
+    if not campaign_node:
+        campaign_node = graph.cypher.execute("CREATE (c:Campaign {campaign_id: {campaign_id}}) RETURN c",
+                                             {'campaign_id': campaign_id}).one
+    return campaign_node
+
+
 def init_user_to_graph(tweets):
 
     prev_campaign_id = ""
@@ -125,12 +140,7 @@ def init_user_to_graph(tweets):
         sample_tweet = tweets[0]
         campaign_id = sample_tweet['campaign_id']
 
-        campaign_node = graph.cypher.execute("MATCH (c:Campaign) WHERE c.campaign_id = {campaign_id} RETURN c",
-                                             {'campaign_id': campaign_id}).one
-        print campaign_node
-        if not campaign_node:
-            campaign_node = graph.cypher.execute("CREATE (c:Campaign {campaign_id: {campaign_id}}) RETURN c",
-                                                 {'campaign_id': campaign_id}).one
+        campaign_node = upsert_campaign(campaign_id)
 
         for tweet in tweets:
             user = tweet['tweet']['user']
@@ -144,10 +154,11 @@ def get_users_attached_to_campaign(campaign_id):
                                          {'campaign_id': campaign_id}).one
 
     if campaign_node:
-        user_nodes = graph.cypher.execute("MATCH (c:Campaign { campaign_id: {campaign_id} })-[:OBSERVES]->(user)<-[state:TIMELINE_TASK_STATE]-(t:TIMELINE_HARVESTER_TASK) RETURN user,state",
+        # "MATCH (user)<-[r2:FRIENDFOLLOWER_TASK_STATE|TIMELINE_TASK_STATE]-(x) RETURN user,collect(DISTINCT r2)"
+        user_nodes = graph.cypher.execute("MATCH (c:Campaign { campaign_id: {campaign_id} })-[r:OBSERVES]->(user)<-[r2:FRIENDFOLLOWER_TASK_STATE|TIMELINE_TASK_STATE]-(x) RETURN user,collect(DISTINCT r2) as rlist",
                                          {'campaign_id': campaign_id})
         for user in user_nodes:
-            attached_users_array += [user.screen_name, user.state]
+            attached_users_array += [[user.user.properties, user.rlist]]
 
     else:
         attached_users_array = []
@@ -164,14 +175,12 @@ def add_to_watchlist(campaign_id, user_id_strs_to_follow, user_screen_names_to_f
 
     for user in users_to_be_added:
 
-        campaign_node = graph.cypher.execute("MATCH (c:Campaign) WHERE c.campaign_id = {campaign_id} RETURN c",
-                                         {'campaign_id': campaign_id}).one
+        campaign_node = upsert_campaign(campaign_id)
+
         print user
         print campaign_id
         print campaign_node
-        if not campaign_node:
-            campaign_node = graph.cypher.execute("CREATE (c:Campaign {campaign_id: {campaign_id}}) RETURN c",
-                                             {'campaign_id': campaign_id}).one
+
         user['user'] = get_user_object_from_twitter(user['user']).AsDict()
         user['user']['id_str'] = str(user['user']['id'])
         init_user_to_graph_aux(campaign_node, user['user'])
@@ -233,10 +242,10 @@ def create_batch_from_watchlist(app_object, n_users):
     # it doesn't matter for now as this code is run from a celery client on the server.
 
     # first, find locked edges with overdue time
-    graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE|FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 1 AND r.unlock_time < {current_unix_time} SET r.state = 0, r.unlock_time = -1",
+    graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE|FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 1 AND r.unlock_time < {current_unix_time} SET r.state = 0, r.unlock_time = -1, r.updated_at = {current_unix_time}",
                          {'current_unix_time': int(time.time())})
 
-    # timeline_task_states = graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE]-(t) WHERE r.state = 0 SET r.state = 1 RETURN r LIMIT {n_users}", {'n_users': n_users})
+    # timeline_task_states = graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE]-(t) WHERE r.state = 0 ORDER BY r.updated_at SET r.state = 1 RETURN r LIMIT {n_users}", {'n_users': n_users})
     #
     # print timeline_task_states
     #
@@ -262,7 +271,7 @@ def create_batch_from_watchlist(app_object, n_users):
 
 
     res_array = []
-    ff_task_states = graph.cypher.execute("MATCH (u:User)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 0 SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN r LIMIT {n_users}", {'n_users': n_users, 'unix_time_plus_two_hours': int(time.time())+ (2*3600)})
+    ff_task_states = graph.cypher.execute("MATCH (u:User)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 0 ORDER BY r.updated_at SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN r LIMIT {n_users}", {'n_users': n_users, 'unix_time_plus_two_hours': int(time.time())+ (2*3600)})
     print ff_task_states
 
     for ff_task_state in ff_task_states:

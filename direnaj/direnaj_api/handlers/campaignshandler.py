@@ -15,6 +15,8 @@ import bson.json_util
 
 from pymongo.errors import OperationFailure
 
+from py2neo import Relationship
+
 
 
 class CampaignsHandler(tornado.web.RequestHandler):
@@ -94,7 +96,15 @@ class CampaignsHandler(tornado.web.RequestHandler):
                     attached_users_array = direnajneo4jmanager.get_users_attached_to_campaign(campaign_id)
                     attached_users_response = {'watched_users': [], 'campaign_id': campaign_id}
 
-                    attached_users_response['watched_users'] = [ [item[0], item[1]] for item in attached_users_array]
+                    for item in attached_users_array:
+                        x = dict()
+                        y = dict()
+                        for rel in item[1]:
+                            if rel.type == 'TIMELINE_TASK_STATE':
+                                x = dict(rel.properties)
+                            elif rel.type == 'FRIENDFOLLOWER_TASK_STATE':
+                                y = dict(rel.properties)
+                        attached_users_response['watched_users'] += [[item[0], x, y]]
 
                     self.write(bson.json_util.dumps(attached_users_response))
                     self.add_header('Content-Type', 'application/json')
