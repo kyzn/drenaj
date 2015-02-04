@@ -178,9 +178,11 @@ class FriendHarvester(threading.Thread):
         self.log('use_screenname : ' + str(self.use_screenname) + ' - user_identifier : ' + str(self.user_identifier))
 
         if self.use_screenname:
-            return self.api.GetFriends(user_id=None,screen_name=self.user_identifier,cursor=-1,count=None,skip_status=True,include_user_entities=False)
+#            return self.api.GetFriends(user_id=None,screen_name=self.user_identifier,cursor=-1,count=None,skip_status=True,include_user_entities=False)
+            return self.api.GetFriendIDs(user_id=None,screen_name=self.user_identifier,stringify_ids=True)
         else:
-            return self.api.GetFriends(user_id=self.user_identifier,screen_name=None,cursor=-1,count=None,skip_status=True,include_user_entities=False)
+#            return self.api.GetFriends(user_id=self.user_identifier,screen_name=None,cursor=-1,count=None,skip_status=True,include_user_entities=False)
+            return self.api.GetFriendIDs(user_id=self.user_identifier,screen_name=None,stringify_ids=True)
 
 
     def fetchFriendsOfUser(self):
@@ -215,13 +217,6 @@ class FriendHarvester(threading.Thread):
         #for i in range(1, len(all_tweets)+1):
         #    tweet = all_tweets[len(all_tweets)-i]
             ##print tweet.AsJsonString()
-        other_identifier = ''
-        if len(all_friends) > 0:
-            sample_friend = bson.json_util.loads(all_friends[0].AsJsonString())
-            print sample_friend
-
-            other_identifier = self.get_user_identifier(sample_friend)
-
 
         self.post_friends(self.process_all_friends(all_friends))
 #        return [last_tweet_id, since_tweet_id, n_tweets_retrieved, page_not_found]
@@ -243,9 +238,9 @@ class FriendHarvester(threading.Thread):
 
     def process_all_friends(self, all_friends):
         tmp = []
-        for friend in all_friends:
-            friend_json = bson.json_util.loads(friend.AsJsonString())
-            friend_json['id_str'] = str(friend_json['id'])
+        for friend_id_str in all_friends:
+            friend_json = {}
+            friend_json['id_str'] = friend_id_str
             tmp.append(friend_json)
         return tmp
 
