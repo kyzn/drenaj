@@ -65,20 +65,10 @@ class FriendHarvester(threading.Thread):
         self.api = twitter_api
         self.results_queue = Queue.Queue()
 
-        count = 0
-        while True:
-            (reset_sleep_duration, remaining_rate_limit) = self.getRemainingRateLimit()
-            if reset_sleep_duration == None or remaining_rate_limit == None:
-                self.log(self.getJobDescription() + str(count) + ". try: FATAL ERROR. RemainingRateLimit could not be retrieved")
-                time.sleep(5)
-                count += 1
-            else:
-                break
-
-        self.log(self.getJobDescription() + ": Remaining Rate Limit: " + str(remaining_rate_limit))
+        self.log(self.getJobDescription())
 
         # self.sleep_duration = sleep_duration_between_calls
-        self.sleep_duration = int(reset_sleep_duration / remaining_rate_limit) + 1
+        # self.sleep_duration = int(reset_sleep_duration / remaining_rate_limit) + 1
 
     def log(self, text):
         # self.logfile.write(text+"\n")
@@ -197,8 +187,9 @@ class FriendHarvester(threading.Thread):
 
         while not finished:
             ### make an api call
-            self.log(self.getJobDescription() + ": Sleeping for "+str(self.sleep_duration)+" seconds to prevent being rate limited")
-            time.sleep(self.sleep_duration)
+            sleep_duration = self.api.GetSleepTime('/' + self.requestType + '/ids')
+            self.log(self.getJobDescription() + ": Sleeping for "+str(sleep_duration)+" seconds to prevent being rate limited")
+            time.sleep(sleep_duration)
 
             self.log(self.getJobDescription() + ": will be retrieved cursor id for this request: ")
             (ret_code, friends) = self.makeApiCall(self.GetFriendsOfUser)
