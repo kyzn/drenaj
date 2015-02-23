@@ -7,6 +7,8 @@ import time
 
 import twitter
 
+import bson.json_util
+
 graph = Graph()
 
 def upsert_user(user):
@@ -25,7 +27,7 @@ def upsert_user(user):
 
     # removing these beacuse neo4j doesn't allow nested nodes.
     if 'entities' in user:
-        del user['entities']
+        user['entities'] = bson.json_util.dumps(user['entities'])
     if 'status' in user:
         del user['status']
 

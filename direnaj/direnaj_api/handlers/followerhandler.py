@@ -156,6 +156,22 @@ class FollowerHandler(tornado.web.RequestHandler):
                 # TODO: implement logging.
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
             pass
+        elif store_or_view == 'store_user_info':
+            try:
+                user_object = self.get_argument('user_object', '{}')
+                user_object = bson.json_util.loads(user_object)
+
+                user_node = init_user_to_graph_aux('default', user_object)
+
+                if user_node:
+                    pass
+                else:
+                    self.write(bson.json_util.dumps({'status': 'error'}))
+
+            except MissingArgumentError as e:
+                # TODO: implement logging.
+                raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
+            pass
 
     # NOTE: Not really used. Will be replaced when we bring Neo4J integration.
     @gen.coroutine
