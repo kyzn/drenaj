@@ -77,9 +77,14 @@ def init_user_to_graph_aux(campaign_node, user):
 
     print 'init user to graph aux Giris'
 
+    from py2neo.core import GraphError, ClientError
+
     user_node = upsert_user(user)
     campaign_rel = Relationship(campaign_node, "OBSERVES", user_node)
-    graph.create_unique(campaign_rel)
+    try:
+        graph.create_unique(campaign_rel)
+    except (GraphError, ClientError), e:
+        print("PROBABLY A UNIQUEPATHNOTUNIQUE error")
 
     timeline_task_state_rel = \
         graph.cypher.execute(
