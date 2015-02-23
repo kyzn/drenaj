@@ -20,7 +20,7 @@ routes_config = [
     (r"/scheduler/suggestUseridToGet_(friends|followers)", SchedulerMainHandler),
     (r"/scheduler/reportProtectedUserid", SchedulerReportHandler),
 
-    (r"/(friends|followers)/(ids|list)/?(store|view)?", FollowerHandler),
+    (r"/(friends|followers)/(ids|list)/?(store|view|store_user_info)?", FollowerHandler),
 
     (r"/statuses/(store|view|filter|retweets)", StatusesHandler),
 #    (r"/user/(store|view)", UserSingleProfileHandler),
@@ -32,5 +32,5 @@ routes_config = [
     (r"/campaigns/(view)/?(freqs|histograms|watched_users)?", CampaignsHandler),
 
 
-    (r"/tasks/(friendfollower|timeline)", TasksHandler),
+    (r"/tasks/(friendfollower|timeline|userinfo)", TasksHandler),
 ]

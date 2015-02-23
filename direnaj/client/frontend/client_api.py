@@ -155,7 +155,7 @@ class TaskHandler(tornado.web.RequestHandler):
                                  'queue': DIRENAJ_LOCAL_QUEUE}
                 else:
                     post_data = {'task_definition': task_definition,
-                                 'queue': 'timelines'}
+                                 'queue': 'userinfo'}
 
                 res = requests.post(app_root_url + '/tasks/' + task_type, data=post_data)
                 task_submit_result = bson.json_util.loads(res.content)
