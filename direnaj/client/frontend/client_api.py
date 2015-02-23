@@ -134,6 +134,37 @@ class TaskHandler(tornado.web.RequestHandler):
                 result = template.render(task_submit_result=task_submit_result, href=vis_root_url, campaign_id=campaign_id)
 
                 self.write(result)
+            elif task_type == 'userinfo':
+                from direnaj.client.celery_app.client_endpoint import app_object
+                user_id = self.get_argument('user_id', '')
+                campaign_id = self.get_argument('campaign_id') # unnecessary for the task but it used for going back to the right page.
+                #since_tweet_id = self.get_argument('since_tweet_id', '-1')
+                local_or_remote = self.get_argument('local_or_remote', 'local')
+
+                task_definition = bson.json_util.dumps({'task_type': task_type,
+                                   'metadata': {
+                                      'user': {
+                                          'id_str': user_id,
+                                          }
+                                      }
+                                  })
+                print task_definition
+
+                if local_or_remote == 'local':
+                    post_data = {'task_definition': task_definition,
+                                 'queue': DIRENAJ_LOCAL_QUEUE}
+                else:
+                    post_data = {'task_definition': task_definition,
+                                 'queue': 'timelines'}
+
+                res = requests.post(app_root_url + '/tasks/' + task_type, data=post_data)
+                task_submit_result = bson.json_util.loads(res.content)
+                print task_submit_result
+
+                template = env.get_template('tasks/notification.html')
+                result = template.render(task_submit_result=task_submit_result, href=vis_root_url, campaign_id=campaign_id)
+
+                self.write(result)
             else:
                 pass
         except MissingArgumentError as e:
