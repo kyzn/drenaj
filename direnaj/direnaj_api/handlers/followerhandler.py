@@ -22,6 +22,8 @@ import tornado.web
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
 
+from py2neo.core import GraphError, ClientError
+
 from tornado import gen
 from tornado.gen import Return
 
@@ -129,6 +131,14 @@ class FollowerHandler(tornado.web.RequestHandler):
                     for user in user_objects:
 
                         user_node = init_user_to_graph_aux(campaign_node, user)
+
+                        user_info_harvester_node = graph.cypher.execute("MATCH (t:USER_INFO_HARVESTER_TASK {id: 1}) RETURN t").one
+                        user_harvester_rel = Relationship(user_info_harvester_node, "USER_INFO_HARVESTER_TASK_STATE", user_node)
+                        try:
+                            graph.create_unique(user_harvester_rel)
+                        except (GraphError, ClientError), e:
+                            print("User Harvester Relation - PROBABLY A UNIQUEPATHNOTUNIQUE error")
+
 
                         #user_node = upsert_user(user)
 
