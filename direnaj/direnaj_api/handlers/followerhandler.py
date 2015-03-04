@@ -162,7 +162,6 @@ class FollowerHandler(tornado.web.RequestHandler):
                 user_object = bson.json_util.loads(user_object)
 
                 user_node = init_user_to_graph_aux('default', user_object)
-                user_info_harvester_node = graph.cypher.execute("MATCH (t:USER_INFO_HARVESTER_TASK {id: 1}) RETURN t").one
 
                 if user_node:
                     pass

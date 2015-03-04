@@ -187,6 +187,10 @@ class UserInfoHarvester(threading.Thread):
             self.log(self.getJobDescription() + ": will be retrieved cursor id for this request: ")
             (ret_code, userInfo) = self.makeApiCall(self.GetUserInfo)
             userInfo = userInfo.AsDict()
+
+            if not self.use_screenname:
+                userInfo['id_str'] = self.user_identifier
+
             print userInfo
 
             finished = True
