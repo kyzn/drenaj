@@ -164,7 +164,9 @@ class FollowerHandler(tornado.web.RequestHandler):
                 user_node = init_user_to_graph_aux('default', user_object)
 
                 if user_node:
-                    pass
+                    tx = graph.cypher.begin()
+                    tx.append("MATCH (u:User { id_str: {id_str} })<-[r]-(t:USER_INFO_HARVESTER_TASK {id: 1}) DELETE r", {'id_str': user_object['id_str']})
+                    tx.commit()
                 else:
                     self.write(bson.json_util.dumps({'status': 'error'}))
 
