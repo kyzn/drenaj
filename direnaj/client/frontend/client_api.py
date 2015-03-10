@@ -249,8 +249,12 @@ class CampaignsWatchedUsersHandler(tornado.web.RequestHandler):
         print "CampaignsWatchedUsersHandler: {} ".format(crawl_or_view)
 
         campaign_id = self.get_argument('campaign_id', 'default')
+        skip = self.get_argument('skip', 0)
+        limit = self.get_argument('limit', 100)
 
-        post_data = {"campaign_id": campaign_id}
+        post_data = {"campaign_id": campaign_id,
+                     'skip': skip,
+                     'limit': limit}
 
         response = requests.post(url=app_root_url + '/campaigns/view/watched_users',
                                  data=post_data)
@@ -274,7 +278,7 @@ class CampaignsWatchedUsersHandler(tornado.web.RequestHandler):
         #     i += 1
 
         template = env.get_template('campaigns/view/watched_users.html')
-        result = template.render(profiles=watched_users, href=vis_root_url, campaign_id=campaign_id)
+        result = template.render(profiles=watched_users, href=vis_root_url, campaign_id=campaign_id, skip=skip, limit=limit)
 
         self.write(result)
 

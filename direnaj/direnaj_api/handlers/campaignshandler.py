@@ -93,7 +93,9 @@ class CampaignsHandler(tornado.web.RequestHandler):
                         self.write(bson.json_util.dumps({}))
                     self.add_header('Content-Type', 'application/json')
                 if subcommand == "watched_users":
-                    attached_users_array = direnajneo4jmanager.get_users_attached_to_campaign(campaign_id)
+                    skip = self.get_argument('skip', 0)
+                    limit = self.get_argument('limit', 100)
+                    attached_users_array = direnajneo4jmanager.get_users_attached_to_campaign(campaign_id, skip, limit)
                     attached_users_response = {'watched_users': [], 'campaign_id': campaign_id}
 
                     for item in attached_users_array:
