@@ -50,9 +50,12 @@ def upsert_user(user):
     print user_node
 
     if user_node:
+        # First clearing the user_node properties.
+        for key in user_node.properties.keys():
+            user_node.properties[key] = None
+        # then assigning the new properties
         for key in user.keys():
-            if type(user[key]) == type('STRING') and not user[key] == '':
-                user_node.properties[key] = user[key]
+            user_node.properties[key] = user[key]
         user_node.push()
     else:
         user_node = Node.cast(user)
@@ -255,29 +258,28 @@ def create_batch_from_watchlist(app_object):
     graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE|FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 1 AND r.unlock_time < {current_unix_time} SET r.state = 0, r.unlock_time = -1, r.updated_at = {current_unix_time}", {'current_unix_time': int(time.time())})
 
 
-    # timeline_task_states = graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE]-(t) WHERE r.state = 0 and (r.unlock_time = -1 OR r.unlock_time < {current_unix_time}) WITH r ORDER BY r.updated_at LIMIT {n_users} MATCH (u2:User)<-[r]-(t2) SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN DISTINCT r", {'n_users': n_users['timeLineTask'], 'unix_time_plus_two_hours': int(time.time())+ (2*3600),'current_unix_time': int(time.time())})
-    # print timeline_task_states
+    timeline_task_states = graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE]-(t) WHERE r.state = 0 and (r.unlock_time = -1 OR r.unlock_time < {current_unix_time}) WITH r ORDER BY r.updated_at LIMIT {n_users} MATCH (u2:User)<-[r]-(t2) SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN DISTINCT r", {'n_users': n_users['timeLineTask'], 'unix_time_plus_two_hours': int(time.time())+ (2*3600),'current_unix_time': int(time.time())})
+    print timeline_task_states
 
-    #
-    # ### Now, use this batch_array to call TimelineRetrievalTask.
-    # res_array = []
-    #
-    # # # FIXME: burada kalmistik. sanirim id_str ve screen_name bos geliyor.
-    # for task_state in timeline_task_states:
-    #      print task_state.r.nodes[0].labels
-    #
-    #      id_str = task_state.r.nodes[1].properties['id_str']
-    #      if id_str == None:
-    #          id_str = ''
-    #      screen_name = task_state.r.nodes[1].properties['screen_name']
-    #      if screen_name == None:
-    #          screen_name = ''
-    #      since_tweet_id = task_state.r.properties['since_tweet_id']
-    #      page_not_found = task_state.r.properties['page_not_found']
-    #
-    #      job_definition = [{'id_str': id_str, 'screen_name': screen_name}, since_tweet_id, page_not_found]
-    #      res = app_object.send_task('timeline_retrieve_userlist', [[job_definition]], queue='timelines')
-    #      res_array.append(res)
+    ### Now, use this batch_array to call TimelineRetrievalTask.
+    res_array = []
+
+    # # FIXME: burada kalmistik. sanirim id_str ve screen_name bos geliyor.
+    for task_state in timeline_task_states:
+         print task_state.r.nodes[0].labels
+
+         id_str = task_state.r.nodes[1].properties['id_str']
+         if id_str == None:
+             id_str = ''
+         screen_name = task_state.r.nodes[1].properties['screen_name']
+         if screen_name == None:
+             screen_name = ''
+         since_tweet_id = task_state.r.properties['since_tweet_id']
+         page_not_found = task_state.r.properties['page_not_found']
+
+         job_definition = [{'id_str': id_str, 'screen_name': screen_name}, since_tweet_id, page_not_found]
+         res = app_object.send_task('timeline_retrieve_userlist', [[job_definition]], queue='timelines')
+         res_array.append(res)
 
 
     res_array = []
@@ -300,20 +302,22 @@ def create_batch_from_watchlist(app_object):
         res = app_object.send_task('crawl_friends_or_followers', [[job_definition]], queue='friendfollowers')
         res_array.append(res)
 
-    #
-    # res_array = []
-    # userInfo_task_states = graph.cypher.execute("MATCH (u:User)<-[r:USER_INFO_HARVESTER_TASK_STATE]-(t) RETURN DISTINCT r LIMIT {n_users}", {'n_users': n_users['userInfoTask']})
-    # print userInfo_task_states
-    #
-    # for userInfo_task_state in userInfo_task_states:
-    #     id_str = userInfo_task_state.r.nodes[1].properties['id_str']
-    #     if id_str == None:
-    #         id_str = ''
-    #     screen_name = userInfo_task_state.r.nodes[1].properties['screen_name']
-    #     if screen_name == None:
-    #         screen_name = ''
-    #
-    #     page_not_found = userInfo_task_state.r.properties['page_not_found']
-    #     job_definition = [{'id_str': id_str, 'screen_name': screen_name}, page_not_found]
-    #     res = app_object.send_task('crawl_user_info', [[job_definition]], queue='userinfo')
-    #     res_array.append(res)
+
+    res_array = []
+    userInfo_task_states = graph.cypher.execute("MATCH (u:User)<-[r:USER_INFO_HARVESTER_TASK_STATE]-(t) WHERE r.state = 0 WITH r ORDER BY r.updated_at LIMIT {n_users} "
+                                                "MATCH (u2:User)<-[r]-(t2) SET r.state = 1 RETURN DISTINCT r",
+                                                {'n_users': n_users['userInfoTask']})
+    print userInfo_task_states
+
+    for userInfo_task_state in userInfo_task_states:
+        id_str = userInfo_task_state.r.nodes[1].properties['id_str']
+        if id_str == None:
+            id_str = ''
+        screen_name = userInfo_task_state.r.nodes[1].properties['screen_name']
+        if screen_name == None:
+            screen_name = ''
+
+        page_not_found = userInfo_task_state.r.properties['page_not_found']
+        job_definition = [{'id_str': id_str, 'screen_name': screen_name}, page_not_found]
+        res = app_object.send_task('crawl_user_info', [[job_definition]], queue='userinfo')
+        res_array.append(res)
