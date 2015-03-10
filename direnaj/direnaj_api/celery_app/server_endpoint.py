@@ -27,13 +27,12 @@ from direnaj_api.app import Application
 #@periodic_task(run_every=crontab(minute='*/1'))
 @app_object.task(name='check_watchlist_and_dispatch_tasks')
 def check_watchlist_and_dispatch_tasks():
-    batch_size = 2
 
     # we can give an optional parameter for specific settings for this use.
     app = Application()
 
     # TODO: This might break!!! (and pycharm doesn't seem to recognize WARNs)
-    create_batch_from_watchlist(app_object, batch_size)
+    create_batch_from_watchlist(app_object)
     #app.db.create_batch_from_watchlist(app_object, batch_size)
     #create_batch_from_watchlist(app_object, batch_size)
 
