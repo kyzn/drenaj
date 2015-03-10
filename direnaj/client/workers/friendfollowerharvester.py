@@ -207,7 +207,7 @@ class FriendHarvester(threading.Thread):
         if ret_code == PAGE_NOT_FOUND_ERROR_CODE or ret_code == NOT_AUTHORIZED_ERROR_CODE:
             page_not_found = 1
 
-        self.log(self.getJobDescription() + ": Retrieved "+str(n_friends_retrieved)+" friends of user.")
+        self.log(self.getJobDescription() + ": Retrieved "+str(n_friends_retrieved)+" "+ self.requestType +" of user.")
         #for i in range(1, len(all_tweets)+1):
         #    tweet = all_tweets[len(all_tweets)-i]
             ##print tweet.AsJsonString()
@@ -265,7 +265,7 @@ class FriendHarvester(threading.Thread):
                     exp_backoff_duration *= 2
 
         if response:
-            print "Posted tweets. RESPONSE CODE: %s LENGTH: %s" %(response.status_code, len(response.content))
+            print "Posted Friend/Follower Info. RESPONSE CODE: %s LENGTH: %s" %(response.status_code, len(response.content))
 
 
 
