@@ -153,7 +153,7 @@ def init_user_to_graph(tweets):
 
             init_user_to_graph_aux(campaign_node, user)
 
-def get_users_attached_to_campaign(campaign_id):
+def get_users_attached_to_campaign(campaign_id, skip, limit):
     attached_users_array = []
 
     campaign_node = graph.cypher.execute("MATCH (c:Campaign) WHERE c.campaign_id = {campaign_id} RETURN c",
@@ -161,8 +161,10 @@ def get_users_attached_to_campaign(campaign_id):
 
     if campaign_node:
         # "MATCH (user)<-[r2:FRIENDFOLLOWER_TASK_STATE|TIMELINE_TASK_STATE]-(x) RETURN user,collect(DISTINCT r2)"
-        user_nodes = graph.cypher.execute("MATCH (c:Campaign { campaign_id: {campaign_id} })-[r:OBSERVES]->(user)<-[r2:FRIENDFOLLOWER_TASK_STATE|TIMELINE_TASK_STATE]-(x) RETURN user,collect(DISTINCT r2) as rlist",
-                                         {'campaign_id': campaign_id})
+        user_nodes = graph.cypher.execute("MATCH (c:Campaign { campaign_id: {campaign_id} })-[r:OBSERVES]->(user)<-[r2:FRIENDFOLLOWER_TASK_STATE|TIMELINE_TASK_STATE]-(x) RETURN user,collect(DISTINCT r2) as rlist SKIP {skip} LIMIT {limit}",
+                                         {'campaign_id': campaign_id,
+                                          'skip': int(skip),
+                                          'limit': int(limit)})
         for user in user_nodes:
             attached_users_array += [[user.user.properties, user.rlist]]
 
