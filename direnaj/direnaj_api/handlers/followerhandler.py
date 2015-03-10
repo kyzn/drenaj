@@ -134,6 +134,8 @@ class FollowerHandler(tornado.web.RequestHandler):
 
                         user_info_harvester_node = graph.cypher.execute("MATCH (t:USER_INFO_HARVESTER_TASK {id: 1}) RETURN t").one
                         user_harvester_rel = Relationship(user_info_harvester_node, "USER_INFO_HARVESTER_TASK_STATE", user_node)
+                        user_harvester_rel.properties['state'] = 0
+                        user_harvester_rel.properties['updated_at'] = int(time.time())
                         try:
                             graph.create_unique(user_harvester_rel)
                         except (GraphError, ClientError), e:
