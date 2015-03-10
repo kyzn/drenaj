@@ -53,6 +53,14 @@ class TasksHandler(tornado.web.RequestHandler):
                                            queue=queue)
                 friendfollower_task_state.properties['state'] = 1
                 friendfollower_task_state.push()
+            elif task_type == 'userinfo':
+                userinfo_task_state = [rel for rel in user.match_incoming('USER_INFO_HARVESTER_TASK_STATE')][0]
+                res = app_object.send_task('crawl_user_info',
+                                           [[ [dict(user.properties),
+                                               0 ] ]],
+                                           queue=queue)
+                userinfo_task_state.properties['state'] = 1
+                userinfo_task_state.push()
             else:
                 raise MissingArgumentError('timeline or friendfollower')
 

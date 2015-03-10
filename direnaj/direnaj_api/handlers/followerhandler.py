@@ -22,6 +22,8 @@ import tornado.web
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
 
+from py2neo.core import GraphError, ClientError
+
 from tornado import gen
 from tornado.gen import Return
 
@@ -130,6 +132,16 @@ class FollowerHandler(tornado.web.RequestHandler):
 
                         user_node = init_user_to_graph_aux(campaign_node, user)
 
+                        user_info_harvester_node = graph.cypher.execute("MATCH (t:USER_INFO_HARVESTER_TASK {id: 1}) RETURN t").one
+                        user_harvester_rel = Relationship(user_info_harvester_node, "USER_INFO_HARVESTER_TASK_STATE", user_node)
+                        user_harvester_rel.properties['state'] = 0
+                        user_harvester_rel.properties['updated_at'] = int(time.time())
+                        try:
+                            graph.create_unique(user_harvester_rel)
+                        except (GraphError, ClientError), e:
+                            print("User Harvester Relation - PROBABLY A UNIQUEPATHNOTUNIQUE error")
+
+
                         #user_node = upsert_user(user)
 
                         if friends_or_followers == 'followers':
@@ -139,6 +151,24 @@ class FollowerHandler(tornado.web.RequestHandler):
                             rel = Relationship(root_user_node, 'FOLLOWS', user_node)
                             graph.create_unique(rel)
 
+                else:
+                    self.write(bson.json_util.dumps({'status': 'error'}))
+
+            except MissingArgumentError as e:
+                # TODO: implement logging.
+                raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
+            pass
+        elif store_or_view == 'store_user_info':
+            try:
+                user_object = self.get_argument('user_object', '{}')
+                user_object = bson.json_util.loads(user_object)
+
+                user_node = init_user_to_graph_aux('default', user_object)
+
+                if user_node:
+                    tx = graph.cypher.begin()
+                    tx.append("MATCH (u:User { id_str: {id_str} })<-[r]-(t:USER_INFO_HARVESTER_TASK {id: 1}) DELETE r", {'id_str': user_object['id_str']})
+                    tx.commit()
                 else:
                     self.write(bson.json_util.dumps({'status': 'error'}))
 

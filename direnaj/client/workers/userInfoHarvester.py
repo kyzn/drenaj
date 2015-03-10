@@ -35,15 +35,14 @@ URL_EXCEPTION_CODE = -4
 UNKNOWN_EXCEPTION_CODE = -5
 
 
-class FriendHarvester(threading.Thread):
+class UserInfoHarvester(threading.Thread):
 
-    def __init__(self, twitter_api, logger, user, requestType):
+    def __init__(self, twitter_api, logger, user):
 
         # required for threads
-        super(FriendHarvester, self).__init__()
+        super(UserInfoHarvester, self).__init__()
 
         self.user = user
-        self.requestType = requestType
 
         if self.user['id_str']:
             self.use_screenname = False
@@ -57,7 +56,7 @@ class FriendHarvester(threading.Thread):
         self.direnaj_auth_secrets = KeyStore().direnaj_auth_secrets.copy()
         self.direnaj_store_url= ''
 
-        self.direnaj_store_url = 'http://'+DIRENAJ_APP_HOST+':'+str(DIRENAJ_APP_PORT[DIRENAJ_APP_ENVIRONMENT])+ '/' + requestType +'/list/store'
+        self.direnaj_store_url = 'http://'+DIRENAJ_APP_HOST+':'+str(DIRENAJ_APP_PORT[DIRENAJ_APP_ENVIRONMENT])+ '/friends/list/store_user_info'
 
         self.logger = logger
         self.logger.info("Starting thread "+self.getJobDescription())
@@ -80,14 +79,14 @@ class FriendHarvester(threading.Thread):
 
     def getRemainingRateLimit(self):
         ## rate_limit_status = self.api.GetRateLimitStatus()
-        (ret_code, rate_limit_status) = self.makeApiCall(self.api.GetRateLimitStatus,self.requestType)
+        (ret_code, rate_limit_status) = self.makeApiCall(self.api.GetRateLimitStatus,"users")
 
         ## if there is an error
         if ret_code != 0:
             return [None, None]
-        friend_id_limit = rate_limit_status.get('/'+ self.requestType +'/ids',None)
-        reset_time  = friend_id_limit.get('reset', None)
-        limit = friend_id_limit.get('remaining', None)
+        user_info_limit = rate_limit_status.get('/users/show/:id',None)
+        reset_time  = user_info_limit.get('reset', None)
+        limit = user_info_limit.get('remaining', None)
 
         if reset_time:
             # put the reset time into a datetime object
@@ -159,84 +158,59 @@ class FriendHarvester(threading.Thread):
         return [ret_code, ret]
 
     def run(self):
-       result = self.fetchFriendsOfUser()
+       result = self.fetchUserInfo()
        self.results_queue.put(result)
 
-    def GetFriendsOfUser(self, *args):
+    def GetUserInfo(self, *args):
 
         self.log('use_screenname : ' + str(self.use_screenname) + ' - user_identifier : ' + str(self.user_identifier))
 
-        if self.requestType == 'friends':
-            if self.use_screenname:
-                return self.api.GetFriendIDs(user_id=None,screen_name=self.user_identifier,stringify_ids=True)
-            else:
-                return self.api.GetFriendIDs(user_id=self.user_identifier,screen_name=None,stringify_ids=True)
+        if self.use_screenname:
+            return self.api.GetUser(user_id=None,screen_name=self.user_identifier,include_entities=True)
+        else:
+            return self.api.GetUser(user_id=self.user_identifier,screen_name=None,include_entities=True)
 
-        elif self.requestType == 'followers':
-            if self.use_screenname:
-                return self.api.GetFollowerIDs(user_id=None,screen_name=self.user_identifier,stringify_ids=True)
-            else:
-                return self.api.GetFollowerIDs(user_id=self.user_identifier,screen_name=None,stringify_ids=True)
 
-    def fetchFriendsOfUser(self):
-        all_friends = []
+
+    def fetchUserInfo(self):
+        userInfo = ''
         page_not_found = 0
         finished = False
-        n_friends_retrieved = 0
 
 
         while not finished:
             ### make an api call
-            sleep_duration = self.api.GetSleepTime('/' + self.requestType + '/ids')
+            sleep_duration = self.api.GetSleepTime('/users/show/:id')
             self.log(self.getJobDescription() + ": Sleeping for "+str(sleep_duration)+" seconds to prevent being rate limited")
             time.sleep(sleep_duration)
 
             self.log(self.getJobDescription() + ": will be retrieved cursor id for this request: ")
-            (ret_code, friends) = self.makeApiCall(self.GetFriendsOfUser)
-            if friends == None:
-               friends = []
+            (ret_code, userInfo) = self.makeApiCall(self.GetUserInfo)
+            userInfo = userInfo.AsDict()
+
+            if not self.use_screenname:
+                userInfo['id_str'] = self.user_identifier
+
+            print userInfo
 
             finished = True
-
-            ### write received tweets and determine the max_id
-            if len(friends) > 0:
-                all_friends = all_friends + friends
-                n_friends_retrieved += len(friends)
 
 
         if ret_code == PAGE_NOT_FOUND_ERROR_CODE or ret_code == NOT_AUTHORIZED_ERROR_CODE:
             page_not_found = 1
 
-        self.log(self.getJobDescription() + ": Retrieved "+str(n_friends_retrieved)+" "+ self.requestType +" of user.")
-        #for i in range(1, len(all_tweets)+1):
-        #    tweet = all_tweets[len(all_tweets)-i]
-            ##print tweet.AsJsonString()
+        self.log(self.getJobDescription() + ": Retrieved User Info use_screenname : " + str(self.use_screenname) + " - user_identifier : " + str(self.user_identifier))
+        self.postUserInfo(userInfo)
+        return [userInfo, page_not_found]
 
-        self.post_friends(self.process_all_friends(all_friends))
-#        return [last_tweet_id, since_tweet_id, n_tweets_retrieved, page_not_found]
-        return [n_friends_retrieved, page_not_found]
-
-    def post_friends(self, tmp):
+    def postUserInfo(self, tmp):
         if not tmp:
             return
 
         params = dict()
-        params.update({'user_objects': bson.json_util.dumps(tmp)})
-
-        if self.user['id_str']:
-            params.update({'id_str': self.user['id_str']})
-        else:
-            params.update({'screen_name': self.user['screen_name']})
+        params.update({'user_object': bson.json_util.dumps(tmp)})
 
         self.post_to_gateway(params, self.direnaj_store_url)
-
-    def process_all_friends(self, all_friends):
-        tmp = []
-        for friend_id_str in all_friends:
-            friend_json = {}
-            friend_json['id_str'] = friend_id_str
-            tmp.append(friend_json)
-        return tmp
 
 
     # TODO: Is it possible to make this call concurrent?
@@ -265,7 +239,7 @@ class FriendHarvester(threading.Thread):
                     exp_backoff_duration *= 2
 
         if response:
-            print "Posted Friend/Follower Info. RESPONSE CODE: %s LENGTH: %s" %(response.status_code, len(response.content))
+            print "Posted tweets. RESPONSE CODE: %s LENGTH: %s" %(response.status_code, len(response.content))
 
 
 
@@ -274,8 +248,8 @@ from celery.utils.log import get_task_logger
 
 from celery.signals import worker_shutdown
 
-class FriendFollowerHarvesterTask(celery.Task):
-    name = 'crawl_friends_or_followers'
+class UserInfoHarvesterTask(celery.Task):
+    name = 'crawl_user_info'
     max_retries = None
 
     def __init__(self):
@@ -296,7 +270,7 @@ class FriendFollowerHarvesterTask(celery.Task):
         self.estimated_max_calls_per_screenname = 17
         self.tolerance_duration = 5
 
-        print "END INIT FriendFollowerHarvesterTask"
+        print "END INIT UserInfoHarvesterTask"
 
         # n_running_jobs = 0
 
@@ -375,22 +349,13 @@ class FriendFollowerHarvesterTask(celery.Task):
                     #    self.logger.info("Skipping " + user_identifier + " (not expired yet)")
                     else:
                         [token_owner_name, api] = self.available_twitter_api_array.pop()
-                        t = FriendHarvester(api, self.logger, user,'friends')
+                        t = UserInfoHarvester(api, self.logger, user)
                         task_start_time = time.time()
                         t.start()
 
                         self.logger.info("PROGRESS: " + str(len(self.user_info_table)) + "/"+str(self.n_user_identifiers))
-                        self.logger.info("Thread Friend Harvester " + token_owner_name + " => "+user_identifier+" starting..")
+                        self.logger.info("Thread User Info Harvester " + token_owner_name + " => "+user_identifier+" starting..")
                         self.jobs.append([t, user, task_start_time, api, token_owner_name])
-
-                        t2 = FriendHarvester(api, self.logger, user,'followers')
-                        task_start_time2 = time.time()
-                        t2.start()
-
-                        self.logger.info("Thread Follower Harvester " + token_owner_name + " => "+user_identifier+" starting..")
-                        self.jobs.append([t2, user, task_start_time2, api, token_owner_name])
-
-
                 else:
                     # No stale API connections found, break out of this loop.
                     break

@@ -6,6 +6,17 @@
 <body>
 
 <h1>Watched users of a campaign</h1>
+
+<p>skip: {{ skip }}<br/>limit: {{ limit }}<br/></p>
+
+{% if skip|int - limit|int >= 0 %}
+
+<a href="{{ href }}/campaigns/view/watched_users?campaign_id={{ campaign_id }}&skip={{ skip|int - limit|int }}&limit={{ limit }}">prev page</a>
+
+{% endif %}
+
+<a href="{{ href }}/campaigns/view/watched_users?campaign_id={{ campaign_id }}&skip={{ skip|int + limit|int }}&limit={{ limit }}">next page</a>
+
 <table border="1">
     <th> id_str</th>
     <th> screen_name </th>
@@ -49,9 +60,30 @@
                 update
             </a>
         </td>
+        <td>
+            XX / XXX
+            <a href="{{ href }}/tasks/userinfo?user_id={{user.id_str}}&local_or_remote=local&campaign_id={{ campaign_id }}">
+                update
+            </a>
+        </td>
     </tr>
     {% endfor %}
 </table>
+
+
+<p>skip: {{ skip }}<br/>limit: {{ limit }}<br/></p>
+
+{% if skip|int - limit|int >= 0 %}
+
+<a href="{{ href }}/campaigns/view/watched_users?campaign_id={{ campaign_id }}&skip={{ skip|int - limit|int }}&limit={{ limit }}">prev page</a>
+
+{% endif %}
+
+<a href="{{ href }}/campaigns/view/watched_users?campaign_id={{ campaign_id }}&skip={{ skip|int + limit|int }}&limit={{ limit }}">next page</a>
+
+
+
+
 <br><br>
 
 </body>

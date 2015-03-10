@@ -1,10 +1,13 @@
 __author__ = 'onur'
 
 from py2neo import Graph, Node, neo4j, Relationship
+from py2neo.core import GraphError, ClientError
 
 import time
 
 import twitter
+
+import bson.json_util
 
 graph = Graph()
 
@@ -24,7 +27,7 @@ def upsert_user(user):
 
     # removing these beacuse neo4j doesn't allow nested nodes.
     if 'entities' in user:
-        del user['entities']
+        user['entities'] = bson.json_util.dumps(user['entities'])
     if 'status' in user:
         del user['status']
 
@@ -47,9 +50,12 @@ def upsert_user(user):
     print user_node
 
     if user_node:
+        # First clearing the user_node properties.
+        for key in user_node.properties.keys():
+            user_node.properties[key] = None
+        # then assigning the new properties
         for key in user.keys():
-            if type(user[key]) == type('STRING') and not user[key] == '':
-                user_node.properties[key] = user[key]
+            user_node.properties[key] = user[key]
         user_node.push()
     else:
         user_node = Node.cast(user)
@@ -65,7 +71,7 @@ def update_task_state_in_watchlist(user, since_tweet_id, page_not_found):
     if user_node:
         # DELETE
         graph.cypher.execute("MATCH (u { id_str: {id_str} })<-[r:TIMELINE_TASK_STATE]-(task:TIMELINE_HARVESTER_TASK) "\
-                             "SET r.since_tweet_id = {since_tweet_id}, r.page_not_found = {page_not_found}, r.state = 0, r.unlock_time = -1, r.updated_at = {current_unix_time} "\
+                             "SET r.since_tweet_id = {since_tweet_id}, r.page_not_found = {page_not_found}, r.state = 0, r.updated_at = {current_unix_time} "\
                              "RETURN r",
                              {'id_str': user['id_str'],
                               'current_unix_time': int(time.time()),
@@ -79,7 +85,10 @@ def init_user_to_graph_aux(campaign_node, user):
 
     user_node = upsert_user(user)
     campaign_rel = Relationship(campaign_node, "OBSERVES", user_node)
-    graph.create_unique(campaign_rel)
+    try:
+        graph.create_unique(campaign_rel)
+    except (GraphError, ClientError), e:
+        print("PROBABLY A UNIQUEPATHNOTUNIQUE error")
 
     timeline_task_state_rel = \
         graph.cypher.execute(
@@ -147,7 +156,7 @@ def init_user_to_graph(tweets):
 
             init_user_to_graph_aux(campaign_node, user)
 
-def get_users_attached_to_campaign(campaign_id):
+def get_users_attached_to_campaign(campaign_id, skip, limit):
     attached_users_array = []
 
     campaign_node = graph.cypher.execute("MATCH (c:Campaign) WHERE c.campaign_id = {campaign_id} RETURN c",
@@ -155,8 +164,10 @@ def get_users_attached_to_campaign(campaign_id):
 
     if campaign_node:
         # "MATCH (user)<-[r2:FRIENDFOLLOWER_TASK_STATE|TIMELINE_TASK_STATE]-(x) RETURN user,collect(DISTINCT r2)"
-        user_nodes = graph.cypher.execute("MATCH (c:Campaign { campaign_id: {campaign_id} })-[r:OBSERVES]->(user)<-[r2:FRIENDFOLLOWER_TASK_STATE|TIMELINE_TASK_STATE]-(x) RETURN user,collect(DISTINCT r2) as rlist",
-                                         {'campaign_id': campaign_id})
+        user_nodes = graph.cypher.execute("MATCH (c:Campaign { campaign_id: {campaign_id} })-[r:OBSERVES]->(user)<-[r2:FRIENDFOLLOWER_TASK_STATE|TIMELINE_TASK_STATE]-(x) RETURN user,collect(DISTINCT r2) as rlist SKIP {skip} LIMIT {limit}",
+                                         {'campaign_id': campaign_id,
+                                          'skip': int(skip),
+                                          'limit': int(limit)})
         for user in user_nodes:
             attached_users_array += [[user.user.properties, user.rlist]]
 
@@ -237,41 +248,45 @@ def prepare_users_to_be_added(user_id_strs_to_follow, dtype='id_str'):
     #     # second element is optional. it should be the username for easier management by humans.
     #     users_to_be_added.append(line_els[0])
 
-def create_batch_from_watchlist(app_object, n_users):
-    # Using pymongo (thus synchronous) because motor caused problems at the first try.
+def create_batch_from_watchlist(app_object):
+    n_users = {'timeLineTask': 2 , 'userInfoTask': 12, 'friendFollowerTask': 1}
+    # Using pymongo (thus synchronous) because motor caused problems sat the first try.
     # it doesn't matter for now as this code is run from a celery client on the server.
 
     # first, find locked edges with overdue time
-    graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE|FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 1 AND r.unlock_time < {current_unix_time} SET r.state = 0, r.unlock_time = -1, r.updated_at = {current_unix_time}",
-                         {'current_unix_time': int(time.time())})
+    print 'Current Unix Time {}'.format(int(time.time()))
+    graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE|FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 1 AND r.unlock_time < {current_unix_time} SET r.state = 0, r.unlock_time = -1, r.updated_at = {current_unix_time}", {'current_unix_time': int(time.time())})
 
-    # timeline_task_states = graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE]-(t) WHERE r.state = 0 ORDER BY r.updated_at SET r.state = 1 RETURN r LIMIT {n_users}", {'n_users': n_users})
-    #
-    # print timeline_task_states
-    #
-    # ### Now, use this batch_array to call TimelineRetrievalTask.
+
+    timeline_task_states = graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE]-(t) WHERE r.state = 0 and (r.unlock_time = -1 OR r.unlock_time < {current_unix_time}) WITH r ORDER BY r.updated_at LIMIT {n_users} MATCH (u2:User)<-[r]-(t2) SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN DISTINCT r", {'n_users': n_users['timeLineTask'], 'unix_time_plus_two_hours': int(time.time())+ (2*3600),'current_unix_time': int(time.time())})
+    print timeline_task_states
+
+    ### Now, use this batch_array to call TimelineRetrievalTask.
     res_array = []
 
     # # FIXME: burada kalmistik. sanirim id_str ve screen_name bos geliyor.
-    # for task_state in timeline_task_states:
-    #     print task_state.r.nodes[0].labels
-    #
-    #     id_str = task_state.r.nodes[1].properties['id_str']
-    #     if id_str == None:
-    #         id_str = ''
-    #     screen_name = task_state.r.nodes[1].properties['screen_name']
-    #     if screen_name == None:
-    #         screen_name = ''
-    #     since_tweet_id = task_state.r.properties['since_tweet_id']
-    #     page_not_found = task_state.r.properties['page_not_found']
-    #
-    #     job_definition = [{'id_str': id_str, 'screen_name': screen_name}, since_tweet_id, page_not_found]
-    #     res = app_object.send_task('timeline_retrieve_userlist', [[job_definition]], queue='timelines')
-    #     res_array.append(res)
+    for task_state in timeline_task_states:
+         print task_state.r.nodes[0].labels
+
+         id_str = task_state.r.nodes[1].properties['id_str']
+         if id_str == None:
+             id_str = ''
+         screen_name = task_state.r.nodes[1].properties['screen_name']
+         if screen_name == None:
+             screen_name = ''
+         since_tweet_id = task_state.r.properties['since_tweet_id']
+         page_not_found = task_state.r.properties['page_not_found']
+
+         job_definition = [{'id_str': id_str, 'screen_name': screen_name}, since_tweet_id, page_not_found]
+         res = app_object.send_task('timeline_retrieve_userlist', [[job_definition]], queue='timelines')
+         res_array.append(res)
 
 
     res_array = []
-    ff_task_states = graph.cypher.execute("MATCH (u:User)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 0 ORDER BY r.updated_at SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN r LIMIT {n_users}", {'n_users': n_users, 'unix_time_plus_two_hours': int(time.time())+ (2*3600)})
+    ff_task_states = graph.cypher.execute("MATCH (u:User)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 0 and (r.unlock_time = -1 "
+                                          "OR r.unlock_time < {current_unix_time}) WITH r ORDER BY r.updated_at LIMIT {n_users}"
+                                          " MATCH (u2:User)<-[r]-(t2) SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN DISTINCT r",
+                                          {'n_users': n_users['friendFollowerTask'], 'unix_time_plus_two_hours': int(time.time())+ (2*3600),'current_unix_time': int(time.time())})
     print ff_task_states
 
     for ff_task_state in ff_task_states:
@@ -285,4 +300,24 @@ def create_batch_from_watchlist(app_object, n_users):
         page_not_found = ff_task_state.r.properties['page_not_found']
         job_definition = [{'id_str': id_str, 'screen_name': screen_name}, page_not_found]
         res = app_object.send_task('crawl_friends_or_followers', [[job_definition]], queue='friendfollowers')
+        res_array.append(res)
+
+
+    res_array = []
+    userInfo_task_states = graph.cypher.execute("MATCH (u:User)<-[r:USER_INFO_HARVESTER_TASK_STATE]-(t) WHERE r.state = 0 WITH r ORDER BY r.updated_at LIMIT {n_users} "
+                                                "MATCH (u2:User)<-[r]-(t2) SET r.state = 1 RETURN DISTINCT r",
+                                                {'n_users': n_users['userInfoTask']})
+    print userInfo_task_states
+
+    for userInfo_task_state in userInfo_task_states:
+        id_str = userInfo_task_state.r.nodes[1].properties['id_str']
+        if id_str == None:
+            id_str = ''
+        screen_name = userInfo_task_state.r.nodes[1].properties['screen_name']
+        if screen_name == None:
+            screen_name = ''
+
+        page_not_found = userInfo_task_state.r.properties['page_not_found']
+        job_definition = [{'id_str': id_str, 'screen_name': screen_name}, page_not_found]
+        res = app_object.send_task('crawl_user_info', [[job_definition]], queue='userinfo')
         res_array.append(res)
