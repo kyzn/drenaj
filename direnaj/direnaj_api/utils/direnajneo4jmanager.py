@@ -26,9 +26,7 @@ def upsert_user(user):
     :return:
     """
 
-    print 'upsert_user Giris'
-    print user
-    print type(user)
+    direnaj_api_logger.info('Upserting: ' + user['id_str'])
 
     # for key in user.keys():
     #     print key + ': ' + str(user[key]) + " - " + str(type(user[key]))
@@ -43,16 +41,13 @@ def upsert_user(user):
     # coming from create_campaign
     user_node = None
     if 'id_str' in user and 'screen_name' in user and user['id_str'] != '' and user['screen_name'] != '':
-        print '1'
         user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']}).one
         if not user_node:
             user_node = graph.cypher.execute("MATCH (u:User) WHERE u.screen_name = {screen_name} RETURN u", {'screen_name': user['screen_name']}).one
     # TODO: This is very nasty! Go get learn the proper way!
     elif (type(user['id_str']) == type('STRING') or type(user['id_str']) == type(u'STRING')) and user['id_str'] != '':
-        print '2'
         user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']}).one
     elif (type(user['screen_name']) == type('STRING') or type(user['screen_name']) == type(u'STRING')) and user['screen_name'] != '':
-        print '3'
         user_node = graph.cypher.execute("MATCH (u:User) WHERE u.screen_name = {screen_name} RETURN u", {'screen_name': user['screen_name']}).one
 
     print user_node
@@ -86,10 +81,9 @@ def update_task_state_in_watchlist(user, since_tweet_id, page_not_found):
                               'since_tweet_id': since_tweet_id,
                               'page_not_found': page_not_found})
 
+direnaj_api_logger = logging.getLogger("direnaj_api")
 
 def init_user_to_graph_aux(campaign_node, user):
-
-    print 'init user to graph aux Giris'
 
     user_node = upsert_user(user)
     campaign_rel = Relationship(campaign_node, "OBSERVES", user_node)
@@ -132,8 +126,6 @@ def init_user_to_graph_aux(campaign_node, user):
         #tx.append("CREATE (t)-[r:FRIENDFOLLOWER_TASK_STATE]->(u:User)")
         tx.append("MATCH (u:User),(t:FRIENDFOLLOWER_HARVESTER_TASK) WHERE u.id_str = {id_str} AND t.id = 1 CREATE (u)<-[r:FRIENDFOLLOWER_TASK_STATE {state: 0, unlock_time: -1}]-(t) RETURN r", {'id_str': user['id_str']})
         tx.commit()
-
-    print 'init user to graph aux Cikis'
 
     return user_node
 
