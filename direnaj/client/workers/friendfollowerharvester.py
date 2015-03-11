@@ -8,6 +8,8 @@ import sys, threading, time
 
 import twitter
 
+import math
+
 import requests
 
 import bson.json_util
@@ -220,8 +222,29 @@ class FriendHarvester(threading.Thread):
         if not tmp:
             return
 
+        n_friends = len(tmp)
+
+        self._post_friends(tmp)
+
+        # I had to comment this out because this was wrong given the current
+        # code on /friends|followers/list/store (it was deleting all the current edges into/out
+        # from the user.
+        # batch_size = 100
+        #
+        # while len(tmp) > 0:
+        #     self.log("%d friends/followers to post." % len(tmp))
+        #     batch = []
+        #     if len(tmp) >= batch_size:
+        #         batch = tmp[0:batch_size]
+        #         tmp = tmp[batch_size:]
+        #     else:
+        #         batch = tmp
+        #         tmp = []
+        #     self._post_friends(batch)
+
+    def _post_friends(self, batch):
         params = dict()
-        params.update({'user_objects': bson.json_util.dumps(tmp)})
+        params.update({'user_objects': bson.json_util.dumps(batch)})
 
         if self.user['id_str']:
             params.update({'id_str': self.user['id_str']})
