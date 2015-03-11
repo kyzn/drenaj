@@ -39,8 +39,7 @@ from tornado.log import LogFormatter
 
 from direnaj_api.utils.direnajmongomanager import DirenajMongoManager
 
-logger = logging.getLogger()
-
+logger = logging.getLogger("direnaj_api")
 
 # Used when settings file is not present
 DEFAULT_SETTINGS = {

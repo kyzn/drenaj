@@ -1,6 +1,12 @@
 __author__ = 'onur'
 
-from py2neo import Graph, Node, neo4j, Relationship
+# import logging
+# import logging.handlers
+#
+# logger = logging.getLogger("httpstream")
+# logger.addHandler(logging.handlers.RotatingFileHandler("neo4j.log", maxBytes=10000000, backupCount=10))
+
+from py2neo import Graph, Node, neo4j, Relationship, watch
 from py2neo.core import GraphError, ClientError
 
 import time
@@ -10,6 +16,8 @@ import twitter
 import bson.json_util
 
 graph = Graph()
+import logging
+watch("httpstream", level=logging.WARN, out=open("neo4j.log", "w+"))
 
 def upsert_user(user):
     """
