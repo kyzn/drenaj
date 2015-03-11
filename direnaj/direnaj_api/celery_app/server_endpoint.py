@@ -81,7 +81,7 @@ def store_friendsfollowers_in_neo4j_offline(id_str, campaign_id, user_objects_st
             user_harvester_rel.properties['updated_at'] = int(time.time())
             try:
                 graph.create_unique(user_harvester_rel)
-            except (GraphError, ClientError), e:
+            except (GraphError), e:
                 print("User Harvester Relation - PROBABLY A UNIQUEPATHNOTUNIQUE error")
 
             if friends_or_followers == 'followers':

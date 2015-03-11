@@ -102,7 +102,7 @@ class FollowerHandler(tornado.web.RequestHandler):
                                            [[ id_str, campaign_id, user_objects_str, friends_or_followers ]],
                                            queue="offline_jobs")
 
-                self.write(bson.json_util.dumps({'status': res}))
+                self.write(bson.json_util.dumps({'status': res.task_id}))
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
