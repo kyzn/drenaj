@@ -291,7 +291,7 @@ def create_batch_from_watchlist(app_object):
 
 
     res_array = []
-    ff_task_states = graph.cypher.execute("MATCH (u:User)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 0 and (r.unlock_time = -1 "
+    ff_task_states = graph.cypher.execute("MATCH (u:User)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t) WHERE (u.followers_count < 300000 AND u.friends_count < 300000) and r.state = 0 and (r.unlock_time = -1 "
                                           "OR r.unlock_time < {current_unix_time}) WITH r ORDER BY r.updated_at LIMIT {n_users}"
                                           " MATCH (u2:User)<-[r]-(t2) SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN DISTINCT r",
                                           {'n_users': n_users['friendFollowerTask'], 'unix_time_plus_two_hours': int(time.time())+ (2*3600),'current_unix_time': int(time.time())})
