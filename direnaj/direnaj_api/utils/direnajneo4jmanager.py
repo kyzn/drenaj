@@ -254,7 +254,7 @@ def create_batch_from_watchlist(app_object):
     # it doesn't matter for now as this code is run from a celery client on the server.
 
     # first, find locked edges with overdue time
-    graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE|FRIENDFOLLOWER_TASK_STATE]-(t) WHERE r.state = 1 AND r.unlock_time < {current_unix_time} SET r.state = 0, r.unlock_time = -1, r.updated_at = {current_unix_time}", {'current_unix_time': int(time.time())})
+    graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE|FRIENDFOLLOWER_TASK_STATE|USER_INFO_HARVESTER_TASK_STATE]-(t) WHERE r.state = 1 AND r.unlock_time < {current_unix_time} SET r.state = 0, r.unlock_time = -1, r.updated_at = {current_unix_time}", {'current_unix_time': int(time.time())})
 
     timeline_task_states = graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE]-(t) WHERE r.state = 0 and (r.unlock_time = -1 OR r.unlock_time < {current_unix_time}) WITH r ORDER BY r.updated_at LIMIT {n_users} MATCH (u2:User)<-[r]-(t2) SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN DISTINCT r", {'n_users': n_users['timeLineTask'], 'unix_time_plus_two_hours': int(time.time())+ (2*3600),'current_unix_time': int(time.time())})
     print timeline_task_states
