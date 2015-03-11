@@ -22,8 +22,6 @@ import tornado.web
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
 
-from py2neo.core import GraphError, ClientError
-
 from tornado import gen
 from tornado.gen import Return
 
@@ -31,9 +29,11 @@ import time
 
 import bson.json_util
 
-from py2neo import Graph, Node, Relationship
+from py2neo import Graph
 
-from direnaj_api.utils.direnajneo4jmanager import upsert_user, init_user_to_graph_aux
+from direnaj_api.utils.direnajneo4jmanager import init_user_to_graph_aux
+
+from direnaj_api.celery_app.server_endpoint import app_object
 
 graph = Graph()
 
@@ -96,63 +96,13 @@ class FollowerHandler(tornado.web.RequestHandler):
                 # Check long int/str versions
                 id_str = str(self.get_argument('id_str'))
                 campaign_id = self.get_argument('campaign_id', 'default')
-                user_objects = self.get_argument('user_objects', '[]')
-                user_objects = bson.json_util.loads(user_objects)
+                user_objects_str = self.get_argument('user_objects', '[]')
 
-                root_user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': id_str}).one
+                res = app_object.send_task('store_friendsfollowers_in_neo4j_offline',
+                                           [[ id_str, campaign_id, user_objects_str, friends_or_followers ]],
+                                           queue="offline_jobs")
 
-                if root_user_node:
-
-                    # deleting this edge because we want the next job to be explicitly ordered by some other means.
-                    graph.cypher.execute("MATCH (u:User)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t:FRIENDFOLLOWER_HARVESTER_TASK) "\
-                                         "WHERE u.id_str = {id_str} SET r.state = 0, r.updated_at = {current_unix_time}"\
-                                         "RETURN r", {'id_str': id_str, 'current_unix_time': int(time.time())})
-
-                    if friends_or_followers == 'followers':
-                        # DELETE ALL INCOMING EDGES
-                        tx = graph.cypher.begin()
-                        tx.append("MATCH (u { id_str: {id_str} })<-[r:FOLLOWS]-(u2) DELETE r", {'id_str': id_str})
-                        tx.commit()
-
-                    elif friends_or_followers == 'friends':
-                        # DELETE ALL OUTGOING EDGES
-                        tx = graph.cypher.begin()
-                        tx.append("MATCH (u { id_str: {id_str} })-[r:FOLLOWS]->(u2) DELETE r", {'id_str': id_str})
-                        tx.commit()
-
-                    # bunlari hizlica ekledim. konusmamiz lazim.
-                    campaign_node = graph.cypher.execute("MATCH (c:Campaign) WHERE c.campaign_id = {campaign_id} RETURN c",
-                                             {'campaign_id': campaign_id}).one
-                    print campaign_node
-                    if not campaign_node:
-                        campaign_node = graph.cypher.execute("CREATE (c:Campaign {campaign_id: {campaign_id}}) RETURN c",
-                                                 {'campaign_id': campaign_id}).one
-
-                    for user in user_objects:
-
-                        user_node = init_user_to_graph_aux(campaign_node, user)
-
-                        user_info_harvester_node = graph.cypher.execute("MATCH (t:USER_INFO_HARVESTER_TASK {id: 1}) RETURN t").one
-                        user_harvester_rel = Relationship(user_info_harvester_node, "USER_INFO_HARVESTER_TASK_STATE", user_node)
-                        user_harvester_rel.properties['state'] = 0
-                        user_harvester_rel.properties['updated_at'] = int(time.time())
-                        try:
-                            graph.create_unique(user_harvester_rel)
-                        except (GraphError, ClientError), e:
-                            print("User Harvester Relation - PROBABLY A UNIQUEPATHNOTUNIQUE error")
-
-
-                        #user_node = upsert_user(user)
-
-                        if friends_or_followers == 'followers':
-                            rel = Relationship(user_node, 'FOLLOWS', root_user_node)
-                            graph.create_unique(rel)
-                        elif friends_or_followers == 'friends':
-                            rel = Relationship(root_user_node, 'FOLLOWS', user_node)
-                            graph.create_unique(rel)
-
-                else:
-                    self.write(bson.json_util.dumps({'status': 'error'}))
+                self.write(bson.json_util.dumps({'status': res}))
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
