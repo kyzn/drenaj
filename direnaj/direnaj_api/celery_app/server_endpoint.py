@@ -35,7 +35,7 @@ def check_watchlist_and_dispatch_tasks():
     #app.db.create_batch_from_watchlist(app_object, batch_size)
     #create_batch_from_watchlist(app_object, batch_size)
 
-from py2neo import Graph, GraphError, ClientError, Relationship
+from py2neo import Graph, GraphError, Relationship
 from direnaj_api.utils.direnajneo4jmanager import init_user_to_graph_aux
 import time, bson
 graph = Graph()
