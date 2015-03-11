@@ -35,10 +35,14 @@ def check_watchlist_and_dispatch_tasks():
     #app.db.create_batch_from_watchlist(app_object, batch_size)
     #create_batch_from_watchlist(app_object, batch_size)
 
-from py2neo import Graph, GraphError, Relationship
+from py2neo import Graph, GraphError, Relationship, watch
 from direnaj_api.utils.direnajneo4jmanager import init_user_to_graph_aux
 import time, bson
 graph = Graph()
+
+import logging
+watch("httpstream", level=logging.WARN, out=open("neo4j-client.log", "w+"))
+
 @app_object.task(name='store_friendsfollowers_in_neo4j_offline')
 def store_friendsfollowers_in_neo4j_offline(args):
     id_str, campaign_id, user_objects_str, friends_or_followers = args

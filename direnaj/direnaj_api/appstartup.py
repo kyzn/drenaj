@@ -11,7 +11,7 @@ application = tornado.web.Application(routes_config)
 # a cronjob like mechanism which executes check_watchlist_and_dispatch_tasks.
 # It may be simplified later however for keeping functionality intact, I undid
 # the removal.
-import direnaj_api.celery_app.server_endpoint
+#import direnaj_api.celery_app.server_endpoint
 
 def bind_server(environment):
     http_server = HTTPServer(application, xheaders=True)
