@@ -257,7 +257,6 @@ class DirenajMongoManager(object):
 
         for tweet_obj in tweet_obj_array:
 
-            print("TWEET_OBJ", tweet_obj)
             # build the analytics
             freq = {}
 
@@ -267,7 +266,6 @@ class DirenajMongoManager(object):
             tweet_obj = tweet_obj['tweet']
 
             freq['campaigns'] = {campaign_id: 1}
-            print("FREQ campaigns: ", freq)
 
         # freq['tokens'] = {'ali': 1, 'veli': 1}
 
@@ -283,8 +281,6 @@ class DirenajMongoManager(object):
                     else:
                         # log this missing attribute.
                         pass
-
-            print("FREQ campaigns hashtags: ", freq)
 
             freq['mentions'] = {}
             if 'entities' in tweet_obj and 'user_mentions' in tweet_obj['entities']:
@@ -312,26 +308,17 @@ class DirenajMongoManager(object):
                         # log this missing attribute.
                         pass
 
-            print("FREQ campaigns hashtags and others: ", freq)
-
             if 'created_at' in tweet_obj:
                 # turns out that we've already transformed into drnj_time
                 t = drnj_time2py_time(tweet_obj['created_at'])
             else:
                 t = time.time()
 
-            print("FREQ after created_at: ", freq)
-
             gm_t = time.gmtime(t)
 
             today_str = time.strftime('%Y-%m-%d', gm_t)
             hour = time.strftime('%H', gm_t)
             minute = "%04d" % (int(hour)*60 + int(time.strftime('%M', gm_t)))
-            print('TODAY_STR', today_str)
-
-            print("COLLS: ", self.colls)
-
-            print("FREQ before last for: ", freq)
 
             for key in freq:
                 for item in freq[key].keys():
