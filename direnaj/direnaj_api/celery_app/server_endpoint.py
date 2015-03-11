@@ -40,7 +40,8 @@ from direnaj_api.utils.direnajneo4jmanager import init_user_to_graph_aux
 import time, bson
 graph = Graph()
 @app_object.task(name='store_friendsfollowers_in_neo4j_offline')
-def store_friendsfollowers_in_neo4j_offline(id_str, campaign_id, user_objects_str, friends_or_followers):
+def store_friendsfollowers_in_neo4j_offline(*args):
+    id_str, campaign_id, user_objects_str, friends_or_followers = args
     user_objects = bson.json_util.loads(user_objects_str)
     root_user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': id_str}).one
 
