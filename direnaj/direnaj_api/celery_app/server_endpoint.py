@@ -64,12 +64,13 @@ def store_friendsfollowers_in_neo4j_offline(args):
 
     tx = graph.cypher.begin()
     tx.append("MERGE (c:Campaign {campaign_id: {campaign_id}})", {'campaign_id': campaign_id})
-    tx.append("MERGE (u:User {id_str: {id_str}) "
-              "WITH u "
-              "MATCH (u)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t:FRIENDFOLLOWER_HARVESTER_TASK) "
-              "SET r.state = 0, r.updated_at = {current_unix_time} "
-              "WITH u " +
-              friends_or_followers_update_statement
+    long_statement = "MERGE (u:User {id_str: {id_str}) " \
+                     "WITH u " \
+                     "MATCH (u)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t:FRIENDFOLLOWER_HARVESTER_TASK) " \
+                     "SET r.state = 0, r.updated_at = {current_unix_time} " \
+                     "WITH u " + friends_or_followers_update_statement
+    logger.debug(long_statement)
+    tx.append(long_statement
               , {'id_str': id_str, 'current_unix_time': int(time.time())})
     tx.commit()
 
