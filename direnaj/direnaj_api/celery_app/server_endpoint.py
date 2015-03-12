@@ -50,9 +50,9 @@ def store_friendsfollowers_in_neo4j_offline(args):
 
     friends_or_followers_update_statement = ""
     if friends_or_followers == "followers":
-        friends_or_followers_update_statement += "MATCH (u)<-[r:FOLLOWS]-(u2) DELETE u2 WITH u "
+        friends_or_followers_update_statement += "MATCH (u)<-[r:FOLLOWS]-(u2) DELETE r WITH u "
     elif friends_or_followers == "friends":
-        friends_or_followers_update_statement += "MATCH (u)-[r:FOLLOWS]->(u2) DELETE u2 WITH u "
+        friends_or_followers_update_statement += "MATCH (u)-[r:FOLLOWS]->(u2) DELETE r WITH u "
     for user in user_objects:
         if friends_or_followers == "followers":
             friends_or_followers_update_statement += "MERGE (u)<-[r:FOLLOWS]-(u2:User {id_str: '%s'})<-[r2:USER_INFO_HARVESTER_TASK_STATE {state: 0, updated_at: %d}]-(t2:USER_INFO_HARVESTER_TASK {id: 1}) " \
