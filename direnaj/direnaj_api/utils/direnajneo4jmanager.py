@@ -15,6 +15,8 @@ import twitter
 
 import bson.json_util
 
+direnaj_api_logger = logging.getLogger("direnaj_api")
+
 graph = Graph()
 import logging
 watch("httpstream", level=logging.WARN, out=open("neo4j.log", "w+"))
@@ -81,8 +83,6 @@ def update_task_state_in_watchlist(user, since_tweet_id, page_not_found):
                               'since_tweet_id': since_tweet_id,
                               'page_not_found': page_not_found})
 
-direnaj_api_logger = logging.getLogger("direnaj_api")
-
 def init_user_to_graph_aux(campaign_node, user):
 
     user_node = upsert_user(user)
@@ -105,7 +105,10 @@ def init_user_to_graph_aux(campaign_node, user):
         #tx.append("MATCH (t:TIMELINE_HARVESTER_TASK {id: 1}) RETURN t")
         #tx.append("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']})
         #tx.append("CREATE (t)-[r:TIMELINE_TASK_STATE]->(u:User) RETURN r")
-        tx.append("MATCH (u:User),(t:TIMELINE_HARVESTER_TASK) WHERE u.id_str = {id_str} AND t.id = 1 CREATE (u)<-[r:TIMELINE_TASK_STATE {since_tweet_id: -1, page_not_found: -1, state: 0, unlock_time: -1}]-(t) RETURN r", {'id_str': user['id_str']})
+        tx.append("MATCH (u:User),(t:TIMELINE_HARVESTER_TASK) WHERE u.id_str = {id_str} AND t.id = 1 "
+                  "CREATE (u)<-[r:TIMELINE_TASK_STATE "
+                  "{since_tweet_id: -1, page_not_found: -1, state: 0, unlock_time: {unlock_time}}]-(t) RETURN r",
+                  {'id_str': user['id_str'], 'unlock_time': int(time.time())+(2*3600)})
         tx.commit()
 
 
@@ -124,7 +127,9 @@ def init_user_to_graph_aux(campaign_node, user):
         #tx.append("MATCH (t:FRIENDFOLLOWER_HARVESTER_TASK {id: 1}) RETURN t")
         #tx.append("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']})
         #tx.append("CREATE (t)-[r:FRIENDFOLLOWER_TASK_STATE]->(u:User)")
-        tx.append("MATCH (u:User),(t:FRIENDFOLLOWER_HARVESTER_TASK) WHERE u.id_str = {id_str} AND t.id = 1 CREATE (u)<-[r:FRIENDFOLLOWER_TASK_STATE {state: 0, unlock_time: -1}]-(t) RETURN r", {'id_str': user['id_str']})
+        tx.append("MATCH (u:User),(t:FRIENDFOLLOWER_HARVESTER_TASK) WHERE u.id_str = {id_str} AND t.id = 1 "
+                  "CREATE (u)<-[r:FRIENDFOLLOWER_TASK_STATE {state: 0, unlock_time: -1}]-(t) RETURN r",
+                  {'id_str': user['id_str'], 'unlock_time': int(time.time())+(2*3600)})
         tx.commit()
 
     return user_node
@@ -256,7 +261,7 @@ def create_batch_from_watchlist(app_object):
     # first, find locked edges with overdue time
     graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE|FRIENDFOLLOWER_TASK_STATE|USER_INFO_HARVESTER_TASK_STATE]-(t) WHERE r.state = 1 AND r.unlock_time < {current_unix_time} SET r.state = 0, r.unlock_time = -1, r.updated_at = {current_unix_time}", {'current_unix_time': int(time.time())})
 
-    # timeline_task_states = graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE]-(t) WHERE r.state = 0 and (r.unlock_time = -1 OR r.unlock_time < {current_unix_time}) WITH r ORDER BY r.updated_at LIMIT {n_users} MATCH (u2:User)<-[r]-(t2) SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN DISTINCT r", {'n_users': n_users['timeLineTask'], 'unix_time_plus_two_hours': int(time.time())+ (2*3600),'current_unix_time': int(time.time())})
+    # timeline_task_states = graph.cypher.execute("MATCH (u:User)<-[r:TIMELINE_TASK_STATE]-(t) WHERE r.state = 0 and (r.unlock_time = -1 OR r.unlock_time < {current_unix_time}) ORDER BY r.updated_at LIMIT {n_users} WITH r MATCH (u2:User)<-[r]-(t2) SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN DISTINCT r", {'n_users': n_users['timeLineTask'], 'unix_time_plus_two_hours': int(time.time())+ (2*3600),'current_unix_time': int(time.time())})
     # print timeline_task_states
     #
     # ### Now, use this batch_array to call TimelineRetrievalTask.
@@ -282,8 +287,8 @@ def create_batch_from_watchlist(app_object):
 
     res_array = []
     ff_task_states = graph.cypher.execute("MATCH (u:User)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t) WHERE (u.followers_count < 300000 AND u.friends_count < 300000) and r.state = 0 and (r.unlock_time = -1 "
-                                          "OR r.unlock_time < {current_unix_time}) WITH r ORDER BY r.updated_at LIMIT {n_users}"
-                                          " MATCH (u2:User)<-[r]-(t2) SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours} RETURN DISTINCT r",
+                                          "OR r.unlock_time < {current_unix_time}) WITH u, r, t ORDER BY r.updated_at LIMIT {n_users}"
+                                          " MATCH (u:User)<-[r]-(t) SET r.state = 1, r.unlock_time = {unix_time_plus_two_hours}, r.updated_at = {current_unix_time} RETURN DISTINCT r",
                                           {'n_users': n_users['friendFollowerTask'], 'unix_time_plus_two_hours': int(time.time())+ (2*3600),'current_unix_time': int(time.time())})
     print ff_task_states
 
@@ -302,7 +307,7 @@ def create_batch_from_watchlist(app_object):
 
 
     # res_array = []
-    # userInfo_task_states = graph.cypher.execute("MATCH (u:User)<-[r:USER_INFO_HARVESTER_TASK_STATE]-(t) WHERE r.state = 0 WITH r ORDER BY r.updated_at LIMIT {n_users} "
+    # userInfo_task_states = graph.cypher.execute("MATCH (u:User)<-[r:USER_INFO_HARVESTER_TASK_STATE]-(t) WHERE r.state = 0 ORDER BY r.updated_at LIMIT {n_users} WITH r"
     #                                             "MATCH (u2:User)<-[r]-(t2) SET r.state = 1 RETURN DISTINCT r",
     #                                             {'n_users': n_users['userInfoTask']})
     # print userInfo_task_states
