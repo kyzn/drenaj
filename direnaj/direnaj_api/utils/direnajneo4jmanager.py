@@ -15,10 +15,10 @@ import twitter
 
 import bson.json_util
 
+import logging
 direnaj_api_logger = logging.getLogger("direnaj_api")
 
 graph = Graph()
-import logging
 watch("httpstream", level=logging.WARN, out=open("neo4j.log", "w+"))
 
 def upsert_user(user):
