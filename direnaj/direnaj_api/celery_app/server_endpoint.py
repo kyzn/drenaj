@@ -63,7 +63,7 @@ def store_friendsfollowers_in_neo4j_offline(args):
     friends_or_followers_update_statement = friends_or_followers_update_statement[:-1]
 
     tx = graph.cypher.begin()
-    tx.append("MERGE (c:Campaign {campaign_id: {campaign_id}})", {'id_str': campaign_id})
+    tx.append("MERGE (c:Campaign {campaign_id: {campaign_id}})", {'campaign_id': campaign_id})
     tx.append("MERGE (u:User {id_str: {id_str}) "
               "WITH u "
               "MATCH (u)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t:FRIENDFOLLOWER_HARVESTER_TASK) "
