@@ -43,6 +43,10 @@ graph = Graph()
 import logging
 watch("httpstream", level=logging.WARN, out=open("neo4j-client.log", "w+"))
 
+# this is required to handle long commits..
+from py2neo.packages.httpstream import http
+http.socket_timeout = 9999
+
 @app_object.task(name='store_friendsfollowers_in_neo4j_offline')
 def store_friendsfollowers_in_neo4j_offline(args):
     id_str, campaign_id, user_objects_str, friends_or_followers = args
@@ -70,7 +74,7 @@ def store_friendsfollowers_in_neo4j_offline(args):
                      "MATCH (u)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t:FRIENDFOLLOWER_HARVESTER_TASK) " \
                      "SET r.state = 0, r.updated_at = {current_unix_time} " \
                      "WITH u " + friends_or_followers_update_statement
-    logger.debug(long_statement)
+    #logger.debug(long_statement)
     tx.append(long_statement
               , {'id_str': id_str, 'current_unix_time': int(time.time())})
     tx.commit()
