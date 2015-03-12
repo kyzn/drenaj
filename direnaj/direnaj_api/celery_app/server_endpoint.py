@@ -64,7 +64,7 @@ def store_friendsfollowers_in_neo4j_offline(args):
 
     tx = graph.cypher.begin()
     tx.append("MERGE (c:Campaign {campaign_id: {campaign_id}})", {'campaign_id': campaign_id})
-    long_statement = "MERGE (u:User {id_str: {id_str}) " \
+    long_statement = "MERGE (u:User {id_str: {id_str}}) " \
                      "WITH u " \
                      "MATCH (u)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t:FRIENDFOLLOWER_HARVESTER_TASK) " \
                      "SET r.state = 0, r.updated_at = {current_unix_time} " \
