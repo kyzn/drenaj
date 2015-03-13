@@ -52,31 +52,33 @@ def store_friendsfollowers_in_neo4j_offline(args):
     id_str, campaign_id, user_objects_str, friends_or_followers = args
     user_objects = bson.json_util.loads(user_objects_str)
 
-    friends_or_followers_update_statement = ""
+    friends_or_followers_update_statement = []
     if friends_or_followers == "followers":
-        friends_or_followers_update_statement += "MATCH (u)<-[r:FOLLOWS]-(u2) DELETE r WITH u "
+        friends_or_followers_update_statement += ["MATCH (u:User {id_str: '%s'})<-[r:FOLLOWS]-(u2) DELETE r" % (id_str)]
     elif friends_or_followers == "friends":
-        friends_or_followers_update_statement += "MATCH (u)-[r:FOLLOWS]->(u2) DELETE r WITH u "
+        friends_or_followers_update_statement += ["MATCH (u:User {id_str: '%s'})-[r:FOLLOWS]->(u2) DELETE r" % (id_str)]
     for user in user_objects:
         if friends_or_followers == "followers":
-            friends_or_followers_update_statement += "MERGE (u)<-[r:FOLLOWS]-(u2:User {id_str: '%s'})<-[r2:USER_INFO_HARVESTER_TASK_STATE {state: 0, updated_at: %d}]-(t2:USER_INFO_HARVESTER_TASK {id: 1}) " \
-                                                     "WITH u " % (user['id_str'], int(time.time()))
+            friends_or_followers_update_statement += ["MERGE (u:User {id_str: '%s'})<-[r:FOLLOWS]-(u2:User {id_str: '%s'})<-[r2:USER_INFO_HARVESTER_TASK_STATE {state: 0, updated_at: %d}]-(t2:USER_INFO_HARVESTER_TASK {id: 1}) RETURN u2.id_str" \
+                                                     % (id_str, user['id_str'], int(time.time())) ]
         elif friends_or_followers == "friends":
-            friends_or_followers_update_statement += "MERGE (u)-[r:FOLLOWS]->(u2:User {id_str: '%s'})<-[r2:USER_INFO_HARVESTER_TASK_STATE {state: 0, updated_at: %d}]-(t2:USER_INFO_HARVESTER_TASK {id: 1}) " \
-                                                     "WITH u " % (user['id_str'], int(time.time()))
-    friends_or_followers_update_statement = friends_or_followers_update_statement[:-7]
-    friends_or_followers_update_statement += "RETURN u"
+            friends_or_followers_update_statement += ["MERGE (u:User {id_str: '%s'})-[r:FOLLOWS]->(u2:User {id_str: '%s'})<-[r2:USER_INFO_HARVESTER_TASK_STATE {state: 0, updated_at: %d}]-(t2:USER_INFO_HARVESTER_TASK {id: 1}) RETURN u2.id_str" \
+                                                      % (id_str, user['id_str'], int(time.time()))]
+
+    #friends_or_followers_update_statement = friends_or_followers_update_statement[:-7]
+    #friends_or_followers_update_statement += "RETURN u"
 
     tx = graph.cypher.begin()
     tx.append("MERGE (c:Campaign {campaign_id: {campaign_id}})", {'campaign_id': campaign_id})
-    long_statement = "MERGE (u:User {id_str: {id_str}}) " \
+    tx.append("MERGE (u:User {id_str: {id_str}}) " \
                      "WITH u " \
                      "MATCH (u)<-[r:FRIENDFOLLOWER_TASK_STATE]-(t:FRIENDFOLLOWER_HARVESTER_TASK) " \
-                     "SET r.state = 0, r.updated_at = {current_unix_time} " \
-                     "WITH u " + friends_or_followers_update_statement
+                     "SET r.state = 0, r.updated_at = {current_unix_time}", {'id_str': id_str, 'current_unix_time': int(time.time())})
     #logger.debug(long_statement)
-    tx.append(long_statement
-              , {'id_str': id_str, 'current_unix_time': int(time.time())})
+    tx.process()
+    for statement in friends_or_followers_update_statement:
+        tx.append(statement)
+        tx.process()
     tx.commit()
 
     # root_user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': id_str}).one
