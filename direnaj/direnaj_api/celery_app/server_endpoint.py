@@ -63,7 +63,7 @@ def init_user_to_graph_offline(args):
 
         tx = graph.cypher.begin()
 
-        tx.append("MERGE (c:Campaign {campaign_id: {campaign_id}})-[r:OBSERVES]->(u:User {id_str: {id_str}}) RETURN r", {'campaign_id': campaign_id,
+        tx.append("MATCH (c:Campaign {campaign_id: {campaign_id}}) WITH c MERGE (c)-[r:OBSERVES]->(u:User {id_str: {id_str}}) RETURN r", {'campaign_id': campaign_id,
                                                                                                                          'id_str': user['id_str']})
 
         tx.append("MERGE (u:User { id_str: {id_str} })<-[r:TIMELINE_TASK_STATE]-(task:TIMELINE_HARVESTER_TASK) "
