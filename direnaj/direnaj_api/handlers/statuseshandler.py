@@ -26,9 +26,21 @@ import pymongo
 
 from direnaj_api.utils.direnajneo4jmanager import update_task_state_in_watchlist, init_user_to_graph
 
+from direnaj_api.celery_app.server_endpoint import app_object
+
 import logging
 
 logger = logging.getLogger("direnaj_api")
+
+def extract_arguments(tweets):
+    campaign_id = None
+    user_objects = []
+    if tweets:
+        campaign_id = tweets[0]['campaign_id']
+
+        for tweet in tweets:
+            user_objects.append(tweet['user'])
+    return [campaign_id, user_objects]
 
 class StatusesHandler(tornado.web.RequestHandler):
 
@@ -124,7 +136,11 @@ class StatusesHandler(tornado.web.RequestHandler):
                         ### tmp_users.append(validate_document(new_user_template(), tweet_obj['user']))
                     if tmp_tweets:
                         self.application.db.insert_tweet(tmp_tweets)
-                        init_user_to_graph(tmp_tweets)
+                        ##init_user_to_graph(tmp_tweets)
+                        campaign_id, user_objects = extract_arguments(tmp_tweets)
+                        res = app_object.send_task('init_user_to_graph_offline',
+                                           [[ campaign_id, bson.json_util.dumps(user_objects) ]],
+                                           queue="offline_jobs")
                         if watchlist_related:
                             print watchlist_related
                             watchlist_related = bson.json_util.loads(watchlist_related)

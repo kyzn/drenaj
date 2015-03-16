@@ -71,11 +71,11 @@ def upsert_user(user):
 
 def update_task_state_in_watchlist(user, since_tweet_id, page_not_found):
 
-    user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']}).one
+    #user_node = graph.cypher.execute("MATCH (u:User) WHERE u.id_str = {id_str} RETURN u", {'id_str': user['id_str']}).one
 
-    if user_node:
-        # DELETE
-        graph.cypher.execute("MATCH (u { id_str: {id_str} })<-[r:TIMELINE_TASK_STATE]-(task:TIMELINE_HARVESTER_TASK) "\
+    #if user_node:
+    #    # DELETE
+    graph.cypher.execute("MATCH (u { id_str: {id_str} })<-[r:TIMELINE_TASK_STATE]-(task:TIMELINE_HARVESTER_TASK) "\
                              "SET r.since_tweet_id = {since_tweet_id}, r.page_not_found = {page_not_found}, r.state = 0, r.updated_at = {current_unix_time} "\
                              "RETURN r",
                              {'id_str': user['id_str'],
@@ -146,8 +146,6 @@ def upsert_campaign(campaign_id):
 
 
 def init_user_to_graph(tweets):
-
-    prev_campaign_id = ""
 
     if tweets:
 

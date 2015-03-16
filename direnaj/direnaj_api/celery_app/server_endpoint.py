@@ -36,7 +36,7 @@ def check_watchlist_and_dispatch_tasks():
     #create_batch_from_watchlist(app_object, batch_size)
 
 from py2neo import Graph, GraphError, Relationship, watch, Node
-from direnaj_api.utils.direnajneo4jmanager import init_user_to_graph_aux
+from direnaj_api.utils.direnajneo4jmanager import upsert_user
 import time, bson
 graph = Graph()
 
@@ -46,6 +46,36 @@ watch("httpstream", level=logging.WARN, out=open("neo4j-client.log", "w+"))
 # this is required to handle long commits..
 from py2neo.packages.httpstream import http
 http.socket_timeout = 9999
+
+@app_object.task(name='init_user_to_graph_offline')
+def init_user_to_graph_offline(args):
+    campaign_id, user_objects_str = args
+    user_objects = bson.json_util.loads(user_objects_str)
+
+    tx = graph.cypher.begin()
+    tx.append("MERGE (c:Campaign {campaign_id: {campaign_id}}) RETURN c", {'campaign_id': campaign_id})
+
+    tx.commit()
+
+    for user in user_objects:
+
+        user_node = upsert_user(user)
+
+        tx = graph.cypher.begin()
+
+        tx.append("MERGE (c:Campaign {campaign_id: {campaign_id}})-[r:OBSERVES]->(u:User {id_str: {id_str}}) RETURN r", {'campaign_id': campaign_id,
+                                                                                                                         'id_str': user['id_str']})
+
+        tx.append("MERGE (u:User { id_str: {id_str} })<-[r:TIMELINE_TASK_STATE]-(task:TIMELINE_HARVESTER_TASK) "
+                  "ON CREATE SET r.since_tweet_id = -1, r.page_not_found = -1, r.state = 0, r.unlock_time = {unlock_time} RETURN r",
+                  {'id_str': user['id_str'], 'unlock_time': int(time.time())+(2*3600)})
+
+        tx.append("MERGE (u:User { id_str: {id_str} })<-[r:FRIENDFOLLOWER_TASK_STATE]-(task:FRIENDFOLLOWER_HARVESTER_TASK) "
+                  "ON CREATE SET r.state = 0, r.unlock_time = {unlock_time} RETURN r",
+                  {'id_str': user['id_str'], 'unlock_time': int(time.time())+(2*3600)})
+        tx.commit()
+
+        #init_user_to_graph_aux(campaign_node, user)
 
 @app_object.task(name='store_friendsfollowers_in_neo4j_offline')
 def store_friendsfollowers_in_neo4j_offline(args):
