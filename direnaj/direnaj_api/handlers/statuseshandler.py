@@ -141,6 +141,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                         res = app_object.send_task('init_user_to_graph_offline',
                                            [[ campaign_id, bson.json_util.dumps(user_objects) ]],
                                            queue="offline_jobs")
+                        logger.info(str(res))
                         if watchlist_related:
                             print watchlist_related
                             watchlist_related = bson.json_util.loads(watchlist_related)
