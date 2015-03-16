@@ -39,7 +39,7 @@ def extract_arguments(tweets):
         campaign_id = tweets[0]['campaign_id']
 
         for tweet in tweets:
-            user_objects.append(tweet['user'])
+            user_objects.append(tweet['tweet']['user'])
     return [campaign_id, user_objects]
 
 class StatusesHandler(tornado.web.RequestHandler):
