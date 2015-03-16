@@ -53,9 +53,9 @@ def init_user_to_graph_offline(args):
     user_objects = bson.json_util.loads(user_objects_str)
 
     tx = graph.cypher.begin()
-    tx.append("MERGE (c:Campaign {campaign_id: {campaign_id}}) RETURN c", {'campaign_id': campaign_id})
+    #tx.append("MERGE (c:Campaign {campaign_id: {campaign_id}}) RETURN c", {'campaign_id': campaign_id})
 
-    tx.commit()
+    #tx.commit()
 
     for user in user_objects:
 
