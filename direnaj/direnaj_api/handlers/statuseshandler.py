@@ -179,7 +179,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                 sort_string = []
                 if sort_by_datetime != 0:
                     sort_string = [('tweet.created_at', pymongo.ASCENDING)] # ascending
-                logger.debug("STARTED " + str(query_string))
+                print "STARTED " + str(query_string)
                 cursor = tweets_coll.find(query_string)
                 if sort_string:
                     cursor = cursor.sort(sort_string)
@@ -188,7 +188,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                            # TypeError: if no direction is specified, key_or_list must be an instance of list
                            # .sort({"$natural" : 1})\
                 tmp = [x for x in (yield cursor.to_list(length=100))]
-                logger.debug("ENDED " + str(query_string))
+                print "ENDED " + str(query_string)
                 DB_TEST_VERSION = 0.2
                 if res_format == 'json':
                     self.write(bson.json_util.dumps(
