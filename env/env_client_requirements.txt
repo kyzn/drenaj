@@ -23,7 +23,7 @@ pytest==2.3.5
 python-dateutil==2.2
 requests==1.2.3
 requests-oauthlib==0.3.2
-six==1.5.2
+six
 supervisor==3.0
 tornado==3.2
 twython==3.0.0
