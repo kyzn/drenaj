@@ -184,6 +184,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
                 return {
                     id_str: item.tweet.id_str,
                     text: item.tweet.text,
+                    dbpedia_spotlight_result: item.tweet.dbpedia_spotlight_result,
                     screen_name: item.tweet.user.screen_name,
                     user_id_str: item.tweet.user.id_str,
                     user_profile_image_url: item.tweet.user.profile_image_url
