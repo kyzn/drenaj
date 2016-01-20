@@ -66,6 +66,14 @@ class StatusesHandler(tornado.web.RequestHandler):
         self.post(*args)
         #self.write("not implemented yet")
 
+    def produce_dbpedia_spotlight_result(self, text):
+        import requests
+        response = requests.post("http://spotlight.sztaki.hu:2222/rest/annotate",
+                      {'text': text,
+                       'confidence': 0.5,
+                       'support': 20})
+        return response.content
+
     #@direnaj_simple_auth
     @tornado.web.asynchronous
     @gen.coroutine
@@ -190,6 +198,7 @@ class StatusesHandler(tornado.web.RequestHandler):
                 since_datetime = self.get_argument('since_datetime', -1)
                 until_datetime = self.get_argument('until_datetime', -1)
                 sort_by_datetime = self.get_argument('sort_by_datetime', 0)
+                produce_dbpedia_spotlight_result = self.get_argument('dbpedia_spotlight_result', 0)
 
                 tweets_coll = self.application.db.motor_column.tweets
 
@@ -213,7 +222,12 @@ class StatusesHandler(tornado.web.RequestHandler):
                            # TODO: removing because of complaint:
                            # TypeError: if no direction is specified, key_or_list must be an instance of list
                            # .sort({"$natural" : 1})\
-                tmp = [x for x in (yield cursor.to_list(length=100))]
+                tmp = []
+                for x in (yield cursor.to_list(length=100)):
+                    if int(produce_dbpedia_spotlight_result) == 1:
+                        x['tweet']['dbpedia_spotlight_result'] = self.produce_dbpedia_spotlight_result(x['tweet']['text'])
+                    tmp.append(x)
+                # tmp = [x for x in (yield cursor.to_list(length=100))]
                 print "ENDED " + str(query_string)
                 DB_TEST_VERSION = 0.2
                 if res_format == 'json':
