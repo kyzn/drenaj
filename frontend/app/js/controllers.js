@@ -1,5 +1,8 @@
 'use strict';
 
+var host = 'localhost';
+var port = '9999';
+
 /* Controllers */
 
 angular.module('direnaj.controllers', []).
@@ -22,7 +25,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
         {"last_date": "2013-11-07", "total": 0, "_id": "kizlierkekli", "active": false},
         {"last_date": "2013-11-07", "total": 0, "_id": "default", "active": true}
     ];
-    $http.get('/campaigns/filter', {
+    $http.get('http://' + host + ':' + port + '/campaigns/filter', {
         params: {
             skip: (page-1) * pageSize,
             limit: pageSize,
@@ -50,7 +53,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.selectCampaign = function(campaign) {
         console.log("You've selected the tab:  " + campaign._id);
-        $http.get('/campaigns/view/freqs', {
+        $http.get('http://' + host + ':' + port + '/campaigns/view/freqs', {
             params: {
                 campaign_id: campaign._id,
                 auth_user_id: 'direnaj',
@@ -100,7 +103,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
             params.n_bins = n_bins;
         }
 
-        $http.get('/campaigns/histograms', {
+        $http.get('http://' + host + ':' + port + '/campaigns/histograms', {
             params: params
         }).success(function (data) {
             $scope.campaign_histogram = data.histogram;
@@ -134,7 +137,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
 }])
 .controller('StatusesFilterCtrl', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
     /*$scope.statuses = [];
-    $http.get('/statuses/filter', {
+    $http.get('http://' + host + ':' + port + '/statuses/filter', {
         params: {
             limit: 10,
             campaign_id: 'syria',
@@ -218,13 +221,14 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
                     $scope.setPagingData(data,page,pageSize);
                 });
             } else {*/
-            $http.get('/statuses/filter', {
+            $http.get('http://' + host + ':' + port + '/statuses/filter', {
                 params: {
                     skip: (page-1) * pageSize,
                     limit: pageSize,
                 campaign_id: campaign_id,
                 auth_user_id: 'direnaj',
-                auth_password: 'tamtam'
+                auth_password: 'tamtam',
+                    dbpedia_spotlight_result: '1'
                 }
             }).success(function (largeLoad) {
                 $scope.setPagingData(largeLoad,page,pageSize);
@@ -233,7 +237,9 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
         }, 100);
     };
 
-    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.query_params.campaign_id);
+    $scope.getPagedDataAsync($scope.pagingOptions.pageSize,
+                             $scope.pagingOptions.currentPage,
+                            $scope.query_params.campaign_id);
 
     $scope.$watch('query_params.campaign_id', function (newVal, oldVal) {
         if (newVal !== oldVal) {
