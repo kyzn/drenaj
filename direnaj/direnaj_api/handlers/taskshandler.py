@@ -12,6 +12,12 @@ from direnaj_api.celery_app.server_endpoint import app_object
 
 class TasksHandler(tornado.web.RequestHandler):
 
+
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS")
+        self.set_header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+
     def get(self, *args):
         self.post(*args)
         #self.write("not implemented yet")

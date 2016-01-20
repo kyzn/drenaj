@@ -30,6 +30,14 @@ class CampaignsHandler(tornado.web.RequestHandler):
     ##         return bson.json_util.object_hook(dct)
     ##     return bson.json_util.object_hook(dct)
 
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS")
+        self.set_header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+
+    def options(self, *args):
+        self.post(*args)
+
     def get(self, *args):
         self.post(*args)
         #self.write("not implemented yet")

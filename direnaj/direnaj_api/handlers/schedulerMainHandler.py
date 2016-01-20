@@ -12,6 +12,12 @@ from direnaj_api.utils.direnaj_auth import direnaj_simple_auth
 
 class SchedulerProfilesHandler(tornado.web.RequestHandler):
 
+
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS")
+        self.set_header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+
     @tornado.web.asynchronous
     def get(self, *args):
         '''

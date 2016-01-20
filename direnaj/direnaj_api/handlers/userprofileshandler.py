@@ -33,6 +33,13 @@ MAX_LIM_TO_VIEW_PROFILES = 10000
 
 #  route: (r"/profiles/(store|view)", UserProfilesHandler),
 class UserProfilesHandler(tornado.web.RequestHandler):
+
+
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS")
+        self.set_header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+
     def get(self, *args):
         self.post(*args)
         #self.write("not implemented yet")
