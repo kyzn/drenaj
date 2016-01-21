@@ -1,270 +1,86 @@
-h1. Direnaj
+!!!WE NEED A SERIOUS CLEANUP OF THIS KIND OF DOCUMENTATION!!!
 
-h2. CLIENT INSTALLATION
+h1. Several Guides on Direnaj v0.5
 
-1. Download the compressed archive.
+h2. How to Setup Direnaj v0.5 on Linux
 
-2. Install Pip. Pip is a tool for installing and managing Python packages.
-There are other options for this, but we will explicitly use this because we
-have good reason.
-
+# Run these commands to install dependencies:
+<pre>sudo apt-get install build-essential python python-pip python-dev ntp ntpdate
+sudo pip install virtualenvwrapper</pre>
+# Copy next two lines to ~/.bashrc file
+<pre>export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh</pre>
+And you should run following command.
+<pre>source ~/.bashrc</pre>
+# Download http://voltran.cmpe.boun.edu.tr/attachments/download/46/direnaj_client-0.5-localfile.tar.gz and extract the contents.
+# Edit config.py file by running following command.
+<pre>gedit direnaj_client-0.5-localfile/direnaj/client/config/config.py</pre>
+If you get an error, you should probably change your location.
+In this file, you should change some of commented lines, so that they look like below:
 <pre>
-$ sudo apt-get install python-pip
+#DIRENAJ_APP_HOST = 'localhost'
+DIRENAJ_APP_HOST = 'direnaj-staging.cmpe.boun.edu.tr'
+#DIRENAJ_APP_PORT['development'] = 9999
+DIRENAJ_APP_PORT['development'] = 80
 </pre>
+# Edit stream catcher file as noted below.
+<pre>gedit direnaj/client/workers/streamcatcher.py</pre>
+You should go to line 159, which looks like this:
+<pre>f = open("~/.direnaj/tweets.json", "a")</pre>
+You have to remove the tilde from the path. You have to write full path to that line.
+# Create a virtual environment by the next line.
+<pre>mkvirtualenv direnaj_client</pre>
+# Now you should call client_setup.py as follows.
+<pre>python client_setup.py install</pre>
+# You have to be in the direnaj folder, otherwise you will get a 500 error. Once you're there, run following.
+<pre>direnaj_client setup</pre>
+When you do this, application will give you a link and ask for a pin. you can go to that link, authenticate your Twitter account and give the pin back to the application.
+You can authenticate more than one accounts. Once you're done with authentication, you can press enter to finish this step.
+# At this point, setup is completed. You can go to http://localhost:19999/campaigns/list to create/spawn campaigns, http://direnaj-staging.cmpe.boun.edu.tr to see the results.
+# You can exit direnaj by Ctrl+C. If it doesn't work, do a Ctrl+Z and run <pre>kill %1</pre> You can check whether direnaj is still running or not by typing <pre>fg</pre> You an leave virtual environment by the next command.<pre>deactivate</pre>
 
-3. Install virtualenvwrapper Python package using Pip.
 
-<pre>
-$ sudo pip install virtualenvwrapper
-</pre>
+&nbsp;
+&nbsp;
+&nbsp;
 
-4. Copy this to your ~/.bashrc
 
-<pre>
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
-</pre>
+h2. How to Run Direnaj v0.5 on Linux
 
-4a. Run this to enable the virtualenvwrapper commands (this will be done
-automatically with every new shell session):
+This part assumes that you had installed direnaj in the way described above.
 
-<pre>
-$ source ~/.bashrc
-</pre>
 
-5. Create a virtualenv called direnaj.
+# Get into virtual environment.
+<pre>workon direnaj_client</pre>
+# You have to be in the direnaj folder, otherwise you will get a 500 error. Once you're there, run following.
+<pre>direnaj_client runserver</pre>
+# At this point, direnaj is running. You can go to http://localhost:19999/campaigns/list to create/spawn campaigns, http://direnaj-staging.cmpe.boun.edu.tr to see the results.
+# You can exit direnaj by Ctrl+C. If it doesn't work, do a Ctrl+Z and run <pre>kill %1</pre> You can check whether direnaj is still running or not by typing <pre>fg</pre> You an leave virtual environment by the next command.<pre>deactivate</pre>
 
-<pre>
-$ mkvirtualenv direnaj
-</pre>
 
-and activate it:
 
-<pre>
-$ workon direnaj
-</pre>
+&nbsp;
+&nbsp;
+&nbsp;
 
-This will allow us to separate our specific versions of packages from the other
-global (in your system) packages. Also by using env/env_requirements.txt, we
-will be securing the list of packages so that it will be easily deployable.
 
-For example, take a look at
+h2. How to see all tweets in json format
 
-<pre>
-$ pip freeze
-</pre>
+# Go to any campaign page on direnaj-staging (eg. http://direnaj-staging.cmpe.boun.edu.tr/#/statuses/filter/tayyip )
+# On Google Chrome, right click the page, click inspect element.
+# Go to network tab and reload the page. Find filter?auth_pass=... on the left, right click it and open link in new tab.
+# You can see the json file. You may use JSONView extension to display it better. You can download it at https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc?hl=en .
 
-when direnaj virtaulenv is active (There is a (direnaj) string at the leftmost
-location of the command prompt). This list shows the packages currently
-installed along with their versions. Probably you will not see much, if this is
-your first time.
+OR
 
-Now, execute
+# Go directly to http://direnaj-staging.cmpe.boun.edu.tr/statuses/filter?auth_password=tamtam&auth_user_id=direnaj&campaign_id=direnodtu&limit=10&skip=0 . You should probably change campaign_id, limit and skip. You may still use JSONView extension, find the link above.
 
-<pre>
-$ tar zxvf direnaj_client-0.1.tar.gz
-</pre>
 
-$ sudo apt-get install build-essential
-$ sudo apt-get install python-dev
-(optional) $ sudo apt-get install libzmq
+&nbsp;
+&nbsp;
+&nbsp;
 
-You may need to install
 
-sudo apt-get install ntp ntpdate
+h2. How to run Direnaj continuously
 
-$ cd direnaj_client-0.1
-$ python client_setup.py install
-
-
-h2. FULL INSTALLATION (based on source code checked out from the repository)
-
-h3. Linux - Ubuntu
-
-Although this will be based on Ubuntu, this will easily apply to Debian based
-systems. Other Linux distributions and MacOSX users should follow a similar
-path.
-
-0. Clone the repository by running
-
-<pre>
-$ git clone http://direnaj:tamtam@btm-git-host:9090/code repo
-</pre>
-
-in a directory of your choice. I created a directory called direnaj and runned
-this command inside it.
-
-1. Make sure you have any version of Python
-
-<pre>
-$ python --version
-Python 2.7.3
-</pre>
-
-2. Install Pip. Pip is a tool for installing and managing Python packages.
-There are other options for this, but we will explicitly use this because we
-have good reason.
-
-<pre>
-$ sudo apt-get install python-pip
-</pre>
-
-3. Install virtualenvwrapper Python package using Pip.
-
-<pre>
-$ sudo pip install virtualenvwrapper
-</pre>
-
-4. Copy this to your ~/.bashrc
-
-<pre>
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
-</pre>
-
-4a. Run this to enable the virtualenvwrapper commands (this will be done
-automatically with every new shell session):
-
-<pre>
-$ source ~/.bashrc
-</pre>
-
-5. Create a virtualenv called direnaj.
-
-<pre>
-$ mkvirtualenv direnaj
-</pre>
-
-and activate it:
-
-<pre>
-$ workon direnaj
-</pre>
-
-This will allow us to separate our specific versions of packages from the other
-global (in your system) packages. Also by using env/env_requirements.txt, we
-will be securing the list of packages so that it will be easily deployable.
-
-For example, take a look at 
-
-<pre>
-$ pip freeze
-</pre>
-
-when direnaj virtaulenv is active (There is a (direnaj) string at the leftmost
-location of the command prompt). This list shows the packages currently
-installed along with their versions. Probably you will not see much, if this is
-your first time.
-
-Now, execute
-
-<pre>
-$ pip install -r env/env_requirements.txt
-</pre>
-
-when you are in the project root directory.
-
-You can stop using direnaj virtualenv by running this:
-
-<pre>
-$ deactivate
-</pre>
-
-But don't do that now, or if you have done it already, run this to activate it again:
-
-<pre>
-$ workon direnaj
-</pre>
-
-6. Set PROJECT_ROOT_DIR in config.py to the directory you just cloned. For example,
-
-<pre>
-PROJECT_ROOT_DIR='/home/onur/Desktop/projects/research/projects/direnaj/repo'
-</pre>
-
-7. Next, we need to install mongodb.
-
-<pre>
-$ sudo apt-get install mongodb-10gen
-</pre>
-
-This will install without errors most of the time.
-
-Check whether mongodb is running:
-
-<pre>
-$ sudo service mongodb status
-</pre>
-
-Start it:
-
-<pre>
-$ sudo service mongodb start
-</pre>
-
-If it doesn't start, remove the lock:
-
-<pre>
-$ sudo rm -rf /var/lib/mongodb/mongod.lock
-</pre>
-
-and try again.
-
-8. Now let's populate the database.
-
-<pre>
-$ python drnj_service_layer.py init_db 
-</pre>
-
-9. Finally, we may start our service layer:
-
-<pre>
-$ python drnj_service_layer.py runserver
-</pre>
-
-Now you can access the service layer. For example, go to http://localhost:9999/followers/list/view?user_id=461494372 in your browser. You should see something like this:
-
-<pre>
-
-{
-results: [
-         {
-            statuses_count: 111,
-            name: "Ali Taylan Cemgil",
-            friends_count: 68,
-            retrieved_by: "dummy_data",
-            profile_image_url: "http:\/\/a0.twimg.com\/profile_images\/3580500548\/0e33ddc524",
-            record_retrieved_at: "Thu May 30 14:20:16 +0000 2013",
-            followers_count: 155,
-            protected: false,
-            location: "Istanbul",
-            geo_enabled: 1,
-            _id: {
-              $oid: "520d2f204a6847ed11232d0c"
-            },
-            id_str: "461494360",
-            screen_name: "AliTaylanCemgil"
-         }
-         ]
-}
-
-</pre>
-
-10. And, our customary greeting: Have fun!
-
-h2. URXVT + TMUX + TEAMOCIL setup
-
-By using these three tools, you can have a predefined environment for working
-on direnaj. I'll write about this if there is interest. OG
-
-h3. Windows
-
-To be filled in by ATC
-
--- Note: Install pycurl from this link: http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycurl
-
-h3. MAC OS
-
-To be filled in by CK 
-
-Testing... OG
+When you shut down direnaj on your personal computer, the campaign will stop collecting tweets. One possible way to run campaigns continuously is to keep your computer on and connected all the time. Another reasonable way is to set up a server instance in the cloud. You can use services such as http://www.DigitalOcean.com or http://aws.amazon.com/ec2/ . When you're working on the cloud through ssh, you should probably use tmux. That is, you should run tmux before running direnaj. Once you run direnaj client in tmux, you can do CTRL+B then D to "detach" direnaj. You can then exit ssh with CTRL+D, and direnaj will continue to run in your cloud.
