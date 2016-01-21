@@ -2,11 +2,11 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('direnaj',
-        ['direnaj.filters',
-         'direnaj.services',
-         'direnaj.directives',
-         'direnaj.controllers',
+angular.module('drenaj',
+        ['drenaj.filters',
+         'drenaj.services',
+         'drenaj.directives',
+         'drenaj.controllers',
          'ui.bootstrap',
          'ngGrid']).
   config(['$routeProvider', function($routeProvider) {
@@ -19,4 +19,4 @@ angular.module('direnaj',
 
 // setup dependency injection
 angular.module('d3', []);
-angular.module('direnaj.directives', ['d3']);
+angular.module('drenaj.directives', ['d3']);

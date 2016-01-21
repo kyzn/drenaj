@@ -1,9 +1,9 @@
-direnaj_app_port_production: 9997
-direnaj_app_port_staging: 9998
-direnaj_app_port_development: 9999
-direnaj_app_port_test: 10000
+drenaj_app_port_production: 9997
+drenaj_app_port_staging: 9998
+drenaj_app_port_development: 9999
+drenaj_app_port_test: 10000
 
-direnaj_app_db_production: 'direnaj_prod' 
-direnaj_app_db_staging: 'direnaj_staging'
-direnaj_app_db_development: 'direnaj_dev'
-direnaj_app_db_test: 'direnaj_test'
+drenaj_app_db_production: 'drenaj_prod'
+drenaj_app_db_staging: 'drenaj_staging'
+drenaj_app_db_development: 'drenaj_dev'
+drenaj_app_db_test: 'drenaj_test'

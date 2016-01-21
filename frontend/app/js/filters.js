@@ -2,7 +2,7 @@
 
 /* Filters */
 
-angular.module('direnaj.filters', []).
+angular.module('drenaj.filters', []).
   filter('interpolate', ['version', function(version) {
     return function(text) {
       return String(text).replace(/\%VERSION\%/mg, version);

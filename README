@@ -1,8 +1,8 @@
 !!!WE NEED A SERIOUS CLEANUP OF THIS KIND OF DOCUMENTATION!!!
 
-h1. Several Guides on Direnaj v0.5
+h1. Several Guides on Drenaj v0.5
 
-h2. How to Setup Direnaj v0.5 on Linux
+h2. How to Setup Drenaj v0.5 on Linux
 
 # Run these commands to install dependencies:
 <pre>sudo apt-get install build-essential python python-pip python-dev ntp ntpdate
@@ -12,32 +12,32 @@ sudo pip install virtualenvwrapper</pre>
 source /usr/local/bin/virtualenvwrapper.sh</pre>
 And you should run following command.
 <pre>source ~/.bashrc</pre>
-# Download http://voltran.cmpe.boun.edu.tr/attachments/download/46/direnaj_client-0.5-localfile.tar.gz and extract the contents.
+# Download http://voltran.cmpe.boun.edu.tr/attachments/download/46/drenaj_client-0.5-localfile.tar.gz and extract the contents.
 # Edit config.py file by running following command.
-<pre>gedit direnaj_client-0.5-localfile/direnaj/client/config/config.py</pre>
+<pre>gedit drenaj_client-0.5-localfile/drenaj/client/config/config.py</pre>
 If you get an error, you should probably change your location.
 In this file, you should change some of commented lines, so that they look like below:
 <pre>
-#DIRENAJ_APP_HOST = 'localhost'
-DIRENAJ_APP_HOST = 'direnaj-staging.cmpe.boun.edu.tr'
-#DIRENAJ_APP_PORT['development'] = 9999
-DIRENAJ_APP_PORT['development'] = 80
+#DRENAJ_APP_HOST = 'localhost'
+DRENAJ_APP_HOST = 'direnaj-staging.cmpe.boun.edu.tr'
+#DRENAJ_APP_PORT['development'] = 9999
+DRENAJ_APP_PORT['development'] = 80
 </pre>
 # Edit stream catcher file as noted below.
-<pre>gedit direnaj/client/workers/streamcatcher.py</pre>
+<pre>gedit drenaj/client/workers/streamcatcher.py</pre>
 You should go to line 159, which looks like this:
-<pre>f = open("~/.direnaj/tweets.json", "a")</pre>
+<pre>f = open("~/.drenaj/tweets.json", "a")</pre>
 You have to remove the tilde from the path. You have to write full path to that line.
 # Create a virtual environment by the next line.
-<pre>mkvirtualenv direnaj_client</pre>
+<pre>mkvirtualenv drenaj_client</pre>
 # Now you should call client_setup.py as follows.
 <pre>python client_setup.py install</pre>
-# You have to be in the direnaj folder, otherwise you will get a 500 error. Once you're there, run following.
-<pre>direnaj_client setup</pre>
+# You have to be in the drenaj folder, otherwise you will get a 500 error. Once you're there, run following.
+<pre>drenaj_client setup</pre>
 When you do this, application will give you a link and ask for a pin. you can go to that link, authenticate your Twitter account and give the pin back to the application.
 You can authenticate more than one accounts. Once you're done with authentication, you can press enter to finish this step.
 # At this point, setup is completed. You can go to http://localhost:19999/campaigns/list to create/spawn campaigns, http://direnaj-staging.cmpe.boun.edu.tr to see the results.
-# You can exit direnaj by Ctrl+C. If it doesn't work, do a Ctrl+Z and run <pre>kill %1</pre> You can check whether direnaj is still running or not by typing <pre>fg</pre> You an leave virtual environment by the next command.<pre>deactivate</pre>
+# You can exit drenaj by Ctrl+C. If it doesn't work, do a Ctrl+Z and run <pre>kill %1</pre> You can check whether drenaj is still running or not by typing <pre>fg</pre> You an leave virtual environment by the next command.<pre>deactivate</pre>
 
 
 &nbsp;
@@ -45,42 +45,31 @@ You can authenticate more than one accounts. Once you're done with authenticatio
 &nbsp;
 
 
-h2. How to Run Direnaj v0.5 on Linux
+h2. How to Run Drenaj v0.5 on Linux
 
-This part assumes that you had installed direnaj in the way described above.
+This part assumes that you had installed drenaj in the way described above.
 
 
 # Get into virtual environment.
-<pre>workon direnaj_client</pre>
-# You have to be in the direnaj folder, otherwise you will get a 500 error. Once you're there, run following.
-<pre>direnaj_client runserver</pre>
-# At this point, direnaj is running. You can go to http://localhost:19999/campaigns/list to create/spawn campaigns, http://direnaj-staging.cmpe.boun.edu.tr to see the results.
-# You can exit direnaj by Ctrl+C. If it doesn't work, do a Ctrl+Z and run <pre>kill %1</pre> You can check whether direnaj is still running or not by typing <pre>fg</pre> You an leave virtual environment by the next command.<pre>deactivate</pre>
-
-
-
-&nbsp;
-&nbsp;
-&nbsp;
+<pre>workon drenaj_client</pre>
+# You have to be in the drenaj folder, otherwise you will get a 500 error. Once you're there, run following.
+<pre>drenaj_client runserver</pre>
+# At this point, drenaj is running. You can go to http://localhost:19999/campaigns/list to create/spawn campaigns, http://direnaj-staging.cmpe.boun.edu.tr to see the results.
+# You can exit drenaj by Ctrl+C. If it doesn't work, do a Ctrl+Z and run <pre>kill %1</pre> You can check whether drenaj is still running or not by typing <pre>fg</pre> You an leave virtual environment by the next command.<pre>deactivate</pre>
 
 
 h2. How to see all tweets in json format
 
-# Go to any campaign page on direnaj-staging (eg. http://direnaj-staging.cmpe.boun.edu.tr/#/statuses/filter/tayyip )
+# Go to any campaign page on drenaj-staging (eg. http://direnaj-staging.cmpe.boun.edu.tr/#/statuses/filter/tayyip )
 # On Google Chrome, right click the page, click inspect element.
 # Go to network tab and reload the page. Find filter?auth_pass=... on the left, right click it and open link in new tab.
 # You can see the json file. You may use JSONView extension to display it better. You can download it at https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc?hl=en .
 
 OR
 
-# Go directly to http://direnaj-staging.cmpe.boun.edu.tr/statuses/filter?auth_password=tamtam&auth_user_id=direnaj&campaign_id=direnodtu&limit=10&skip=0 . You should probably change campaign_id, limit and skip. You may still use JSONView extension, find the link above.
+# Go directly to http://direnaj-staging.cmpe.boun.edu.tr/statuses/filter?auth_password=tamtam&auth_user_id=drenaj&campaign_id=direnodtu&limit=10&skip=0 . You should probably change campaign_id, limit and skip. You may still use JSONView extension, find the link above.
 
 
-&nbsp;
-&nbsp;
-&nbsp;
+h2. How to run Drenaj continuously
 
-
-h2. How to run Direnaj continuously
-
-When you shut down direnaj on your personal computer, the campaign will stop collecting tweets. One possible way to run campaigns continuously is to keep your computer on and connected all the time. Another reasonable way is to set up a server instance in the cloud. You can use services such as http://www.DigitalOcean.com or http://aws.amazon.com/ec2/ . When you're working on the cloud through ssh, you should probably use tmux. That is, you should run tmux before running direnaj. Once you run direnaj client in tmux, you can do CTRL+B then D to "detach" direnaj. You can then exit ssh with CTRL+D, and direnaj will continue to run in your cloud.
+When you shut down drenaj on your personal computer, the campaign will stop collecting tweets. One possible way to run campaigns continuously is to keep your computer on and connected all the time. Another reasonable way is to set up a server instance in the cloud. You can use services such as http://www.DigitalOcean.com or http://aws.amazon.com/ec2/ . When you're working on the cloud through ssh, you should probably use tmux. That is, you should run tmux before running drenaj. Once you run drenaj client in tmux, you can do CTRL+B then D to "detach" drenaj. You can then exit ssh with CTRL+D, and drenaj will continue to run in your cloud.

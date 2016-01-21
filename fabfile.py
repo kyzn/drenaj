@@ -5,38 +5,38 @@ from fabric.contrib.console import confirm
 #env.forward_agent = True
 #env.gateway = 'onur@lsn'
 
-env.direnaj = {}
-env.direnaj['hostname'] = 'voltran'
-env.hosts = ['direnaj@%s' % env.direnaj['hostname']]
+env.drenaj = {}
+env.drenaj['hostname'] = 'voltran'
+env.hosts = ['direnaj@%s' % env.drenaj['hostname']]
 
 env.use_ssh_config = True
 
-env.direnaj['jenkins'] = 'no'
+env.drenaj['jenkins'] = 'no'
 
-env.direnaj['environment'] = 'staging'
+env.drenaj['environment'] = 'staging'
 
-env.direnaj['deployment_repo_remote_name'] = 'deployment_repo_cank'
-env.direnaj['repo_user'] = 'onur'
+env.drenaj['deployment_repo_remote_name'] = 'deployment_repo_cank'
+env.drenaj['repo_user'] = 'onur'
 
-# env.direnaj['repo_uri'] = 'ssh://%s@78.47.211.238//home/can/siteler/direnaj/git_repos/code' % env.direnaj['repo_user']
-env.direnaj['repo_uri'] = 'ssh://redmine@voltran.cmpe.boun.edu.tr//home/redmine/code'
+# env.drenaj['repo_uri'] = 'ssh://%s@78.47.211.238//home/can/siteler/drenaj/git_repos/code' % env.drenaj['repo_user']
+env.drenaj['repo_uri'] = 'ssh://redmine@voltran.cmpe.boun.edu.tr//home/redmine/code'
 
-env.direnaj['supervisor_socket_path'] = '/var/run/supervisor.sock'
+env.drenaj['supervisor_socket_path'] = '/var/run/supervisor.sock'
 
-env.direnaj['code_dir'] = '/home/direnaj/direnaj/envs/%s' % env.direnaj['environment']
+env.drenaj['code_dir'] = '/home/direnaj/direnaj/envs/%s' % env.drenaj['environment']
 
-def init(environment=env.direnaj['environment'], hostname=env.direnaj['hostname']):
+def init(environment=env.drenaj['environment'], hostname=env.drenaj['hostname']):
 
-    env.direnaj['hostname'] = hostname
-    env.direnaj['environment'] = environment
+    env.drenaj['hostname'] = hostname
+    env.drenaj['environment'] = environment
 
-    env.direnaj['code_dir'] = '/home/direnaj/direnaj/envs/%s' % env.direnaj['environment']
+    env.drenaj['code_dir'] = '/home/direnaj/direnaj/envs/%s' % env.drenaj['environment']
 
-    print env.direnaj
+    print env.drenaj
 
-def jenkins(present=env.direnaj['jenkins']):
+def jenkins(present=env.drenaj['jenkins']):
     print present
-    env.direnaj['jenkins'] = present
+    env.drenaj['jenkins'] = present
 
 def test():
     with settings(warn_only=True):
@@ -49,43 +49,43 @@ def setup_deployment_repo():
     ensure_apt_package("git")
 
 ##`    with settings(warn_only=True):
-##`        if run("test -d %s" % env.direnaj['repo_dir']).failed:
-##`            run("git init --bare %s" % env.direnaj['repo_dir'])
-##    with settings(warn_only=True), cd(env.direnaj['code_dir']):
-##        result = run("git remote | grep ^%s$" % env.direnaj['deployment_repo_remote_name'])
+##`        if run("test -d %s" % env.drenaj['repo_dir']).failed:
+##`            run("git init --bare %s" % env.drenaj['repo_dir'])
+##    with settings(warn_only=True), cd(env.drenaj['code_dir']):
+##        result = run("git remote | grep ^%s$" % env.drenaj['deployment_repo_remote_name'])
 ##        if result.failed:
-##            run("git remote add %s %s" % (env.direnaj['deployment_repo_remote_name'], env.direnaj['repo_uri']))
-##            run("git fetch %s" % (env.direnaj['deployment_repo_remote_name']))
+##            run("git remote add %s %s" % (env.drenaj['deployment_repo_remote_name'], env.drenaj['repo_uri']))
+##            run("git fetch %s" % (env.drenaj['deployment_repo_remote_name']))
 ##`    with settings(warn_only=True):
-##`        result = local("git remote | grep ^%s$" % env.direnaj['deployment_repo_remote_name'])
+##`        result = local("git remote | grep ^%s$" % env.drenaj['deployment_repo_remote_name'])
 ##`        if result.failed:
-##`            local("git remote add %s %s" % (env.direnaj['deployment_repo_remote_name'], env.direnaj['repo_uri']))
-##`            local("git fetch %s" % (env.direnaj['deployment_repo_remote_name']))
+##`            local("git remote add %s %s" % (env.drenaj['deployment_repo_remote_name'], env.drenaj['repo_uri']))
+##`            local("git fetch %s" % (env.drenaj['deployment_repo_remote_name']))
 ##`    with settings(warn_only=True):
-##`        result = run("git remote | grep ^deployment_repo_%s$" % env.direnaj['cank'])
+##`        result = run("git remote | grep ^deployment_repo_%s$" % env.drenaj['cank'])
 ##`        if result.failed:
-##`            run("git remote add deployment_repo_%s %s" % (env.direnaj['cank'], env.direnaj['cank_repo_uri']))
+##`            run("git remote add deployment_repo_%s %s" % (env.drenaj['cank'], env.drenaj['cank_repo_uri']))
 
 def push():
-    if env.direnaj['jenkins'] is 'no':
-        local("git push origin %s_deployment" % (env.direnaj['environment']))
+    if env.drenaj['jenkins'] is 'no':
+        local("git push origin %s_deployment" % (env.drenaj['environment']))
 
-def prepare_deploy(environment=env.direnaj['environment'],
-                   hostname=env.direnaj['hostname']):
+def prepare_deploy(environment=env.drenaj['environment'],
+                   hostname=env.drenaj['hostname']):
     init(environment, hostname)
     #test()
     setup_deployment_repo()
-    if env.direnaj['jenkins'] is 'no':
+    if env.drenaj['jenkins'] is 'no':
         push()
 
 def deploy():
     with settings(warn_only=True):
-        if run("test -d %s" % env.direnaj['code_dir']).failed:
-            run("git clone %s %s" % (env.direnaj['repo_uri'], env.direnaj['code_dir']))
-    with cd(env.direnaj['code_dir']):
-##        run("git pull %s %s_deployment" % (env.direnaj['deployment_repo_remote_name'], env.direnaj['environment']))
+        if run("test -d %s" % env.drenaj['code_dir']).failed:
+            run("git clone %s %s" % (env.drenaj['repo_uri'], env.drenaj['code_dir']))
+    with cd(env.drenaj['code_dir']):
+##        run("git pull %s %s_deployment" % (env.drenaj['deployment_repo_remote_name'], env.drenaj['environment']))
         run("git pull")
-        run("git checkout %s_deployment" % env.direnaj['environment'])
+        run("git checkout %s_deployment" % env.drenaj['environment'])
 
 def ensure_apt_package(package_name):
     with settings(warn_only=True):
@@ -140,9 +140,9 @@ def setup_environment():
 
     with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
          prefix("workon direnaj"):
-        with cd(env.direnaj['code_dir']):
+        with cd(env.drenaj['code_dir']):
             run("pip install -r env/env_requirements.txt")
-            run("python configure.py host-configs/config-%s-%s.yaml direnaj/direnaj_api/config/config.py" % (env.direnaj['hostname'], env.direnaj['environment']))
+            run("python configure.py host-configs/config-%s-%s.yaml direnaj/direnaj_api/config/config.py" % (env.drenaj['hostname'], env.drenaj['environment']))
 
     # TODO: think about db initialization. it's manual right now.
 
@@ -191,29 +191,29 @@ def ensure_nginx():
             run('DEBIAN_FRONTEND=noninteractive sudo apt-get -q --yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install %s' % "nginx")
 
     # TODO: not well thought for now.
-    #with cd(env.direnaj['code_dir']):
-    #    put("host-configs/nginx/direnaj.conf", "/etc/nginx/conf.d/direnaj.conf")
+    #with cd(env.drenaj['code_dir']):
+    #    put("host-configs/nginx/drenaj.conf", "/etc/nginx/conf.d/drenaj.conf")
 
 def run_server():
     # ensure mongodb is running
     # ensure nginx is running
     # ensure rabbitmq is running
     # bla bla... maybe use supervisord is it possible?
-    # start the main direnaj process
+    # start the main drenaj process
     with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
          prefix("workon direnaj"):
-        with cd(env.direnaj['code_dir']):
+        with cd(env.drenaj['code_dir']):
             # make sure there is a logs dir.
             run("mkdir -p logs")
             with settings(warn_only=True):
                 result = run("sudo service supervisor status")
-                #result = run("test -S %s" % env.direnaj['supervisor_socket_path'])
+                #result = run("test -S %s" % env.drenaj['supervisor_socket_path'])
             if result.failed:
                 with prefix("sudo service supervisor start"):
                 #with prefix("supervisord -c supervisord.conf"):
-                    run("supervisorctl -s unix://%s restart direnaj_%s" % (env.direnaj['supervisor_socket_path'], env.direnaj['environment']))
+                    run("supervisorctl -s unix://%s restart direnaj_%s" % (env.drenaj['supervisor_socket_path'], env.drenaj['environment']))
             else:
-                run("supervisorctl -s unix://%s restart direnaj_%s" % (env.direnaj['supervisor_socket_path'], env.direnaj['environment']))
+                run("supervisorctl -s unix://%s restart direnaj_%s" % (env.drenaj['supervisor_socket_path'], env.drenaj['environment']))
 
 def push_new_changes_deploy_and_restart():
     prepare_deploy()
@@ -227,20 +227,20 @@ def push_new_changes_deploy_and_restart():
 def build_docs():
     with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
          prefix("workon direnaj"):
-        with cd(env.direnaj['code_dir']+"/docs"):
+        with cd(env.drenaj['code_dir']+"/docs"):
             run("mkdir -p modules")
             run("python generate_modules.py -s rst -d modules/ ../direnaj/direnaj_api/")
             run("rm modules/modules.rst")
             run("make html")
 
-def tail_direnaj(environment=env.direnaj['environment']):
+def tail_drenaj(environment=env.drenaj['environment']):
     with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
          prefix("workon direnaj"):
-        with cd(env.direnaj['code_dir']):
-            run("supervisorctl -s unix://%s tail direnaj_%s" % (env.direnaj['supervisor_socket_path'], environment))
+        with cd(env.drenaj['code_dir']):
+            run("supervisorctl -s unix://%s tail direnaj_%s" % (env.drenaj['supervisor_socket_path'], environment))
 
-def restart_direnaj(environment=env.direnaj['environment']):
+def restart_drenaj(environment=env.drenaj['environment']):
     with prefix("source /usr/local/bin/virtualenvwrapper.sh"),\
          prefix("workon direnaj"):
-        with cd(env.direnaj['code_dir']):
-            run("supervisorctl -s unix://%s restart direnaj_%s" % (env.direnaj['supervisor_socket_path'], environment))
+        with cd(env.drenaj['code_dir']):
+            run("supervisorctl -s unix://%s restart direnaj_%s" % (env.drenaj['supervisor_socket_path'], environment))

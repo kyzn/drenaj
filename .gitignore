@@ -1,7 +1,7 @@
 *.py~
 *.pyc
 *.lnk
-direnaj/config.py
+drenaj/config.py
 *.class
 toolkit/DirenajToolkitService/.classpath
 

@@ -17,11 +17,11 @@ if __name__ == "__main__":
     conf['project_root_dir'] = os.getcwd()
 
     # TODO: completely inportabe :) for now.
-    # It is not a problem because it is only used by direnajinitdb.py
+    # It is not a problem because it is only used by drenajinitdb.py
     # set the directory which mongo binary resides
     conf['mongo_bin_dir'] = '/usr/bin'
 
     default_conf = yaml.load(file("host-configs/default-configs.yaml", "r"))
-    config_document_template = file("direnaj/direnaj_api/config/config.py.tmpl", 'r').read()
+    config_document_template = file("drenaj/drenaj_api/config/config.py.tmpl", 'r').read()
     config_py_document = Template(config_document_template).substitute(default_conf, **conf)
     file(args.config_py_file, 'w').write(config_py_document)

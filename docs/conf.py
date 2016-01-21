@@ -16,7 +16,7 @@ import sys, os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-sys.path.insert(0, os.path.abspath('../direnaj/'))
+sys.path.insert(0, os.path.abspath('../drenaj/'))
 
 # -- General configuration -----------------------------------------------------
 
@@ -44,7 +44,7 @@ templates_path = ['_templates']
 # The suffix of source filenames.
 source_suffix = '.rst'
 
-# TODO: use unused_docs configuration parameter to exclude direnaj.config from the documentation.
+# TODO: use unused_docs configuration parameter to exclude drenaj.config from the documentation.
 # TODO: this might not be the right solution.
 
 # The encoding of source files.
@@ -230,7 +230,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'direnaj', u'Direnaj Documentation',
+    ('index', 'drenaj', u'Direnaj Documentation',
      [u'BOUN Twitter Meclisi'], 1)
 ]
 

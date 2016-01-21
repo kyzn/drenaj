@@ -5,7 +5,7 @@ var port = '9999';
 
 /* Controllers */
 
-angular.module('direnaj.controllers', []).
+angular.module('drenaj.controllers', []).
 controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
 
 }])
@@ -19,7 +19,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
         init_campaign_id = $routeParams.campaign_id;
     }
 
-    // loading campaigns on direnaj
+    // loading campaigns on drenaj
     $scope.campaigns =
     [
         {"last_date": "2013-11-07", "total": 0, "_id": "kizlierkekli", "active": false},
@@ -29,7 +29,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
         params: {
             skip: (page-1) * pageSize,
             limit: pageSize,
-        auth_user_id: 'direnaj',
+        auth_user_id: 'drenaj',
         auth_password: 'tamtam'
         }
     }).success(function (data) {
@@ -56,7 +56,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
         $http.get('http://' + host + ':' + port + '/campaigns/view/freqs', {
             params: {
                 campaign_id: campaign._id,
-                auth_user_id: 'direnaj',
+                auth_user_id: 'drenaj',
                 auth_password: 'tamtam'
             }
         }).success(function (data) {
@@ -89,7 +89,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
 
         var params = {
             campaign_id: campaign_id,
-            auth_user_id: 'direnaj',
+            auth_user_id: 'drenaj',
             auth_password: 'tamtam'
         };
 
@@ -141,7 +141,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
         params: {
             limit: 10,
             campaign_id: 'syria',
-            auth_user_id: 'direnaj',
+            auth_user_id: 'drenaj',
             auth_password: 'tamtam'
         }
     }).success(function(data, status, headers, config) {
@@ -226,7 +226,7 @@ controller('HomepageCtrl', ['$scope', '$http', function($scope, $http) {
                     skip: (page-1) * pageSize,
                     limit: pageSize,
                 campaign_id: campaign_id,
-                auth_user_id: 'direnaj',
+                auth_user_id: 'drenaj',
                 auth_password: 'tamtam',
                     dbpedia_spotlight_result: '1'
                 }

@@ -1,11 +1,11 @@
 # Turns out that these are not so important in general.
-# They are only used in direnajinitdb.py which is not used
+# They are only used in drenajinitdb.py which is not used
 # now anyways.
-project_root_dir: '/home/direnaj/code'
+project_root_dir: '/home/drenaj/code'
 mongo_bin_dir: '/usr/bin'
 
 mongo_host: 'localhost'
 mongo_port: 27017
 
-direnaj_app_environment: 'development'
-direnaj_app_host: 'localhost'
+drenaj_app_environment: 'development'
+drenaj_app_host: 'localhost'
