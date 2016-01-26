@@ -1,7 +1,7 @@
 'use strict';
 
-var host = 'localhost';
-var port = '9999';
+var host = 'direnaj-staging.cmpe.boun.edu.tr';
+var port = '80';
 
 /* Controllers */
 
