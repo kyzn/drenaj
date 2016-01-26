@@ -32,7 +32,7 @@ def start(environment, n_child_processes=4):
     tornado.ioloop.IOLoop.instance().start()
     return application
 
-def stop_all_workers(signal, frame):
+def stop_all_workers(signal_no, frame):
     os.system("celery multi stop worker")
     print("How dare you? Bye bye!")
     sys.exit(0)
