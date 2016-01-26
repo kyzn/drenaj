@@ -1,8 +1,9 @@
 !!!WE NEED A SERIOUS CLEANUP OF THIS KIND OF DOCUMENTATION!!!
 
-h1. Several Guides on Drenaj v0.5
+h2. How to Setup Drenaj Client on Linux
 
-h2. How to Setup Drenaj v0.5 on Linux
+The below text was written for the version 0.5 of the Drenaj client. However, they are applicable to
+the current state.
 
 # Run these commands to install dependencies:
 <pre>sudo apt-get install build-essential python python-pip python-dev ntp ntpdate
