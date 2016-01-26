@@ -1,22 +1,12 @@
-from drenaj_api.utils.drenaj_auth import drenaj_simple_auth
-
-import drenaj_api.utils.drenajneo4jmanager as drenajneo4jmanager
-
+import bson.json_util
 import tornado.ioloop
 import tornado.web
-
+from pymongo.errors import OperationFailure
+from tornado import gen
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
 
-from tornado import gen
-from tornado.gen import Return
-
-import bson.json_util
-
-from pymongo.errors import OperationFailure
-
-from py2neo import Relationship
-
+import drenaj_api.utils.drenajneo4jmanager as drenajneo4jmanager
 
 
 class CampaignsHandler(tornado.web.RequestHandler):

@@ -37,7 +37,7 @@ import logging
 import logging.handlers
 from tornado.log import LogFormatter
 
-from drenaj_api.utils.drenajmongomanager import DirenajMongoManager
+from drenaj_api.utils.drenajmongomanager import DrenajMongoManager
 
 logger = logging.getLogger("drenaj_api")
 
@@ -105,8 +105,8 @@ class Application(tornado.web.Application):
         print settings
 
         # initialize drenaj database
-        logger.debug('Initializing DirenajMongoManager')
-        self.db = DirenajMongoManager(
+        logger.debug('Initializing DrenajMongoManager')
+        self.db = DrenajMongoManager(
             settings.get('mongo_host'),
             settings.get('mongo_port'),
             settings.get('database')

@@ -1,4 +1,4 @@
-"""Refactored DirenajMongoManager
+"""Refactored DrenajMongoManager
 
 This class accepts mongo specific configuration and collects previous plain functions
 inside the class.
@@ -35,7 +35,7 @@ class Column(object):
         """Data structure for holding mongodb columns and interacting with them
 
         We keep 2 connections to mongodb server using motor and pymongo libraries for async/sync processes. To keep
-        the code clean, mongo_connection is passed from the __init__ of DirenajMongoManager stating which library
+        the code clean, mongo_connection is passed from the __init__ of DrenajMongoManager stating which library
         to use.
 
         :param mongo_connection: mongodb client to use
@@ -59,7 +59,7 @@ class Column(object):
         self.freq_histograms = mongo_connection['histograms']
 
 
-class DirenajMongoManager(object):
+class DrenajMongoManager(object):
     def __init__(self, mongo_host, mongo_port, mongo_db):
         """Mongo DB manager for Direnaj specific tasks
 

@@ -12,37 +12,32 @@
 
 import json
 
+import bson.json_util
 import tornado.ioloop
 import tornado.web
+from tornado import gen
+from tornado.gen import Return
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
 
-from tornado import gen
-from tornado.gen import Return
-
-import bson.json_util
-
-#from drenaj_api.config.config import *
-
 import utils.drnj_time as drnj_time
-from utils.drnj_time import *
 from drenaj_api.utils.drenaj_collection_templates import *
 from schedulerMainHandler import markProtected
 
 MAX_LIM_TO_VIEW_PROFILES = 10000
 
+
 #  route: (r"/profiles/(store|view)", UserProfilesHandler),
 class UserProfilesHandler(tornado.web.RequestHandler):
-
-
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS")
-        self.set_header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+        self.set_header('Access-Control-Allow-Headers',
+                        'Origin, X-Requested-With, Content-Type, Accept')
 
     def get(self, *args):
         self.post(*args)
-        #self.write("not implemented yet")
+        # self.write("not implemented yet")
 
     @tornado.web.asynchronous
     @gen.coroutine
@@ -70,19 +65,19 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 if (campaign_or_user == 'campaign'):
                     campaign_id = self.get_argument('campaign_id', None)
 
-                    cursor = motor_column.tweets.\
+                    cursor = motor_column.tweets. \
                         find({'campaign_id': campaign_id,
-                              'tweet.user.history': False}).\
-                        sort('record_retrieved_at', -1).\
+                              'tweet.user.history': False}). \
+                        sort('record_retrieved_at', -1). \
                         limit(limit)
 
                     for record in (yield cursor.to_list(length=100)):
                         user = record['tweet']['user']
                         user['present'] = True
                         user['record_retrieved_at'] = record['record_retrieved_at']
-                        #id_str = user['id_str']
-                        #user['known_followers_count'] = graph_coll.find({'friend_id_str': id_str}).count();
-                        #user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
+                        # id_str = user['id_str']
+                        # user['known_followers_count'] = graph_coll.find({'friend_id_str': id_str}).count();
+                        # user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
                         id = user['id']
                         user['known_followers_count'] = \
                             yield motor_column.graph.find({'friend_id': id}).count()
@@ -97,9 +92,9 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                         record = None
                         print "USER " + user_id_str
                         if user_id_str:
-                            record = yield motor_column.tweets.\
+                            record = yield motor_column.tweets. \
                                 find_one({'tweet.user.id_str': user_id_str,
-                                'tweet.user.history': False})
+                                          'tweet.user.history': False})
                         else:
                             continue
                         user = dict()
@@ -107,9 +102,9 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                             user = record['tweet']['user']
                             user['present'] = True
                             user['record_retrieved_at'] = record['record_retrieved_at']
-                            #id_str = user['id_str']
-                            #user['known_followers_count'] = graph_coll.find({'friend_id_str': id_str}).count();
-                            #user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
+                            # id_str = user['id_str']
+                            # user['known_followers_count'] = graph_coll.find({'friend_id_str': id_str}).count();
+                            # user['known_friends_count'] = graph_coll.find({'id_str': id_str}).count();
                             id = user['id']
 
                         else:
@@ -123,14 +118,12 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 else:
                     raise MissingArgumentError('campaign_id or user_id_list')
 
-
-
                 result = bson.json_util.dumps(tmp)
                 self.write(result)
-    ###                 else:
-    ###                     # TODO: View the specified user ID profiles
-    ###                     result = json_encode({'message': 'Not implemented yet, View the specified user ID profiles'})
-    ###                     self.write(result)
+                ###                 else:
+                ###                     # TODO: View the specified user ID profiles
+                ###                     result = json_encode({'message': 'Not implemented yet, View the specified user ID profiles'})
+                ###                     self.write(result)
 
             except MissingArgumentError as e:
                 # TODO: implement logging.
@@ -145,7 +138,8 @@ class UserProfilesHandler(tornado.web.RequestHandler):
                 S = bson.json_util.loads(json_data)
 
                 try:
-                    self.store_multiple_profiles(ids, S, drnjID=auth_user_id, campaign_id=campaign_id)
+                    self.store_multiple_profiles(ids, S, drnjID=auth_user_id,
+                                                 campaign_id=campaign_id)
                 except Return, r:
                     nids = r.value
 
@@ -224,19 +218,19 @@ class UserProfilesHandler(tornado.web.RequestHandler):
             yield queue_coll.update(queue_query, queue_document, upsert=True)
 
             # Insert to profiles
-    ##         profiles_query = {"profile.id": user_id}
-    ##         prof = profiles_collection.find_and_modify(profiles_query, remove=True)
-    ##         if prof is not None:
-    ##             profiles_history_collection.insert(prof)
-    ##
-    ##         profiles_collection.insert(profile_dat)
+            ##         profiles_query = {"profile.id": user_id}
+            ##         prof = profiles_collection.find_and_modify(profiles_query, remove=True)
+            ##         if prof is not None:
+            ##             profiles_history_collection.insert(prof)
+            ##
+            ##         profiles_collection.insert(profile_dat)
 
             # this call marks the current entries as history
             # maybe we won't need this for certain queries
             db.move_to_history(user_id)
 
             db.insert_tweet(tweet_dat)
-    #        tweets_collection.insert(tweet_dat)
+            #        tweets_collection.insert(tweet_dat)
 
             ids.remove(int(user_id))
 

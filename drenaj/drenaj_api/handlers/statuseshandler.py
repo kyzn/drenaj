@@ -1,34 +1,18 @@
-#from drenaj_api.config.config import *
-import utils.drnj_time as drnj_time
+import logging
 
-from drenaj_api.utils.drenaj_collection_templates import *
-
-from drenaj_api.utils.drenaj_auth import drenaj_simple_auth
-
+import bson.json_util
+import pymongo
 import tornado.ioloop
 import tornado.web
-
+from jinja2 import Environment, FileSystemLoader
 from tornado import gen
-
 from tornado.web import HTTPError
 from tornado.web import MissingArgumentError
 
-from tornado.escape import json_decode,json_encode
-
-from jinja2 import Environment, FileSystemLoader
-
-import json
-import time, datetime
-
-import bson.json_util
-
-import pymongo
-
-from drenaj_api.utils.drenajneo4jmanager import update_task_state_in_watchlist, init_user_to_graph
-
+import utils.drnj_time as drnj_time
 from drenaj_api.celery_app.server_endpoint import app_object
-
-import logging
+from drenaj_api.utils.drenaj_collection_templates import *
+from drenaj_api.utils.drenajneo4jmanager import update_task_state_in_watchlist
 
 logger = logging.getLogger("drenaj_api")
 
