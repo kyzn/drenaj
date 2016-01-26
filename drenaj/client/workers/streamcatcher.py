@@ -67,9 +67,11 @@ class StreamCatcher(multiprocessing.Process):
 
         self.streamer_id = ":".join([campaign_id, postdata['track']])
 
-    def on_terminate(self, signal, frame):
+    def on_terminate(self, signal_no, frame):
         print "Cleaning up for streamer_id=%s..." % self.streamer_id
         self.keystore.release_access_tokens(self.access_tokens)
+        self.requests_session.close()
+        os.kill(os.getppid(), signal.SIGINT)
         sys.exit(0)
 
     def prepare_request(self, postdata, keystore=KeyStore()):
