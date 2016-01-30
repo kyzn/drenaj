@@ -91,17 +91,19 @@ class FollowerHandler(tornado.web.RequestHandler):
                 raise HTTPError(500, 'You didn''t supply %s as an argument' % e.arg_name)
         elif (store_or_view == 'store'):
             try:
-                # Check long int/str versions
-                id_str = str(self.get_argument('id_str'))
-                campaign_id = self.get_argument('campaign_id', 'default')
-                user_objects_str = self.get_argument('user_objects', '[]')
-
-                res = app_object.send_task('store_friendsfollowers_in_neo4j_offline',
-                                           [[id_str, campaign_id, user_objects_str,
-                                             friends_or_followers]],
-                                           queue="offline_jobs")
-
-                self.write(bson.json_util.dumps({'status': res.task_id}))
+                raise HTTPError(500, "This functionality is not available for now.")
+                # WARN: This functionality is not available for now.
+                # # Check long int/str versions
+                # id_str = str(self.get_argument('id_str'))
+                # campaign_id = self.get_argument('campaign_id', 'default')
+                # user_objects_str = self.get_argument('user_objects', '[]')
+                #
+                # res = app_object.send_task('store_friendsfollowers_in_neo4j_offline',
+                #                            [[id_str, campaign_id, user_objects_str,
+                #                              friends_or_followers]],
+                #                            queue="offline_jobs")
+                #
+                # self.write(bson.json_util.dumps({'status': res.task_id}))
 
             except MissingArgumentError as e:
                 # TODO: implement logging.

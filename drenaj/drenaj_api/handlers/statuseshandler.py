@@ -137,12 +137,12 @@ class StatusesHandler(tornado.web.RequestHandler):
                         ### tmp_users.append(validate_document(new_user_template(), tweet_obj['user']))
                     if tmp_tweets:
                         self.application.db.insert_tweet(tmp_tweets)
-                        ##init_user_to_graph(tmp_tweets)
-                        campaign_id, user_objects = extract_arguments(tmp_tweets)
-                        res = app_object.send_task('init_user_to_graph_offline',
-                                           [[ campaign_id, bson.json_util.dumps(user_objects) ]],
-                                           queue="offline_jobs")
-                        logger.info(str(res))
+                        # WARN: This functionality is not available for now.
+                        # campaign_id, user_objects = extract_arguments(tmp_tweets)
+                        # res = app_object.send_task('init_user_to_graph_offline',
+                        #                    [[ campaign_id, bson.json_util.dumps(user_objects) ]],
+                        #                    queue="offline_jobs")
+                        # logger.info(str(res))
                         if watchlist_related:
                             print watchlist_related
                             watchlist_related = bson.json_util.loads(watchlist_related)
