@@ -3,7 +3,7 @@ __author__ = 'onur'
 from setuptools import setup, find_packages
 
 setup(name='drenaj_client',
-      version='0.8.2',
+      version='0.8.4',
       description='DRENAJ client.',
       url='http://voltran.cmpe.boun.edu.tr',
       author='Onur Gungor',

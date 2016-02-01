@@ -1,1 +1,14 @@
 include env/env_client_requirements.txt
+
+include drenaj/client/templates/statuses/filter.html
+include drenaj/client/templates/sign_in.html
+include drenaj/client/templates/sign_in_ok.html
+include drenaj/client/templates/tasks/notification.html
+include drenaj/client/templates/profiles/crawl_graph_notification.html
+include drenaj/client/templates/profiles/history_view.html
+include drenaj/client/templates/profiles/view.html
+include drenaj/client/templates/campaigns/list.html
+include drenaj/client/templates/campaigns/new.html
+include drenaj/client/templates/campaigns/view/watched_users.html
+include drenaj/client/templates/index.html
+include drenaj/client/templates/sign_in_nok.html
