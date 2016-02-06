@@ -48,6 +48,7 @@ def get_access_token():
         from cgi import parse_qsl
 
     import oauth2 as oauth
+    import certifi
 
     REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token'
     ACCESS_TOKEN_URL  = 'https://api.twitter.com/oauth/access_token'
@@ -78,6 +79,7 @@ def get_access_token():
         signature_method_hmac_sha1 = oauth.SignatureMethod_HMAC_SHA1()
         oauth_consumer             = oauth.Consumer(key=consumer_key, secret=consumer_secret)
         oauth_client               = oauth.Client(oauth_consumer)
+        oauth_client.ca_certs = certifi.where()
 
         print 'Requesting temp token from Twitter'
 
@@ -109,6 +111,7 @@ def get_access_token():
             print ''
 
             oauth_client  = oauth.Client(oauth_consumer, token)
+            oauth_client.ca_certs = certifi.where()
             resp, content = oauth_client.request(ACCESS_TOKEN_URL, method='POST', body='oauth_callback=oob&oauth_verifier=%s' % pincode)
             access_token  = dict(parse_qsl(content))
 
